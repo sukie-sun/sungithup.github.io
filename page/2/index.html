@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
+<meta name="keywords" content="各种资源">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sunrise山脉">
+<meta property="og:url" content="http://sungithup.github.io/page/2/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sunrise山脉">
+<meta name="twitter:description" content="Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-常用Linux命令的学习（一）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/27/常用Linux命令的学习（一）/" class="article-date">
+  <time datetime="2018-12-27T12:16:47.000Z" itemprop="datePublished">2018-12-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="常用Linux命令的学习（一）"><a href="#常用Linux命令的学习（一）" class="headerlink" title="常用Linux命令的学习（一）"></a>常用Linux命令的学习（一）</h1><p>[TOC]</p>
+<h2 id="一、命令指南（manual）：man"><a href="#一、命令指南（manual）：man" class="headerlink" title="一、命令指南（manual）：man"></a>一、命令指南（manual）：man</h2><blockquote>
+<p>安装：yum install man –y</p>
+</blockquote>
+<p>（-y 表示获得允许，无需确认）</p>
+<blockquote>
+<p>查看ls命令指南： man ls</p>
+</blockquote>
+<h2 id="二、目录命令"><a href="#二、目录命令" class="headerlink" title="二、目录命令"></a>二、目录命令</h2><p><strong>切换</strong>目录：cd + 目录的路径</p>
+<p>查看当前目录所在的完整路径：pwd</p>
+<p><strong>新建</strong>目录：mkdir +目录名字</p>
+<p><strong>查看</strong>当前目录所用有的子目录和文件：ls   ，ll等价于  ls –l</p>
+<p>​        查看目录下的所有东西（包括隐藏文件）：  ls –al   等价于 ll -a<br>​<br><strong>拷贝</strong>目录或文件：cp –r install.log  install2.log</p>
+<p><strong>删除</strong>目录或文件：rm  -r install.log</p>
+<blockquote>
+<p>(rmdir只能删除空目录)</p>
+</blockquote>
+<p><strong>移动</strong>目录或文件：mv + 目录/文件名字 + 其他路径</p>
+<p>​         将test目录移动到  根目录/ 下 :   mv test / </p>
+<blockquote>
+<p>（如果移动到当前目录，用另外一个名称，则可以实现重命名的效果）</p>
+</blockquote>
+<p><strong>更改</strong>文件或目录的名字：mv + 旧目录名字 + 新目录名</p>
+<blockquote>
+<p>(     -r 用于递归的拷贝，删除，移动目录)</p>
+</blockquote>
+<h2 id="三、文件命令"><a href="#三、文件命令" class="headerlink" title="三、文件命令"></a>三、文件命令</h2><h3 id="1、一般文件操作"><a href="#1、一般文件操作" class="headerlink" title="1、一般文件操作"></a>1、一般文件操作</h3><p><strong>新建</strong>文件：touch  install.log<br>​        (vim install.log   编辑文件，如果文件不存在，就会新建一个对应的文件，并进入文件的编辑模式，如果按 :wq 会保存文件并退出，如果按 :q 则不保存退出)<br>​<br><strong>查看</strong>文件内容：cat +（文件名）<br>（一次性显示整个文件的内容，文件内容过多时用户体验不好）</p>
+<p>一次命令显示一屏文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  more +（文件名）</span><br><span class="line">  </span><br><span class="line">  按键         效果  </span><br><span class="line">Space         显示下一屏文本内容</span><br><span class="line">B             显示上一屏文本内容</span><br><span class="line">Enter         显示下一行文本内容</span><br><span class="line">Q             退出查看</span><br></pre></td></tr></table></figure>
+<pre><code>  less+（文件名）
+按键            效果
+ h             显示帮助界面
+ u             向后滚动半页 
+ d             向前翻半页 
+ e | Enter     向后翻一行文本
+ space         滚动一页 
+ b             向后翻一页 
+ [pagedown]：  向下翻动一页 
+ [pageup]：    向上翻动一页
+  上下键，向上一行，向下一行
+</code></pre><p>从头打印文件内容：<br>​        head  -10 +（文件名）  打印文件1到10行</p>
+<p>从尾部打印文件内容<br>​        tail -10 +（文件名）打印文件最后10行</p>
+<blockquote>
+<p>tail -f (文件名)  常用于查看文件内容的更新变化</p>
+</blockquote>
+<p><strong>查找</strong>文件或目录<br>​        find +（路径名） –name +（文件名）<br>​        举例：find / -name profile<br>​             在/(根目录)目录下查找 名字为profile的文件或目录</p>
+<p>​        也可利用正则：<br>​             举例： find /etc -name pro*<br>​                     在/etc目录下查找以pro开头的文件或目录</p>
+<blockquote>
+<p>路径越精确，查找的范围越小，速度越快 i</p>
+</blockquote>
+<h3 id="2、文件编辑"><a href="#2、文件编辑" class="headerlink" title="2、文件编辑"></a>2、文件编辑</h3><h4 id="vi"><a href="#vi" class="headerlink" title="vi"></a>vi</h4><p>（1） vi    进入编辑模式 —–&gt;按i   进入插入模式 ——-&gt;  按Esc 退出编辑模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi  filename   :打开或新建文件，并将光标置于第一行首 </span><br><span class="line">vi +n filename ：打开文件，并将光标置于第n行首 </span><br><span class="line">vi + filename  ：打开文件，并将光标置于最后一行首 </span><br><span class="line">vi +/pattern filename：打开文件，并将光标置于第一个与 pattern匹配的字符串所在的行首</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> filename  为文件名</p>
+</blockquote>
+<p>（2）在文件vi（文件编辑）模式下</p>
+<ul>
+<li><strong>命令行模式</strong> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:w      保存</span><br><span class="line">:q      退出</span><br><span class="line">:wq     保存并退出</span><br><span class="line">:q!     强制退出</span><br><span class="line">:set nu |ctrl+g    显示文本行数</span><br><span class="line">:set nonu          去除显示的行数</span><br><span class="line">:s/p1/p2/g         将当前行中所有p1均用p2替代 </span><br><span class="line">:n1,n2s/p1/p2/g    将第n1至n2行中所有p1均用p2替代 </span><br><span class="line">:g/p1/s//p2/g      将文件中所有p1均用p2替换</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>一般模式</strong> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">按键：</span><br><span class="line">yy    复制光标所在行(常用) </span><br><span class="line">nyy   复制光标所在行的向下n行，例如， 20yy则是复制20行(常用) </span><br><span class="line">p|P   p为复制的数据粘贴在光标下一行， P则为粘贴在光标上一行(常用)</span><br><span class="line">G     光标移至第最后一行</span><br><span class="line">nG    光标移动至第N行行首</span><br><span class="line">n+    光标下移n行 </span><br><span class="line">n-    光标上移n行 </span><br><span class="line">H     光标移至屏幕顶行 </span><br><span class="line">M     光标移至屏幕中间行 </span><br><span class="line">L     光标移至屏幕最后行 </span><br><span class="line"></span><br><span class="line">dd    删除所在行 </span><br><span class="line">x或X  删除一个字符，x删除光标后的，而X删除光标前的 </span><br><span class="line">u     撤销(常用)</span><br><span class="line"></span><br><span class="line">删除第N行到第M行：N,Md</span><br><span class="line">：,$-1d   删除当前光标到到数第一行数据</span><br><span class="line"></span><br><span class="line">按键：</span><br><span class="line">    i: 在当前光标所在字符的前面，转为输入模式；</span><br><span class="line">    a: 在当前光标所在字符的后面，转为输入模式；</span><br><span class="line">    o: 在当前光标所在行的下方，新建一行，并转为输入模式；</span><br><span class="line">    I：在当前光标所在行的行首，转换为输入模式</span><br><span class="line">    A：在当前光标所在行的行尾，转换为输入模式</span><br><span class="line">    O：在当前光标所在行的上方，新建一行，并转为输入模式；</span><br><span class="line"></span><br><span class="line">---逐字符移动：</span><br><span class="line">h: 左    l: 右</span><br><span class="line"></span><br><span class="line">j: 下	k: 上</span><br></pre></td></tr></table></figure>
+<h4 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h4><blockquote>
+<p>安装：yum install vim -y</p>
+</blockquote>
+<ul>
+<li><em>用vim 打开/etc/profile 文件，</em></li>
+<li><em>特点：编辑器对文本的内容进行了高亮，使整个文件的内容可读性大大加强</em> ，其他均与vi相同</li>
+</ul>
+<h3 id="3、文件上传下载"><a href="#3、文件上传下载" class="headerlink" title="3、文件上传下载"></a>3、文件上传下载</h3><blockquote>
+<p>安装上传下载命令：yum install lrzsz -y</p>
+</blockquote>
+<p>上传文件：（windows—&gt;linux）</p>
+<blockquote>
+<p>命令 ：rz  </p>
+<p>弹出windows上传文件窗口</p>
+</blockquote>
+<p>下载文件：(linux—&gt;windows)</p>
+<p><code>注意</code>：sz命令只能下载文件，不能下载目录，推荐将目录压缩成tar包或使用工具软件：Winscp【Xftp】</p>
+<blockquote>
+<p>命令：sz  （文件名）</p>
+<p>弹出windows下载窗口,下载文件到指定文件目录</p>
+</blockquote>
+<h3 id="4、文件传输"><a href="#4、文件传输" class="headerlink" title="4、文件传输"></a>4、文件传输</h3><h4 id="1-、本地→远程"><a href="#1-、本地→远程" class="headerlink" title="(1)、本地→远程"></a>(1)、本地→远程</h4><blockquote>
+<p>文件  ：  scp local_file remote_username@remote_ip:remote_folder   </p>
+<p>目录 ：  scp -r local_folder remote_username@remote_ip:remote_folder</p>
+</blockquote>
+<h4 id="2）、远程→本地"><a href="#2）、远程→本地" class="headerlink" title="(2）、远程→本地"></a>(2）、远程→本地</h4><blockquote>
+<p>文件 ： scp remote_username@remote_ip:remote_file local_folder</p>
+<p>目录 ： scp remote_username@remote_ip:remote_folder local_folder   </p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/27/常用Linux命令的学习（一）/" data-id="cjr9coilt00035wl0tahzb3mb" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux命令/">Linux命令</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-支付宝支付流程：" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/19/支付宝支付流程：/" class="article-date">
+  <time datetime="2018-12-18T18:16:47.000Z" itemprop="datePublished">2018-12-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/第三方插件/">第三方插件</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/19/支付宝支付流程：/">支付宝支付流程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="支付宝支付流程"><a href="#支付宝支付流程" class="headerlink" title="支付宝支付流程"></a>支付宝支付流程</h1><h2 id="沙箱环境初始化配置："><a href="#沙箱环境初始化配置：" class="headerlink" title="沙箱环境初始化配置："></a>沙箱环境初始化配置：</h2><p>看懂第三方集成文档</p>
+<p>1、能够看懂在线api文档说明（html）</p>
+<p>七牛（控制台配置流程，api文档，sdk下载与集成）</p>
+<p>阿里云短信（控制台配置-短信签名 短信模板 基本文档 sdk具体使用-下载与集成）</p>
+<p>实名校验（借助第三方）</p>
+<p>契约锁（电子合同-在线盖章）</p>
+<p>支付宝沙箱环境（基本文档说明-密码生成   sdk集成  流程分析）</p>
+<h2 id="支付请求发起：（商户系统主动发起）"><a href="#支付请求发起：（商户系统主动发起）" class="headerlink" title="支付请求发起：（商户系统主动发起）"></a>支付请求发起：（商户系统主动发起）</h2><p>商户系统：准备核心参数</p>
+<p>​      订单编号 订单名称  订单金额 订单描述</p>
+<p>​      编码  支付使用api version  加密串</p>
+<p>第三方（支付宝）：接收商户系统提交的请求参数</p>
+<p>​      加密传输校验 用户是否登录（支付宝系统）</p>
+<p>业务处理： 订单（账户充值）产生   加入数据库</p>
+<p>才能发起请求。</p>
+<h2 id="支付回调处理：（第三方主动请求的行为）"><a href="#支付回调处理：（第三方主动请求的行为）" class="headerlink" title="支付回调处理：（第三方主动请求的行为）"></a>支付回调处理：（第三方主动请求的行为）</h2><p>处理订单更新业务：</p>
+<p>​          同步回调（占用当前请求连接-存在阻塞）：在页面可以看到具体跳转操作</p>
+<p>​           异步回调（不会占用-不存在）：在后台另起线程实现，弥补同步意外情况（窗口意外关闭，网络延迟）</p>
+<p>（思考：微信支付，第三方银行接口支付）</p>
+<p>共同点：包含支付发起操作和支付回调操作</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/19/支付宝支付流程：/" data-id="cjr3rllnt0002pol0lclnreby" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/支付宝/">支付宝</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/19/hello-world/" class="article-date">
+  <time datetime="2018-12-18T17:38:10.052Z" itemprop="datePublished">2018-12-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/19/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/19/hello-world/" data-id="cjr3rlln60000pol0jpfq4r0z" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/23/Nginx入门学习（第一回合）/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/Nginx入门学习（第二回合）/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/Linux系统CentOS 6安装/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/Linux 入门学习（第二回合）/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>
