@@ -16,7 +16,7 @@
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1545214876278.png">
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1545215894631.png">
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1545219619458.png">
-<meta property="og:updated_time" content="2018-12-19T12:37:06.490Z">
+<meta property="og:updated_time" content="2019-01-23T16:31:01.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sunrise山脉">
 <meta name="twitter:description" content="Linux 入门学习（第二回合）2018年12月18日  周二  晴 今日学习要点： [TOC] Linux后半程一、Linux系统配置1.主机名配置： vim  /etc/sysconfig/network   配置完成之后需要重启机器才能生效  reboot  2.DNS配置 查看DNS服务器的地址cat  /etc/resolv.conf 修改DNS服务器地址方式一：vim  /etc/sy">
@@ -176,13 +176,13 @@
 <p>chkconfig iptables on/off</p>
 </blockquote>
 <h4 id="3、服务初执行等级更改"><a href="#3、服务初执行等级更改" class="headerlink" title="3、服务初执行等级更改"></a>3、服务初执行等级更改</h4><blockquote>
-<p>chkconfig –level 2345 <code>name</code> off|on<br>                                   （ <code>服务名</code>）</p>
+<p>chkconfig –level 2345 <code>name</code> off|on<br>​                                   （ <code>服务名</code>）</p>
 <p>举例：防火墙</p>
 <p>chkconfig –level 2345 iptables   off</p>
 </blockquote>
 <p>若不加级别，默认是2345级别</p>
 <blockquote>
-<p>命令：chkconfig <code>name</code> on|off<br>                         （<code>服务名</code>）</p>
+<p>命令：chkconfig <code>name</code> on|off<br>​                         （<code>服务名</code>）</p>
 </blockquote>
 <h3 id="三、linux进程操作"><a href="#三、linux进程操作" class="headerlink" title="三、linux进程操作"></a>三、linux进程操作</h3><h4 id="1、查看所有进程"><a href="#1、查看所有进程" class="headerlink" title="1、查看所有进程"></a>1、查看所有进程</h4><blockquote>
 <p>命令： ps  -aux</p>
