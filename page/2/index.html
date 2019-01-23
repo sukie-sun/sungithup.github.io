@@ -74,6 +74,207 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-常用Linux命令的学习（二）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/28/常用Linux命令的学习（二）/" class="article-date">
+  <time datetime="2018-12-27T16:00:00.000Z" itemprop="datePublished">2018-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>​<br>​ </p>
+<p>[TOC]</p>
+<h2 id="一、磁盘指令"><a href="#一、磁盘指令" class="headerlink" title="一、磁盘指令"></a>一、磁盘指令</h2><ol>
+<li>查看硬盘信息</li>
+</ol>
+<blockquote>
+<p>命令：df</p>
+</blockquote>
+<p><code>（默认大小以kb显示） df -k（以kb为单位） df -m（ 以mb为单位） df –h （易于阅读）</code></p>
+<ol start="2">
+<li>查看文件/目录的大小</li>
+</ol>
+<blockquote>
+<p>命令：du filename|foldername</p>
+</blockquote>
+<p><code>（默认单位为kb）-k    kb单位 -m    mb单位 -a 所有文件和目录  -h 更易于阅读
+​    --max-depth=0    目录深度</code></p>
+<h2 id="二、网络指令"><a href="#二、网络指令" class="headerlink" title="二、网络指令"></a>二、网络指令</h2><ol>
+<li>查看网络配置信息</li>
+</ol>
+<blockquote>
+<p>命令:ifconfig</p>
+</blockquote>
+<ol start="2">
+<li>测试与目标主机的连通性</li>
+</ol>
+<blockquote>
+<p>命令：ping remote_ip     </p>
+</blockquote>
+<p><code>ctrl + c :结束ping进程</code></p>
+<ol start="3">
+<li>显示各种网络相关信息</li>
+</ol>
+<blockquote>
+<p>命令：netstat</p>
+</blockquote>
+<p><code>查看端口号（是否被占用）
+(1)、lsof -i:端口号  （需要先安装lsof）
+(2)、netstat -tunlp|grep 端口号</code></p>
+<ol start="4">
+<li>测试远程主机的网络端口</li>
+</ol>
+<blockquote>
+<p>命令： telnet ip  port   （需要先安装telnet）</p>
+</blockquote>
+<p><code>测试成功后，按ctrl + ] 键，然后弹出telnet&gt;时，再按q退出</code></p>
+<ol start="5">
+<li>http请求模拟</li>
+</ol>
+<blockquote>
+<p>curl -X get <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>   模拟请求百度</p>
+</blockquote>
+<h2 id="三、系统管理指令"><a href="#三、系统管理指令" class="headerlink" title="三、系统管理指令"></a>三、系统管理指令</h2><ol>
+<li>用户操作</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    操作	            命令</span><br><span class="line">创建用户	       useradd|adduser username</span><br><span class="line">修改密码	       passwd username</span><br><span class="line">删除用户	       userdel –r username</span><br><span class="line">修改用户（已下线）：	</span><br><span class="line">                 修改用户名: usermod –l new_name oldname</span><br><span class="line">                    锁定账户: usermod –L username</span><br><span class="line">                    解除账户： usermod –U username</span><br><span class="line">查看当前登录用户	仅root 用户：whoami   | cat /etc/shadow</span><br><span class="line">                 普通用户：cat /etc/pqsswd</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>用户组操作</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   操作	            命令</span><br><span class="line">   创建用户组	         groupadd groupname</span><br><span class="line">删除用户组	         groupdel groupname</span><br><span class="line">修改用户组	         groupmod –n new_name old_name</span><br><span class="line">查看用户组	         groups  （查看的是当前用户所在的用户组）</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>用户+用户组    </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     操作	                命令</span><br><span class="line">   修改用户的主组	         usermod –g groupname username</span><br><span class="line">给用户追加附加组	    usermod –G groupname username</span><br><span class="line">查看用户组中用户数	   cat /etc/group</span><br><span class="line">注意：创建用户时，系统默认会创建一个和用户名字一样的主组</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>系统权限</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    操作	                     命令</span><br><span class="line"> 查看/usr下所有权限	   ll /usr</span><br><span class="line">                       权限类别	r（读取：4） w（写入：2） x（执行：1） </span><br><span class="line">                       三个为一组，无权限用 —代替</span><br><span class="line">                    UGO模型	U（User） G(Group)  O(其他)</span><br><span class="line">权限修改	    </span><br><span class="line">                       修改所有者：chown username file|folder</span><br><span class="line">	                (递归)修改所有者和所属组： chown -r username：groupname file|folder </span><br><span class="line">	                 修改所属组：chgrp groupname file|folder</span><br><span class="line">	                 修改权限：chmod ugo+rwx file|folder</span><br></pre></td></tr></table></figure>
+<h2 id="四、系统配置指令"><a href="#四、系统配置指令" class="headerlink" title="四、系统配置指令"></a>四、系统配置指令</h2><p> 1.修改主机名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  编辑文件：      命令： vim /etc/sysconfig/network</span><br><span class="line">  文件内容：      HOSTNAME=node00</span><br><span class="line">（重启生效)reboot</span><br></pre></td></tr></table></figure>
+<p> 2.DNS配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">编辑文件：     命令：vim /etc/resolv.conf</span><br><span class="line">文件内容：     nameserver 192.168.198.0</span><br></pre></td></tr></table></figure>
+<p> 3.sudo权限配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   操作            命令</span><br><span class="line">编辑权限配置文件：    vim /etc/sudoers</span><br><span class="line">格式：</span><br><span class="line">        授权用户 主机=[(切换到哪些用户或用户组)] [是否需要密码验证] 路径/命令</span><br><span class="line">举例：</span><br><span class="line">        test  ALL=(root)  /usr/bin/yum,/sbin/service</span><br><span class="line">解释：</span><br><span class="line">        test用户就可以用yum和servie命令，</span><br><span class="line">	   但是，使用时需要在前面加上sudo再敲命令。</span><br><span class="line">	   第一次使用需要输入用户密码,且每个十五分钟需要一次密码验证</span><br><span class="line">修改：</span><br><span class="line">       test ALL=(root) NOPASSWD: /usr/bin/yum,/sbin/service</span><br><span class="line">这样就不需要密码了</span><br><span class="line">将权限赋予某个组，%+组名</span><br><span class="line">%group ALL=(root) NOPASSWD: /usr/bin/yum,/sbin/service</span><br><span class="line"></span><br><span class="line">列出用户所有的sudo权限       sudo –l</span><br></pre></td></tr></table></figure>
+<p> 4.系统时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">操作                 命令</span><br><span class="line">查看系统时间          date           ---查看当前时间详情</span><br><span class="line">                    cal            ---查看当前月日历</span><br><span class="line">                    cal 2018       ---查看2018年完整日历</span><br><span class="line">                    cal 12 2018    ---查看指定年月的日历       </span><br><span class="line"></span><br><span class="line">更新系统时间（推荐）   yum install ntpdate –y    ---安装ntp服务</span><br><span class="line">                    ntpdate cn.ntp.org.cn     ---到域名为cn.ntp.org.cn的时间服务器上同步时间</span><br></pre></td></tr></table></figure>
+<p> 5.关于hosts配置</p>
+<p>相当于给IP地址其别名，可以通过别名访问</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>路径：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows系统</td>
+<td><strong>C:/Windows/System32/drivers/etc/hosts</strong> <strong>文件</strong></td>
+</tr>
+<tr>
+<td>Linux系统</td>
+<td><strong>/etc/hosts</strong>文件：<strong>vim</strong>  +路径</td>
+</tr>
+<tr>
+<td>统一 编辑格式</td>
+<td><strong>IP</strong>地址  别名：192.168.198.128    node00</td>
+</tr>
+</tbody>
+</table>
+<p> 6.关于hostname配置</p>
+<p>相当于给对应的虚拟机器起别名</p>
+<table>
+<thead>
+<tr>
+<th>Linux系统：</th>
+<th><strong>vi /etc/sysconfig/network</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编辑内容：</td>
+<td><strong>HOSTNAME=node01</strong></td>
+</tr>
+</tbody>
+</table>
+<p>五、重定向与管道符</p>
+<table>
+<thead>
+<tr>
+<th>输出重定向</th>
+<th>输出重定向到一个文件或设备：                                                                                     &gt;   覆盖原来的文件                                                                                                            &gt;&gt;   追加原来的文件                                                                                                              举例：                                                                                                                               ls &gt; log                           — 在log文件中列出所有项，并覆盖原文件                                                         echo   “hello”&gt;&gt;log     —将hello追加到log文件中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入重定向</td>
+<td><strong>&lt;</strong>         输入重定向到一个程序                                                                                            举例：cat <strong>&lt;</strong> log             —将log文件作为cat命令的输入，查看log文件的内容</td>
+</tr>
+<tr>
+<td>标准   输出  重定向</td>
+<td><strong>1 &gt;</strong> 或   <strong>&gt;</strong>                                                                                                                         含义：                                                                                                                             输出重定向时，只用正确的输出才会重定向到指的文件中                                        错误的则会直接打印到屏幕上</td>
+</tr>
+<tr>
+<td>错误   输出  重定向</td>
+<td><strong>2 &gt;</strong>                                                                                                                                含义：                                                                                                                              错误的输出会重定向到指定文件里，正确的日志则直接打印到屏幕上。</td>
+</tr>
+<tr>
+<td>结合  使用</td>
+<td><strong>2&gt;&amp;1</strong>                                                                                                                            含义：                                                                                                                               将无论是正确的输出还是错误的输出都重定向到指定文件</td>
+</tr>
+<tr>
+<td>管道</td>
+<td>**\</td>
+<td>**                                                                                                                                      含义：                                                                                                                                  把前一个输出当做后一个输入                                                                                       grep 通过正则搜索文本，并将匹配的行打印出来                                                         netstat -anp \</td>
+<td>grep 22   把netstat –anp 命令的输出 当做是grep 命令的输入</td>
+</tr>
+<tr>
+<td>命令  执行  控制</td>
+<td><strong>&amp;&amp;</strong>   前一个命令执行成功才会执行后一个命令                                                              **\</td>
+<td>\</td>
+<td>**      前一个命令执行失败才会执行后一个命令</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/28/常用Linux命令的学习（二）/" data-id="cjr9coing000h5wl05d5b714v" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-常用Linux命令的学习（一）" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/27/常用Linux命令的学习（一）/" class="article-date">
