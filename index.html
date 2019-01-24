@@ -74,975 +74,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Nginx入门学习（第一回合）" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/23/Nginx入门学习（第一回合）/" class="article-date">
-  <time datetime="2019-01-23T15:33:18.759Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="Nginx入门学习（第一回合）"><a href="#Nginx入门学习（第一回合）" class="headerlink" title="Nginx入门学习（第一回合）"></a>Nginx入门学习（第一回合）</h1><p>[^开发者]: 由俄罗斯的程序设计师Igor Sysoev所开发</p>
-<p>[TOC]</p>
-<h2 id="一、产生背景"><a href="#一、产生背景" class="headerlink" title="一、产生背景"></a>一、产生背景</h2><p>1.巨大流量—海量的并发访问</p>
-<p>2.单台服务器资源和能力有限</p>
-<p>引发服务器宕机而无法提供服务</p>
-<h2 id="二、负载均衡-Load-Balance"><a href="#二、负载均衡-Load-Balance" class="headerlink" title="二、负载均衡(Load Balance)"></a>二、负载均衡(Load Balance)</h2><h3 id="1、高并发"><a href="#1、高并发" class="headerlink" title="1、高并发"></a>1、高并发</h3><p>（1）、高（大量的）</p>
-<p>（2）、并发就是可以使用多个线程或者多个进程，同时处理（就是并发）不同的操作</p>
-<p>（3）、简而言之就是每秒内有多少个请求同时访问。</p>
-<h3 id="2、负载均衡"><a href="#2、负载均衡" class="headerlink" title="2、负载均衡"></a>2、负载均衡</h3><p>（1）、将请求/数据【均匀】分摊到多个操作单元上执行</p>
-<p>（2）、关键在于【均匀】,也是分布式系统架构设计中必须考虑的因素之一。</p>
-<h3 id="3、互联网分布式架构"><a href="#3、互联网分布式架构" class="headerlink" title="3、互联网分布式架构"></a>3、互联网分布式架构</h3><p>常见，分为客户端层、反向代理nginx层、站点层、服务层、数据层。只需要实现“将请求/数据 均匀分摊到多个操作单元上执行”，就能实现负载均衡。</p>
-<h2 id="三、对Nginx的基本了解"><a href="#三、对Nginx的基本了解" class="headerlink" title="三、对Nginx的基本了解"></a>三、对Nginx的基本了解</h2><h3 id="1、什么是Nginx？"><a href="#1、什么是Nginx？" class="headerlink" title="1、什么是Nginx？"></a>1、什么是Nginx？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一款轻量级的Web 服务器/反向代理服务器【后面有介绍】及电子邮件（IMAP/POP3）代理服务器。</span><br></pre></td></tr></table></figure>
-<p>​     <code>特点</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*是占有内存少，CPU、内存等资源消耗却非常低，</span><br><span class="line">*运行非常稳定并发能力强，nginx的并发能力确实在同类型的网页服务器中表现非常好。</span><br></pre></td></tr></table></figure>
-<h3 id="2、Nginx-VS-Apache"><a href="#2、Nginx-VS-Apache" class="headerlink" title="2、Nginx   VS   Apache"></a>2、Nginx   VS   Apache</h3><h1 id="（1）、nginx相对于apache的优点："><a href="#（1）、nginx相对于apache的优点：" class="headerlink" title="（1）、nginx相对于apache的优点："></a>（1）、nginx相对于apache的优点：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*轻量级，同样起web 服务，比apache 占用更少的内存及资源高并发，</span><br><span class="line">*nginx 处理请求是异步非阻塞（如前端ajax）的，而apache 则是阻塞型的，</span><br><span class="line">*在高并发下nginx能保持低资源低消耗高性能高度模块化的设计，编写模块相对简单</span><br><span class="line">*Nginx 配置简洁, Apache 复杂</span><br></pre></td></tr></table></figure>
-<h1 id="（2）、apache-相对于nginx-的优点："><a href="#（2）、apache-相对于nginx-的优点：" class="headerlink" title="（2）、apache 相对于nginx 的优点："></a>（2）、apache 相对于nginx 的优点：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* Rewrite重写 ，比nginx 的rewrite 强大模块超多，</span><br><span class="line">*基本想到的都可以找到少bug ，nginx 的bug 相对较多。（出身好起步高）</span><br></pre></td></tr></table></figure>
-<h2 id="四、安装Nginx"><a href="#四、安装Nginx" class="headerlink" title="四、安装Nginx"></a>四、安装Nginx</h2><p><code>这里以安装tengine为例</code></p>
-<h3 id="1、安装之前准备"><a href="#1、安装之前准备" class="headerlink" title="1、安装之前准备"></a>1、安装之前准备</h3><p>配置依赖 gcc openssl-devel pcre-devel zlib-devel</p>
-<p> 安装：</p>
-<blockquote>
-<p>yum install gcc openssl-devel pcre-devel zlib-devel -y</p>
-</blockquote>
-<h3 id="2、下载"><a href="#2、下载" class="headerlink" title="2、下载"></a>2、下载</h3><p>（目前最新版）：<a href="http://tengine.taobao.org/download.html" target="_blank" rel="noopener">tengine-2.2.3.tar</a></p>
-<h3 id="3、-解压缩"><a href="#3、-解压缩" class="headerlink" title="3、 解压缩"></a>3、 解压缩</h3><blockquote>
-<p>tar  -zvxf   tengine-2.2.3.tar </p>
-</blockquote>
-<h3 id="4、安装Nginx"><a href="#4、安装Nginx" class="headerlink" title="4、安装Nginx"></a>4、安装Nginx</h3><blockquote>
-<p>在Nginx解压的目录下运行：</p>
-<p>./configure</p>
-<p>make &amp;&amp; make install</p>
-</blockquote>
-<p>默认安装目录：<br>/usr/local/nginx</p>
-<h3 id="5、配置Nginx为系统服务，以方便管理"><a href="#5、配置Nginx为系统服务，以方便管理" class="headerlink" title="5、配置Nginx为系统服务，以方便管理"></a>5、配置Nginx为系统服务，以方便管理</h3><h4 id="（1）、在-etc-rc-d-init-d-目录中建立文本文件nginx"><a href="#（1）、在-etc-rc-d-init-d-目录中建立文本文件nginx" class="headerlink" title="（1）、在/etc/rc.d/init.d/目录中建立文本文件nginx"></a>（1）、在/etc/rc.d/init.d/目录中建立文本文件nginx</h4><h4 id="（2）、在文件中粘贴下面的内容："><a href="#（2）、在文件中粘贴下面的内容：" class="headerlink" title="（2）、在文件中粘贴下面的内容："></a>（2）、在文件中粘贴下面的内容：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># nginx - this script starts and stops the nginx daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig:   - 85 15 </span><br><span class="line"># description:  Nginx is an HTTP(S) server, HTTP(S) reverse \</span><br><span class="line">#               proxy and IMAP/POP3 proxy server</span><br><span class="line"># processname: nginx</span><br><span class="line"># config:      /etc/nginx/nginx.conf</span><br><span class="line"># config:      /etc/sysconfig/nginx</span><br><span class="line"># pidfile:     /var/run/nginx.pid</span><br><span class="line"> </span><br><span class="line"># Source function library.</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"> </span><br><span class="line"># Source networking configuration.</span><br><span class="line">. /etc/sysconfig/network</span><br><span class="line"> </span><br><span class="line"># Check that networking is up.</span><br><span class="line">[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0</span><br><span class="line"> </span><br><span class="line">nginx=&quot;/usr/local/nginx/sbin/nginx&quot;</span><br><span class="line">prog=$(basename $nginx)</span><br><span class="line"> </span><br><span class="line">NGINX_CONF_FILE=&quot;/usr/local/nginx/conf/nginx.conf&quot;</span><br><span class="line"> </span><br><span class="line">[ -f /etc/sysconfig/nginx ] &amp;&amp; . /etc/sysconfig/nginx</span><br><span class="line"> </span><br><span class="line">lockfile=/var/lock/subsys/nginx</span><br><span class="line"> </span><br><span class="line">make_dirs() &#123;</span><br><span class="line">   # make required directories</span><br><span class="line">   user=`nginx -V 2&gt;&amp;1 | grep &quot;configure arguments:&quot; | sed &apos;s/[^*]*--user=\([^ ]*\).*/\1/g&apos; -`</span><br><span class="line">   options=`$nginx -V 2&gt;&amp;1 | grep &apos;configure arguments:&apos;`</span><br><span class="line">   for opt in $options; do</span><br><span class="line">       if [ `echo $opt | grep &apos;.*-temp-path&apos;` ]; then</span><br><span class="line">           value=`echo $opt | cut -d &quot;=&quot; -f 2`</span><br><span class="line">           if [ ! -d &quot;$value&quot; ]; then</span><br><span class="line">               # echo &quot;creating&quot; $value</span><br><span class="line">               mkdir -p $value &amp;&amp; chown -R $user $value</span><br><span class="line">           fi</span><br><span class="line">       fi</span><br><span class="line">   done</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">start() &#123;</span><br><span class="line">    [ -x $nginx ] || exit 5</span><br><span class="line">    [ -f $NGINX_CONF_FILE ] || exit 6</span><br><span class="line">    make_dirs</span><br><span class="line">    echo -n $&quot;Starting $prog: &quot;</span><br><span class="line">    daemon $nginx -c $NGINX_CONF_FILE</span><br><span class="line">    retval=$?</span><br><span class="line">    echo</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">stop() &#123;</span><br><span class="line">    echo -n $&quot;Stopping $prog: &quot;</span><br><span class="line">    killproc $prog -QUIT</span><br><span class="line">    retval=$?</span><br><span class="line">    echo</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">restart() &#123;</span><br><span class="line">    configtest || return $?</span><br><span class="line">    stop</span><br><span class="line">    sleep 1</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">reload() &#123;</span><br><span class="line">    configtest || return $?</span><br><span class="line">    echo -n $&quot;Reloading $prog: &quot;</span><br><span class="line">    killproc $nginx -HUP</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">force_reload() &#123;</span><br><span class="line">    restart</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">configtest() &#123;</span><br><span class="line">  $nginx -t -c $NGINX_CONF_FILE</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">rh_status() &#123;</span><br><span class="line">    status $prog</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">rh_status_q() &#123;</span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    restart|configtest)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line">    condrestart|try-restart)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">            ;;</span><br><span class="line">    *)</span><br><span class="line">        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;&quot;</span><br><span class="line">        exit 2</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
-<h4 id="（3）、修改nginx文件的执行权限"><a href="#（3）、修改nginx文件的执行权限" class="headerlink" title="（3）、修改nginx文件的执行权限"></a>（3）、修改nginx文件的执行权限</h4><blockquote>
-<p>chmod +x nginx</p>
-</blockquote>
-<h4 id="（4）、添加该文件到系统服务中去"><a href="#（4）、添加该文件到系统服务中去" class="headerlink" title="（4）、添加该文件到系统服务中去"></a>（4）、添加该文件到系统服务中去</h4><blockquote>
-<p>chkconfig –add nginx</p>
-</blockquote>
-<p>查看是否添加成功</p>
-<blockquote>
-<p>chkconfig –list nginx</p>
-</blockquote>
-<p>启动，停止，重新装载</p>
-<blockquote>
-<p>service nginx start|stop</p>
-</blockquote>
-<h2 id="五、Nginx配置"><a href="#五、Nginx配置" class="headerlink" title="五、Nginx配置"></a>五、Nginx配置</h2><h3 id="1、查看配置"><a href="#1、查看配置" class="headerlink" title="1、查看配置"></a>1、查看配置</h3><blockquote>
-<p>cd   /usr/local/nginx/conf</p>
-<p>vim   nginx.conf</p>
-</blockquote>
-<h3 id="2、配置解析"><a href="#2、配置解析" class="headerlink" title="2、配置解析"></a>2、配置解析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#进程数，建议设置和CPU个数一样或2倍</span><br><span class="line">worker_processes  2;</span><br><span class="line"></span><br><span class="line">#日志级别</span><br><span class="line">error_log  logs/error.log  warning;(默认error级别)</span><br><span class="line"></span><br><span class="line"># nginx 启动后的pid 存放位置</span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	#配置每个进程的连接数，总的连接数= worker_processes * worker_connections</span><br><span class="line">    #默认1024</span><br><span class="line">    worker_connections  10240;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">#连接超时时间，单位秒</span><br><span class="line">keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost                 </span><br><span class="line">        #默认请求</span><br><span class="line">  		location / &#123;</span><br><span class="line">    				 root  html;   #定义服务器的默认网站根目录位置</span><br><span class="line">   				  index  index.php index.html index.htm;  #定义首页索引文件的名称</span><br><span class="line">        &#125;</span><br><span class="line">	    #定义错误提示页面</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、负载均衡配置"><a href="#3、负载均衡配置" class="headerlink" title="3、负载均衡配置"></a>3、负载均衡配置</h3><p>1）安装Tomcat，参考 <code>Tomcat配置</code></p>
-<h4 id="2）多负载均执行一下操作："><a href="#2）多负载均执行一下操作：" class="headerlink" title="2）多负载均执行一下操作："></a>2）多负载均执行一下操作：</h4><p> 多负载的情况下，打开指定虚拟机器</p>
-<blockquote>
-<p>open  node01    </p>
-<p>node01  为指定虚拟机器的别名，在hosts文件中配置的</p>
-</blockquote>
-<p>启动Tomcat</p>
-<blockquote>
-<p>在Tomcat解压的目录下       ./startup.sh  </p>
-</blockquote>
-<p>注意： 记得关闭虚拟机器的防火墙</p>
-<blockquote>
-<p>service  iptables  stop</p>
-</blockquote>
-<p>浏览器访问</p>
-<blockquote>
-<p>虚拟机器IP地址：8080</p>
-</blockquote>
-<p>默认负载均衡配置</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; http &#123; </span><br><span class="line">&gt;     upstream shsxt&#123;   </span><br><span class="line">&gt;     # 以下均为实际执行服务的服务器</span><br><span class="line">&gt;     #只有当hosts文件中给ip地址配置了别名，这里server后面才能用别名，</span><br><span class="line">&gt;     #否则跟IP地址</span><br><span class="line">&gt;         server node01; </span><br><span class="line">&gt;         server node02; </span><br><span class="line">&gt;         server node03; </span><br><span class="line">&gt;     &#125; </span><br><span class="line">&gt; </span><br><span class="line">&gt;     server &#123; </span><br><span class="line">&gt;     #指定访问端口为80 ，那么Tomcat服务器端的port也要改为80</span><br><span class="line">&gt;         listen 80;   </span><br><span class="line">&gt; 	    server_name  localhost;</span><br><span class="line">&gt;         location / &#123;</span><br><span class="line">&gt;             proxy_pass http://shsxt;    </span><br><span class="line">&gt;             # shsxt  是指定的代理服务器</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;     &#125; </span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>查看使用 80端口的程序</p>
-<blockquote>
-<p>netstat -anp |grep 80</p>
-</blockquote>
-<p>配置文件编辑结束后，启动nginx服务</p>
-<blockquote>
-<p>service  nginx  start</p>
-</blockquote>
-<h4 id="（1）、轮询负载均衡（默认）"><a href="#（1）、轮询负载均衡（默认）" class="headerlink" title="（1）、轮询负载均衡（默认）"></a>（1）、轮询负载均衡（默认）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 对应用程序服务器的请求以循环方式分发</span><br></pre></td></tr></table></figure>
-<h4 id="（2）、加权负载均衡"><a href="#（2）、加权负载均衡" class="headerlink" title="（2）、加权负载均衡"></a>（2）、加权负载均衡</h4><blockquote>
-<p>通过使用服务器权重，还可以进一步影响nginx负载均衡算法，</p>
-<p>谁的权重越大，分发到的请求就越多。</p>
-<p>权重总数：10</p>
-</blockquote>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt &#123;</span><br><span class="line">       server srv1.example.com weight=3;//域名为在/etc/hosts文件中取的别名</span><br><span class="line">       server srv2.example.com;</span><br><span class="line">       server srv3.example.com;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>配置修改之后，重启</p>
-<blockquote>
-<p>service  nginx  restart</p>
-</blockquote>
-<h4 id="（3）、最少连接负载平衡"><a href="#（3）、最少连接负载平衡" class="headerlink" title="（3）、最少连接负载平衡"></a>（3）、最少连接负载平衡</h4><blockquote>
-<p>在连接负载最少的情况下，nginx会尽量避免将过多的请求分发给繁忙的应用程序服务器，</p>
-<p>而是将新请求分发给不太繁忙的服务器，避免服务器过载。</p>
-</blockquote>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt &#123;</span><br><span class="line">        least_conn;</span><br><span class="line">        server srv1.example.com;</span><br><span class="line">        server srv2.example.com;</span><br><span class="line">        server srv3.example.com;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="（4）、会话持久性——ip-hash负载平衡机制"><a href="#（4）、会话持久性——ip-hash负载平衡机制" class="headerlink" title="（4）、会话持久性——ip-hash负载平衡机制"></a>（4）、会话持久性——ip-hash负载平衡机制</h4><p><code>特点</code>：保证相同的客户端总是定向到相同的服务;</p>
-<p>(此方法可确保来自同一客户端的请求将始终定向到同一台服务器，除非此服务器不可用。)</p>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="5-、Nginx的访问控制"><a href="#5-、Nginx的访问控制" class="headerlink" title="(5)、Nginx的访问控制"></a>(5)、Nginx的访问控制</h4><blockquote>
-<p>Nginx还可以对IP的访问进行控制，allow代表允许，deny代表禁止.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">deny 192.168.2.180;</span><br><span class="line">allow 192.168.78.0/24;</span><br><span class="line">allow 10.1.1.0/16;</span><br><span class="line">allow 192.168.1.0/32;</span><br><span class="line">deny all;</span><br><span class="line">proxy_pass http://shsxt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">从上到下的顺序，匹配到了便跳出。</span><br><span class="line">如上的例子先禁止了1个，</span><br><span class="line">接下来允许了3个网段，</span><br><span class="line">其中包含了一个ipv6，</span><br><span class="line">最后未匹配的IP全部禁止访问</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/23/Nginx入门学习（第一回合）/" data-id="cjr9yhs3t000kc8l0bv7reipo" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Nginx入门学习（第二回合）" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/23/Nginx入门学习（第二回合）/" class="article-date">
-  <time datetime="2019-01-23T15:33:18.734Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="Nginx入门学习（第二回合）"><a href="#Nginx入门学习（第二回合）" class="headerlink" title="Nginx入门学习（第二回合）"></a>Nginx入门学习（第二回合）</h1><p><code>2018年12月20日  周四  阴</code></p>
-<h2 id="一、虚拟主机"><a href="#一、虚拟主机" class="headerlink" title="一、虚拟主机"></a>一、虚拟主机</h2><h3 id="1、什么是虚拟主机？"><a href="#1、什么是虚拟主机？" class="headerlink" title="1、什么是虚拟主机？"></a>1、什么是虚拟主机？</h3><p>（1）是指在网络服务器上分出一定的磁盘空间，租给用户以放置站点以及应用空间，并提供必要的存储和传输功能。</p>
-<p>（2）是被虚拟化的逻辑主机，也可理解为就是把一台物理服务器划分成多个“虚拟“的服务器，各个虚拟主机之间完全独立，对外界呈现的状态也同单独物理主机表现完全相同。</p>
-<h3 id="2、虚拟主有啥特点？"><a href="#2、虚拟主有啥特点？" class="headerlink" title="2、虚拟主有啥特点？"></a>2、虚拟主有啥特点？</h3><p>（1）多台虚拟主机共享一台真实主机资源，大幅度降低了硬件、网络维护、通信线路等的费用</p>
-<p>（2）也大大简化了服务器管理的复杂性；</p>
-<h3 id="3、虚拟主机有哪些类别？"><a href="#3、虚拟主机有哪些类别？" class="headerlink" title="3、虚拟主机有哪些类别？"></a>3、虚拟主机有哪些类别？</h3><p>（1）基于域名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">http &#123; </span><br><span class="line">    upstream shsxt&#123; </span><br><span class="line">        server node01; </span><br><span class="line">        server node02; </span><br><span class="line">     &#125; </span><br><span class="line">	upstream bjsxt&#123; </span><br><span class="line">        server node03; </span><br><span class="line">     &#125; </span><br><span class="line">     </span><br><span class="line">     server &#123;    </span><br><span class="line">            listen 80; </span><br><span class="line">            //访问sxt2.com的时候，会把请求导到bjsxt的服务器组里</span><br><span class="line">            server_name  sxt2.com;</span><br><span class="line">            location / &#123;</span><br><span class="line">                proxy_pass http://bjsxt;</span><br><span class="line">            &#125;</span><br><span class="line">      &#125; </span><br><span class="line">      server &#123; </span><br><span class="line">            listen 80; </span><br><span class="line">           //访问sxt1.com的时候，会把请求导到shsxt的服务器组里</span><br><span class="line">            server_name  sxt1.com; </span><br><span class="line">            location / &#123;</span><br><span class="line">                proxy_pass http://shsxt;</span><br><span class="line">            &#125;</span><br><span class="line">      &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意：</p>
-</blockquote>
-<blockquote>
-<p>（1）基于域名的虚拟机主机 在模拟应用场景时，需要在windows系统的hosts文件里配置域名映射。</p>
-<p>（C:\Windows\System32\drivers\etc\hosts     给IP取别名）</p>
-<p>如：192.168.198.130   sxt1.com</p>
-</blockquote>
-<blockquote>
-<p>（2）每台服务器的Tomcat的端口不与配置的listen一致，那么windows系统浏览器访问时，需要加上TOmcat的端口，（192.168.198.128：8080）</p>
-<p>​         如果一致，那么就可以不加Tomcat的端口因为Nginx服务器默认端口为80</p>
-</blockquote>
-<p>（2）基于端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">http &#123; </span><br><span class="line">    upstream shsxt&#123; </span><br><span class="line">        server node01; </span><br><span class="line">        server node02; </span><br><span class="line">     &#125; </span><br><span class="line">	upstream bjsxt&#123; </span><br><span class="line">        server node03</span><br><span class="line">    &#125; </span><br><span class="line"> server &#123; </span><br><span class="line">       //当访问nginx的80端口时，将请求导给bjsxt组</span><br><span class="line">        listen 8080; </span><br><span class="line">        server_name 192.168.198.128;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://bjsxt;</span><br><span class="line">        &#125;</span><br><span class="line">&#125; </span><br><span class="line">  server &#123; </span><br><span class="line">           //当访问nginx的81端口时，将请求导给shsxt组</span><br><span class="line">            listen 81; </span><br><span class="line">            server_name 192.168.198.128;  //nginx服务器的IP</span><br><span class="line">            location / &#123;</span><br><span class="line">                proxy_pass http://shsxt;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>（3）基于IP  ：（不常用）</p>
-<h2 id="二、正向代理和反向代理"><a href="#二、正向代理和反向代理" class="headerlink" title="二、正向代理和反向代理"></a>二、正向代理和反向代理</h2><h3 id="1、正向代理"><a href="#1、正向代理" class="headerlink" title="1、正向代理"></a>1、正向代理</h3><p>理解：</p>
-<blockquote>
-<p>代理客户端，如通过VPN ，隐藏客户端，访问目标服务器（服务端可见）</p>
-</blockquote>
-<p>举例：</p>
-<blockquote>
-<p>国内不能直接访问谷歌，但是可以访问代理服务器，通过代理服务器可以访问谷歌。（就是翻墙）</p>
-<p>但是，需要客户端必须设置正向代理服务器，并且要知道正向代理服务器的IP地址和端口</p>
-</blockquote>
-<h3 id="2、反向代理"><a href="#2、反向代理" class="headerlink" title="2、反向代理"></a>2、反向代理</h3><p>理解：</p>
-<blockquote>
-<p>代理服务端，通过负载均衡服务器（如Nginx），隐藏服务端，分发客户端的不同请求（客户端可见）到内部网络上的服务器</p>
-</blockquote>
-<p>举例：</p>
-<blockquote>
-<p>如我们访问<a href="http://www.baidu.com的时候，它背后有很多台服务器，客户端并不知道具体是哪一台服务器给你提供的服务，只要知道反向代理服务器是谁就好了，反向代理服务器就会把我们的请求转发到真实服务器上。" target="_blank" rel="noopener">www.baidu.com的时候，它背后有很多台服务器，客户端并不知道具体是哪一台服务器给你提供的服务，只要知道反向代理服务器是谁就好了，反向代理服务器就会把我们的请求转发到真实服务器上。</a></p>
-</blockquote>
-<p>Nginx就是性能很好的反向代理服务器，用来作负载均衡。</p>
-<h2 id="三、Nginx的session一致性问题"><a href="#三、Nginx的session一致性问题" class="headerlink" title="三、Nginx的session一致性问题"></a>三、Nginx的session一致性问题</h2><h4 id="1、背景："><a href="#1、背景：" class="headerlink" title="1、背景："></a>1、背景：</h4><p>http协议是无状态的，多次访问如果是不同服务器响应请求，就会出现上次访问留下的session或cookie失效。这就引发了session共享的问题。</p>
-<h4 id="2、Session一致性解决方案"><a href="#2、Session一致性解决方案" class="headerlink" title="2、Session一致性解决方案"></a>2、Session一致性解决方案</h4><p>（1）–session复制<br>   tomcat 本身带有复制session的功能。</p>
-<p>（2）-共享session</p>
-<p>  需要专门管理session的软件，<br>   memcached 缓存服务，可以和tomcat整合，帮助tomcat共享管理session。</p>
-<h4 id="3、安装memcached"><a href="#3、安装memcached" class="headerlink" title="3、安装memcached"></a>3、安装memcached</h4><p>memcached （同redis一样）是基于内存的数据库</p>
-<p>1、安装</p>
-<blockquote>
-<p>  yum –y install memcached</p>
-</blockquote>
-<blockquote>
-<p>   可以用telnet localhost 11211</p>
-</blockquote>
-<blockquote>
-<p>   启动： memcached -d -m 128m -p 11211 -l 192.168.235.113 -u root -P /tmp/</p>
-</blockquote>
-<p>2.web服务器连接memcached的jar包拷贝到tomcat的lib目录下</p>
-<p><code>访问Tomcat服务器期间产生的session通过相关jar包，才能写入到memcached数据库中</code></p>
-<blockquote>
-<p>memcached-session-manager-1.7.0.jar</p>
-<p>memcached-session-manager-tc7-1.8.1.jar</p>
-</blockquote>
-<p>3.配置tomcat的conf目录下的context.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"de.javakaffee.web.msm.MemcachedBackupSessionManager"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">memcachedNodes</span>=<span class="string">"n1:192.168.198.128:11211"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">sticky</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">lockingMode</span>=<span class="string">"auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">sessionBackupAsync</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">requestUriIgnorePattern</span>=<span class="string">".*\.(ico|png|gif|jpg|css|js)$"</span></span></span><br><span class="line"><span class="tag"><span class="attr">sessionBackupTimeout</span>=<span class="string">"1000"</span> <span class="attr">transcoderFactoryClass</span>=<span class="string">"de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>配置memcachedNodes属性，</p>
-<blockquote>
-<p>配置memcached数据库的ip和端口，默认11211，多个的话用逗号隔开.</p>
-<p>目的是为了让tomcat服务器从memcached缓存里面拿session或者是放session</p>
-</blockquote>
-<p>将配置完成的context.xml发送到其他虚拟机器上</p>
-<blockquote>
-<p>scp -r context.xml root@node01:<code>pwd</code></p>
-<p>或</p>
-<p>scp -r context.xml node01:<code>pwd</code></p>
-<p>或</p>
-<p>scp -r context.xml <a href="mailto:root@192.168.198.130" target="_blank" rel="noopener">root@192.168.198.130</a>:<code>pwd</code></p>
-</blockquote>
-<p>4.修改tomcat目录中webapps/ROOT下的 index.jsp，取sessionid看一看</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span>  pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">SessionID:&lt;%=session.getId()%&gt;</span><br><span class="line">&lt;/br&gt;</span><br><span class="line">SessionIP:&lt;%=request.getServerName()%&gt;</span><br><span class="line">&lt;/br&gt;</span><br><span class="line">&lt;h1&gt;tomcat1&lt;/h1&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/23/Nginx入门学习（第二回合）/" data-id="cjr9yhs0y0001c8l0i1yiaq2b" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Linux系统CentOS 6安装" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/23/Linux系统CentOS 6安装/" class="article-date">
-  <time datetime="2019-01-23T15:33:18.431Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="Linux系统CentOS-6"><a href="#Linux系统CentOS-6" class="headerlink" title="Linux系统CentOS 6"></a>Linux系统<strong>CentOS 6</strong></h1><h1 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h1><p> 资源准备：</p>
-<p>CentOS-6.6-x86_64-minimal.iso（简易迷你版） ：</p>
-<p>CentOS-6.7-x86_64-bin-DVD1.iso（完整版）：</p>
-<h2 id="1、点击新建虚拟机"><a href="#1、点击新建虚拟机" class="headerlink" title="1、点击新建虚拟机"></a>1、点击新建虚拟机</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F1.tmp.jpg" alt="img"> </p>
-<h2 id="2、选择典型。（专业人士使用的话建议选择高级）"><a href="#2、选择典型。（专业人士使用的话建议选择高级）" class="headerlink" title="2、选择典型。（专业人士使用的话建议选择高级）"></a>2、选择典型。（专业人士使用的话建议选择高级）</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F2.tmp.jpg" alt="img"> </p>
-<h2 id="3-选择稍后安装操作系统"><a href="#3-选择稍后安装操作系统" class="headerlink" title="3. 选择稍后安装操作系统"></a>3. 选择稍后安装操作系统</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F3.tmp.jpg" alt="img"> </p>
-<h2 id="4-选择操作系统类型，选择linux-centos-64位"><a href="#4-选择操作系统类型，选择linux-centos-64位" class="headerlink" title="4. 选择操作系统类型，选择linux,centos 64位"></a>4. 选择操作系统类型，选择linux,centos 64位</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F4.tmp.jpg" alt="img"> </p>
-<h2 id="5-选择虚拟机安装位置和名称。"><a href="#5-选择虚拟机安装位置和名称。" class="headerlink" title="5. 选择虚拟机安装位置和名称。"></a>5. 选择虚拟机安装位置和名称。</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F5.tmp.jpg" alt="img"> </p>
-<h2 id="6-指定磁盘容量，默认20GB。"><a href="#6-指定磁盘容量，默认20GB。" class="headerlink" title="6. 指定磁盘容量，默认20GB。"></a>6. 指定磁盘容量，默认20GB。</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4706.tmp.jpg" alt="img"> </p>
-<h2 id="7-选择自定义硬件"><a href="#7-选择自定义硬件" class="headerlink" title="7. 选择自定义硬件"></a>7. 选择自定义硬件</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4707.tmp.jpg" alt="img"> </p>
-<h2 id="8-点击CD-DVD-然后选择操作系统的ISO映像文件，选择完后，点击关闭。"><a href="#8-点击CD-DVD-然后选择操作系统的ISO映像文件，选择完后，点击关闭。" class="headerlink" title="8. 点击CD/DVD,然后选择操作系统的ISO映像文件，选择完后，点击关闭。"></a>8. 点击CD/DVD,然后选择操作系统的ISO映像文件，选择完后，点击关闭。</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4708.tmp.jpg" alt="img">  </p>
-<h2 id="9-点击完成。"><a href="#9-点击完成。" class="headerlink" title="9.点击完成。"></a>9.点击完成。</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4709.tmp.jpg" alt="img"> </p>
-<h1 id="二、配置虚拟机"><a href="#二、配置虚拟机" class="headerlink" title="二、配置虚拟机"></a>二、<strong>配置虚拟机</strong></h1><h2 id="1-启动虚拟机。"><a href="#1-启动虚拟机。" class="headerlink" title="1. 启动虚拟机。"></a>1. 启动虚拟机。<img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps470A.tmp.jpg" alt="img"></h2><p>注意：如果启动虚拟机时，发生以下问题，说明是你的电脑默认未开启虚拟化技术。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps470B.tmp.png" alt="img"> </p>
-<p>此时你应该把机器重启并进入bios界面（不同的机器进入bios界面的快捷键不同，一般为F1~F10键中的某个键，如果都不行，就得自己百度一下你的机器型号进入bios界面的快捷方式）。</p>
-<p>​    当进入bios界面后，把虚拟机化选项（virtualization technology）打开,通过回车键，把disabled改成enabled,然后保存并重启机器。我这边是按F10，不同机器可能不一样，看右下角的提示信息。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps470C.tmp.jpg" alt="img"> </p>
-<h2 id="2-Test-Media-如果不需要的话，点Skip"><a href="#2-Test-Media-如果不需要的话，点Skip" class="headerlink" title="2.Test Media, 如果不需要的话，点Skip"></a>2.Test Media, 如果不需要的话，点Skip</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps471C.tmp.jpg" alt="img"> </p>
-<h2 id="3、单击Next按钮继续"><a href="#3、单击Next按钮继续" class="headerlink" title="3、单击Next按钮继续"></a>3、单击Next按钮继续</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps471D.tmp.jpg" alt="img"> </p>
-<h2 id="4-选择安装期间显示的语言"><a href="#4-选择安装期间显示的语言" class="headerlink" title="4. 选择安装期间显示的语言"></a>4. 选择安装期间显示的语言</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps471E.tmp.jpg" alt="img"> </p>
-<h2 id="5、选择键盘语言"><a href="#5、选择键盘语言" class="headerlink" title="5、选择键盘语言"></a>5、选择键盘语言</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps471F.tmp.jpg" alt="img"> </p>
-<h2 id="6、选择存储介质的类别。"><a href="#6、选择存储介质的类别。" class="headerlink" title="6、选择存储介质的类别。"></a>6、选择存储介质的类别。</h2><p>如果是将CentOS 6安装到本地硬盘上，选择 Basic Storage Devices，如果安装到网络存储介质如SANs上，选择 Specialized Storage Devices</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4720.tmp.jpg" alt="img"> </p>
-<h2 id="7-选择-yes-discard-any-data"><a href="#7-选择-yes-discard-any-data" class="headerlink" title="7.选择 yes,discard any data"></a>7.选择 yes,discard any data</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4721.tmp.jpg" alt="img"> </p>
-<h2 id="8-设定主机名称（hostname）"><a href="#8-设定主机名称（hostname）" class="headerlink" title="8. 设定主机名称（hostname）"></a>8. 设定主机名称（hostname）</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4722.tmp.jpg" alt="img"> </p>
-<h2 id="9-设定时区，选择-Asia-Shanghai"><a href="#9-设定时区，选择-Asia-Shanghai" class="headerlink" title="9. 设定时区，选择 Asia/Shanghai"></a>9. 设定时区，选择 Asia/Shanghai</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4723.tmp.jpg" alt="img"> </p>
-<h2 id="10-设定root帐户的密码"><a href="#10-设定root帐户的密码" class="headerlink" title="10. 设定root帐户的密码"></a>10. 设定root帐户的密码</h2><p>尽量使用较复杂的密码安装（根据实际情况，密码简单时，会有提示，点击user anyway 就行）</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4734.tmp.jpg" alt="img"> </p>
-<h2 id="11-选择安装类型，这里我选择-“Use-All-Space”"><a href="#11-选择安装类型，这里我选择-“Use-All-Space”" class="headerlink" title="11. 选择安装类型，这里我选择 “Use All Space”"></a>11. 选择安装类型，这里我选择 “Use All Space”</h2><p> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4735.tmp.jpg" alt="img"></p>
-<h2 id="12-选择-“Write-changes-to-disk”，将分区数据写入硬盘"><a href="#12-选择-“Write-changes-to-disk”，将分区数据写入硬盘" class="headerlink" title="12. 选择 “Write changes to disk”，将分区数据写入硬盘"></a>12. 选择 “Write changes to disk”，将分区数据写入硬盘</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4736.tmp.jpg" alt="img"> </p>
-<h2 id="13-开始安装，此时只需等待即可"><a href="#13-开始安装，此时只需等待即可" class="headerlink" title="13. 开始安装，此时只需等待即可"></a>13. 开始安装，此时只需等待即可</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4737.tmp.jpg" alt="img"> </p>
-<h2 id="14-安装完结后，点击Reboot按钮"><a href="#14-安装完结后，点击Reboot按钮" class="headerlink" title="14. 安装完结后，点击Reboot按钮"></a>14. 安装完结后，点击Reboot按钮</h2><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps4738.tmp.jpg" alt="img"> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/23/Linux系统CentOS 6安装/" data-id="cjr9yhs0g0000c8l0hfhbyusm" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Linux网络配置+常用命令学习(第一回合)" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/" class="article-date">
-  <time datetime="2019-01-23T15:33:18.407Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="Linux网络配置-常用命令学习"><a href="#Linux网络配置-常用命令学习" class="headerlink" title="Linux网络配置+常用命令学习"></a>Linux网络配置+常用命令学习</h1><p>[TOC]</p>
-<h2 id="一、-Linux概述"><a href="#一、-Linux概述" class="headerlink" title="一、 Linux概述"></a>一、 <strong>Linux</strong>概述</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1. 简介"></a><strong>1.</strong>1. 简介</h3><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB68.tmp.jpg" alt="img">Linux是一个自由的，免费的，源码开放的操作系统。也是开源软件中最著名的例子。其最主要的目的就是为了建立不受任何商品化软件版权制约的，全世界都能使用的类Unix兼容产品.而我们将服务器部署在Linux将会更加的稳定、安全、高效以及出色的性能这时windows无法比的。</p>
-<h3 id="1-2-Linux作者"><a href="#1-2-Linux作者" class="headerlink" title="1.2.Linux作者"></a><strong>1.2.L</strong>inux作者</h3><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB69.tmp.png" alt="img"> </p>
-<p>林纳斯·本纳第克特·托瓦兹（Linus Benedict Torvalds, 1969年~ ），著名的电脑程序员、黑客。Linux内核的发明人及该计划的合作者。托瓦兹利用个人时间及器材创造出了这套当今全球最流行的操作系统（作业系统）内核之一。现受聘于开放源代码开发实验室（OSDL：Open Source Development Labs, Inc），全力开发Linux内核。</p>
-<h3 id="1-3-Linux-发行版"><a href="#1-3-Linux-发行版" class="headerlink" title="1.3.Linux 发行版"></a><strong>1.3.</strong>Linux 发行版</h3><p>发行版是基于 Linux 内核的一个操作系统。它带有用户可以使用的软件集合。更多的，它还包含系统管理包。目前有许多 Linux 发行版。因为我们不能数清目前所有的 Linux 发行版，所以我们来看一下一些有名的版本： Ubuntu、Fedora、Opensuse、Red hat Linux 和 Debian 等是几个非常受欢迎的 Linux 发行版。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6A.tmp.jpg" alt="img"> </p>
-<p><strong>C**</strong>entos**</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6B.tmp.jpg" alt="img"> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6C.tmp.jpg" alt="img"></p>
-<p><strong>U</strong>buntu</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6D.tmp.jpg" alt="img"><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6E.tmp.jpg" alt="img"> </p>
-<p><strong>R</strong>ehat</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6F.tmp.jpg" alt="img"> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB80.tmp.jpg" alt="img"></p>
-<h3 id="1-4-Linux的特点"><a href="#1-4-Linux的特点" class="headerlink" title="1.4.Linux的特点"></a><strong>1.4.</strong>Linux的特点</h3><p>开放性，多用户，多任务，丰富的网络功能，可靠的系统安全，良好的可移植性，具有标准兼容性</p>
-<h2 id="二、环境准备"><a href="#二、环境准备" class="headerlink" title="二、环境准备"></a><strong>二、环境</strong>准备</h2><h3 id="2-1-Vmware"><a href="#2-1-Vmware" class="headerlink" title="2.1. Vmware"></a><strong>2.1. Vmware</strong></h3><h4 id="2-1-1-Vmware简介"><a href="#2-1-1-Vmware简介" class="headerlink" title="2.1.1 Vmware简介"></a><strong>2.1.1</strong> <strong>Vmware</strong>简介</h4><p>大多数服务器的容量（CPU,内存，磁盘等）利用率不足 30%，这不仅导致了资源浪费，也加大了服务器的数量。实现服务器虚拟化后，多个操作系统可以作为虚拟机在单台物理服务器上运行，并且每个操作系统都可以访问底层服务器的计算资源，从而解决效率低下问题。</p>
-<p>Vmware虚拟机化技术由此诞生，它可以将一台服务器虚拟化出多台虚拟机，供多人同时使用，提高资源利用率。</p>
-<h4 id="2-1-2-Vmware-workstation安装"><a href="#2-1-2-Vmware-workstation安装" class="headerlink" title="2.1.2 Vmware workstation安装"></a><strong>2.</strong>1<strong>.</strong>2 Vmware workstation<strong>安装</strong></h4><p>详细见vmware安装文档</p>
-<h3 id="2-2-linux安装"><a href="#2-2-linux安装" class="headerlink" title="2.2. linux安装"></a><strong>2.</strong>2. <strong>l</strong>inux安装</h3><p>详细见Linux安装文档</p>
-<h3 id="2-3-网络配置"><a href="#2-3-网络配置" class="headerlink" title="2.3.网络配置"></a><strong>2.3</strong>.网络配置</h3><h4 id="2-3-1-查看网关"><a href="#2-3-1-查看网关" class="headerlink" title="2.3.1 查看网关"></a><strong>2.</strong>3.1 <strong>查看网关</strong></h4><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB81.tmp.jpg" alt="img"> </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB82.tmp.jpg" alt="img"> </p>
-<h4 id="2-3-2-配置静态IP-NAT模式"><a href="#2-3-2-配置静态IP-NAT模式" class="headerlink" title="2.3.2 配置静态IP(NAT模式)"></a><strong>2.</strong>3<strong>.2</strong> <strong>配置静态IP(NAT模式)</strong></h4><p>1.编辑配置文件,添加修改以下内容</p>
-<p>vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
-<p>按i 进入文本编辑模式，出现游标，左下角会出现INSERT,即可以编辑</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB83.tmp.jpg" alt="img"> </p>
-<p>应包含以下配置，除此之外的可以删除掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth0     #网卡设备名,请勿修改名字</span><br><span class="line"></span><br><span class="line">TYPE=Ethernet	#网络类型，以太网</span><br><span class="line"></span><br><span class="line">BOOTPROTO=static   #启用静态IP地址</span><br><span class="line"></span><br><span class="line">ONBOOT=yes  #开启自动启用网络连接	</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.78.100  #设置IP地址</span><br><span class="line"></span><br><span class="line">NETMASK=255.255.255.0  #设置子网掩码</span><br><span class="line"></span><br><span class="line">GATEWAY=192.168.78.2   #设置网关</span><br><span class="line"></span><br><span class="line">DNS1=114.114.114.114  #设置备DNS</span><br></pre></td></tr></table></figure>
-<p>按ESC退出编辑模式</p>
-<p>:wq  #保存退出</p>
-<p>2.修改完后执行以下命令</p>
-<p>service network restart  #重启网络连接</p>
-<p>ifconfig  #查看IP地址</p>
-<p>3.验证是否配置成功:</p>
-<p>虚拟机能ping通虚拟网关</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB84.tmp.jpg" alt="img"> </p>
-<p>虚拟机与物理机（笔记本）相互可ping通</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB95.tmp.jpg" alt="img"> </p>
-<p>虚拟机与公网上的百度网址相互可ping通（此步ping通，才说明网络配置成功，Ctrl键+C停止）</p>
-<p>命令：ping  <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> </p>
-<p><strong>注意：</strong></p>
-<p>a.保证VMware的虚拟网卡没有被禁用<img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF3.tmp.jpg" alt="img"> </p>
-<p>b.网关IP不能被占用</p>
-<h3 id="2-4-XShell安装与使用"><a href="#2-4-XShell安装与使用" class="headerlink" title="2.4.XShell安装与使用"></a><strong>2.</strong>4.XShell安装与使用</h3><h4 id="2-4-1安装步骤"><a href="#2-4-1安装步骤" class="headerlink" title="2.4.1安装步骤"></a><strong>2.4.1安装步骤</strong></h4><p>除了安装路径需要修改，其他一直下一步。</p>
-<h4 id="2-4-2-连接虚拟机"><a href="#2-4-2-连接虚拟机" class="headerlink" title="2.4.2 连接虚拟机"></a><strong>2.4.2 连接虚拟机</strong></h4><ol>
-<li>打开xshell软件新建一个会话</li>
-</ol>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF4.tmp.jpg" alt="img"> </p>
-<ol start="2">
-<li>填写所要连接的虚拟机IP，会话名称可改可不改，点击确定。</li>
-</ol>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF5.tmp.jpg" alt="img"> </p>
-<p>3.连接虚拟机。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF6.tmp.jpg" alt="img"> </p>
-<p>4．输入root用户名，可以勾选”记住用户名”</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF7.tmp.jpg" alt="img"> </p>
-<p>5.填写密码，可以勾选“记住密码”</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC08.tmp.jpg" alt="img"> </p>
-<p>6.登录成功。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC09.tmp.jpg" alt="img"> </p>
-<h2 id="三、文件系统"><a href="#三、文件系统" class="headerlink" title="三、文件系统"></a><strong>三、</strong>文件系统</h2><p>Linux文件系统中的文件是数据的集合，文件系统不仅包含着文件中的数据而且还有文件系统的结构，所有Linux 用户和程序看到的文件、目录、软连接及文件保护信息等都存储在其中。</p>
-<p>Linux目录结构：</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0A.tmp.png" alt="img"> </p>
-<p>   bin  存放二进制可执行文件(ls,cat,mkdir等)                                                           </p>
-<p>  boot  存放用于系统引导时使用的各种文件</p>
-<p>  dev 用于存放设备文件</p>
-<p>  etc  存放系统配置文件</p>
-<p>  home 存放所有用户文件的根目录</p>
-<p>  lib  存放跟文件系统中的程序运行所需要的共享库及内核模块</p>
-<p>  mnt  系统管理员安装临时文件系统的安装点</p>
-<p>  opt  额外安装的可选应用程序包所放置的位置</p>
-<p>  proc  虚拟文件系统，存放当前内存的映射</p>
-<p>  root  超级用户目录</p>
-<p>  sbin  存放二进制可执行文件，只有root才能访问</p>
-<p>  tmp  用于存放各种临时文件</p>
-<p>  usr  用于存放系统应用程序，比较重要的目录/usr/local 本地管理员软件安装目录</p>
-<p>var  用于存放运行时需要改变数据的文件</p>
-<h3 id="3-1目录操作"><a href="#3-1目录操作" class="headerlink" title="3.1目录操作"></a><strong>3</strong>.1目录操作</h3><h4 id="3-1-1-切换目录"><a href="#3-1-1-切换目录" class="headerlink" title="3.1.1**切换目录"></a><strong>3.</strong>1<strong><strong>.</strong></strong>1<em>**</em>切换目录</h4><p>命令：<strong>cd</strong> + 目录的路径  </p>
-<p>查看当前目录的完整路径 ：pwd</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0B.tmp.jpg" alt="img"> </p>
-<p>命令 cd  ..   返回到父目录</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0C.tmp.jpg" alt="img"> </p>
-<h4 id="3-1-2-新建目录"><a href="#3-1-2-新建目录" class="headerlink" title="3.1.2**新建目录"></a><strong>3.</strong>1<strong><strong>.</strong></strong>2<em>**</em>新建目录</h4><p>命令：<strong>m</strong>kdir+ 目录名字 </p>
-<p>查看当前目录下拥有的子目录和文件: ls</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0D.tmp.jpg" alt="img"> </p>
-<h4 id="3-1-3-拷贝目录"><a href="#3-1-3-拷贝目录" class="headerlink" title="3.1.3  拷贝目录"></a><strong>3.1.</strong>3  拷贝目录</h4><p><strong>cp</strong> source dest  -r</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC1E.tmp.jpg" alt="img"> </p>
-<h4 id="3-1-4删除目录"><a href="#3-1-4删除目录" class="headerlink" title="3.1.4删除目录"></a><strong>3.1.4删除目录</strong></h4><p><strong>rmdir</strong> directory</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC1F.tmp.jpg" alt="img"> </p>
-<p>注意：rmdir只能删除空目录,若要删除非空目录则用rm命令</p>
-<p><strong>rm</strong> -rf dir </p>
-<h4 id="3-1-5移动-更改-目录"><a href="#3-1-5移动-更改-目录" class="headerlink" title="3.1.5移动/更改 目录"></a><strong>3.1.5移动/更改 目录</strong></h4><p>​            移动文件或目录：<strong>mv</strong> + 目录/文件名字 + 其他路径</p>
-<p>​          <strong>m</strong>v  test  /     将test目录移动到 根目录/ 下</p>
-<p>​    <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC20.tmp.jpg" alt="img"></p>
-<p>​    更改文件或目录的名字：<strong>m</strong>v + 旧目录名字 + 新目录名字。</p>
-<p>​    <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC21.tmp.jpg" alt="img"></p>
-<h3 id="3-2-文件操作"><a href="#3-2-文件操作" class="headerlink" title="3.2.文件操作"></a><strong>3</strong>.2.文件操作</h3><h4 id="3-2-1新建文件：（一切皆文件）"><a href="#3-2-1新建文件：（一切皆文件）" class="headerlink" title="3.2.1新建文件：（一切皆文件）"></a><strong>3</strong>.2.1新建文件：（一切皆文件）</h4><p><strong>touch</strong> web.log   创建一个空文件。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC22.tmp.jpg" alt="img"> </p>
-<h4 id="3-2-2-复制文"><a href="#3-2-2-复制文" class="headerlink" title="3.2.2 复制文"></a><strong>3.</strong>2.2 <strong>复制文</strong></h4><p>​     <strong>cp</strong> web.log web_cp.log</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC23.tmp.jpg" alt="img"> </p>
-<p>  复制文件，加个-r 参数，代表遍历复制，此时可用于复制一个目录。</p>
-<h4 id="3-2-3删除文件"><a href="#3-2-3删除文件" class="headerlink" title="3.2.3删除文件"></a><strong>3.</strong>2<strong><strong>.</strong></strong>3删除文件</h4><p><strong>r</strong>m web_cp.log</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC24.tmp.jpg" alt="img"> </p>
-<p>此时需要手动输入y ，代表确认删除。可加 –f参数，直接删除，无需确认。当需要一个目录下所有东西时，加-r参数，代表遍历删除。</p>
-<p><strong>rm</strong> -f web.log</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC25.tmp.jpg" alt="img"> </p>
-<h4 id="3-2-4-查看"><a href="#3-2-4-查看" class="headerlink" title="3.2.4**查看"></a><strong>3.2</strong>.4<em>**</em>查看</h4><h5 id="3-2-4-1-查看目录下的东西"><a href="#3-2-4-1-查看目录下的东西" class="headerlink" title="3.2.4.1**查看目录下的东西"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>1<em>**</em>查看目录下的东西</h5><p>​    ls / ll</p>
-<p>   命令 ls -l 等价于 ll </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC26.tmp.jpg" alt="img"> </p>
-<p>   查看目录下的所有东西（包括隐藏文件） </p>
-<p>命令：ls –al 等价于  ll –a </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC27.tmp.jpg" alt="img"> </p>
-<h5 id="3-2-4-2查看文件内容"><a href="#3-2-4-2查看文件内容" class="headerlink" title="3.2.4.2查看文件内容"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>2<strong><strong>查看文件</strong></strong>内容</h5><p><strong>cat</strong> filename: 一次性显示整个文件的内容</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC37.tmp.jpg" alt="img"> </p>
-<p>注意：当文件较大时，文本在屏幕上迅速闪过（滚屏），用户往往看不清所显示的内容。</p>
-<p>因此，一般用<a href="http://www.linuxde.net/tag/more" target="_blank" rel="noopener">more</a>等命令分屏显示.</p>
-<p><strong>more</strong> filename 该命令一次显示一屏文本，满屏后停下来，并且在屏幕的底部出现一个提示信息，给出至今己显示的该文件的百分比。</p>
-<p>按Space键，显示文本的下一屏内容。<br>按Enter键，只显示文本的下一行内容。</p>
-<p>按B键，显示上一屏内容。</p>
-<p>按Q键，退出。</p>
-<p><strong>命令：</strong>more  /etc/profile</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC38.tmp.jpg" alt="img"> </p>
-<p>显示的内容：</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC39.tmp.jpg" alt="img"> </p>
-<p>​        </p>
-<p>less命令 与 more命令 非常类似</p>
-<p>less filename:</p>
-<p>​    h 显示帮助界面 </p>
-<p>Q 退出less 命令 </p>
-<p>u 向后滚动半页 </p>
-<p>d 向前翻半页 </p>
-<p>空格键 滚动一页 </p>
-<p>b 向后翻一页 </p>
-<p>回车键 滚动一行</p>
-<p>[pagedown]： 向下翻动一页 </p>
-<p>[pageup]： 向上翻动一页</p>
-<p>以及上下键，向上一行，向下一行</p>
-<h5 id="3-2-4-3从头打印-文件内容"><a href="#3-2-4-3从头打印-文件内容" class="headerlink" title="3.2.4.3从头打印**文件内容"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>3<strong><strong>从</strong></strong>头打印<em>**</em>文件内容</h5><p>​        <strong>head</strong>  -10 filename  打印文件1到10行</p>
-<p>  <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3A.tmp.jpg" alt="img"></p>
-<h5 id="3-2-4-4从尾部打印文件内容"><a href="#3-2-4-4从尾部打印文件内容" class="headerlink" title="3.2.4.4从尾部打印文件内容"></a><strong>3</strong>.<strong><strong>2</strong></strong>.<strong><strong>4</strong></strong>.<strong><strong>4</strong></strong>从<strong><strong>尾部打印</strong></strong>文件内容</h5><p>  <strong>tail</strong> -10 filename 打印文件最后10行</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3B.tmp.jpg" alt="img"> </p>
-<p>   注意：tail 还经常可以拿来查看文件的内容变化</p>
-<p>加-f参数，tail –f filename</p>
-<h4 id="3-2-5查找文件或目录"><a href="#3-2-5查找文件或目录" class="headerlink" title="3.2.5查找文件或目录"></a><strong>3.2.5</strong>查找<strong><strong>文件</strong></strong>或目录</h4><p>​        <strong>f</strong>ind  pathname –name filename</p>
-<p>​      例子：find / -name profile</p>
-<p>​      该命令表示为，在/目录下查找 名字为profile的文件或目录，最后列出它的绝对路径</p>
-<p>​      <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3C.tmp.jpg" alt="img"></p>
-<p>​      最后发现，linux系统根目录/ 下 一共有两个名字为profile，</p>
-<p>​      其中/etc/profile是一个文件，/etc/lvm/profile为目录</p>
-<p>还可以按正则表达式来查找，且pathname越精确，查找的范围越小，速度越快。</p>
-<p>​      find /etc -name pro*</p>
-<p>  注意：（命令执行时，其查找的目录必须是所在目录的父级目录）</p>
-<p>​      该命令表示为：在/etc目录下查找以pro开头的文件或目录。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3D.tmp.jpg" alt="img"> </p>
-<h2 id="四、文本编辑"><a href="#四、文本编辑" class="headerlink" title="四、文本编辑"></a><strong>四、</strong>文本编辑</h2><h3 id="4-1-vi"><a href="#4-1-vi" class="headerlink" title="4.1.vi"></a><strong>4</strong>.1.vi</h3><p><strong>编辑</strong>模式</p>
-<p>vi filename :打开或新建文件，并将光标置于第一行首 </p>
-<p>vi +n filename ：打开文件，并将光标置于第n行首 </p>
-<p>vi + filename ：打开文件，并将光标置于最后一行首 </p>
-<p>vi +/pattern filename：打开文件，并将光标置于第一个与 pattern匹配的串处 </p>
-<p>• q!：不保存文件并退出vi </p>
-<p>– 在VI的命令模式下输入“:set nu”，就有行号了。 </p>
-<p>– 在VI的命令模式下输入“:set nonu”，取消行号。 </p>
-<p><strong>一般模式</strong></p>
-<p>• yy 复制光标所在行(常用) </p>
-<p>• nyy 复制光标所在行的向下n行，例如， 20yy则是复制20行(常用) </p>
-<blockquote>
-<p>（不同：在我的xshell中是 yyn实现复制所在行的向下n行）</p>
-</blockquote>
-<p>• p,P   p为复制的数据粘贴在光标下一行， P则为粘贴在光标上一行(常用)</p>
-<p>G:光标移至第最后一行</p>
-<p>nG：光标移动至第N行行首</p>
-<p>n（shift）+：光标下移n行 </p>
-<blockquote>
-<p>（nB|nb:光标向上移动n行）</p>
-</blockquote>
-<p>n-：光标上移n行 </p>
-<p>H ：光标移至屏幕顶行 </p>
-<p>M ：光标移至屏幕中间行 </p>
-<p>L ：光标移至屏幕最后行 </p>
-<p>• dd：删除 行 </p>
-<p>x或X：删除一个字符，x删除光标后的，而X删除光标前的 </p>
-<p>• u 恢复前一个动作(常用)</p>
-<p>删除第N行到第M行：</p>
-<p>  :N,Md</p>
-<h3 id="4-2-vim"><a href="#4-2-vim" class="headerlink" title="4.2.vim"></a><strong>4.</strong>2.vim</h3><p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、语法高亮、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用.</p>
-<p><strong>安装vim 软件</strong></p>
-<p><strong>yum</strong>  install  vim </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC4E.tmp.jpg" alt="img"> </p>
-<p><strong>按y确认, 这中间一共要按两次确认</strong></p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC4F.tmp.jpg" alt="img"> </p>
-<p>可以在书写命令时就加y,这样就不用逐一确认。</p>
-<p><strong>yum</strong> install vim  -y</p>
-<p>   用vim 打开/etc/profile 文件，会发现编辑器对文本的内容进行了高亮，使整个文件的内容可读性大大加强</p>
-<p>命令：vim /etc/profile</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC50.tmp.jpg" alt="img"> </p>
-<h2 id="五、文件传输"><a href="#五、文件传输" class="headerlink" title="五、文件传输"></a><strong>五、</strong>文<strong><strong>件</strong></strong>传输</h2><h3 id="5-1-远程拷贝"><a href="#5-1-远程拷贝" class="headerlink" title="5.1.远程拷贝"></a><strong>5.</strong>1.远程拷贝</h3><h4 id="5-1-1将本地文件复制到远程机器"><a href="#5-1-1将本地文件复制到远程机器" class="headerlink" title="5.1.1将本地文件复制到远程机器"></a><strong>5.1.1将本地文件复制到远程机器</strong></h4><p> <code>举例：</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; 方式一：</span><br><span class="line">&gt;   scp -rf /etc/profile root@192.168.198.128:/etc/</span><br><span class="line">&gt; </span><br><span class="line">&gt; 方式二:</span><br><span class="line">&gt;   scp  -r /etc/profile root@node01 /etc/ </span><br><span class="line">&gt;   </span><br><span class="line">&gt; 方式三：</span><br><span class="line">&gt;   scp -r /etc/profile node01:/etc/</span><br><span class="line">&gt;   </span><br><span class="line">&gt; 方式四：</span><br><span class="line">&gt;   scp -r /ec/profile node01:&apos;pwd&apos;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>scp</strong> ：远程传输文件命令</p>
-<p><strong>-r</strong>  ：- 指的是后面跟的是参数    r  指的是遍历指定文件    <strong>f</strong>  指的是不用询问</p>
-<p><strong>/etc/profile</strong>  : 是指定传输的文件</p>
-<p><strong>root</strong>： 远程机器的账户名      <strong>@</strong>    远程机器的IP地址   <strong>：</strong>   <strong>/etc/</strong>    远程机器上指定的目录</p>
-<p><strong>node01</strong>：远程机器的别名</p>
-<p><strong>‘pwd’</strong>： 本地要远程传输文件所在的目录</p>
-<p><strong>scp</strong> local_file remote_username@remote_ip:remote_folder   </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC51.tmp.jpg" alt="img"> </p>
-<p>第一次远程拷贝时，需要在箭头1初输入yes确认一下，验证一下远程主机。然后在箭头2处输入一下远程主机的密码。</p>
-<h4 id="5-1-2将本地目录复制到远程机器"><a href="#5-1-2将本地目录复制到远程机器" class="headerlink" title="5.1.2将本地目录复制到远程机器"></a><strong>5.1.2将本地目录复制到远程机器</strong></h4><p><strong>scp</strong> -r local_folder remote_username@remote_ip:remote_folder </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC52.tmp.jpg" alt="img"> </p>
-<p>在test目录下创建一个myfile文件，然后将test目录远程拷贝到192虚拟机的根目录下。</p>
-<h3 id="5-2-上传"><a href="#5-2-上传" class="headerlink" title="5.2.上传"></a><strong>5</strong>.2.上传</h3><p>​    需先安装好lrzsz :  <strong>yum</strong>  install  lrzsz  -y</p>
-<p>安装好后，输入上传的命令rz,弹出一下界面：</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC53.tmp.jpg" alt="img"> </p>
-<p>选择一个windows系统里的文件上传至虚拟机的当前目录下,然后ll命令，查看结果</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC54.tmp.jpg" alt="img"> </p>
-<h3 id="5-3-下载"><a href="#5-3-下载" class="headerlink" title="5.3.下载"></a><strong>5.</strong>3.下载</h3><p>  下载命令为sz，sz命令只能下载文件，不能是目录，可先将目录压缩成一个包，再下载至windows系统。下载完之后，按ctrl+c结束。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC65.tmp.jpg" alt="img"> </p>
-<h3 id="5-4-Xftp的安装与使用"><a href="#5-4-Xftp的安装与使用" class="headerlink" title="5.4    Xftp的安装与使用"></a><strong>5.4</strong>    Xftp的安装与使用</h3><p>​    除了可以用rz sz命令进行本地windows系统和虚拟机之间的文件传输，还可以使用XFTP软件。</p>
-<h2 id="六、网络指令"><a href="#六、网络指令" class="headerlink" title="六、网络指令"></a><strong>六、网络指令</strong></h2><h3 id="6-1-查看网络配置信息"><a href="#6-1-查看网络配置信息" class="headerlink" title="6.1.查看网络配置信息"></a><strong>6.1.查看网络配置信息</strong></h3><p>命令:ifconfig</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC66.tmp.jpg" alt="img"> </p>
-<p>箭头1指向的是本机IP，箭头2为广播地址，箭头3位子网掩码。</p>
-<h3 id="6-2-测试与目标主机的连通性"><a href="#6-2-测试与目标主机的连通性" class="headerlink" title="6.2.测试与目标主机的连通性"></a><strong>6.</strong>2.测试与目标主机的连通性</h3><p>命令：ping remote_ip（可以ping通Windows系统的IP）</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC67.tmp.jpg" alt="img"> </p>
-<p>输入ping 192.168.78.192代表测试本机和192主机的网络情况，</p>
-<p>箭头1表示一共接收到了3个包，箭头2表示丢包率为0，表示两者之间的网络顺畅。</p>
-<p>注意：linux系统的ping命令会一直发送数据包，进行测试，除非认为的按ctrl + c停止掉，</p>
-<p>​           windows系统默认只会发4个包进行测试，以下为windows的dos命令。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC68.tmp.jpg" alt="img"> </p>
-<h3 id="6-3-显示各种网络相关信息"><a href="#6-3-显示各种网络相关信息" class="headerlink" title="6.3.显示各种网络相关信息"></a><strong>6.</strong>3.显示各种网络相关信息</h3><p>​    命令：<strong>n</strong>etstat <strong>–a n p t</strong></p>
-<p>-a (all)显示所有选项，默认不显示LISTEN相关<br>-t (tcp)仅显示tcp相关选项<br>-u (udp)仅显示udp相关选项<br>-n 拒绝显示别名，能显示数字的全部转化成数字。<br>-l 仅列出有在 Listen (监听) 的服務状态</p>
-<p>-p 显示建立相关链接的程序名<br>-r 显示路由信息，路由表<br>-e 显示扩展信息，例如uid等<br>-s 按各个协议进行统计<br>-c 每隔一个固定时间，执行该netstat命令。</p>
-<p>提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC69.tmp.jpg" alt="img"> </p>
-<h2 id="七、系统配置"><a href="#七、系统配置" class="headerlink" title="七、系统配置"></a><strong>七、系统配置</strong></h2><h3 id="7-1-主机名配置"><a href="#7-1-主机名配置" class="headerlink" title="7.1 主机名配置"></a><strong>7.1</strong> <strong>主机名配置</strong></h3><p>  若要修改主机名字，可在/etc/sysconfig/network文件里修改.</p>
-<p>vim /etc/sysconfig/network</p>
-<p>​       <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC6A.tmp.jpg" alt="img"></p>
-<p>   机器重启才能生效</p>
-<h3 id="7-2-DNS配置"><a href="#7-2-DNS配置" class="headerlink" title="7.2 DNS配置"></a><strong>7.2</strong> <strong>DNS配置</strong></h3><p> /etc/resolv.conf 为DNS服务器的地址文件</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7A.tmp.jpg" alt="img"> </p>
-<h3 id="7-3-环境变量"><a href="#7-3-环境变量" class="headerlink" title="7.3 环境变量"></a><strong>7.3</strong> <strong>环境变量</strong></h3><p>Linux系统的环境变量是在/etc/profile文件里配置。</p>
-<p>首先考虑一个问题，为什么我们先前敲的yum, service,date,useradd等等，可以直接使用，系统怎么知道这些命令对应的程序是放在哪里的呢？</p>
-<p>这是由于无论是windows系统还是linux系统，都有一个叫做path的系统环境变量，当我们在敲命令时，系统会到path对应的目录下寻找，找到的话就会执行，找不到就会报没有这个命令。如下图：</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7B.tmp.jpg" alt="img"> </p>
-<p>我们可以查看一下，系统一共在哪些目录里寻找命令对应的程序。</p>
-<p>命令：echo $PATH</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7C.tmp.jpg" alt="img"> </p>
-<p>   可以看到path里有很多路径，路径之间有冒号隔开。当用户敲命令时，系统会从左往右依次寻找对应的程序，有的话则运行该程序，没有的就报错，command not found.</p>
-<p>那如果我写了一个脚本（脚本后面会专门讲），我该怎样运行它呢？</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7D.tmp.jpg" alt="img"> </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7E.tmp.jpg" alt="img"> </p>
-<p>对test.sh添加可执行权限，chmod 700 test.sh</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7F.tmp.jpg" alt="img"> </p>
-<p>运行方法有三种：</p>
-<p>一种是到脚本的目录下执行：</p>
-<p>运行命令 ： ./test.sh  ,代表执行当前目录里的脚本test.sh</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC80.tmp.jpg" alt="img"> </p>
-<p>一种是敲脚本的绝对路径：/usr/test/test.sh</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC81.tmp.jpg" alt="img"> </p>
-<p>以上两种运行方式都不是很简便，因为先前我们执行yum service命令等，都是直接敲对应的命令的。所以我们也可以参照这样子做，只要我们配一个环境变量就好。</p>
-<p>编辑： vim /etc/profile 将test.sh所在目录添加到PATH里就OK，我这里test.sh是在/usr/test目录（通过pwd查看）下。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC92.tmp.jpg" alt="img"> </p>
-<p>编辑完之后，执行source /etc/profile命令，重新加载环境变量，此时会发现PATH路径多了一个/usr/test。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC93.tmp.jpg" alt="img"> </p>
-<p>​       最后验证一下，直接执行test.sh</p>
-<p>​       <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC94.tmp.jpg" alt="img"></p>
-<h2 id="八、服务操作"><a href="#八、服务操作" class="headerlink" title="八、服务操作"></a><strong>八、服务操作</strong></h2><h3 id="8-1-列出所有服务"><a href="#8-1-列出所有服务" class="headerlink" title="8.1 列出所有服务"></a><strong>8.1 列出所有服务</strong></h3><p>命令：chkconfig</p>
-<p>查询操作系统在每一个执行等级中会执行哪些系统服务，其中包括各类常驻服务。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC95.tmp.jpg" alt="img"> </p>
-<p>各数字代表的系统初始化级别含义：</p>
-<p>​     0：停机状态</p>
-<p>　　1：单用户模式，root账户进行操作</p>
-<p>　　2：多用户，不能使用net file system，一般很少用</p>
-<p>　　3：完全多用户，一部分启动，一部分不启动，命令行界面</p>
-<p>　　4：未使用、未定义的保留模式</p>
-<p>　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。</p>
-<p>　　6：停止所有进程，卸载文件系统，重新启动(reboot)</p>
-<p>　　这些级别中1、2、4很少用，相对而言0、3、5、6用的会较多。3级别和5级别除了桌面相关的进程外没有什么区别。为了减少资源占用，推荐都用3级别.</p>
-<p>注意 ：linux默认级别为3，不要把/etc/inittab 中initdefault 设置为0 和 6 </p>
-<h3 id="8-2-服务操作"><a href="#8-2-服务操作" class="headerlink" title="8.2 服务操作"></a><strong>8.2</strong> <strong>服务操作</strong></h3><p>service 服务名 start/stop/status/restart</p>
-<p>例子：对防火墙服务进行操作，防火墙的服务名为：iptables.</p>
-<p>​    查看防火墙服务运行状态。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC96.tmp.jpg" alt="img"> </p>
-<p>   关闭防火墙.  </p>
-<p> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsECA6.tmp.jpg" alt="img"></p>
-<p>开启防火墙 </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsECA7.tmp.jpg" alt="img"> </p>
-<h3 id="8-3-关闭防火墙"><a href="#8-3-关闭防火墙" class="headerlink" title="8.3 关闭防火墙"></a><strong>8.3 关闭防火墙</strong></h3><p>service iptables start/stop/status</p>
-<p>注：学习期间直接把防火墙关掉就是，工作期间也是运维人员来负责防火墙的。</p>
-<p>永久开启/关闭防火墙</p>
-<p>chkconfig iptables on/off</p>
-<h3 id="8-4-服务初执行等级更改"><a href="#8-4-服务初执行等级更改" class="headerlink" title="8.4 服务初执行等级更改"></a><strong>8.4</strong> <strong>服务初执行等级更改</strong></h3><p>chkconfig –level   2345    name      off|on</p>
-<p>​                                        <code>（服务名）</code></p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDC2.tmp.jpg" alt="img"> </p>
-<p>若不加级别，默认是2345级别</p>
-<p>命令：chkconfig name on|off</p>
-<p>​                          <code>（服务名）</code></p>
-<h2 id="九、linux进程操作"><a href="#九、linux进程操作" class="headerlink" title="九、linux进程操作"></a><strong>九、linux进程操作</strong></h2><h3 id="9-1-查看所有进程"><a href="#9-1-查看所有进程" class="headerlink" title="9.1 查看所有进程"></a><strong>9.1 查看所有进程</strong></h3><p>命令： ps  -aux</p>
-<p>​    -a 列出所有</p>
-<p>​    -u 列出用户</p>
-<p>​    -x 详细列出，如cpu、内存等</p>
-<ul>
-<li>e </li>
-</ul>
-<p>​    -f </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDC3.tmp.jpg" alt="img"> </p>
-<p>命令： ps  - ef  |  grep ssh</p>
-<p> 查看所有进程里CMD是ssh 的进程信息。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD3.tmp.jpg" alt="img"> </p>
-<p>其中箭头所指的是sshd服务进程的进程号（PID）</p>
-<h3 id="9-2-杀死进程"><a href="#9-2-杀死进程" class="headerlink" title="9.2 杀死进程"></a><strong>9.2</strong> <strong>杀死进程</strong></h3><p>Kill</p>
-<p>用法 kill pid </p>
-<p>-9：强制杀死</p>
-<p>ps 命令先查出对应程序的PID或PPID ，然后杀死掉进程。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD4.tmp.jpg" alt="img"> </p>
-<h2 id="十、-其他常用命令"><a href="#十、-其他常用命令" class="headerlink" title="十、 其他常用命令"></a>十、 <strong>其他常用命令</strong></h2><h3 id="10-1-yum"><a href="#10-1-yum" class="headerlink" title="10.1 yum"></a><strong>10.1</strong> <strong>yum</strong></h3><p>yum是一个在Fedora和RedHat以及CentOS中的<a href="https://baike.baidu.com/item/Shell" target="_blank" rel="noopener">Shell</a>前端软件包管理器。基于<a href="https://baike.baidu.com/item/RPM" target="_blank" rel="noopener">RPM</a>包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
-<p>由于centos系统的yum默认是到国外网站下载，有时下载速度会很慢，故我们可以换一个yum的下载源，这里我们换一个国内的下载源 阿里云镜像。</p>
-<p>第一步：备份你的原镜像文件，以免出错后可以恢复。</p>
-<p>cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD5.tmp.jpg" alt="img"> </p>
-<p>第二步：下载新的CentOS-Base.rep到/etc/yum.repos.d/</p>
-<p>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a></p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD6.tmp.jpg" alt="img"> </p>
-<p>下载完之后，vim /etc/yum.repos.d/CentOS-Base.repo 查看一下文件内容。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD7.tmp.jpg" alt="img"> </p>
-<p>第三步：运行yum makecache生成缓存</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD8.tmp.jpg" alt="img"> </p>
-<p>查看当前源</p>
-<p>yum list | head -50</p>
-<h3 id="10-2-wget"><a href="#10-2-wget" class="headerlink" title="10.2 wget"></a>10.2 <strong>wget</strong></h3><p>wget 是一个从网络上自动下载文件的自由工具，支持通过 HTTP、HTTPS、FTP 三个最常见的 <a href="https://baike.baidu.com/item/TCP%2FIP%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">TCP/IP协议</a> 下载，并可以使用 HTTP 代理</p>
-<p>需先安装 yum install wget  –y </p>
-<p>wget用法:wget [option] 网址  -O    指定下载保存的路径    </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD9.tmp.jpg" alt="img"> </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEA.tmp.jpg" alt="img"> </p>
-<p>wget 工具还可以用来做一些简单的爬虫，这里不是我们的学习重点，如果想做爬虫，可以用java或python语言来做。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEB.tmp.jpg" alt="img"> </p>
-<h3 id="10-3-tar"><a href="#10-3-tar" class="headerlink" title="10.3 tar"></a><strong>10.3 tar</strong></h3><p>tar </p>
-<p>​    -z    gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加</p>
-<p>​    -x    解压</p>
-<p>​    -c    压缩</p>
-<p>​    -f    目标文件，压缩文件新命名或解压文件名</p>
-<p>​    -v    解压缩过程信息打印</p>
-<p>解压命令：tar  -zvxf  xxxx.tar.gz</p>
-<p>例子：先用rz命令或wscp上传一个tar包，然后解压。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEC.tmp.jpg" alt="img"> </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDED.tmp.jpg" alt="img"> </p>
-<p>解压后：</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEE.tmp.jpg" alt="img"> </p>
-<p>压缩命令：tar -zcf 压缩包命名 压缩目标</p>
-<p>例子：tar -zcf tomcat.tar.gz apache-tomcat-7.0.61 </p>
-<p>将 apache-tomcat-7.0.61 目录压缩成tomcat.tar.gz包。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEF.tmp.jpg" alt="img"> </p>
-<h2 id="十一、JDK部署"><a href="#十一、JDK部署" class="headerlink" title="十一、JDK部署"></a><strong>十一、JDK部署</strong></h2><h3 id="11-1-官网下载"><a href="#11-1-官网下载" class="headerlink" title="11.1 官网下载"></a><strong>11.1 官网下载</strong></h3><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE00.tmp.jpg" alt="img"> </p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE01.tmp.jpg" alt="img"> </p>
-<h3 id="11-2-上传并解压"><a href="#11-2-上传并解压" class="headerlink" title="11.2 上传并解压"></a><strong>11.2 上传并解压</strong></h3><p>用xftp将jdk包上传到linux系统里，我这里上传到/usr/soft目录下。</p>
-<p>然后解压: tar -zxf jdk-7u80-linux-x64.tar.gz</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE02.tmp.jpg" alt="img"> </p>
-<h3 id="11-3配置环境变量"><a href="#11-3配置环境变量" class="headerlink" title="11.3配置环境变量"></a><strong>11.</strong>3<strong>配置环境变量</strong></h3><p>配置全局JAVA_HOME，并在PATH路径里加入java_home/bin.</p>
-<p>注意：新的path路径必须要包含旧的PATH路径，且每个路径之间以冒号隔开，而不是分号</p>
-<p>vim /etc/profile</p>
-<p>JAVA_HOME= /usr/soft/jdk1.7.0_75</p>
-<p>PATH=$PATH:$JAVA_HOME/bin</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE03.tmp.jpg" alt="img"> </p>
-<p>重新加载环境变量：source  /etc/profile</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE04.tmp.jpg" alt="img"> </p>
-<h3 id="11-4-验证"><a href="#11-4-验证" class="headerlink" title="11.4 验证"></a><strong>11.4 </strong>验证</h3><p>java  -version</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE05.tmp.jpg" alt="img"> </p>
-<p>如出现上图，则表示java环境变量配置成功。</p>
-<h2 id="十二、部署Tomcat"><a href="#十二、部署Tomcat" class="headerlink" title="十二、部署Tomcat"></a><strong>十二、部署Tomcat</strong></h2><h3 id="12-1-官网下载"><a href="#12-1-官网下载" class="headerlink" title="12.1 官网下载"></a><strong>1</strong>2<strong><strong>.</strong></strong>1 官网下载</h3><p>下载tomcat</p>
-<p><a href="http://tomcat.apache.org/" target="_blank" rel="noopener">http://tomcat.apache.org/</a></p>
-<h3 id="12-2-上传并解压"><a href="#12-2-上传并解压" class="headerlink" title="12**.2 上传并解压**"></a><strong>1</strong>2<strong>**.2 </strong>上传并解压**</h3><p>我这里上传至/usr/soft目录下，然后解压。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE06.tmp.jpg" alt="img"> </p>
-<h3 id="12-3-启动tomcat"><a href="#12-3-启动tomcat" class="headerlink" title="12.3 启动tomcat"></a><strong>12.3 启动tomcat</strong></h3><p>在tomcat的bin目录下有个startup.sh 脚本可以直接启动tomcat服务</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE16.tmp.jpg" alt="img"> </p>
-<p>关闭tomcat服务，可以用shutdown.sh命令。</p>
-<p>或者ps -ef | grep tomcat 查看出tomcat进程号后，用kill命令。</p>
-<h3 id="12-4-jps"><a href="#12-4-jps" class="headerlink" title="12.4 jps"></a><strong>12.4</strong> <strong>jps</strong></h3><p>jps是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE17.tmp.jpg" alt="img"> </p>
-<p>如上图所示，jps命令显示出了，系统当前运行在jvm上的进程情况。其中Bootstrap是tomcat的进程名字，1996是tomcat的PID</p>
-<h3 id="13-5验证"><a href="#13-5验证" class="headerlink" title="13.5验证"></a><strong>13.</strong>5验证</h3><p>先把防火墙关了（service iptables stop），然后访问虚拟机IP的8080端口</p>
-<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE18.tmp.jpg" alt="img"> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/23/Linux网络配置+常用命令学习(第一回合)/" data-id="cjr9yhs5z000oc8l0jb0umrwr" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Linux 入门学习（第二回合）" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/23/Linux 入门学习（第二回合）/" class="article-date">
-  <time datetime="2019-01-23T15:33:18.403Z" itemprop="datePublished">2019-01-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="Linux-入门学习（第二回合）"><a href="#Linux-入门学习（第二回合）" class="headerlink" title="Linux 入门学习（第二回合）"></a>Linux 入门学习（第二回合）</h1><p><code>2018年12月18日  周二  晴</code></p>
-<p><strong>今日学习要点：</strong></p>
-<p>[TOC]</p>
-<h2 id="Linux后半程"><a href="#Linux后半程" class="headerlink" title="Linux后半程"></a>Linux后半程</h2><h3 id="一、Linux系统配置"><a href="#一、Linux系统配置" class="headerlink" title="一、Linux系统配置"></a>一、Linux系统配置</h3><h4 id="1-主机名配置："><a href="#1-主机名配置：" class="headerlink" title="1.主机名配置："></a>1.主机名配置：</h4><blockquote>
-<p>vim  /etc/sysconfig/network</p>
-</blockquote>
-<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1545214876278.png" alt="1545214876278"></p>
-<p>配置完成之后需要重启机器才能生效</p>
-<blockquote>
-<p>reboot</p>
-</blockquote>
-<h4 id="2-DNS配置"><a href="#2-DNS配置" class="headerlink" title="2.DNS配置"></a>2.DNS配置</h4><blockquote>
-<h1 id="查看DNS服务器的地址"><a href="#查看DNS服务器的地址" class="headerlink" title="查看DNS服务器的地址"></a>查看DNS服务器的地址</h1><p>cat  /etc/resolv.conf</p>
-<h1 id="修改DNS服务器地址"><a href="#修改DNS服务器地址" class="headerlink" title="修改DNS服务器地址"></a>修改DNS服务器地址</h1><p>方式一：vim  /etc/sysconfig/network.scripts/ifconfig-eth0</p>
-<p>​             在配置网关时，配置DNS1=114.114.114.114（不推荐，江苏南京的IP）</p>
-<p>方式二：vim   /etc/resolv.conf    （用本地网关解析）</p>
-<p>​              nameserver   192.168.198.0   ( 此为虚拟机中的网关地址)</p>
-</blockquote>
-<h4 id="3-环境变量"><a href="#3-环境变量" class="headerlink" title="3.环境变量"></a>3.环境变量</h4><blockquote>
-<p>配置系统环境变量，使得某些命令在执行时，系统可以找到命令对应的执行程序，命令才能正常执行。</p>
-</blockquote>
-<p>查看系统一共在哪些目录里寻找命令对应的程序</p>
-<blockquote>
-<p>命令：echo $PATH</p>
-</blockquote>
-<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1545215894631.png" alt="1545215894631"></p>
-<p><code>注意</code>：路径之间有冒号隔开，系统会从左往右依次寻找对应的程序</p>
-<p>​             一般命令会存放在  bin目录，或sbin目录</p>
-<p>配置全局环境变量：</p>
-<blockquote>
-<p>vim  /etc/profile</p>
-<p>在文件中：</p>
-<p>PATH=$PATH:(命令所在目录)</p>
-<p>退出文件编辑后：</p>
-<p>source  /etc/profile  </p>
-<p> (重新加载资源，有的可能需要重启机器，这不适用于实际状况)</p>
-</blockquote>
-<p>配置局部环境变量：（推荐，限当前登录用户使用）</p>
-<blockquote>
-<p>查看所有文件(root目录下)</p>
-<p>ls  -a    (发现隐藏文件    .bash.profile)</p>
-<p>vim  ~/ bash_profile</p>
-<p>在文件中：</p>
-<p>export  PATH =$PATH:(命令所在目录)</p>
-</blockquote>
-<h4 id="4-拍快照"><a href="#4-拍快照" class="headerlink" title="4.拍快照"></a>4.拍快照</h4><p>（保存当时计算机所出状态的各种配置和资源，适度使用）</p>
-<blockquote>
-<p>选中指定虚拟计算机——鼠标右击—–选中“快照” ——“拍摄快照‘—-在页面中找到”拍摄快照“，并添加名称和描述</p>
-<p>也可以删除，找到页面中的删除按钮</p>
-</blockquote>
-<h3 id="二、服务操作"><a href="#二、服务操作" class="headerlink" title="二、服务操作"></a>二、服务操作</h3><h4 id="1、查询操作系统"><a href="#1、查询操作系统" class="headerlink" title="1、查询操作系统"></a>1、查询操作系统</h4><p>在每一个执行等级中会执行哪些系统服务，其中包括各类常驻服务。</p>
-<blockquote>
-<p>命令：chkconfig</p>
-</blockquote>
-<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1545219619458.png" alt="1545219619458"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">各数字代表的系统初始化级别：</span><br><span class="line">    0：停机状态</span><br><span class="line">　　1：单用户模式，root账户进行操作</span><br><span class="line">　　2：多用户，不能使用net file system，一般很少用</span><br><span class="line">　　3：完全多用户，一部分启动，一部分不启动，命令行界面</span><br><span class="line">　　4：未使用、未定义的保留模式</span><br><span class="line">　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。</span><br><span class="line">　　6：停止所有进程，卸载文件系统，重新启动(reboot)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>1、2、4很少用，0、3、5、6常用，3级别和5级别除了桌面相关的进程外没有什么区别，推荐都用3级别；</p>
-<p>linux默认级别为3；</p>
-<p>不要把 /etc/inittab  中 initdefault 设置为0 和 6； </p>
-</blockquote>
-<h4 id="2、服务操作"><a href="#2、服务操作" class="headerlink" title="2、服务操作"></a>2、服务操作</h4><blockquote>
-<p>service 服务名 start/stop/status/restart</p>
-</blockquote>
-<p>举例：对防火墙服务进行操作</p>
-<blockquote>
-<p>防火墙的服务名为：iptables</p>
-</blockquote>
-<p>查看防火墙服务运行状态</p>
-<blockquote>
-<p>service  iptables status</p>
-</blockquote>
-<p>关闭防火墙</p>
-<blockquote>
-<p>service  iptables stop</p>
-</blockquote>
-<p>开启防火墙</p>
-<blockquote>
-<p>service  iptables start</p>
-</blockquote>
-<p>永久开启/关闭防火墙</p>
-<blockquote>
-<p>chkconfig iptables on/off</p>
-</blockquote>
-<h4 id="3、服务初执行等级更改"><a href="#3、服务初执行等级更改" class="headerlink" title="3、服务初执行等级更改"></a>3、服务初执行等级更改</h4><blockquote>
-<p>chkconfig –level 2345 <code>name</code> off|on<br>​                                   （ <code>服务名</code>）</p>
-<p>举例：防火墙</p>
-<p>chkconfig –level 2345 iptables   off</p>
-</blockquote>
-<p>若不加级别，默认是2345级别</p>
-<blockquote>
-<p>命令：chkconfig <code>name</code> on|off<br>​                         （<code>服务名</code>）</p>
-</blockquote>
-<h3 id="三、linux进程操作"><a href="#三、linux进程操作" class="headerlink" title="三、linux进程操作"></a>三、linux进程操作</h3><h4 id="1、查看所有进程"><a href="#1、查看所有进程" class="headerlink" title="1、查看所有进程"></a>1、查看所有进程</h4><blockquote>
-<p>命令： ps  -aux</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   -a 列出所有</span><br><span class="line">-u 列出用户</span><br><span class="line">-x 详细列出，如cpu、内存等</span><br><span class="line">    -e select all processes    相当于-a</span><br><span class="line">    -f does full-format listing   将所有格式详细列出来</span><br></pre></td></tr></table></figure>
-<p>查看所有进程里CMD是ssh 的进程信息（包括pid 进程号）</p>
-<blockquote>
-<p>命令： ps  - ef | grep ssh      </p>
-<p>（|  管道符  ：前一个输出，变为后一个的输入）</p>
-<p>举例：</p>
-<p>ps -ef | grep redis</p>
-</blockquote>
-<h4 id="2、杀死进程"><a href="#2、杀死进程" class="headerlink" title="2、杀死进程"></a>2、杀死进程</h4><p><code>kill</code></p>
-<blockquote>
-<p>命令：kill pid </p>
-<p>-9    强制杀死</p>
-<p>用法：用ps 命令先查出对应程序的PID或PPID ，然后用kill杀死掉进程。</p>
-</blockquote>
-<h3 id="四、其他常用命令"><a href="#四、其他常用命令" class="headerlink" title="四、其他常用命令"></a>四、其他常用命令</h3><h4 id="1、yum"><a href="#1、yum" class="headerlink" title="1、yum"></a>1、<strong>yum</strong></h4><table>
-<thead>
-<tr>
-<th>基于<a href="https://baike.baidu.com/item/RPM" target="_blank" rel="noopener">RPM</a>包管理</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装</td>
-</tr>
-</tbody>
-</table>
-<p>跟换yum下载源（默认是到国外网站下载）</p>
-<p>第一步：备份你的原镜像文件，以免出错后可以恢复</p>
-<blockquote>
-<p>cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</p>
-</blockquote>
-<p>第二步：下载新的CentOS-Base.rep到/etc/yum.repos.d/</p>
-<blockquote>
-<p>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a></p>
-</blockquote>
-<p>下载完之后，查看一下文件内容</p>
-<blockquote>
-<p>vim  /etc/yum.repos.d/CentOS-Base.repo</p>
-</blockquote>
-<p>第三步：生成缓存</p>
-<blockquote>
-<p>运行yum makecache</p>
-</blockquote>
-<p>查看当前源</p>
-<blockquote>
-<p>yum list | head -50</p>
-</blockquote>
-<h4 id="2、-wget"><a href="#2、-wget" class="headerlink" title="2、 wget"></a>2、 <strong>wget</strong></h4><table>
-<thead>
-<tr>
-<th>一个从网络上自动下载文件的自由工具</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>支持通过 HTTP、HTTPS、FTP 三个最常见的 TCP/IP协议，可以使用 HTTP 代理</td>
-</tr>
-</tbody>
-</table>
-<p>安装：</p>
-<blockquote>
-<p>yum install wget  –y</p>
-</blockquote>
-<p>用法：</p>
-<blockquote>
-<p>wget  [option] 网址  -O    指定下载保存的路径</p>
-<p>举例：</p>
-<p>wget  <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>  -O baidu.html</p>
-</blockquote>
-<h4 id="3、tar"><a href="#3、tar" class="headerlink" title="3、tar"></a>3、<strong>tar</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   -z	gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加</span><br><span class="line">-x	解压</span><br><span class="line">-c	压缩</span><br><span class="line">-f	目标文件，压缩文件新命名或解压文件名</span><br><span class="line">-v	解压缩过程信息打印</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解压命令：tar  -zvxf  xxxx.tar.gz</p>
-</blockquote>
-<blockquote>
-<p>压缩命令：tar -zcf 压缩包命名 压缩目标<br>举例：</p>
-<p>tar -zcf  tomcat.tar.gz  apache-tomcat-7.0.61<br>将 apache-tomcat-7.0.61 目录压缩成tomcat.tar.gz包</p>
-</blockquote>
-<h4 id="4、man"><a href="#4、man" class="headerlink" title="4、man"></a>4、<strong>man</strong></h4><p>作用：用于查看指定命令的具体解释</p>
-<p>安装</p>
-<blockquote>
-<p>yum install  man  -y</p>
-<p>(下载并安装man  并确认)</p>
-</blockquote>
-<p>使用</p>
-<blockquote>
-<p>man  ps</p>
-</blockquote>
-<h3 id="五、JDK部署"><a href="#五、JDK部署" class="headerlink" title="五、JDK部署"></a>五、JDK部署</h3><h4 id="1、准备JDK安装包："><a href="#1、准备JDK安装包：" class="headerlink" title="1、准备JDK安装包："></a>1、准备JDK安装包：</h4><p>（这是使用   .rpm  格式的安装包）</p>
-<p>官网下载：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
-<p>云盘资源：  <a href="https://pan.baidu.com/s/1LzeQbOnG9PROZrtlbYHlDg" target="_blank" rel="noopener">jdk-8u191-linux-x64.rpm</a>  ：</p>
-<p>​     根据用户喜好放到虚拟机器的文件目录中</p>
-<h4 id="2、解压并安装，展示编译过程"><a href="#2、解压并安装，展示编译过程" class="headerlink" title="2、解压并安装，展示编译过程"></a>2、解压并安装，展示编译过程</h4><blockquote>
-<p>rpm   -ivh  jdk-8u191-linux-x64.rpm</p>
-</blockquote>
-<p>安装放到了 /usr 目录下，有/java目录</p>
-<h4 id="3、配置环境变量"><a href="#3、配置环境变量" class="headerlink" title="3、配置环境变量"></a>3、配置环境变量</h4><blockquote>
-<p>vim  ~/.bash_profile</p>
-<p>在文件中：</p>
-<p>JAVA_HOME=(jdk文件所在的路径+jdk文件名)</p>
-<p>export  PATH=$PATH:$JAVA_HOME/bin</p>
-</blockquote>
-<p>注意：</p>
-<p>新的path路径必须要包含旧的PATH路径，且每个路径之间以冒号隔开，而不是分号</p>
-<blockquote>
-<p>配置完成，退出编辑框后</p>
-<p>source  ~/.hash_profile</p>
-</blockquote>
-<h4 id="4、测试："><a href="#4、测试：" class="headerlink" title="4、测试："></a>4、测试：</h4><blockquote>
-<p>java  -version</p>
-<p>或</p>
-<p>echo  $JAVA_HOME</p>
-</blockquote>
-<p><code>echo   标准输出，打印</code></p>
-<h3 id="六、Tomcat部署"><a href="#六、Tomcat部署" class="headerlink" title="六、Tomcat部署"></a>六、Tomcat部署</h3><h4 id="1、官网下载"><a href="#1、官网下载" class="headerlink" title="1、官网下载"></a>1、官网下载</h4><p><a href="http://tomcat.apache.org/" target="_blank" rel="noopener">http://tomcat.apache.org/</a></p>
-<p>云盘资源：<a href="https://pan.baidu.com/s/1e7OSIf3K9YpFCzXncMj_9Q" target="_blank" rel="noopener">apache-tomcat-7.0.61.tar</a></p>
-<h4 id="2、上传并解压"><a href="#2、上传并解压" class="headerlink" title="2、上传并解压"></a>2、上传并解压</h4><blockquote>
-<p>tar -zvxf  apache-tomcat-7.0.61.tar</p>
-</blockquote>
-<h4 id="3、启动tomcat"><a href="#3、启动tomcat" class="headerlink" title="3、启动tomcat"></a>3、启动tomcat</h4><p>在tomcat的bin目录下有个startup.sh 脚本可以直接启动tomcat服务</p>
-<blockquote>
-<p>./startup.sh</p>
-</blockquote>
-<h4 id="4、关闭tomcat服务"><a href="#4、关闭tomcat服务" class="headerlink" title="4、关闭tomcat服务"></a>4、关闭tomcat服务</h4><p>方式一：可以用shutdown.sh命令</p>
-<p>方式二：ps -ef | grep tomcat 查看出tomcat进程号后，用kill命令</p>
-<h4 id="5、验证"><a href="#5、验证" class="headerlink" title="5、验证"></a>5、验证</h4><p>先把防火墙关了（service iptables stop），然后访问虚拟机IP的8080端口</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/23/Linux 入门学习（第二回合）/" data-id="cjr9yhs3f000ic8l0k7yx0b9o" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
     <article id="post-Flume学习" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/18/Flume学习/" class="article-date">
@@ -1274,197 +305,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigData/">BigData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/头脑风暴/">头脑风暴</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Hadoop2.X" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/04/Hadoop2.X/" class="article-date">
-  <time datetime="2019-01-04T11:05:47.000Z" itemprop="datePublished">2019-01-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>[TOC]</p>
-<h2 id="一、Hadoop-2-x产生背景"><a href="#一、Hadoop-2-x产生背景" class="headerlink" title="一、Hadoop 2.x产生背景"></a>一、Hadoop 2.x产生背景</h2><h3 id="1、Hadoop-1-0存在的问题"><a href="#1、Hadoop-1-0存在的问题" class="headerlink" title="1、Hadoop 1.0存在的问题"></a>1、Hadoop 1.0存在的问题</h3><h4 id="（1）HDFS存在的问题"><a href="#（1）HDFS存在的问题" class="headerlink" title="（1）HDFS存在的问题"></a>（1）HDFS存在的问题</h4><ul>
-<li>NameNode单点故障，难以应用于在线场景</li>
-<li>NameNode（一个）压力过大，内存受限，影响系统扩展性</li>
-</ul>
-<h4 id="（2）MapReduce存在的问题"><a href="#（2）MapReduce存在的问题" class="headerlink" title="（2）MapReduce存在的问题"></a>（2）MapReduce存在的问题</h4><ul>
-<li>JobTracker访问压力大，影响系统扩展性</li>
-<li>难以支持MapReduce以外的计算框架，比如Spark、Storm</li>
-</ul>
-<h3 id="2、Hadoop-2-0分支"><a href="#2、Hadoop-2-0分支" class="headerlink" title="2、Hadoop 2.0分支"></a>2、Hadoop 2.0分支</h3><p>HDFS：分布式文件存储系统<br>MapReduce：计算框架<br>YARN：资源管理系统</p>
-<h3 id="3、特点"><a href="#3、特点" class="headerlink" title="3、特点"></a>3、特点</h3><p> 1）. 解决单点故障：HDFS HA（高可用）</p>
-<blockquote>
-<p>  通过主备NameNode解决，如果主NameNode发生故障，就切换到备NameNode上   |</p>
-</blockquote>
-<p> 2).解决内存受限问题：HDFS Federation（联邦制）、HA</p>
-<blockquote>
-<p> HA：两个NameNode<br> (3.0就实现了一组多从：水平扩展，支持多个NameNode；每个NameNode分管一部分目录；所有NameNode共享所有DataNode资源)</p>
-</blockquote>
-<p> 3).仅架构上发生变化使用方式不变</p>
-<h2 id="二、HDFS-HA结构及功能"><a href="#二、HDFS-HA结构及功能" class="headerlink" title="二、HDFS HA结构及功能"></a>二、HDFS HA结构及功能</h2><h3 id="HA"><a href="#HA" class="headerlink" title="**HA"></a>**HA</h3><p>DN：DataNode（数据节点）</p>
-<blockquote>
-<p>存放数据block块；遵循心跳机制向NN Active和NN Standby汇报block块信息，但只执行active的命令         </p>
-</blockquote>
-<p>主备NN：NameNode Active 和 NameNode Standby （主备名称节点）</p>
-<blockquote>
-<p>主NN对外提供读写服务，备NN同步主NN元数据，以待切换，所有的DN同时向两个NN汇报数据块信息</p>
-<p>元数据信息加载到主NN，并写入JN（至少写两台：过半原则）；</p>
-<p>备NN可以从JN中同步元数据信息；</p>
-<p>解决单点故障；</p>
-<p>–两种切换方式：</p>
-<p>手动：通过命令实现主备切换</p>
-<p>自动：基于Zookeeper实现（详情见搭建步骤）</p>
-</blockquote>
-<p>JN：JournalNode（至少3台）</p>
-<blockquote>
-<p>存储主NN元数据信息，实现主备NN间数据共享；</p>
-<p>（遵循过半原则：至少有过半的数量参与投票）</p>
-</blockquote>
-<p>ZKFC：FailoverController（竞争锁）</p>
-<blockquote>
-<p>谁拿到了这个所，谁就是active NN</p>
-<p>心跳机制监控主备NN状态，一旦出现一台挂机，就会释放锁，另一个NN就会立即启动竞争锁，成为active NN</p>
-</blockquote>
-<p>ZK：Zookeeper（至少3台）</p>
-<blockquote>
-<p>（实现主备NN切换）</p>
-</blockquote>
-<h3 id="联邦"><a href="#联邦" class="headerlink" title="**联邦"></a>**联邦</h3><blockquote>
-<p>通过多个namenode/namespace把元数据的存储和管理分散到多个节点中，使到namenode/namespace可以通过增加机器来进行水平扩展</p>
-</blockquote>
-<blockquote>
-<p>通过多个namespace来隔离不同类型的应用，把不同类型应用的HDFS元数据的存储和管理分派到不同的namenode中。</p>
-</blockquote>
-<h2 id="三、YARN-资源管理"><a href="#三、YARN-资源管理" class="headerlink" title="三、YARN(资源管理)???????"></a>三、YARN(资源管理)???????</h2><p><code>详见Yarn学习.md</code></p>
-<p>1、核心思想：SourceManager（资源管理）+ReplicationMaster（任务调度）</p>
-<p>2.yarn的引入使得多个计算框架可以应用到一个集群中</p>
-<h2 id="四、Zookeeper工作原理"><a href="#四、Zookeeper工作原理" class="headerlink" title="四、Zookeeper工作原理"></a>四、Zookeeper工作原理</h2><p><code>详见Zookeeper学习.md</code></p>
-<h2 id="五、Hadoop2-X-集群搭建"><a href="#五、Hadoop2-X-集群搭建" class="headerlink" title="五、Hadoop2.X 集群搭建"></a>五、Hadoop2.X 集群搭建</h2><h3 id="1、linux环境下搭建"><a href="#1、linux环境下搭建" class="headerlink" title="1、linux环境下搭建"></a>1、linux环境下搭建</h3><table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:center">NN</th>
-<th style="text-align:center">DN</th>
-<th style="text-align:center">JN</th>
-<th style="text-align:center">ZKFC</th>
-<th style="text-align:center">ZK</th>
-<th style="text-align:center">SM</th>
-<th style="text-align:center">RM</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>node00</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td>node01</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td>node02</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-</tr>
-</tbody>
-</table>
-<p>0.在搭建环境之前的准备</p>
-<p>三台虚拟机：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">关闭防火墙</span><br><span class="line">安装jdk</span><br><span class="line">编辑/etc/hosts/给各个节点服务器起别名</span><br><span class="line">时间服务器：ntpdate</span><br><span class="line">     安装：yum install ntpdate -y</span><br><span class="line">     生成：ntpdate cn.ntp.org.cn</span><br><span class="line">免密登录环境准备</span><br></pre></td></tr></table></figure>
-<p>在hadoop安装目录下hadoop-2.6.5/etc/hadoop/</p>
-<ol>
-<li>编辑hadoop-env.sh</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br></pre></td></tr></table></figure>
-<p>   2.编辑core-site.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://Sunrise<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--配置集群的名字--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>ha.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:2181,node01:2181,node02:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置zookeeper：三个节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--配置hadoop基础配置存放的路径--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>3.编辑hdfs-site.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.nameservices<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>sxt<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.namenodes.Sunrise<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>nn1,nn2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.Sunrise.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.Sunrise.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.Sunrise.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.Sunrise.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定namenode元数据存储在journalnode中的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.shared.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>qjournal://node00:8485;node01:8485;node02:8485/sxt<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定HDFS客户端连接active namenode的java类 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.failover.proxy.provider.Sunrise<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 配置隔离机制为ssh 防止脑裂：保证activeNN仅有一台--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.methods<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>sshfence<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定秘钥的位置 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.ssh.private-key-files<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/.ssh/id_dsa<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--免密登录是生成的文件，有的是id_rsa--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 指定journalnode日志文件存储的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.journalnode.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 开启自动故障转移 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.automatic-failover.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>配置hadoop中的slaves（主从架构：datanode）</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node00</span><br><span class="line">node01</span><br><span class="line">node02</span><br></pre></td></tr></table></figure>
-<p>  5.准备zookeeper</p>
-<ul>
-<li><p>三台zookeeper：node00，node01，node02</p>
-</li>
-<li><p>编辑zookeeper-3.4.13/conf/zoo.cfg</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/usr/soft/zookeeper-3.4.13/data</span><br><span class="line">dataLogDir=/usr/soft/zookeeper-3.4.13/logs</span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=node00:2888:3888</span><br><span class="line">server.2=node01:2888:3888</span><br><span class="line">server.3=node02:2888:3888</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在dataDir目录中创建文件myid，三台节点的文件内容分别为1，2，3</p>
-</li>
-</ul>
-<p>6.配置环境变量   </p>
-<blockquote>
-<p>vim ~/.bash_profile</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>source ~/.bash_profile</p>
-<p>使其成为资源文件，发送到其他节点后，也需要此操作</p>
-</blockquote>
-<p>7.将以上配置文件远程发送至其他节点服务器</p>
-<blockquote>
-<p>scp -r filename nodename:<code>pwd</code></p>
-</blockquote>
-<p>8.命令操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1. 启动三个zookeeper：./zkServer.sh start</span><br><span class="line">2. 启动三个JournalNode：./hadoop-daemon.sh start journalnode</span><br><span class="line">3. （生成fsimage文件）在其中一个namenode上格式化：</span><br><span class="line">    hdfs namenode -format</span><br><span class="line">4. 把刚刚格式化之后的元数据拷贝到另外一个namenode上</span><br><span class="line"> a)	启动刚刚格式化的namenode :  hadoop-daemon.sh start namenode</span><br><span class="line"> b)	（同步fsimage文件）在另一个（没有格式化的）namenode上执行：</span><br><span class="line">    hdfs namenode -bootstrapStandby</span><br><span class="line"> c)	启动没格式化的namenode：    hadoop-daemon.sh start namenode</span><br><span class="line">5. （初始化竞争锁zookeeper）在其中一个namenode上初始化zkfc：</span><br><span class="line">    hdfs zkfc -formatZK</span><br><span class="line">6. 停止上面节点：stop-dfs.sh</span><br><span class="line">7. 全面启动（三个节点）：start-dfs.sh</span><br><span class="line">8. 启动yarn资源管理器</span><br><span class="line">   yarn-daemon.sh start resourcemanager </span><br><span class="line">   (yarn resourcemanager  )</span><br></pre></td></tr></table></figure>
-<h3 id="2、使用"><a href="#2、使用" class="headerlink" title="2、使用"></a>2、使用</h3><p>（启动步骤）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1)关闭防火墙：service iptables stop        （3台）</span><br><span class="line">(2)启动zookeeper:zkServer.sh start          （3台）</span><br><span class="line">(3)启动集群：start-dfs.sh |（start-all.sh   :  同时启动hdfs和yarn)</span><br><span class="line">(4)启动yarn：yarn-daemon.sh start resourcemanager （可3台）</span><br></pre></td></tr></table></figure>
-<p>（关闭步骤）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1)关闭yarn：yarn-daemon.sh stop resourcemanager  （开几台关几台）</span><br><span class="line">(2)关闭集群：stop-dfs.sh   |（stop-all.sh    :同时关闭hdfs和yarn） （3台）</span><br><span class="line">(3)关闭zookeeper：zkServer.sh stop                 （3台）</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">有可能会出错的地方</span><br><span class="line">1，	确认每台机器防火墙均关掉</span><br><span class="line">2，	确认每台机器的时间是一致的</span><br><span class="line">3，	确认配置文件无误，并且确认每台机器上面的配置文件一样</span><br><span class="line">4，	如果还有问题想重新格式化，那么先把所有节点的进程关掉</span><br><span class="line">5，	删除之前格式化的数据目录hadoop.tmp.dir属性对应的目录，所有节点同步都删掉，别单删掉之前的一个，删掉三台JN节点中dfs.journalnode.edits.dir属性所对应的目录</span><br><span class="line">6，	接上面的第6步又可以重新格式化已经启动了</span><br><span class="line">7，	最终Active Namenode停掉的时候，StandBy可以自动接管！</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/04/Hadoop2.X/" data-id="cjr9yhs39000hc8l0jddzuujf" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
 
     </footer>
   </div>
@@ -1827,11 +667,146 @@
 
 
   
+    <article id="post-常用Linux命令的学习（一）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/27/常用Linux命令的学习（一）/" class="article-date">
+  <time datetime="2018-12-27T12:16:47.000Z" itemprop="datePublished">2018-12-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="常用Linux命令的学习（一）"><a href="#常用Linux命令的学习（一）" class="headerlink" title="常用Linux命令的学习（一）"></a>常用Linux命令的学习（一）</h1><p>[TOC]</p>
+<h2 id="一、命令指南（manual）：man"><a href="#一、命令指南（manual）：man" class="headerlink" title="一、命令指南（manual）：man"></a>一、命令指南（manual）：man</h2><blockquote>
+<p>安装：yum install man –y</p>
+</blockquote>
+<p>（-y 表示获得允许，无需确认）</p>
+<blockquote>
+<p>查看ls命令指南： man ls</p>
+</blockquote>
+<h2 id="二、目录命令"><a href="#二、目录命令" class="headerlink" title="二、目录命令"></a>二、目录命令</h2><p><strong>切换</strong>目录：cd + 目录的路径</p>
+<p>查看当前目录所在的完整路径：pwd</p>
+<p><strong>新建</strong>目录：mkdir +目录名字</p>
+<p><strong>查看</strong>当前目录所用有的子目录和文件：ls   ，ll等价于  ls –l</p>
+<p>​        查看目录下的所有东西（包括隐藏文件）：  ls –al   等价于 ll -a<br>​<br><strong>拷贝</strong>目录或文件：cp –r install.log  install2.log</p>
+<p><strong>删除</strong>目录或文件：rm  -r install.log</p>
+<blockquote>
+<p>(rmdir只能删除空目录)</p>
+</blockquote>
+<p><strong>移动</strong>目录或文件：mv + 目录/文件名字 + 其他路径</p>
+<p>​         将test目录移动到  根目录/ 下 :   mv test / </p>
+<blockquote>
+<p>（如果移动到当前目录，用另外一个名称，则可以实现重命名的效果）</p>
+</blockquote>
+<p><strong>更改</strong>文件或目录的名字：mv + 旧目录名字 + 新目录名</p>
+<blockquote>
+<p>(     -r 用于递归的拷贝，删除，移动目录)</p>
+</blockquote>
+<h2 id="三、文件命令"><a href="#三、文件命令" class="headerlink" title="三、文件命令"></a>三、文件命令</h2><h3 id="1、一般文件操作"><a href="#1、一般文件操作" class="headerlink" title="1、一般文件操作"></a>1、一般文件操作</h3><p><strong>新建</strong>文件：touch  install.log<br>​        (vim install.log   编辑文件，如果文件不存在，就会新建一个对应的文件，并进入文件的编辑模式，如果按 :wq 会保存文件并退出，如果按 :q 则不保存退出)<br>​<br><strong>查看</strong>文件内容：cat +（文件名）<br>（一次性显示整个文件的内容，文件内容过多时用户体验不好）</p>
+<p>一次命令显示一屏文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  more +（文件名）</span><br><span class="line">  </span><br><span class="line">  按键         效果  </span><br><span class="line">Space         显示下一屏文本内容</span><br><span class="line">B             显示上一屏文本内容</span><br><span class="line">Enter         显示下一行文本内容</span><br><span class="line">Q             退出查看</span><br></pre></td></tr></table></figure>
+<pre><code>  less+（文件名）
+按键            效果
+ h             显示帮助界面
+ u             向后滚动半页 
+ d             向前翻半页 
+ e | Enter     向后翻一行文本
+ space         滚动一页 
+ b             向后翻一页 
+ [pagedown]：  向下翻动一页 
+ [pageup]：    向上翻动一页
+  上下键，向上一行，向下一行
+</code></pre><p>从头打印文件内容：<br>​        head  -10 +（文件名）  打印文件1到10行</p>
+<p>从尾部打印文件内容<br>​        tail -10 +（文件名）打印文件最后10行</p>
+<blockquote>
+<p>tail -f (文件名)  常用于查看文件内容的更新变化</p>
+</blockquote>
+<p><strong>查找</strong>文件或目录<br>​        find +（路径名） –name +（文件名）<br>​        举例：find / -name profile<br>​             在/(根目录)目录下查找 名字为profile的文件或目录</p>
+<p>​        也可利用正则：<br>​             举例： find /etc -name pro*<br>​                     在/etc目录下查找以pro开头的文件或目录</p>
+<blockquote>
+<p>路径越精确，查找的范围越小，速度越快 i</p>
+</blockquote>
+<h3 id="2、文件编辑"><a href="#2、文件编辑" class="headerlink" title="2、文件编辑"></a>2、文件编辑</h3><h4 id="vi"><a href="#vi" class="headerlink" title="vi"></a>vi</h4><p>（1） vi    进入编辑模式 —–&gt;按i   进入插入模式 ——-&gt;  按Esc 退出编辑模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi  filename   :打开或新建文件，并将光标置于第一行首 </span><br><span class="line">vi +n filename ：打开文件，并将光标置于第n行首 </span><br><span class="line">vi + filename  ：打开文件，并将光标置于最后一行首 </span><br><span class="line">vi +/pattern filename：打开文件，并将光标置于第一个与 pattern匹配的字符串所在的行首</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> filename  为文件名</p>
+</blockquote>
+<p>（2）在文件vi（文件编辑）模式下</p>
+<ul>
+<li><strong>命令行模式</strong> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:w      保存</span><br><span class="line">:q      退出</span><br><span class="line">:wq     保存并退出</span><br><span class="line">:q!     强制退出</span><br><span class="line">:set nu |ctrl+g    显示文本行数</span><br><span class="line">:set nonu          去除显示的行数</span><br><span class="line">:s/p1/p2/g         将当前行中所有p1均用p2替代 </span><br><span class="line">:n1,n2s/p1/p2/g    将第n1至n2行中所有p1均用p2替代 </span><br><span class="line">:g/p1/s//p2/g      将文件中所有p1均用p2替换</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>一般模式</strong> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">按键：</span><br><span class="line">yy    复制光标所在行(常用) </span><br><span class="line">nyy   复制光标所在行的向下n行，例如， 20yy则是复制20行(常用) </span><br><span class="line">p|P   p为复制的数据粘贴在光标下一行， P则为粘贴在光标上一行(常用)</span><br><span class="line">G     光标移至第最后一行</span><br><span class="line">nG    光标移动至第N行行首</span><br><span class="line">n+    光标下移n行 </span><br><span class="line">n-    光标上移n行 </span><br><span class="line">H     光标移至屏幕顶行 </span><br><span class="line">M     光标移至屏幕中间行 </span><br><span class="line">L     光标移至屏幕最后行 </span><br><span class="line"></span><br><span class="line">dd    删除所在行 </span><br><span class="line">x或X  删除一个字符，x删除光标后的，而X删除光标前的 </span><br><span class="line">u     撤销(常用)</span><br><span class="line"></span><br><span class="line">删除第N行到第M行：N,Md</span><br><span class="line">：,$-1d   删除当前光标到到数第一行数据</span><br><span class="line"></span><br><span class="line">按键：</span><br><span class="line">    i: 在当前光标所在字符的前面，转为输入模式；</span><br><span class="line">    a: 在当前光标所在字符的后面，转为输入模式；</span><br><span class="line">    o: 在当前光标所在行的下方，新建一行，并转为输入模式；</span><br><span class="line">    I：在当前光标所在行的行首，转换为输入模式</span><br><span class="line">    A：在当前光标所在行的行尾，转换为输入模式</span><br><span class="line">    O：在当前光标所在行的上方，新建一行，并转为输入模式；</span><br><span class="line"></span><br><span class="line">---逐字符移动：</span><br><span class="line">h: 左    l: 右</span><br><span class="line"></span><br><span class="line">j: 下	k: 上</span><br></pre></td></tr></table></figure>
+<h4 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h4><blockquote>
+<p>安装：yum install vim -y</p>
+</blockquote>
+<ul>
+<li><em>用vim 打开/etc/profile 文件，</em></li>
+<li><em>特点：编辑器对文本的内容进行了高亮，使整个文件的内容可读性大大加强</em> ，其他均与vi相同</li>
+</ul>
+<h3 id="3、文件上传下载"><a href="#3、文件上传下载" class="headerlink" title="3、文件上传下载"></a>3、文件上传下载</h3><blockquote>
+<p>安装上传下载命令：yum install lrzsz -y</p>
+</blockquote>
+<p>上传文件：（windows—&gt;linux）</p>
+<blockquote>
+<p>命令 ：rz  </p>
+<p>弹出windows上传文件窗口</p>
+</blockquote>
+<p>下载文件：(linux—&gt;windows)</p>
+<p><code>注意</code>：sz命令只能下载文件，不能下载目录，推荐将目录压缩成tar包或使用工具软件：Winscp【Xftp】</p>
+<blockquote>
+<p>命令：sz  （文件名）</p>
+<p>弹出windows下载窗口,下载文件到指定文件目录</p>
+</blockquote>
+<h3 id="4、文件传输"><a href="#4、文件传输" class="headerlink" title="4、文件传输"></a>4、文件传输</h3><h4 id="1-、本地→远程"><a href="#1-、本地→远程" class="headerlink" title="(1)、本地→远程"></a>(1)、本地→远程</h4><blockquote>
+<p>文件  ：  scp local_file remote_username@remote_ip:remote_folder   </p>
+<p>目录 ：  scp -r local_folder remote_username@remote_ip:remote_folder</p>
+</blockquote>
+<h4 id="2）、远程→本地"><a href="#2）、远程→本地" class="headerlink" title="(2）、远程→本地"></a>(2）、远程→本地</h4><blockquote>
+<p>文件 ： scp remote_username@remote_ip:remote_file local_folder</p>
+<p>目录 ： scp remote_username@remote_ip:remote_folder local_folder   </p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/27/常用Linux命令的学习（一）/" data-id="cjr9yhs190003c8l0siszh3i2" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux命令/">Linux命令</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
 
 
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
-  </nav>
+  
+
 </section>
            
     <aside id="sidebar">
@@ -1875,7 +850,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title tagcloud">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Base/" style="font-size: 14px;">Base</a> <a href="/tags/BigData/" style="font-size: 14px;">BigData</a> <a href="/tags/HDFS/" style="font-size: 14px;">HDFS</a> <a href="/tags/Linux命令/" style="font-size: 14px;">Linux命令</a> <a href="/tags/Linux系统环境/" style="font-size: 25px;">Linux系统环境</a> <a href="/tags/hadoop/" style="font-size: 14px;">hadoop</a> <a href="/tags/maven/" style="font-size: 14px;">maven</a> <a href="/tags/分而治之/" style="font-size: 14px;">分而治之</a> <a href="/tags/头脑风暴/" style="font-size: 14px;">头脑风暴</a>
+      <a href="/tags/Base/" style="font-size: 14px;">Base</a> <a href="/tags/BigData/" style="font-size: 14px;">BigData</a> <a href="/tags/HDFS/" style="font-size: 14px;">HDFS</a> <a href="/tags/Linux命令/" style="font-size: 14px;">Linux命令</a> <a href="/tags/Linux系统环境/" style="font-size: 25px;">Linux系统环境</a> <a href="/tags/maven/" style="font-size: 14px;">maven</a> <a href="/tags/分而治之/" style="font-size: 14px;">分而治之</a> <a href="/tags/头脑风暴/" style="font-size: 14px;">头脑风暴</a>
     </div>
   </div>
 
@@ -1887,23 +862,23 @@
       <ul>
         
           <li>
-            <a href="/2019/01/23/Nginx入门学习（第一回合）/">(no title)</a>
+            <a href="/2019/01/18/Flume学习/">Flume学习</a>
           </li>
         
           <li>
-            <a href="/2019/01/23/Nginx入门学习（第二回合）/">(no title)</a>
+            <a href="/2019/01/05/大数据思想/">大数据思想</a>
           </li>
         
           <li>
-            <a href="/2019/01/23/Linux系统CentOS 6安装/">(no title)</a>
+            <a href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a>
           </li>
         
           <li>
-            <a href="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/">(no title)</a>
+            <a href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a>
           </li>
         
           <li>
-            <a href="/2019/01/23/Linux 入门学习（第二回合）/">(no title)</a>
+            <a href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a>
           </li>
         
       </ul>
@@ -1915,7 +890,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
