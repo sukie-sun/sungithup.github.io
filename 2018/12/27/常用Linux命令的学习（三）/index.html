@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>常用Linux命令的学习（三） | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 一、服务操作   列出  所有  服务 chkconfig     服务  操作 service 服务名 start\ stop\ status\ restart                                                                 永久关闭\ 打开 （启动后生效） chkconfig iptables on\ off   添加">
+<meta name="keywords" content="Linux命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用Linux命令的学习（三）">
+<meta property="og:url" content="http://sungithup.github.io/2018/12/27/常用Linux命令的学习（三）/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="[TOC] 一、服务操作   列出  所有  服务 chkconfig     服务  操作 service 服务名 start\ stop\ status\ restart                                                                 永久关闭\ 打开 （启动后生效） chkconfig iptables on\ off   添加">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-24T02:29:25.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用Linux命令的学习（三）">
+<meta name="twitter:description" content="[TOC] 一、服务操作   列出  所有  服务 chkconfig     服务  操作 service 服务名 start\ stop\ status\ restart                                                                 永久关闭\ 打开 （启动后生效） chkconfig iptables on\ off   添加">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-常用Linux命令的学习（三）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/27/常用Linux命令的学习（三）/" class="article-date">
+  <time datetime="2018-12-26T16:00:00.000Z" itemprop="datePublished">2018-12-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用Linux命令的学习（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h2 id="一、服务操作"><a href="#一、服务操作" class="headerlink" title="一、服务操作"></a>一、服务操作</h2><table>
+<thead>
+<tr>
+<th>列出  所有  服务</th>
+<th>chkconfig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务  操作</td>
+<td>service 服务名 start\</td>
+<td>stop\</td>
+<td>status\</td>
+<td>restart                                                                 永久关闭\</td>
+<td>打开 （启动后生效） chkconfig iptables on\</td>
+<td>off</td>
+</tr>
+<tr>
+<td>添加  服务</td>
+<td>1)    编辑脚本：vim myservice.sh                                                                                                                  编辑内容：                                                                                                                                     （在最前面加一下两句）                                                                                                #chkconfig:   2345 80 90                                                            #description:auto_run                                                                                                (自己的服务脚本：开机时同步时间）                                                      result=’ntpdate cn.ntp.org.cn’                                                                                      退出编辑并保存：按esc键 按 ：wq                                                                                     在ntpdate.log文件中输出打印：echo $result &gt; /usr/ntpdate.log                                                                                   2)    修改权限，使其拥有可执行权限:   chmod 700 myservice.sh                            3)    将脚本拷贝到/etc/init.d目录：                                                                              4)    加入服务：chkconfig –add myservice.sh                                                             5)    重启服务器，验证服务是否添加成功：date                                                     6）/usr目录下产生ntpdate.log</td>
+</tr>
+<tr>
+<td>删除  服务</td>
+<td>chkconfig –del name</td>
+</tr>
+<tr>
+<td>更改  服务初   执行  等级</td>
+<td>chkconfig –level 2345 服务名 off\</td>
+<td>on                                                                     chkconfig 服务名 on\</td>
+<td>of f</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二、定时调度"><a href="#二、定时调度" class="headerlink" title="二、定时调度"></a>二、定时调度</h2><table>
+<thead>
+<tr>
+<th>编辑定时任务</th>
+<th>crontab –e                                                                                                                    格式：minute hour day month dayofweek command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>举例</td>
+<td><em> </em> <em> </em> *  echo  “hello”                                                                                                     每分钟打印“hello”</td>
+</tr>
+<tr>
+<td>时间一到，执行操作命令后</td>
+<td>会出现：You have new mail in /var/spool/mail/root</td>
+</tr>
+<tr>
+<td>查看任务执行情况</td>
+<td>vim /var/spool/mail/root</td>
+</tr>
+<tr>
+<td>查看所有用户的定时任务</td>
+<td>ll /var/spool/cron</td>
+</tr>
+<tr>
+<td>查看当前用户的定时任务</td>
+<td>contab –l</td>
+</tr>
+<tr>
+<td><em>注意</em></td>
+<td>“<em>”代表任意的数字, “/”代表”每隔多久”,                                                                                “-”代表从某个数字到某个数字, “,”分开几个离散的数字                                                                                                                    如：                                                                                                                                       30-40 12 </em> <em> </em> echo “hello”                                                                                                           ——–每天12点30分至40分期间，每分钟执行一次命令                                                                                      30,40                                                                                                                                                ——–每天12点30分和12点40分                                                                                           0/5                                                                                                                                               ——–每天的12点整至12点55分期间，每隔5分钟执行一次命令</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三、进程操作"><a href="#三、进程操作" class="headerlink" title="三、进程操作"></a>三、进程操作</h2><table>
+<thead>
+<tr>
+<th>查看  进程</th>
+<th>ps  -aux                                                                                                                                -a 列出所有           -u 列出用户   -x 详细列出，如cpu、内存等                                                            -e 显示所有进程    -f 全格式                                                                                                              ps  - ef  \</th>
+<th>grep ssh   查看所有进程里CMD是ssh 的进程信息                                                       ps -aux –sort –pcpu   根据 CPU 使用来升序排序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使程序   后台运行</td>
+<td>只需要在命令后添加  &amp; 符号                                                                                                                            echo “hello” &amp;   jobs –l      –列出当前连接的所有后台进程（jobs仅适用于当前端）   ps  -ef \</td>
+<td>grep 进程名          —-（推荐）列出后台进程</td>
+</tr>
+<tr>
+<td>杀死进程</td>
+<td>（强制）kill -9 pid   —-pid为进程号</td>
+</tr>
+</tbody>
+</table>
+<h2 id="四、其他命令"><a href="#四、其他命令" class="headerlink" title="四、其他命令"></a>四、其他命令</h2><table>
+<thead>
+<tr>
+<th>wget</th>
+<th>1）   安装：yum install wget  –y                                                                                                        2）   用法：wget [option] 网址  -O  指定下载保存的路径                                               3）   也可用于做爬虫</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yum</td>
+<td>1）   备份原镜像：                                                                                                                   cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOSBase.repo.backup                                                                                 2）   下载新镜像：                                                                                                                  <strong>wget</strong> -O /etc/yum.repos.d/CentOS-Base.repo      <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a>                                                               3）  查看文件内容：vim /etc/yum.repos.d/CentOS-Base.repo                                            4）  生成缓存：yum makecache</td>
+</tr>
+<tr>
+<td>rpm</td>
+<td>1）   安装 rpm –ivh rpm包                                                                                                              2）   查找已安装的rpm包：rpm –q ntp                                                                                      3）   卸载：rpm –e ntp-4.2.6p5-10.el6.centos.2.x86_64（全名）</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>1）   解压：tar  -zvxf  xxxx.tar.gz                                                                                               2）   压缩：tar -zcf 压缩包命名 压缩目标                                                                                           3）   例子：tar -zcf tomcat.tar.gz apache-tomcat-7.0.61                                                       4）   -z   gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加                                                   -x  解压                            -c  压缩   -f   目标文件，压缩文件新命名或解压文件名                                               -v  解压缩过程信息打印</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>1）安装zip：yum install zip –y                                                                                        2）压缩命令：zip   -r 包名 目标目录                                                                                          3）安装 ：unzip,yum   install unzip –y                                                                                   4）解压  ：unzip   filename</td>
+</tr>
+</tbody>
+</table>
+<h2 id="五、安装部署"><a href="#五、安装部署" class="headerlink" title="五、安装部署"></a>五、安装部署</h2><table>
+<thead>
+<tr>
+<th>JDK   部署</th>
+<th>1)     解压: tar -zxf jdk-7u80-linux-x64.tar.gz                                                                                         2)     配置环境变量                                                                                                                                                                  编辑配置文件：vim /etc/profile                                                                                                                                                   编辑内容 ：                                                                                                                                                          JAVA_HOME= /usr/soft/jdk1.7.0_75                                                                                                 PATH=$PATH:$JAVA_HOME/bin                                                                                                           3) 重新加载环境变量：source  /etc/profile                                                                                                   4) 验证: java  -version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mysql部署</td>
+<td>yum安装 mysql                                                                                                                                         1) yum install mysql-server -y                                                                                                                2) yum install mysql-devel -y                                                                                                                                  3) service mysqld start                                                                                                                              4) mysql -uroot -p                                                                                                                                      5) mysqladmin -u root    password 123456</td>
+</tr>
+</tbody>
+</table>
+<h2 id="六、免密登录"><a href="#六、免密登录" class="headerlink" title="六、免密登录"></a>六、免密登录</h2><p>| 法一                                                     </p>
+<p>| 1）   生成公钥和密钥：ssh-keygen -t rsa ，并且回车3次                                                                                                    （在用户的根目录生成一个 “.ssh”的文件夹）                                                                                                                           2）   查看公钥和私钥：ll ~/.ssh                                                                                                                                                                    （目录中会有以下几个文件）                                                                                                                         <code>authorized_keys</code>:存放远程免密登录的公钥,主要通过这个文件记录多台机器的公钥                                                 <code>id_rsa</code> : 生成的私钥文件                                                                                                                              <code>id_rsa.pub</code> ： 生成的公钥文件                                                                                                                                        <code>know_hosts</code> : 已知的主机公钥清单                                                                                                                                                       <em>                        如果希望ssh公钥生效需满足至少下面两个条件：                                                                                                  </em>                        1&gt; .ssh目录的权限必须是700                                                                                                                                *                         2&gt; .ssh/authorized_keys文件权限必须是600                                                                                                                 3）   将A的.ssh目录下的公钥追加拷贝到B的authorized_keys文件里                                                                         scp -p ~/.ssh/id_rsa.pub root@&lt;remote_ip&gt;:/root/.ssh/authorized_keys                                                                4)     验证：将文件远程拷贝到远程主机上，看是否需要密码 |</p>
+<table>
+<thead>
+<tr>
+<th>———————————————————</th>
+<th>:———————————————————–</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>（<strong>此方法有待考究）</strong>法二：通过Ansible实现   批量   免密</td>
+<td>1）、 <strong>将需要做免密操作的机器hosts添加到/etc/ansible/hosts下：</strong>                                                                                             <h3>[&nbsp;Avoid close]<br>　　192.168.91.132</h3></td>
+</tr>
+</tbody>
+</table>
+<p>　　192.168.91.133<br>　　192.168.91.134    <br>      2）、 <strong>执行命令进行免密操作</strong>  ：​                 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible &lt;groupname&gt; -m authorized_key -a &quot;user=root key=&apos;&#123;&#123; lookup(&apos;file&apos;,&apos;/root/.ssh/id_rsa.pub&apos;) &#125;&#125;&apos;&quot; -k</span><br></pre></td></tr></table></figure>
+<p>​                                                                                                                                                                                                                                                                                                                                             |</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/27/常用Linux命令的学习（三）/" data-id="cjr9zsk3v000080l0n4wixjmq" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux命令/">Linux命令</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/27/常用Linux命令的学习（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          常用Linux命令的学习（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/19/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、服务操作"><span class="toc-number">1.</span> <span class="toc-text">一、服务操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、定时调度"><span class="toc-number">2.</span> <span class="toc-text">二、定时调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、进程操作"><span class="toc-number">3.</span> <span class="toc-text">三、进程操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、其他命令"><span class="toc-number">4.</span> <span class="toc-text">四、其他命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、安装部署"><span class="toc-number">5.</span> <span class="toc-text">五、安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、免密登录"><span class="toc-number">6.</span> <span class="toc-text">六、免密登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.1.</span> <span class="toc-text">[ Avoid close]　　192.168.91.132</span></a></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>HBase性能优化 | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区  解决海量导入数据时的热点问题  背景：  在创建HBase表的时候默认一张表只有一个region， 所有的put操作都会往这一个region中填充数据， 当这一个region过大时就会进行split。 如果在创建HBase的时候就进行预分区 则会减少当数据量猛增时由于region split带来的资源消耗。">
+<meta name="keywords" content="Linux系统环境,HDFS,HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase性能优化">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/17/HBase性能优化/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区  解决海量导入数据时的热点问题  背景：  在创建HBase表的时候默认一张表只有一个region， 所有的put操作都会往这一个region中填充数据， 当这一个region过大时就会进行split。 如果在创建HBase的时候就进行预分区 则会减少当数据量猛增时由于region split带来的资源消耗。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-24T02:09:56.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HBase性能优化">
+<meta name="twitter:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区  解决海量导入数据时的热点问题  背景：  在创建HBase表的时候默认一张表只有一个region， 所有的put操作都会往这一个region中填充数据， 当这一个region过大时就会进行split。 如果在创建HBase的时候就进行预分区 则会减少当数据量猛增时由于region split带来的资源消耗。">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HBase性能优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/17/HBase性能优化/" class="article-date">
+  <time datetime="2019-01-16T16:00:00.000Z" itemprop="datePublished">2019-01-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HBase/">HBase</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HBase性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="HBase性能优化"><a href="#HBase性能优化" class="headerlink" title="HBase性能优化"></a>HBase性能优化</h1><h1 id="（一）、表的设计"><a href="#（一）、表的设计" class="headerlink" title="（一）、表的设计"></a>（一）、表的设计</h1><p>一、Pre-Creating Regions 预分区</p>
+<blockquote>
+<p>解决海量导入数据时的热点问题</p>
+</blockquote>
+<p><code>背景：</code></p>
+<blockquote>
+<p>在创建HBase表的时候默认一张表只有一个region，</p>
+<p>所有的put操作都会往这一个region中填充数据，</p>
+<p>当这一个region过大时就会进行split。</p>
+<p>如果在创建HBase的时候就进行预分区</p>
+<p>则会减少当数据量猛增时由于region split带来的资源消耗。</p>
+</blockquote>
+<p><code>注意：</code></p>
+<blockquote>
+<p>每个region都有一个startKey和一个endKey来表示该region存储的rowKey范围。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t1&apos;, &apos;cf&apos;, SPLITS =&gt; [&apos;20150501000000000&apos;, &apos;20150515000000000&apos;, &apos;20150601000000000&apos;]</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t2&apos;, &apos;cf&apos;, SPLITS_FILE =&gt; &apos;/home/hadoop/splitfile.txt&apos; </span><br><span class="line"></span><br><span class="line">/home/hadoop/splitfile.txt中存储内容如下： </span><br><span class="line">20150501000000000</span><br><span class="line">20150515000000000</span><br><span class="line">20150601000000000</span><br></pre></td></tr></table></figure>
+<p>二、row key</p>
+<p>HBase中row key用来检索表中的记录，支持以下三种方式：</p>
+<blockquote>
+<p>· 通过单个row key访问：即按照某个row key键值进行get操作；</p>
+<p>·  通过row key的range进行scan：即通过设置startRowKey和endRowKey，在这个范围内进行扫描；过滤器</p>
+<p>·  全表扫描：即直接扫描整张表中所有行记录。</p>
+</blockquote>
+<h1 id="（二）、写表操作"><a href="#（二）、写表操作" class="headerlink" title="（二）、写表操作"></a>（二）、写表操作</h1><p>一、多HTable客户端并发写</p>
+<p>二、HTable参数设置</p>
+<p>三、批量写</p>
+<p>四、多线程并发写</p>
+<h1 id="（三）、读表操作"><a href="#（三）、读表操作" class="headerlink" title="（三）、读表操作"></a>（三）、读表操作</h1><p>一、多HTable客户端并发读</p>
+<p>二、HTable参数设置</p>
+<p>三、批量读</p>
+<p>四、多线程并发读</p>
+<p>五、缓存查询结果</p>
+<p>六、 Blockcache</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2019/01/17/HBase性能优化/" data-id="cjr9zcor20000dsl0zujoq639" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HBase/">HBase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/18/Flume学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Flume学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/15/HBase学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">HBase学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase性能优化"><span class="toc-number">1.</span> <span class="toc-text">HBase性能优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（一）、表的设计"><span class="toc-number">2.</span> <span class="toc-text">（一）、表的设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（二）、写表操作"><span class="toc-number">3.</span> <span class="toc-text">（二）、写表操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（三）、读表操作"><span class="toc-number">4.</span> <span class="toc-text">（三）、读表操作</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

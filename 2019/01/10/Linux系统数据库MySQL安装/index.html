@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Linux系统数据库MySQL安装 | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] Linux系统数据库MySQL安装一、第一次安装MySQL1、yum安装 命令 ： yum -y install mysql-server mysql-devel  2、登录 命令 ： mysql -u -p  显示： 1mysql&amp;gt; 3、查看数据库(注意用‘ ; ’结束 ) 命令 ： show databases;  4、退出： 命令： quit；  5、创建用户： 命令 ：">
+<meta name="keywords" content="Linux系统环境,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统数据库MySQL安装">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/10/Linux系统数据库MySQL安装/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="[TOC] Linux系统数据库MySQL安装一、第一次安装MySQL1、yum安装 命令 ： yum -y install mysql-server mysql-devel  2、登录 命令 ： mysql -u -p  显示： 1mysql&amp;gt; 3、查看数据库(注意用‘ ; ’结束 ) 命令 ： show databases;  4、退出： 命令： quit；  5、创建用户： 命令 ：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-24T02:21:25.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统数据库MySQL安装">
+<meta name="twitter:description" content="[TOC] Linux系统数据库MySQL安装一、第一次安装MySQL1、yum安装 命令 ： yum -y install mysql-server mysql-devel  2、登录 命令 ： mysql -u -p  显示： 1mysql&amp;gt; 3、查看数据库(注意用‘ ; ’结束 ) 命令 ： show databases;  4、退出： 命令： quit；  5、创建用户： 命令 ：">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Linux系统数据库MySQL安装" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/10/Linux系统数据库MySQL安装/" class="article-date">
+  <time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished">2019-01-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux系统数据库MySQL安装
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h1 id="Linux系统数据库MySQL安装"><a href="#Linux系统数据库MySQL安装" class="headerlink" title="Linux系统数据库MySQL安装"></a>Linux系统数据库MySQL安装</h1><h2 id="一、第一次安装MySQL"><a href="#一、第一次安装MySQL" class="headerlink" title="一、第一次安装MySQL"></a>一、第一次安装MySQL</h2><h3 id="1、yum安装"><a href="#1、yum安装" class="headerlink" title="1、yum安装"></a>1、yum安装</h3><blockquote>
+<p>命令 ： yum -y install mysql-server mysql-devel</p>
+</blockquote>
+<h3 id="2、登录"><a href="#2、登录" class="headerlink" title="2、登录"></a>2、登录</h3><blockquote>
+<p>命令 ： mysql -u -p</p>
+</blockquote>
+<p><code>显示：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="3、查看数据库-注意用‘-’结束"><a href="#3、查看数据库-注意用‘-’结束" class="headerlink" title="3、查看数据库(注意用‘ ; ’结束 )"></a>3、查看数据库(注意用‘ ; ’结束 )</h3><blockquote>
+<p>命令 ： show databases;</p>
+</blockquote>
+<h3 id="4、退出："><a href="#4、退出：" class="headerlink" title="4、退出："></a>4、退出：</h3><blockquote>
+<p>命令： quit；</p>
+</blockquote>
+<h3 id="5、创建用户："><a href="#5、创建用户：" class="headerlink" title="5、创建用户："></a>5、创建用户：</h3><blockquote>
+<p>命令 ： mysqladmin -uroot password 123456</p>
+</blockquote>
+<h3 id="6、再登录："><a href="#6、再登录：" class="headerlink" title="6、再登录："></a>6、再登录：</h3><blockquote>
+<p>命令 ：mysql -u root -p</p>
+</blockquote>
+<p><code>显示：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+<p>说明成功了！</p>
+<h3 id="7、数据库操作："><a href="#7、数据库操作：" class="headerlink" title="7、数据库操作："></a>7、数据库操作：</h3><blockquote>
+<p>命令 ： use mysql;</p>
+</blockquote>
+<p><code>显示：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br></pre></td></tr></table></figure>
+<h3 id="8、查看用户数据表："><a href="#8、查看用户数据表：" class="headerlink" title="8、查看用户数据表："></a>8、查看用户数据表：</h3><blockquote>
+<p>命令 ： show tables;</p>
+</blockquote>
+<h3 id="9、查询user表部分字段："><a href="#9、查询user表部分字段：" class="headerlink" title="9、查询user表部分字段："></a>9、查询user表部分字段：</h3><blockquote>
+<p>命令 ： select host,user,password from user;</p>
+</blockquote>
+<h3 id="10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确"><a href="#10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确" class="headerlink" title="10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确"></a>10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确</h3><h4 id="（1）推荐"><a href="#（1）推荐" class="headerlink" title="（1）推荐"></a>（1）推荐</h4><p>现将user表中其他无密码的记录删除</p>
+<blockquote>
+<p>命令 ： delete from user where password = ‘ ‘;</p>
+</blockquote>
+<h4 id="2-更新有密码的记录的host字段值"><a href="#2-更新有密码的记录的host字段值" class="headerlink" title="(2)更新有密码的记录的host字段值"></a>(2)更新有密码的记录的host字段值</h4><blockquote>
+<p>命令 ： update user set host = “%”;</p>
+</blockquote>
+<h4 id="3-刷新权限"><a href="#3-刷新权限" class="headerlink" title="(3)刷新权限"></a>(3)刷新权限</h4><blockquote>
+<p> 命令 ：flush privileges;</p>
+</blockquote>
+<h4 id="4-退出"><a href="#4-退出" class="headerlink" title="(4)退出"></a>(4)退出</h4><blockquote>
+<p>命令 ：quit;</p>
+</blockquote>
+<h2 id="二、Linux系统登录数据库MySQL报错"><a href="#二、Linux系统登录数据库MySQL报错" class="headerlink" title="二、Linux系统登录数据库MySQL报错"></a>二、Linux系统登录数据库MySQL报错</h2><h3 id="报错一："><a href="#报错一：" class="headerlink" title="报错一："></a>报错一：</h3><p>1、登录 </p>
+<blockquote>
+<p>mysqld -uroot -p123456</p>
+</blockquote>
+<p><code>报错：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can&apos;t connect to local MySQL server through socket &apos;/var/lib/mysql/mysql.sock&apos; (111)</span><br></pre></td></tr></table></figure>
+<p><code>解决：</code></p>
+<p>1）、先删除mysql.sock</p>
+<blockquote>
+<p>cd /var/lib/mysql</p>
+</blockquote>
+<blockquote>
+<p>mv  mysql.sock  mysql.sock.bak</p>
+</blockquote>
+<p>2）、再次登陆</p>
+<blockquote>
+<p>mysql -uroot -p123456</p>
+</blockquote>
+<p><code>报错：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can&apos;t connect to local MySQL server through socket &apos;/var/lib/mysql/mysql.sock&apos; (2)</span><br></pre></td></tr></table></figure>
+<p> 3）、看看mysql的状态，</p>
+<blockquote>
+<p> /etc/rc.d/init.d/mysqld status</p>
+</blockquote>
+<p> <code>显示：</code></p>
+<blockquote>
+<p> mysqld is stopped</p>
+</blockquote>
+<p>4）、看看是不是mysql的权限问题<br>在/var/lib目录下：</p>
+<blockquote>
+<p>ls -lt|grep mysql</p>
+</blockquote>
+<p><code>显示：</code></p>
+<blockquote>
+<p>drwxr-xr-x. 4 mysql   mysql 4096 Jan  6 11:09 mysql</p>
+</blockquote>
+<p>5）、说明mysql服务没有启动</p>
+<p>2、启动mysql服务</p>
+<blockquote>
+<p>/etc/init.d/mysqld start</p>
+</blockquote>
+<p><code>显示：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Starting mysqld:                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<p>3、再次登录：</p>
+<blockquote>
+<p>mysql -uroot -p123456</p>
+</blockquote>
+<p><code>显示：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.1.73 Source distribution</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+<p>4、退出</p>
+<blockquote>
+<p>quit</p>
+</blockquote>
+<p>5、解决出现mysql.sock的问题</p>
+<blockquote>
+<p>  （1）、vim /etc/mycnf</p>
+</blockquote>
+<p>  编辑内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip_name_resolve=on innodb_file_per_table=on</span><br></pre></td></tr></table></figure>
+<p>  按esc :wq 保存并退出<br>  （2）使用命令：</p>
+<blockquote>
+<p>mysql_secure_installation</p>
+</blockquote>
+<p>  （3）直接[ enter ] 键，输入密码，</p>
+<p>(另推荐：Jakie_ZHF老师的博客)</p>
+<h3 id="报错二："><a href="#报错二：" class="headerlink" title="报错二："></a>报错二：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2019/01/10/Linux系统数据库MySQL安装/" data-id="cjr9zrgoh0000l8l08prg52gt" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/11/Hive学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hive学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/05/MapReduce学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">MapReduce学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux系统数据库MySQL安装"><span class="toc-number">1.</span> <span class="toc-text">Linux系统数据库MySQL安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、第一次安装MySQL"><span class="toc-number">1.1.</span> <span class="toc-text">一、第一次安装MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、yum安装"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、yum安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、登录"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、查看数据库-注意用‘-’结束"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、查看数据库(注意用‘ ; ’结束 )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、退出："><span class="toc-number">1.1.4.</span> <span class="toc-text">4、退出：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、创建用户："><span class="toc-number">1.1.5.</span> <span class="toc-text">5、创建用户：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、再登录："><span class="toc-number">1.1.6.</span> <span class="toc-text">6、再登录：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、数据库操作："><span class="toc-number">1.1.7.</span> <span class="toc-text">7、数据库操作：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、查看用户数据表："><span class="toc-number">1.1.8.</span> <span class="toc-text">8、查看用户数据表：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、查询user表部分字段："><span class="toc-number">1.1.9.</span> <span class="toc-text">9、查询user表部分字段：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确"><span class="toc-number">1.1.10.</span> <span class="toc-text">10、通过修改user表的host字段，设置数据库访问权限，只要用户名和密码正确</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）推荐"><span class="toc-number">1.1.10.1.</span> <span class="toc-text">（1）推荐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-更新有密码的记录的host字段值"><span class="toc-number">1.1.10.2.</span> <span class="toc-text">(2)更新有密码的记录的host字段值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-刷新权限"><span class="toc-number">1.1.10.3.</span> <span class="toc-text">(3)刷新权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-退出"><span class="toc-number">1.1.10.4.</span> <span class="toc-text">(4)退出</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Linux系统登录数据库MySQL报错"><span class="toc-number">1.2.</span> <span class="toc-text">二、Linux系统登录数据库MySQL报错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#报错一："><span class="toc-number">1.2.1.</span> <span class="toc-text">报错一：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错二："><span class="toc-number">1.2.2.</span> <span class="toc-text">报错二：</span></a></li></ol></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

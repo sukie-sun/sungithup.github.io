@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>HBase学习 | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] Hbase学习非关系型数据库 官网 一、对数据库的 基本了解1、简介 基于Hadoop 的分布式数据库 特点： 1、高可靠性 2、高性能 （以上两点：基于分布式的特点） 3、面向列 （以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值） 4、可伸缩 （搭建在集群上） 5、实时读写 （用时间戳唯一标记每一版本的数据记录）  2、工作结构 1、利用Hadoop的HD">
+<meta name="keywords" content="Linux系统环境,BigData,Hadoop,NoSQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase学习">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/15/HBase学习/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="[TOC] Hbase学习非关系型数据库 官网 一、对数据库的 基本了解1、简介 基于Hadoop 的分布式数据库 特点： 1、高可靠性 2、高性能 （以上两点：基于分布式的特点） 3、面向列 （以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值） 4、可伸缩 （搭建在集群上） 5、实时读写 （用时间戳唯一标记每一版本的数据记录）  2、工作结构 1、利用Hadoop的HD">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-24T02:13:41.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HBase学习">
+<meta name="twitter:description" content="[TOC] Hbase学习非关系型数据库 官网 一、对数据库的 基本了解1、简介 基于Hadoop 的分布式数据库 特点： 1、高可靠性 2、高性能 （以上两点：基于分布式的特点） 3、面向列 （以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值） 4、可伸缩 （搭建在集群上） 5、实时读写 （用时间戳唯一标记每一版本的数据记录）  2、工作结构 1、利用Hadoop的HD">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HBase学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/15/HBase学习/" class="article-date">
+  <time datetime="2019-01-14T16:00:00.000Z" itemprop="datePublished">2019-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hbase/">Hbase</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HBase学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h1 id="Hbase学习"><a href="#Hbase学习" class="headerlink" title="Hbase学习"></a>Hbase学习</h1><p>非关系型数据库</p>
+<p><a href="https://cwiki.apache.org/confluence/display/Hive/HBaseIntegration" target="_blank" rel="noopener">官网</a></p>
+<h2 id="一、对数据库的-基本了解"><a href="#一、对数据库的-基本了解" class="headerlink" title="一、对数据库的 基本了解"></a>一、对数据库的 基本了解</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
+<p>基于Hadoop 的分布式数据库</p>
+<p>特点：</p>
+<p>1、高可靠性</p>
+<p>2、高性能</p>
+<p>（以上两点：基于分布式的特点）</p>
+<p>3、面向列</p>
+<p>（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）</p>
+<p>4、可伸缩</p>
+<p>（搭建在集群上）</p>
+<p>5、实时读写</p>
+<p>（用时间戳唯一标记每一版本的数据记录）</p>
+</blockquote>
+<h3 id="2、工作结构"><a href="#2、工作结构" class="headerlink" title="2、工作结构"></a>2、工作结构</h3><blockquote>
+<p>1、利用Hadoop的HDFS作为其文件存储系统</p>
+<p>2,利用Hadoop的MapReduce来处理HBase中的海量数据</p>
+<p>3,利用Zookeeper作为其分布式协同服务</p>
+<p>4,主要用来存储非结构化和半结构化的松散数据（NoSQL非关系型数据库有redis、MongoDB等</p>
+</blockquote>
+<h3 id="3、关系型数据库"><a href="#3、关系型数据库" class="headerlink" title="3、关系型数据库"></a>3、关系型数据库</h3><blockquote>
+<p>1、定义</p>
+<p>关系模型指的就是二维表格模型；</p>
+<p>而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织</p>
+<p>2、三大优点</p>
+<ul>
+<li>容易理解</li>
+<li>使用方便</li>
+<li>易于维护</li>
+</ul>
+<p>3、三大瓶颈</p>
+<ul>
+<li>高并发读写需求</li>
+</ul>
+<p>硬盘I/O是一个很大的瓶颈，并且很难能做到数据的强一致性。</p>
+<ul>
+<li>海量数据的读写性能低</li>
+</ul>
+<p>在一张包含海量数据的表中查询，效率是非常低的。</p>
+<ul>
+<li>​    扩展性和可用性差</li>
+</ul>
+<p>丰富的完整性使得横向扩展把难度加大了</p>
+</blockquote>
+<h3 id="4、非关系型数据库"><a href="#4、非关系型数据库" class="headerlink" title="4、非关系型数据库"></a>4、非关系型数据库</h3><blockquote>
+<p>1、存储格式：key value键值对，文档，图片等等 结构不固定<br>  2、可以减少一些时间和空间的开销，仅需要根据id取出相应的value就可以完成查询。</p>
+<p>3、一般不支持ACID特性，无需经过SQL解析，读写性能高</p>
+<p> 4、不提供where字段条件过滤</p>
+<p>5、难以体现设计的完整性，只适合存储一些较为简单的数据</p>
+</blockquote>
+<h2 id="二、对HBase的基本里了解"><a href="#二、对HBase的基本里了解" class="headerlink" title="二、对HBase的基本里了解"></a>二、对HBase的基本里了解</h2><h3 id="1、数据结构组成"><a href="#1、数据结构组成" class="headerlink" title="1、数据结构组成"></a>1、数据结构组成</h3><p>（ 1）Row key  :</p>
+<blockquote>
+<p>唯一标记决定一行数据<br>按照字典排序<br>最大只能存储64KB的字节数据<br>设计非常关键</p>
+</blockquote>
+<p>（2）Column Family列族 &amp; qualifier列</p>
+<blockquote>
+<p><code>列族</code>必须作为表模式(schema)定义的一部分预先给出，</p>
+<p>表中的每个列都归属于某个列族；</p>
+<p>权限控制、存储以及调优都是在列族层面进行的；</p>
+<p><code>列名</code>以列族作为前缀，每个“列族”都可以有多个列成员(column)； </p>
+<p>新的列可以随后按需、动态加入；</p>
+</blockquote>
+<p>（3）Cell单元格</p>
+<blockquote>
+<p> 由行和列的坐标交叉决定； 单元格是有版本的（有时间戳决定）；</p>
+<p> 单元格的内容是未解析的字节数组；cell中的数据是没有类型的，全部是字节码形式存贮。</p>
+<p>由{rowkey， column( =<family> +<qualifier>)， version} 唯一确定的单元。</qualifier></family></p>
+</blockquote>
+<p>（4）Timestamp时间戳</p>
+<blockquote>
+<p>在HBase每个cell存储单元对同一份数据有多个版本，</p>
+<p>根据唯一的时间戳来区分每个版本之间的差异，</p>
+<p>不同版本的数据按照时间倒序排序，最新的数据版本排在最前面</p>
+<p>时间戳的类型是64位整型。<br>时间戳可以由HBase(在数据写入时自动)赋值，精确到毫秒</p>
+<p>时间戳。也可以由客户显式赋值，但必须唯一性</p>
+</blockquote>
+<p>（5）HLog(WAL log)</p>
+<blockquote>
+<ul>
+<li><p>HLog文件就是一个普通的Hadoop SequenceFile</p>
+</li>
+<li><p>HLog Sequence File的Key是HLogKey对象<br> ​         **HLogKey中记录了写入数据的归属信息，包括table和region名字，sequence number（起始值为0或是最近一次存入文件系统中sequence  number）和timestamp（写入时间）</p>
+</li>
+<li><p>HLog SequeceFile的Value是HBase的KeyValue对象，即对应HFile中的KeyValue</p>
+</li>
+</ul>
+<p>​               **存储hbase表的操作记录，KV数据信息   </p>
+</blockquote>
+<p>2、体系架构</p>
+<p>（1）Client</p>
+<blockquote>
+<p>包含访问HBase的接口并维护cache来加快对HBase的访问</p>
+</blockquote>
+<p>（2）Zookeeper</p>
+<blockquote>
+<ul>
+<li><p>保证任何时候，集群中只有一个master；</p>
+</li>
+<li><p>存贮所有Region的寻址入口。</p>
+</li>
+<li><p>实时监控Region server的上线和下线信息。并实时通知Master</p>
+</li>
+<li><p>存储HBase的schema和table元数据</p>
+</li>
+</ul>
+</blockquote>
+<p>（3）Master</p>
+<blockquote>
+<p>为Region server分配region；</p>
+<ul>
+<li><p>负责Region server的负载均衡；</p>
+</li>
+<li><p>发现失效的Region server并将其上的region重新分配；</p>
+</li>
+<li><p>管理用户对table的增删改操作；</p>
+</li>
+</ul>
+</blockquote>
+<p>（4）RegionServer    </p>
+<blockquote>
+<ul>
+<li><p>维护region，处理对这些region的IO请求</p>
+</li>
+<li><p>负责切分在运行过程中变得过大的region</p>
+</li>
+</ul>
+</blockquote>
+<p>（5）Region</p>
+<blockquote>
+<ul>
+<li><p>保存一个表里面某段连续的数据，每个表一开始只有一个region；</p>
+</li>
+<li><p>随着数据不断插入表，region不断增大，当增大到一个阀值的时候，region就会等分会两个新的region（裂变）</p>
+<p>（HBase自动把表水平划分成多个区域(region)）</p>
+</li>
+<li><p>当table中的行不断增多，就会有越来越多的region。这样一张完整的表被保存在多个Regionserver上</p>
+</li>
+</ul>
+</blockquote>
+<p>（6）Memstore与storefile</p>
+<blockquote>
+<ul>
+<li>一个region由2-3store组成，一个store对应一个CF（列族）</li>
+<li>store包括位于内存中的memstore和位于磁盘的storefile。</li>
+<li>写操作先写入memstore，当memstore中的数据达到某个阈值，hregionserver会启动flashcache进程写入storefile，每次写入形成单独的一个storefile；</li>
+<li>当storefile文件的数量增长到一定阈值后，系统会进行合并（minor、major<br>compaction），在合并过程中会进行版本合并和删除工作（majar），形成更大的storefile</li>
+<li>当一个region所有storefile的大小和数量超过一定阈值后，会把当前的region分割为两个，并由hmaster分配到相应的regionserver服务器，实现负载均衡</li>
+<li>客户端检索数据，先在memstore找，找不到再找storefile</li>
+<li>HRegion是HBase中分布式存储和负载均衡的最小单元。最小单元就表示不同的HRegion可以分布在不同的HRegion server上。</li>
+<li>每个Strore又由一个memStore和0至多个StoreFile组成,StoreFile以HFile格式保存在HDFS上(HFile)。</li>
+</ul>
+</blockquote>
+<h2 id="三、Hbase-安装部署"><a href="#三、Hbase-安装部署" class="headerlink" title="三、Hbase 安装部署"></a>三、Hbase 安装部署</h2><p>完全分布式搭建</p>
+<p>1、安装包准备</p>
+<p><a href="http://hbase.apache.org/downloads.html" target="_blank" rel="noopener">Hbase</a>（本文使用0.98版本）</p>
+<p>将tar上传至Linux系统，进行解压安装</p>
+<p>2、修改配置文件hbase-env.sh（在Hbase的解压目录的conf目录中）</p>
+<p>修添加JAVA_HOME环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># The java implementation to use.  Java 1.7+ required.</span><br><span class="line"># export JAVA_HOME=/usr/java/jdk1.6.0/</span><br><span class="line">export JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br></pre></td></tr></table></figure>
+<p>不使用HBase的默认zookeeper配置，（使用自己的）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Tell HBase whether it should manage it&apos;s own instance of Zookeeper or not.</span><br><span class="line"> export HBASE_MANAGES_ZK=false</span><br></pre></td></tr></table></figure>
+<p>3、修改配置hbase-site.xml（在Hbase的解压目录的conf目录中）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--Hdfs配置时的集群名--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://Sunrise:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--zookeeper的三台节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>node00,node01,node02<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置http访问的port---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.master.info.port<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>60010<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>注意：（会出bug的地方）</code>：</p>
+<p>1、问题描述：</p>
+<blockquote>
+<p>HBase启动时，警告：<br>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0 </p>
+</blockquote>
+<p>解决方案：</p>
+<p><code>原因：</code>由于使用了JDK8 ，需要在HBase的配置文件中hbase-env.sh，注释掉两行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+</span><br><span class="line">#export HBASE_MASTER_OPTS=&quot;$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br><span class="line">#export HBASE_REGIONSERVER_OPTS=&quot;$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br></pre></td></tr></table></figure>
+<p>重新启动HBase。</p>
+<p>2、问题描述：</p>
+<blockquote>
+<p>配置好HBase后，各项服务正常，但想从浏览器通过端口60010看下节点情况，但是提示拒绝访问</p>
+</blockquote>
+<p><code>检测：</code>在服务器上netstat -natl|grep 60010 发现并没有60010端口</p>
+<p><code>原因：</code>HBase 1.0 之后的版本都需要在hbase-site.xml中配置端口，如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.master.info.port<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>60010<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重新启动HBase,在浏览器再次访问，就ok了</p>
+<p>4、添加配置regionservers 文件（在Hbase的解压目录的conf目录中）</p>
+<p>添加配置的regionservers 的主机名</p>
+<p>regionservers</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node00</span><br><span class="line">node01</span><br><span class="line">node02</span><br></pre></td></tr></table></figure>
+<p>5、添加配置backup-masters</p>
+<p>添加配置的master备份的主机名（在Hbase的解压目录的conf目录中）</p>
+<p>backup-masters</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node02</span><br></pre></td></tr></table></figure>
+<p>6、将Hadoop安装解压目录/etc/hadoop目录下的hdfs-site.xml文件 拷贝到Hbase的解压目录的conf目录中</p>
+<p>7、配置环境变量 ~/.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line">HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin</span><br><span class="line">SQOOP_HOME=/usr/soft/sqoop-1.4.6</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br><span class="line">HBASE_HOME=/usr/soft/hbase-1.2.9</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>source ~/.bash_profile</p>
+</blockquote>
+<p>8、将如上配置远程发送至其他节点（Hbase 、 ./bash_profile）</p>
+<p>9、各个节点注意要做时间同步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate cn.ntp.org.cn</span><br></pre></td></tr></table></figure>
+<p>10、启动HDFS集群：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br><span class="line">start-hdfs.sh</span><br></pre></td></tr></table></figure>
+<p>11、启动：start-hbase.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node00.out</span><br><span class="line">node02: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node02.out</span><br><span class="line">node01: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node01.out</span><br><span class="line">node00: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node00.out</span><br><span class="line">node02: starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node02.out</span><br></pre></td></tr></table></figure>
+<p>12、查看进程：jps</p>
+<p>13、浏览器访问：node00:60010</p>
+<p>14、关闭：stop-hbase.sh</p>
+<h2 id="四、通过hbase-shell命令进入HBase-命令行接口"><a href="#四、通过hbase-shell命令进入HBase-命令行接口" class="headerlink" title="四、通过hbase shell命令进入HBase 命令行接口"></a>四、通过hbase shell命令进入HBase 命令行接口</h2><p>通过<code>help</code>可查看所有命令的支持以及帮助手册</p>
+<blockquote>
+<p>帮助创建</p>
+<p>hbase(main):007:0&gt;  help create</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th>Shell命令</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">创建表</td>
+<td>create ‘表名’, ‘列族名1’[,…]</td>
+<td>create ‘t1’，‘cf1’</td>
+</tr>
+<tr>
+<td style="text-align:center">列出所有表</td>
+<td>list</td>
+<td>list</td>
+</tr>
+<tr>
+<td style="text-align:center">添加记录</td>
+<td>put ‘表名’, ‘RowKey’, ‘列族名称:列名’, ‘值’</td>
+<td>put        ‘t1’,‘rk_00101’,‘cf1:name’,‘zs’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看记录</td>
+<td>get ‘表名’, ‘RowKey’, ‘列族名称:列名’</td>
+<td>get ‘t1’,‘rk_00101’                         get ‘t1’,‘rk_00101’,‘cf1:name’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看表中                           记录总数</td>
+<td>count  ‘表名’</td>
+<td>count ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center">删除记录</td>
+<td>delete  ‘表名’   , ‘RowKey’,   ‘列族名称:列名’</td>
+<td>delete ‘t1’,‘rk_00101’,‘cf1:name’</td>
+</tr>
+<tr>
+<td style="text-align:center">删除一张表</td>
+<td>先要屏蔽该表，才能对该表进行删除。                                           第一步 disable   ‘表名称’                                                                         第二步 drop   ‘表名称’</td>
+<td>disable ‘t1’                                                      drop ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看所有              记录</td>
+<td>scan   ‘表名 ‘</td>
+<td>scan ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td>create ‘t2’, {NAME =&gt; ‘cf1’, VERSIONS =&gt; 2}, METADATA =&gt; { ‘mykey’ =&gt; ‘myvalue’ }</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">查看未加工的数据中指定版本记录</td>
+<td>scan ‘t1’, {RAW =&gt; true, VERSIONS =&gt; 3}                           raw  未加工的</td>
+<td>3</td>
+</tr>
+<tr>
+<td style="text-align:center">查看保存   版本记录</td>
+<td>scan ‘t1’, {VERSIONS =&gt; 2}</td>
+<td>2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="五、HBase优化"><a href="#五、HBase优化" class="headerlink" title="五、HBase优化"></a>五、HBase优化</h2><p><code>详见HBase性能优化文档</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2019/01/15/HBase学习/" data-id="cjr9zhizl00009kl06n3pkra9" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigData/">BigData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NoSQL/">NoSQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/17/HBase性能优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          HBase性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/14/Hive优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Hive优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hbase学习"><span class="toc-number">1.</span> <span class="toc-text">Hbase学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、对数据库的-基本了解"><span class="toc-number">1.1.</span> <span class="toc-text">一、对数据库的 基本了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、简介"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、工作结构"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、工作结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、关系型数据库"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、非关系型数据库"><span class="toc-number">1.1.4.</span> <span class="toc-text">4、非关系型数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、对HBase的基本里了解"><span class="toc-number">1.2.</span> <span class="toc-text">二、对HBase的基本里了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据结构组成"><span class="toc-number">1.2.1.</span> <span class="toc-text">1、数据结构组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hbase-安装部署"><span class="toc-number">1.3.</span> <span class="toc-text">三、Hbase 安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、通过hbase-shell命令进入HBase-命令行接口"><span class="toc-number">1.4.</span> <span class="toc-text">四、通过hbase shell命令进入HBase 命令行接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、HBase优化"><span class="toc-number">1.5.</span> <span class="toc-text">五、HBase优化</span></a></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

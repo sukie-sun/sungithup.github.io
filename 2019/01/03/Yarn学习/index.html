@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>YARN的入门学习 | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 一、简介yarn（资源管理器）（1）存在背景：MR1.0存在缺陷：   单点故障：  仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度 （一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）  JobTracker‘大包大揽’，管理事项过多  （上限4000个节点）  容">
+<meta name="keywords" content="Linux系统环境,HDFS,资源管理框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YARN的入门学习">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/03/Yarn学习/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="[TOC] 一、简介yarn（资源管理器）（1）存在背景：MR1.0存在缺陷：   单点故障：  仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度 （一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）  JobTracker‘大包大揽’，管理事项过多  （上限4000个节点）  容">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg">
+<meta property="og:updated_time" content="2019-01-24T02:31:53.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YARN的入门学习">
+<meta name="twitter:description" content="[TOC] 一、简介yarn（资源管理器）（1）存在背景：MR1.0存在缺陷：   单点故障：  仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度 （一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）  JobTracker‘大包大揽’，管理事项过多  （上限4000个节点）  容">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Yarn学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/03/Yarn学习/" class="article-date">
+  <time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished">2019-01-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yarn/">yarn</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      YARN的入门学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h2 id="yarn（资源管理器）"><a href="#yarn（资源管理器）" class="headerlink" title="yarn（资源管理器）"></a>yarn（资源管理器）</h2><h3 id="（1）存在背景："><a href="#（1）存在背景：" class="headerlink" title="（1）存在背景："></a>（1）存在背景：</h3><p>MR1.0存在缺陷：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg" alt=""></p>
+<ul>
+<li>单点故障：</li>
+</ul>
+<p>仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度</p>
+<p>（一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）</p>
+<ul>
+<li>JobTracker‘大包大揽’，管理事项过多</li>
+</ul>
+<p>（上限4000个节点）</p>
+<ul>
+<li><p>容易出现内存溢出</p>
+</li>
+<li><p>资源划分不合理</p>
+<p>（强行划分slot，map资源和reduce资源不能互用，导致忙的忙死，闲的闲死）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">既是一个计算框架，也是一个资源管理框架</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg" alt=""></p>
+<h3 id="（2）yarn产生"><a href="#（2）yarn产生" class="headerlink" title="（2）yarn产生"></a>（2）yarn产生</h3><ul>
+<li>对JobTracker进行功能分解，将资源管理功能分给ResourceManager，将任务调度和任务监控分给ApplicationMaster，将TaskTracker的任务交给NodeManager</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">纯粹的资源管理框架</span><br><span class="line">被剥离资源管理调度功能的MapReduce就变成了MR2.0，他就是一个运行在YARN上的一个纯粹的计算框架，由YARN为其提供资源管理调度服务</span><br></pre></td></tr></table></figure>
+<p><code>什么叫纯粹的计算框架？？</code></p>
+<p>它提供一些计算基类，使用时，编写map类和reduce类的子类，去继承它。然后计算框架去做后台自动分片，shuffle过程。</p>
+<p><code>资源管理框架？？</code></p>
+<p>它专门管理CPU内存资源的分配</p>
+<h1 id="二、YARN设计思路"><a href="#二、YARN设计思路" class="headerlink" title="二、YARN设计思路"></a>二、YARN设计思路</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg" alt=""></p>
+<h1 id="三、YARN体系结构"><a href="#三、YARN体系结构" class="headerlink" title="三、YARN体系结构"></a>三、YARN体系结构</h1><p>三大核心：</p>
+<h2 id="1、RecourceManager（RM）"><a href="#1、RecourceManager（RM）" class="headerlink" title="1、RecourceManager（RM）"></a>1、RecourceManager（RM）</h2><blockquote>
+<ul>
+<li><p>ResourceManager（RM）是一个全局的资源管理器，负责整个系统的资源管理和分配，主<br>要包括两个组件，即调度器（Scheduler）和应用程序管理器（Applications Manager）</p>
+</li>
+<li><p>调度器接收来自ApplicationMaster的应用程序资源请求，把集群中的资源以“容器”的形式<br>分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行<br>就近选择，从而实现“计算向数据靠拢”</p>
+</li>
+<li><p>容器（Container）作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、<br>磁盘等资源，从而限定每个应用程序可以使用的资源量</p>
+</li>
+<li><p>调度器被设计成是一个可插拔的组件，YARN不仅自身提供了许多种直接可用的调度器，也<br>允许用户根据自己的需求重新设计调度器</p>
+</li>
+<li><p>应用程序管理器（Applications Manager）负责系统中所有应用程序的管理工作，主要包括<br>应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状<br>态并在失败时重新启动等</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="2、ApplicationMaster"><a href="#2、ApplicationMaster" class="headerlink" title="2、ApplicationMaster"></a>2、ApplicationMaster</h2><blockquote>
+<p>ResourceManager接收用户提交的作业，按照作业的上下文信息以及从NodeManager收集<br>来的容器状态信息，启动调度过程，为用户作业启动一个ApplicationMaster<br>ApplicationMaster的主要功能是：<br>（1）当用户作业提交时，ApplicationMaster与ResourceManager协商获取资源，<br>ResourceManager会以容器的形式为ApplicationMaster分配资源；</p>
+<p>（2）把获得的资源进一步分配给内部的各个任务（Map任务或Reduce任务），实现资源<br>的“二次分配”；</p>
+<p>（3）与NodeManager保持交互通信进行应用程序的启动、运行、监控和停止，监控申请<br>到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行<br>失败恢复（即重新申请资源重启任务）；</p>
+<p>（4）定时向ResourceManager发送“心跳”消息，报告资源的使用情况和应用的进度信<br>息；</p>
+<p>（5）当作业完成时，ApplicationMaster向ResourceManager注销容器，执行周期完成。</p>
+</blockquote>
+<h2 id="3、NodeManager"><a href="#3、NodeManager" class="headerlink" title="3、NodeManager"></a>3、NodeManager</h2><blockquote>
+<p>NodeManager是驻留在一个YARN集群中的每个节点上的代理，有所需数据的节点，主要负责：</p>
+<ul>
+<li><p>容器生命周期管理</p>
+</li>
+<li><p>监控每个容器的资源（CPU、内存等）使用情况</p>
+</li>
+<li><p>跟踪节点健康状况</p>
+</li>
+<li><p>以“心跳”的方式与ResourceManager保持通信</p>
+</li>
+<li><p>向ResourceManager汇报作业的资源使用情况和每个容器的运行状态</p>
+</li>
+<li><p>接收来自ApplicationMaster的启动/停止容器的各种请求</p>
+</li>
+</ul>
+<p>需要说明的是，NodeManager主要负责管理抽象的容器，只处理与容器相关的事<br>情，而不具体负责每个任务（Map任务或Reduce任务）自身状态的管理，因为这<br>些管理工作是由ApplicationMaster完成的，ApplicationMaster会通过不断与<br>NodeManager通信来掌握各个任务的执行状态</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg" alt=""></p>
+<h1 id="四、YARN-工作流程"><a href="#四、YARN-工作流程" class="headerlink" title="四、YARN 工作流程"></a>四、YARN 工作流程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg" alt=""></p>
+<h1 id="五、YARN框架与MapReduce1-0框架的对比分析"><a href="#五、YARN框架与MapReduce1-0框架的对比分析" class="headerlink" title="五、YARN框架与MapReduce1.0框架的对比分析"></a>五、YARN框架与MapReduce1.0框架的对比分析</h1><blockquote>
+<ul>
+<li>从MapReduce1.0框架发展到YARN框架，客户端并没有发生变化，其大部分调用API及<br>接口都保持兼容，因此，原来针对Hadoop1.0开发的代码不用做大的改动，就可以直接放<br>到Hadoop2.0平台上运行</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>总体而言，YARN相对于MapReduce1.0来说具有以下优势：</p>
+<p>大大减少了承担中心服务功能的ResourceManager的资源消耗</p>
+<ul>
+<li>ApplicationMaster来完成需要大量资源消耗的任务调度和监控</li>
+<li>多个作业对应多个ApplicationMaster，实现了监控分布化</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>MapReduce1.0既是一个计算框架，又是一个资源管理调度框架，但是，只能支持<br>MapReduce编程模型。而YARN则是一个纯粹的资源调度管理框架，在它上面可以运行包<br>括MapReduce在内的不同类型的计算框架，只要编程实现相应的ApplicationMaster</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>YARN中的资源管理比MapReduce1.0更加高效<ul>
+<li>以容器为单位，而不是以slot为单位</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="六、YARN-的发展目标"><a href="#六、YARN-的发展目标" class="headerlink" title="六、YARN 的发展目标"></a>六、YARN 的发展目标</h1><p><strong>YARN 的目标就是实现“一个集群多个框架”？ ，为什么？</strong></p>
+<ul>
+<li><p>一个企业当中同时存在各种不同的业务应用场景，需要采用不同的计算框架</p>
+<ul>
+<li><p>MapReduce实现离线批处理</p>
+</li>
+<li><p>使用Impala实现实时交互式查询分析</p>
+</li>
+<li><p>使用Storm实现流式数据实时分析</p>
+</li>
+<li><p>使用Spark实现迭代计算</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>这些产品通常来自不同的开发团队，具有各自的资源调度管理机制</p>
+</li>
+<li><p>为了避免不同类型应用之间互相干扰，企业就需要把内部的服务器拆分成多个集群，分<br>别安装运行不同的计算框架，即“一个框架一个集群”</p>
+</li>
+</ul>
+<ul>
+<li><p>导致问题</p>
+<ul>
+<li><p>集群资源利用率低</p>
+</li>
+<li><p>数据无法共享</p>
+</li>
+<li><p>维护代价高</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>YARN的目标就是实现“一个集群多个框架”，即在一个集群上部署一个统一的资源<br>调度管理框架YARN，在YARN之上可以部署其他各种计算框架</p>
+</li>
+<li><p>由YARN为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架<br>的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩</p>
+</li>
+<li><p>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率</p>
+</li>
+<li><p>不同计算框架可以共享底层存储，避免了数据集跨集群移动</p>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2019/01/03/Yarn学习/" data-id="cjra04ttw0000jol0qxbue57u" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/资源管理框架/">资源管理框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/04/Hadoop2.X/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hadoop2.X
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/03/HDFS学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">HDFS学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、简介"><span class="toc-number">1.</span> <span class="toc-text">一、简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#yarn（资源管理器）"><span class="toc-number">1.1.</span> <span class="toc-text">yarn（资源管理器）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）存在背景："><span class="toc-number">1.1.1.</span> <span class="toc-text">（1）存在背景：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）yarn产生"><span class="toc-number">1.1.2.</span> <span class="toc-text">（2）yarn产生</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、YARN设计思路"><span class="toc-number">2.</span> <span class="toc-text">二、YARN设计思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、YARN体系结构"><span class="toc-number">3.</span> <span class="toc-text">三、YARN体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RecourceManager（RM）"><span class="toc-number">3.1.</span> <span class="toc-text">1、RecourceManager（RM）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、ApplicationMaster"><span class="toc-number">3.2.</span> <span class="toc-text">2、ApplicationMaster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、NodeManager"><span class="toc-number">3.3.</span> <span class="toc-text">3、NodeManager</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、YARN-工作流程"><span class="toc-number">4.</span> <span class="toc-text">四、YARN 工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、YARN框架与MapReduce1-0框架的对比分析"><span class="toc-number">5.</span> <span class="toc-text">五、YARN框架与MapReduce1.0框架的对比分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、YARN-的发展目标"><span class="toc-number">6.</span> <span class="toc-text">六、YARN 的发展目标</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>
