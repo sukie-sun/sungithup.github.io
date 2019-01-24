@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Hadoop2.X | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 一、Hadoop 2.x产生背景1、Hadoop 1.0存在的问题（1）HDFS存在的问题 NameNode单点故障，难以应用于在线场景 NameNode（一个）压力过大，内存受限，影响系统扩展性  （2）MapReduce存在的问题 JobTracker访问压力大，影响系统扩展性 难以支持MapReduce以外的计算框架，比如Spark、Storm  2、Hadoop 2.0分支HD">
+<meta name="keywords" content="hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop2.X">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/04/Hadoop2.X/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="[TOC] 一、Hadoop 2.x产生背景1、Hadoop 1.0存在的问题（1）HDFS存在的问题 NameNode单点故障，难以应用于在线场景 NameNode（一个）压力过大，内存受限，影响系统扩展性  （2）MapReduce存在的问题 JobTracker访问压力大，影响系统扩展性 难以支持MapReduce以外的计算框架，比如Spark、Storm  2、Hadoop 2.0分支HD">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-24T01:25:19.144Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop2.X">
+<meta name="twitter:description" content="[TOC] 一、Hadoop 2.x产生背景1、Hadoop 1.0存在的问题（1）HDFS存在的问题 NameNode单点故障，难以应用于在线场景 NameNode（一个）压力过大，内存受限，影响系统扩展性  （2）MapReduce存在的问题 JobTracker访问压力大，影响系统扩展性 难以支持MapReduce以外的计算框架，比如Spark、Storm  2、Hadoop 2.0分支HD">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Hadoop2.X" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/04/Hadoop2.X/" class="article-date">
+  <time datetime="2019-01-04T11:05:47.000Z" itemprop="datePublished">2019-01-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hadoop2.X
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h2 id="一、Hadoop-2-x产生背景"><a href="#一、Hadoop-2-x产生背景" class="headerlink" title="一、Hadoop 2.x产生背景"></a>一、Hadoop 2.x产生背景</h2><h3 id="1、Hadoop-1-0存在的问题"><a href="#1、Hadoop-1-0存在的问题" class="headerlink" title="1、Hadoop 1.0存在的问题"></a>1、Hadoop 1.0存在的问题</h3><h4 id="（1）HDFS存在的问题"><a href="#（1）HDFS存在的问题" class="headerlink" title="（1）HDFS存在的问题"></a>（1）HDFS存在的问题</h4><ul>
+<li>NameNode单点故障，难以应用于在线场景</li>
+<li>NameNode（一个）压力过大，内存受限，影响系统扩展性</li>
+</ul>
+<h4 id="（2）MapReduce存在的问题"><a href="#（2）MapReduce存在的问题" class="headerlink" title="（2）MapReduce存在的问题"></a>（2）MapReduce存在的问题</h4><ul>
+<li>JobTracker访问压力大，影响系统扩展性</li>
+<li>难以支持MapReduce以外的计算框架，比如Spark、Storm</li>
+</ul>
+<h3 id="2、Hadoop-2-0分支"><a href="#2、Hadoop-2-0分支" class="headerlink" title="2、Hadoop 2.0分支"></a>2、Hadoop 2.0分支</h3><p>HDFS：分布式文件存储系统<br>MapReduce：计算框架<br>YARN：资源管理系统</p>
+<h3 id="3、特点"><a href="#3、特点" class="headerlink" title="3、特点"></a>3、特点</h3><p> 1）. 解决单点故障：HDFS HA（高可用）</p>
+<blockquote>
+<p>  通过主备NameNode解决，如果主NameNode发生故障，就切换到备NameNode上   |</p>
+</blockquote>
+<p> 2).解决内存受限问题：HDFS Federation（联邦制）、HA</p>
+<blockquote>
+<p> HA：两个NameNode<br> (3.0就实现了一组多从：水平扩展，支持多个NameNode；每个NameNode分管一部分目录；所有NameNode共享所有DataNode资源)</p>
+</blockquote>
+<p> 3).仅架构上发生变化使用方式不变</p>
+<h2 id="二、HDFS-HA结构及功能"><a href="#二、HDFS-HA结构及功能" class="headerlink" title="二、HDFS HA结构及功能"></a>二、HDFS HA结构及功能</h2><h3 id="HA"><a href="#HA" class="headerlink" title="**HA"></a>**HA</h3><p>DN：DataNode（数据节点）</p>
+<blockquote>
+<p>存放数据block块；遵循心跳机制向NN Active和NN Standby汇报block块信息，但只执行active的命令         </p>
+</blockquote>
+<p>主备NN：NameNode Active 和 NameNode Standby （主备名称节点）</p>
+<blockquote>
+<p>主NN对外提供读写服务，备NN同步主NN元数据，以待切换，所有的DN同时向两个NN汇报数据块信息</p>
+<p>元数据信息加载到主NN，并写入JN（至少写两台：过半原则）；</p>
+<p>备NN可以从JN中同步元数据信息；</p>
+<p>解决单点故障；</p>
+<p>–两种切换方式：</p>
+<p>手动：通过命令实现主备切换</p>
+<p>自动：基于Zookeeper实现（详情见搭建步骤）</p>
+</blockquote>
+<p>JN：JournalNode（至少3台）</p>
+<blockquote>
+<p>存储主NN元数据信息，实现主备NN间数据共享；</p>
+<p>（遵循过半原则：至少有过半的数量参与投票）</p>
+</blockquote>
+<p>ZKFC：FailoverController（竞争锁）</p>
+<blockquote>
+<p>谁拿到了这个所，谁就是active NN</p>
+<p>心跳机制监控主备NN状态，一旦出现一台挂机，就会释放锁，另一个NN就会立即启动竞争锁，成为active NN</p>
+</blockquote>
+<p>ZK：Zookeeper（至少3台）</p>
+<blockquote>
+<p>（实现主备NN切换）</p>
+</blockquote>
+<h3 id="联邦"><a href="#联邦" class="headerlink" title="**联邦"></a>**联邦</h3><blockquote>
+<p>通过多个namenode/namespace把元数据的存储和管理分散到多个节点中，使到namenode/namespace可以通过增加机器来进行水平扩展</p>
+</blockquote>
+<blockquote>
+<p>通过多个namespace来隔离不同类型的应用，把不同类型应用的HDFS元数据的存储和管理分派到不同的namenode中。</p>
+</blockquote>
+<h2 id="三、YARN-资源管理"><a href="#三、YARN-资源管理" class="headerlink" title="三、YARN(资源管理)???????"></a>三、YARN(资源管理)???????</h2><p><code>详见Yarn学习.md</code></p>
+<p>1、核心思想：SourceManager（资源管理）+ReplicationMaster（任务调度）</p>
+<p>2.yarn的引入使得多个计算框架可以应用到一个集群中</p>
+<h2 id="四、Zookeeper工作原理"><a href="#四、Zookeeper工作原理" class="headerlink" title="四、Zookeeper工作原理"></a>四、Zookeeper工作原理</h2><p><code>详见Zookeeper学习.md</code></p>
+<h2 id="五、Hadoop2-X-集群搭建"><a href="#五、Hadoop2-X-集群搭建" class="headerlink" title="五、Hadoop2.X 集群搭建"></a>五、Hadoop2.X 集群搭建</h2><h3 id="1、linux环境下搭建"><a href="#1、linux环境下搭建" class="headerlink" title="1、linux环境下搭建"></a>1、linux环境下搭建</h3><table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">NN</th>
+<th style="text-align:center">DN</th>
+<th style="text-align:center">JN</th>
+<th style="text-align:center">ZKFC</th>
+<th style="text-align:center">ZK</th>
+<th style="text-align:center">SM</th>
+<th style="text-align:center">RM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node00</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td>node01</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td>node02</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+<p>0.在搭建环境之前的准备</p>
+<p>三台虚拟机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">关闭防火墙</span><br><span class="line">安装jdk</span><br><span class="line">编辑/etc/hosts/给各个节点服务器起别名</span><br><span class="line">时间服务器：ntpdate</span><br><span class="line">     安装：yum install ntpdate -y</span><br><span class="line">     生成：ntpdate cn.ntp.org.cn</span><br><span class="line">免密登录环境准备</span><br></pre></td></tr></table></figure>
+<p>在hadoop安装目录下hadoop-2.6.5/etc/hadoop/</p>
+<ol>
+<li>编辑hadoop-env.sh</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br></pre></td></tr></table></figure>
+<p>   2.编辑core-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://Sunrise<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--配置集群的名字--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>ha.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:2181,node01:2181,node02:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置zookeeper：三个节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--配置hadoop基础配置存放的路径--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.编辑hdfs-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.nameservices<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>sxt<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.namenodes.Sunrise<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>nn1,nn2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.Sunrise.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.Sunrise.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.Sunrise.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node00:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.Sunrise.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定namenode元数据存储在journalnode中的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.shared.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>qjournal://node00:8485;node01:8485;node02:8485/sxt<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定HDFS客户端连接active namenode的java类 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.failover.proxy.provider.Sunrise<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 配置隔离机制为ssh 防止脑裂：保证activeNN仅有一台--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.methods<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>sshfence<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定秘钥的位置 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.ssh.private-key-files<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/.ssh/id_dsa<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--免密登录是生成的文件，有的是id_rsa--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 指定journalnode日志文件存储的路径 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.journalnode.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 开启自动故障转移 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.automatic-failover.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>配置hadoop中的slaves（主从架构：datanode）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node00</span><br><span class="line">node01</span><br><span class="line">node02</span><br></pre></td></tr></table></figure>
+<p>  5.准备zookeeper</p>
+<ul>
+<li><p>三台zookeeper：node00，node01，node02</p>
+</li>
+<li><p>编辑zookeeper-3.4.13/conf/zoo.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/usr/soft/zookeeper-3.4.13/data</span><br><span class="line">dataLogDir=/usr/soft/zookeeper-3.4.13/logs</span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=node00:2888:3888</span><br><span class="line">server.2=node01:2888:3888</span><br><span class="line">server.3=node02:2888:3888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在dataDir目录中创建文件myid，三台节点的文件内容分别为1，2，3</p>
+</li>
+</ul>
+<p>6.配置环境变量   </p>
+<blockquote>
+<p>vim ~/.bash_profile</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>source ~/.bash_profile</p>
+<p>使其成为资源文件，发送到其他节点后，也需要此操作</p>
+</blockquote>
+<p>7.将以上配置文件远程发送至其他节点服务器</p>
+<blockquote>
+<p>scp -r filename nodename:<code>pwd</code></p>
+</blockquote>
+<p>8.命令操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1. 启动三个zookeeper：./zkServer.sh start</span><br><span class="line">2. 启动三个JournalNode：./hadoop-daemon.sh start journalnode</span><br><span class="line">3. （生成fsimage文件）在其中一个namenode上格式化：</span><br><span class="line">    hdfs namenode -format</span><br><span class="line">4. 把刚刚格式化之后的元数据拷贝到另外一个namenode上</span><br><span class="line"> a)	启动刚刚格式化的namenode :  hadoop-daemon.sh start namenode</span><br><span class="line"> b)	（同步fsimage文件）在另一个（没有格式化的）namenode上执行：</span><br><span class="line">    hdfs namenode -bootstrapStandby</span><br><span class="line"> c)	启动没格式化的namenode：    hadoop-daemon.sh start namenode</span><br><span class="line">5. （初始化竞争锁zookeeper）在其中一个namenode上初始化zkfc：</span><br><span class="line">    hdfs zkfc -formatZK</span><br><span class="line">6. 停止上面节点：stop-dfs.sh</span><br><span class="line">7. 全面启动（三个节点）：start-dfs.sh</span><br><span class="line">8. 启动yarn资源管理器</span><br><span class="line">   yarn-daemon.sh start resourcemanager </span><br><span class="line">   (yarn resourcemanager  )</span><br></pre></td></tr></table></figure>
+<h3 id="2、使用"><a href="#2、使用" class="headerlink" title="2、使用"></a>2、使用</h3><p>（启动步骤）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1)关闭防火墙：service iptables stop        （3台）</span><br><span class="line">(2)启动zookeeper:zkServer.sh start          （3台）</span><br><span class="line">(3)启动集群：start-dfs.sh |（start-all.sh   :  同时启动hdfs和yarn)</span><br><span class="line">(4)启动yarn：yarn-daemon.sh start resourcemanager （可3台）</span><br></pre></td></tr></table></figure>
+<p>（关闭步骤）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1)关闭yarn：yarn-daemon.sh stop resourcemanager  （开几台关几台）</span><br><span class="line">(2)关闭集群：stop-dfs.sh   |（stop-all.sh    :同时关闭hdfs和yarn） （3台）</span><br><span class="line">(3)关闭zookeeper：zkServer.sh stop                 （3台）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">有可能会出错的地方</span><br><span class="line">1，	确认每台机器防火墙均关掉</span><br><span class="line">2，	确认每台机器的时间是一致的</span><br><span class="line">3，	确认配置文件无误，并且确认每台机器上面的配置文件一样</span><br><span class="line">4，	如果还有问题想重新格式化，那么先把所有节点的进程关掉</span><br><span class="line">5，	删除之前格式化的数据目录hadoop.tmp.dir属性对应的目录，所有节点同步都删掉，别单删掉之前的一个，删掉三台JN节点中dfs.journalnode.edits.dir属性所对应的目录</span><br><span class="line">6，	接上面的第6步又可以重新格式化已经启动了</span><br><span class="line">7，	最终Active Namenode停掉的时候，StandBy可以自动接管！</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2019/01/04/Hadoop2.X/" data-id="cjr9yhs39000hc8l0jddzuujf" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/05/大数据思想/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          大数据思想
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/28/手动安装maven坐标依赖/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">手动安装maven坐标依赖</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Hadoop-2-x产生背景"><span class="toc-number">1.</span> <span class="toc-text">一、Hadoop 2.x产生背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Hadoop-1-0存在的问题"><span class="toc-number">1.1.</span> <span class="toc-text">1、Hadoop 1.0存在的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）HDFS存在的问题"><span class="toc-number">1.1.1.</span> <span class="toc-text">（1）HDFS存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）MapReduce存在的问题"><span class="toc-number">1.1.2.</span> <span class="toc-text">（2）MapReduce存在的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Hadoop-2-0分支"><span class="toc-number">1.2.</span> <span class="toc-text">2、Hadoop 2.0分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、特点"><span class="toc-number">1.3.</span> <span class="toc-text">3、特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、HDFS-HA结构及功能"><span class="toc-number">2.</span> <span class="toc-text">二、HDFS HA结构及功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HA"><span class="toc-number">2.1.</span> <span class="toc-text">**HA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#联邦"><span class="toc-number">2.2.</span> <span class="toc-text">**联邦</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、YARN-资源管理"><span class="toc-number">3.</span> <span class="toc-text">三、YARN(资源管理)???????</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Zookeeper工作原理"><span class="toc-number">4.</span> <span class="toc-text">四、Zookeeper工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、Hadoop2-X-集群搭建"><span class="toc-number">5.</span> <span class="toc-text">五、Hadoop2.X 集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、linux环境下搭建"><span class="toc-number">5.1.</span> <span class="toc-text">1、linux环境下搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用"><span class="toc-number">5.2.</span> <span class="toc-text">2、使用</span></a></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

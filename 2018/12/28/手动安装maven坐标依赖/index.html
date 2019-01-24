@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>手动安装maven坐标依赖 | Sunrise山脉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta name="keywords" content="maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手动安装maven坐标依赖">
+<meta property="og:url" content="http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/index.html">
+<meta property="og:site_name" content="Sunrise山脉">
+<meta property="og:description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/1.jpg">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/2.jpg">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/4.jpg">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/5.jpg">
+<meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544699916763.png">
+<meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544699989775.png">
+<meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544701045091.png">
+<meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544702128551.png">
+<meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544702179172.png">
+<meta property="og:updated_time" content="2019-01-23T16:51:13.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手动安装maven坐标依赖">
+<meta name="twitter:description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta name="twitter:image" content="c:/Users/Administrator/Desktop/1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunrise山脉</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-手动安装maven坐标依赖" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/28/手动安装maven坐标依赖/" class="article-date">
+  <time datetime="2018-12-27T18:16:47.000Z" itemprop="datePublished">2018-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/maven/">maven</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      手动安装maven坐标依赖
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="手动安装maven坐标依赖"><a href="#手动安装maven坐标依赖" class="headerlink" title="手动安装maven坐标依赖"></a>手动安装maven坐标依赖</h1><h2 id="一、事件原因："><a href="#一、事件原因：" class="headerlink" title="一、事件原因："></a>一、事件原因：</h2><p>学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">提示："Dependency 'xxxx‘ not found"，	</span><br><span class="line">并且添加的如下两个坐标依赖均报红。</span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!-- 工具 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz-jobs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>分析：</p>
+<table>
+<thead>
+<tr>
+<th>1、maven项目所需要的jar包均存放在maven的F:\m2\repository(项目所需的jar包仓库)文件夹中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2、在F:\apache-maven-3.5.4\conf的settings.xml文件中有如下设置：（由于使用远程仓库太慢，阿里云给我们提供了一个镜像仓库，便于我们使用，且只包含central仓库中的jar）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--文件中原有的配置：远程仓库---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>mirrorId<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>repositoryId<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Human Readable Name for this Mirror.<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://my.repository.com/repo/path<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--文件中自己手动配置：阿里镜像仓库---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span>    </span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\Administrator\Desktop\1.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>3.可是我们在<a href="https://mvnrepository.com/（maven仓库）中发现有我们要的jar包，而且就在Central仓库里，这里我们就很奇怪了，后来就选择还是手动安装jar包吧" target="_blank" rel="noopener">https://mvnrepository.com/（maven仓库）中发现有我们要的jar包，而且就在Central仓库里，这里我们就很奇怪了，后来就选择还是手动安装jar包吧</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（如果有小伙伴有别的解决方案，还请指点一二。）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h2><p>1、首先，我们需要从maven  Repository中下载我们需要的jar包（需要的两个jar包，下载原理相同）</p>
+<p><img src="C:\Users\Administrator\Desktop\2.jpg" alt=""></p>
+<p>2、注意我们的maven安装，需要配置环境变量，才能在dos窗口，指令安装jar包</p>
+<p><img src="C:\Users\Administrator\Desktop\4.jpg" alt=""></p>
+<p>因为我之前查资料时，有小伙伴说，java的环境变量配置也会影响，所以，我在这里也把java的环境变量配置也贴出来</p>
+<p><img src="C:\Users\Administrator\Desktop\5.jpg" alt="1"></p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544699916763.png" alt="1544699916763"></p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544699989775.png" alt="1544699989775"></p>
+<table>
+<thead>
+<tr>
+<th>JAVA_HOME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F:\Java\jdk1.8.0_131（  根据自己的jdk安装目录）</td>
+</tr>
+<tr>
+<td><strong>CLASSPATH</strong></td>
+</tr>
+<tr>
+<td>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar</td>
+</tr>
+<tr>
+<td><strong>MAVEN_HOME</strong></td>
+</tr>
+<tr>
+<td>F:\apache-maven-3.5.4（ 根据自己maven安装目录）</td>
+</tr>
+<tr>
+<td><strong>Path</strong>（注意配置的时候，一定要和配置home时的变量名一致，如MAVEN_HOME,我配置成了%MVN_HOME%\bin;）</td>
+</tr>
+<tr>
+<td>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%MYSQL_HOME%\bin;%MAVEN_HOME%\bin;</td>
+</tr>
+</tbody>
+</table>
+<p>配置这些环境变量，在dos窗口才能使java  ，mvn  之类的指令可以用；</p>
+<p>否则会出现如下显示。</p>
+<table>
+<thead>
+<tr>
+<th>‘mvn’ 不是内部或外部命令，也不是可运行的程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(这就是环境变量没有配成功的结果)</td>
+</tr>
+</tbody>
+</table>
+<p>3.安装</p>
+<table>
+<thead>
+<tr>
+<th>C:\Users\Administrator&gt;mvn -v</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544701045091.png" alt="1544701045091"></td>
+</tr>
+<tr>
+<td>C:\Users\Administrator&gt;mvn install:install-file -Dfile=F:/apache-maven-3.5.4/m2/quartz-2.3.0.jar（jar包所在路径） -DgroupId=org.quartz-scheduler -DartifactId=quartz -Dversion=2.3.0 -Dpackaging=jar</td>
+</tr>
+<tr>
+<td>（根据下面所示的配置groupId、artifactId、version）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544702128551.png" alt="1544702128551"></p>
+<p>如图所示，安装成功。</p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544702179172.png" alt="1544702179172"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/" data-id="cjr9yhs1z0004c8l0pu6cvjn0" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/04/Hadoop2.X/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hadoop2.X
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/28/常用Linux命令的学习（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">常用Linux命令的学习（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#手动安装maven坐标依赖"><span class="toc-number">1.</span> <span class="toc-text">手动安装maven坐标依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、事件原因："><span class="toc-number">1.1.</span> <span class="toc-text">一、事件原因：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">二、解决方案</span></a></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>
