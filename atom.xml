@@ -309,6 +309,36 @@
   </entry>
   
   <entry>
+    <title>大数据思想</title>
+    <link href="http://sungithup.github.io/2019/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%80%9D%E6%83%B3/"/>
+    <id>http://sungithup.github.io/2019/01/05/大数据思想/</id>
+    <published>2019-01-04T16:00:00.000Z</published>
+    <updated>2019-01-24T01:43:29.130Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p><h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p><blockquote><p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p></blockquote><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"></p><h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p><h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"></p><p><strong>==方法==</strong></p><p> 答：共需要2次IO：2*30min=1h</p><p>==第一次IO==：</p><ol><li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li><li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li></ol><p>==第二次IO==：</p><ol start="3"><li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li></ol><h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p><p>两次IO，2 * 30分钟 = 1小时</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"></p><p><strong>==方法一：先全局有序后局部有序==</strong></p><p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"></p><p><strong>==方法二：先局部有序后全局有序==</strong></p><ol><li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li><li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li></ol><p><img src="./images/坚持_1.jpg" alt="知否"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;1、大数据核心问题：&quot;&gt;&lt;a href=&quot;#1、大数据核心问题：&quot; class=&quot;headerlink&quot; title=&quot;1、大数据核心问题：&quot;&gt;&lt;/a&gt;1、大数据核心问题：&lt;/h3&gt;&lt;p&gt;==海量数据、工业技术落后、硬件损坏常态化（Ctr
+      
+    
+    </summary>
+    
+      <category term="大数据" scheme="http://sungithup.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="BigData" scheme="http://sungithup.github.io/tags/BigData/"/>
+    
+      <category term="头脑风暴" scheme="http://sungithup.github.io/tags/%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4/"/>
+    
+      <category term="分而治之" scheme="http://sungithup.github.io/tags/%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MapReduce学习</title>
     <link href="http://sungithup.github.io/2019/01/05/MapReduce%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/05/MapReduce学习/</id>
@@ -336,36 +366,6 @@
       <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
     
       <category term="计算框架" scheme="http://sungithup.github.io/tags/%E8%AE%A1%E7%AE%97%E6%A1%86%E6%9E%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大数据思想</title>
-    <link href="http://sungithup.github.io/2019/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%80%9D%E6%83%B3/"/>
-    <id>http://sungithup.github.io/2019/01/05/大数据思想/</id>
-    <published>2019-01-04T16:00:00.000Z</published>
-    <updated>2019-01-24T01:43:29.130Z</updated>
-    
-    <content type="html"><![CDATA[<p>[TOC]</p><h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p><h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p><blockquote><p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p></blockquote><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"></p><h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p><h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"></p><p><strong>==方法==</strong></p><p> 答：共需要2次IO：2*30min=1h</p><p>==第一次IO==：</p><ol><li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li><li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li></ol><p>==第二次IO==：</p><ol start="3"><li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li></ol><h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p><p>两次IO，2 * 30分钟 = 1小时</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"></p><p><strong>==方法一：先全局有序后局部有序==</strong></p><p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"></p><p><strong>==方法二：先局部有序后全局有序==</strong></p><ol><li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li><li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li></ol><p><img src="./images/坚持_1.jpg" alt="知否"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h3 id=&quot;1、大数据核心问题：&quot;&gt;&lt;a href=&quot;#1、大数据核心问题：&quot; class=&quot;headerlink&quot; title=&quot;1、大数据核心问题：&quot;&gt;&lt;/a&gt;1、大数据核心问题：&lt;/h3&gt;&lt;p&gt;==海量数据、工业技术落后、硬件损坏常态化（Ctr
-      
-    
-    </summary>
-    
-      <category term="大数据" scheme="http://sungithup.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-    
-      <category term="BigData" scheme="http://sungithup.github.io/tags/BigData/"/>
-    
-      <category term="头脑风暴" scheme="http://sungithup.github.io/tags/%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4/"/>
-    
-      <category term="分而治之" scheme="http://sungithup.github.io/tags/%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B/"/>
     
   </entry>
   
@@ -420,34 +420,6 @@
   </entry>
   
   <entry>
-    <title>Zookeeper学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-01-24T02:00:22.657Z</updated>
-    
-    <content type="html"><![CDATA[<p>[TOC]</p><p>动物园管理员</p><p><code>推荐图书：</code>《从Paxo到Zookeeper》</p><h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><blockquote><p>开源的、分布式应用程序，提供<strong><code>一致性</code></strong>服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件</p></blockquote><p>提供的功能：</p><ul><li>配置维护</li><li>域名维护</li><li>分布式的同步</li><li>组服务</li></ul><p>Zookeeper→提供通用分布式锁服务，用以协调分布式应用</p><p>Keepalived→实现节点健康检查，采用优先级监控，没有协同工作，功能单一，可扩展性差。</p><h2 id="2、Zookeep而角色"><a href="#2、Zookeep而角色" class="headerlink" title="2、Zookeep而角色"></a>2、Zookeep而角色</h2><p> <img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd81ntj7tj30fd06pgn1.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd828tp44j30fo07lwgl.jpg" alt=""></p><p>（一般很少配置Observer，因为用的少，而且配置的节点一般为奇数）</p><blockquote><p>Zookeeper需保证高可用和强一致性；</p><p>​    为了支持更多的客户端，需要增加更多Server；</p><p>​    Server增多，投票阶段延迟增大，影响性能；</p><p>​    权衡伸缩性和高吞吐率，引入Observer</p><p>​    Observer不参与投票；</p><p>​    Observers接受客户端的连接，并将写请求转发给leader节点；</p><p>​    加入更多Observer节点，提高伸缩性，同时不影响吞吐率。</p></blockquote><h2 id="3、Zookeeper特点"><a href="#3、Zookeeper特点" class="headerlink" title="3、Zookeeper特点"></a>3、Zookeeper特点</h2><table><thead><tr><th style="text-align:center"><strong>特点</strong></th><th><strong>说明</strong></th></tr></thead><tbody><tr><td style="text-align:center"><strong><em>最终</em>一致性</strong></td><td>为客户端展示同一个视图，这是zookeeper里面一个非常重要的功能（与强一致性相对）</td></tr><tr><td style="text-align:center"><strong>可靠性</strong></td><td>如果消息被到一台服务器接受，那么它将被所有的服务器接受.</td></tr><tr><td style="text-align:center"><strong>实时性</strong></td><td>Zookeeper不能保证两个客户端能同时得到刚更新的数据，如果需要最新数据，应该在读数据之前调用sync()接口。</td></tr><tr><td style="text-align:center"><strong>独立性</strong></td><td>各个Client之间互不干预</td></tr><tr><td style="text-align:center"><strong>原子性</strong></td><td>更新只能成功或者失败，没有中间状态。</td></tr><tr><td style="text-align:center"><strong>顺序性</strong></td><td>所有Server，同一消息发布顺序一致。</td></tr></tbody></table><h3 id="4、安装部署："><a href="#4、安装部署：" class="headerlink" title="4、安装部署："></a>4、安装部署：</h3><p><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">官网：</a></p><p><a href="https://archive.apache.org/dist/zookeeper/" target="_blank" rel="noopener">下载：</a></p><p>（1）<code>修改</code>配置文件：</p><p>在Zokeeper的安装目录中的conf目录下，将zoo_sample.cfg文件改名为zoo.cfg</p><blockquote><p>mv zoo_sample.cfg zoo.cfg</p></blockquote><p><code>编辑：</code></p><blockquote><p>vim /usr/soft/zookeeper-3.4.13/conf/zoo.cfg</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#发送心跳的间隔时间，单位：毫秒</span><br><span class="line">tickTime=2000  </span><br><span class="line">dataDir=/usr/soft/zookeeper-3.4.13/data</span><br><span class="line">dataLogDir=/usr/soft/zookeeper-3.4.13/logs</span><br><span class="line">dataLogDir=/Users/zdandljb/zookeeper/dataLog</span><br><span class="line">#客户端连接 Zookeeper 服务器的端口，</span><br><span class="line">clientPort=2181    </span><br><span class="line">#Zookeeper 会监听这个端口，接受客户端的访问请求。</span><br><span class="line">initLimit=5</span><br><span class="line">syncLimit=2</span><br><span class="line">server.1=node01:2888:3888</span><br><span class="line">server.2=node02:2888:3888</span><br><span class="line">server.3=node03:2888:3888</span><br></pre></td></tr></table></figure><p><code>配置解释:</code></p><blockquote><p><code>initLimit</code>： 这个配置项是用来配置 Zookeeper 接受客户端（这里所说的客户端是 Zookeeper 服务器集群中连接到 Leader 的 Follower 服务器）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5 个心跳的时间（也就是 tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个客户端连接失败。总的时间长度就是 5*2000=10 秒</p><p>syncLimit：这个配置项标识 Leader 与 Follower 之间发送消息，请求和应答时间长度，最长不能超过多少个 tickTime 的心跳时间长度，总的时间长度就是 2*2000=4 秒</p><p>server.A=B：C：D：其 中 A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址；C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号</p></blockquote><p>(2)<strong>创建myid文件</strong>（在上面配置文件中配置dataDir  的目录下）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server1机器的内容为：1，</span><br><span class="line">server2机器的内容为：2，</span><br><span class="line">server3机器的内容为：3</span><br></pre></td></tr></table></figure><p>（3）将zookeeper包发到各个节点上</p><h1 id="Paxo算法"><a href="#Paxo算法" class="headerlink" title="Paxo算法"></a>Paxo算法</h1><p><a href="http://zh.wikipedia.org/zh-cn/Paxos" target="_blank" rel="noopener">官网：</a></p><h2 id="1、简介-1"><a href="#1、简介-1" class="headerlink" title="1、简介"></a>1、简介</h2><p>一个基于消息传递的一致性算法，广泛应用于分布式计算中，是到目前为止唯一的分布式一致性算法。</p><p><code>前提：</code></p><p>Paxos 有一个前提：没有拜占庭将军问题。就是说 Paxos只有在一个可信的计算环境中才能成立，这个环境是不会被入侵所破坏的。</p><h2 id="2、结合故事的对应理解"><a href="#2、结合故事的对应理解" class="headerlink" title="2、结合故事的对应理解"></a>2、结合故事的对应理解</h2><blockquote><p>小岛(Island)——ZK Server Cluster<br>议员(Senator)——ZK Server<br>提议(Proposal)——ZNode Change(Create/Delete/SetData…)<br>提议编号(PID)——Zxid(ZooKeeper Transaction Id)<br>正式法令——所有 ZNode 及其数据</p><p>总统——ZK Server Leader</p></blockquote><h1 id="zookeeper的节点及工作原理"><a href="#zookeeper的节点及工作原理" class="headerlink" title="zookeeper的节点及工作原理"></a>zookeeper的节点及工作原理</h1><h2 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、<strong>工作原理</strong></h2><blockquote><p>1.每个Server在内存中存储了一份数据；</p><p>2.Zookeeper启动时，将从实例中选举一个leader（Paxos协议）</p><p>3.Leader负责处理数据更新等操作</p><p>4.一个更新操作成功，当且仅当大多数Server在内存中成功修改数据。</p></blockquote><p>Zookeeper的核心是<strong>原子广播</strong>，这个机制保证了各个server之间的同步。实现这个机制的协议叫做<strong>Zab协议</strong>。</p><p>Zab协议有两种模式，它们分别是<strong>恢复模式</strong>和<strong>广播模式</strong>。</p><blockquote><p>当服务启动或者在领导者崩溃后，Zab就进入了<strong>恢复模式</strong>，当领导者被选举出来，且大多数server的完成了和leader的状态同步以后，恢复模式就结束了。状态同步保证了leader和server具有相同的系统状态。一旦leader已经和多数的follower进行了状态同步后，他就可以开始广播消息了，即进入<strong>广播状态</strong>。这时候当一个server加入zookeeper服务中，它会在恢复模式下启动，发现leader，并和leader进行状态同步。待到同步结束，它也参与消息广播。Zookeeper服务一直维持在Broadcast状态，直到leader崩溃了或者leader失去了大部分的followers支持.</p><p>广播模式需要保证proposal被按顺序处理，因此zk采用了<strong>递增的事务id号(zxid)</strong>来保证。所有的提议(proposal)都在被提出的时候加上了zxid。实现中zxid是一个64位的数字，它高32位是epoch用来标识leader关系是否改变，每次一个leader被选出来，它都会有一个新的epoch。低32位是个递增计数。</p><p>当leader崩溃或者leader失去大多数的follower，这时候zk进入恢复模式，恢复模式需要重新选举出一个新的leader，让所有的server都恢复到一个正确的状态。</p></blockquote><h2 id="2、Znode节点"><a href="#2、Znode节点" class="headerlink" title="2、Znode节点"></a>2、Znode节点</h2><p>（1）Znode有两种类型，<strong>短暂的（ephemeral）和持久的（persistent）</strong></p><p> Znode的类型在创建时确定并且之后不能再修改。</p><ul><li><p>短暂znode的客户端会话结束时，zookeeper会将该短暂znode删除，<strong>短暂znode不可以有子节点</strong></p></li><li><p>持久znode不依赖于客户端会话，只有当客户端明确要删除该持久znode时才会被删除</p></li></ul><p>（2）Znode有四种形式的目录节点</p><ul><li><p>PERSISTENT、持久的</p></li><li><p>EPHEMERAL、短暂的</p></li><li><p>PERSISTENT_SEQUENTIAL、持久且有序的</p></li><li><p>EPHEMERAL_SEQUENTIAL   短暂且有序的</p></li></ul><h2 id="3、shell操作"><a href="#3、shell操作" class="headerlink" title="3、shell操作"></a>3、shell操作</h2><p>启动服务端：./zkServer.sh start</p><p>停止服务：./zkServer.sh stop</p><p>启动客户端：./zkCli.sh -server 127.0.0.1 : 2081</p><p>​                                                         (localhost、node01)</p><p>​                     （也可连接其他节点）</p><p>​                      (port默认2081,可省；ip也可省)</p><p>退出客户端：quit</p><p>操作指南：help</p><p>查看根目录：ll /</p><p>​                   （ll  +路径） </p><p>获取具体服务内容：get /</p><p>​                  (get +路径+服务)可查看注册zookeeper服务的节点信息</p><p>（如果作为leader的namenode挂了，最新文件会相应的更换数据信息，如果没有nn，那么就没有相应的最新文件，只会有记录上一个阶段数据的文件）</p><p>创建服务：create /sun aabbcc</p><p>​               (create +路径 + 数据内容) </p><p>在其他节点也可启动客户端，创建服务</p><p>删除服务：rmr /sun</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcfzkia9j30fd091wgj.jpg" alt=""></p><h2 id="4、API操作"><a href="#4、API操作" class="headerlink" title="4、API操作"></a>4、API操作</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcgvx18uj30fe0akwie.jpg" alt=""></p><p><code>见代码testzookeeper</code></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote><p>Zookeeper 作为 Hadoop 项目中的一个子项目，是Hadoop 集群管理的一个必不可少的模块，它<strong>主要用来控制集群中的数据</strong>，如它管理 Hadoop 集群中的NameNode，还有 Hbase 中 Master、 Server 之间状态同步等。</p><p>​    Zoopkeeper 提供了一套很好的分布式集群管理的机制，就是它这种基于层次型的目录树的数据结构，并对树中的节点进行有效管理，从而可以设计出多种多样的分布式的数据管理模型。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;动物园管理员&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;推荐图书：&lt;/code&gt;《从Paxo到Zookeeper》&lt;/p&gt;
-&lt;h1 id=&quot;Zookeeper&quot;&gt;&lt;a href=&quot;#Zookeeper&quot; class=&quot;headerlink&quot; title=&quot;Zook
-      
-    
-    </summary>
-    
-      <category term="Zookeeper" scheme="http://sungithup.github.io/categories/Zookeeper/"/>
-    
-    
-      <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
-    
-  </entry>
-  
-  <entry>
     <title>YARN的入门学习</title>
     <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
@@ -474,6 +446,34 @@
       <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
     
       <category term="资源管理框架" scheme="http://sungithup.github.io/tags/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Zookeeper学习</title>
+    <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
+    <published>2019-01-02T16:00:00.000Z</published>
+    <updated>2019-01-24T02:00:22.657Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p><p>动物园管理员</p><p><code>推荐图书：</code>《从Paxo到Zookeeper》</p><h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><blockquote><p>开源的、分布式应用程序，提供<strong><code>一致性</code></strong>服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件</p></blockquote><p>提供的功能：</p><ul><li>配置维护</li><li>域名维护</li><li>分布式的同步</li><li>组服务</li></ul><p>Zookeeper→提供通用分布式锁服务，用以协调分布式应用</p><p>Keepalived→实现节点健康检查，采用优先级监控，没有协同工作，功能单一，可扩展性差。</p><h2 id="2、Zookeep而角色"><a href="#2、Zookeep而角色" class="headerlink" title="2、Zookeep而角色"></a>2、Zookeep而角色</h2><p> <img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd81ntj7tj30fd06pgn1.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd828tp44j30fo07lwgl.jpg" alt=""></p><p>（一般很少配置Observer，因为用的少，而且配置的节点一般为奇数）</p><blockquote><p>Zookeeper需保证高可用和强一致性；</p><p>​    为了支持更多的客户端，需要增加更多Server；</p><p>​    Server增多，投票阶段延迟增大，影响性能；</p><p>​    权衡伸缩性和高吞吐率，引入Observer</p><p>​    Observer不参与投票；</p><p>​    Observers接受客户端的连接，并将写请求转发给leader节点；</p><p>​    加入更多Observer节点，提高伸缩性，同时不影响吞吐率。</p></blockquote><h2 id="3、Zookeeper特点"><a href="#3、Zookeeper特点" class="headerlink" title="3、Zookeeper特点"></a>3、Zookeeper特点</h2><table><thead><tr><th style="text-align:center"><strong>特点</strong></th><th><strong>说明</strong></th></tr></thead><tbody><tr><td style="text-align:center"><strong><em>最终</em>一致性</strong></td><td>为客户端展示同一个视图，这是zookeeper里面一个非常重要的功能（与强一致性相对）</td></tr><tr><td style="text-align:center"><strong>可靠性</strong></td><td>如果消息被到一台服务器接受，那么它将被所有的服务器接受.</td></tr><tr><td style="text-align:center"><strong>实时性</strong></td><td>Zookeeper不能保证两个客户端能同时得到刚更新的数据，如果需要最新数据，应该在读数据之前调用sync()接口。</td></tr><tr><td style="text-align:center"><strong>独立性</strong></td><td>各个Client之间互不干预</td></tr><tr><td style="text-align:center"><strong>原子性</strong></td><td>更新只能成功或者失败，没有中间状态。</td></tr><tr><td style="text-align:center"><strong>顺序性</strong></td><td>所有Server，同一消息发布顺序一致。</td></tr></tbody></table><h3 id="4、安装部署："><a href="#4、安装部署：" class="headerlink" title="4、安装部署："></a>4、安装部署：</h3><p><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">官网：</a></p><p><a href="https://archive.apache.org/dist/zookeeper/" target="_blank" rel="noopener">下载：</a></p><p>（1）<code>修改</code>配置文件：</p><p>在Zokeeper的安装目录中的conf目录下，将zoo_sample.cfg文件改名为zoo.cfg</p><blockquote><p>mv zoo_sample.cfg zoo.cfg</p></blockquote><p><code>编辑：</code></p><blockquote><p>vim /usr/soft/zookeeper-3.4.13/conf/zoo.cfg</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#发送心跳的间隔时间，单位：毫秒</span><br><span class="line">tickTime=2000  </span><br><span class="line">dataDir=/usr/soft/zookeeper-3.4.13/data</span><br><span class="line">dataLogDir=/usr/soft/zookeeper-3.4.13/logs</span><br><span class="line">dataLogDir=/Users/zdandljb/zookeeper/dataLog</span><br><span class="line">#客户端连接 Zookeeper 服务器的端口，</span><br><span class="line">clientPort=2181    </span><br><span class="line">#Zookeeper 会监听这个端口，接受客户端的访问请求。</span><br><span class="line">initLimit=5</span><br><span class="line">syncLimit=2</span><br><span class="line">server.1=node01:2888:3888</span><br><span class="line">server.2=node02:2888:3888</span><br><span class="line">server.3=node03:2888:3888</span><br></pre></td></tr></table></figure><p><code>配置解释:</code></p><blockquote><p><code>initLimit</code>： 这个配置项是用来配置 Zookeeper 接受客户端（这里所说的客户端是 Zookeeper 服务器集群中连接到 Leader 的 Follower 服务器）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5 个心跳的时间（也就是 tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个客户端连接失败。总的时间长度就是 5*2000=10 秒</p><p>syncLimit：这个配置项标识 Leader 与 Follower 之间发送消息，请求和应答时间长度，最长不能超过多少个 tickTime 的心跳时间长度，总的时间长度就是 2*2000=4 秒</p><p>server.A=B：C：D：其 中 A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址；C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号</p></blockquote><p>(2)<strong>创建myid文件</strong>（在上面配置文件中配置dataDir  的目录下）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server1机器的内容为：1，</span><br><span class="line">server2机器的内容为：2，</span><br><span class="line">server3机器的内容为：3</span><br></pre></td></tr></table></figure><p>（3）将zookeeper包发到各个节点上</p><h1 id="Paxo算法"><a href="#Paxo算法" class="headerlink" title="Paxo算法"></a>Paxo算法</h1><p><a href="http://zh.wikipedia.org/zh-cn/Paxos" target="_blank" rel="noopener">官网：</a></p><h2 id="1、简介-1"><a href="#1、简介-1" class="headerlink" title="1、简介"></a>1、简介</h2><p>一个基于消息传递的一致性算法，广泛应用于分布式计算中，是到目前为止唯一的分布式一致性算法。</p><p><code>前提：</code></p><p>Paxos 有一个前提：没有拜占庭将军问题。就是说 Paxos只有在一个可信的计算环境中才能成立，这个环境是不会被入侵所破坏的。</p><h2 id="2、结合故事的对应理解"><a href="#2、结合故事的对应理解" class="headerlink" title="2、结合故事的对应理解"></a>2、结合故事的对应理解</h2><blockquote><p>小岛(Island)——ZK Server Cluster<br>议员(Senator)——ZK Server<br>提议(Proposal)——ZNode Change(Create/Delete/SetData…)<br>提议编号(PID)——Zxid(ZooKeeper Transaction Id)<br>正式法令——所有 ZNode 及其数据</p><p>总统——ZK Server Leader</p></blockquote><h1 id="zookeeper的节点及工作原理"><a href="#zookeeper的节点及工作原理" class="headerlink" title="zookeeper的节点及工作原理"></a>zookeeper的节点及工作原理</h1><h2 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、<strong>工作原理</strong></h2><blockquote><p>1.每个Server在内存中存储了一份数据；</p><p>2.Zookeeper启动时，将从实例中选举一个leader（Paxos协议）</p><p>3.Leader负责处理数据更新等操作</p><p>4.一个更新操作成功，当且仅当大多数Server在内存中成功修改数据。</p></blockquote><p>Zookeeper的核心是<strong>原子广播</strong>，这个机制保证了各个server之间的同步。实现这个机制的协议叫做<strong>Zab协议</strong>。</p><p>Zab协议有两种模式，它们分别是<strong>恢复模式</strong>和<strong>广播模式</strong>。</p><blockquote><p>当服务启动或者在领导者崩溃后，Zab就进入了<strong>恢复模式</strong>，当领导者被选举出来，且大多数server的完成了和leader的状态同步以后，恢复模式就结束了。状态同步保证了leader和server具有相同的系统状态。一旦leader已经和多数的follower进行了状态同步后，他就可以开始广播消息了，即进入<strong>广播状态</strong>。这时候当一个server加入zookeeper服务中，它会在恢复模式下启动，发现leader，并和leader进行状态同步。待到同步结束，它也参与消息广播。Zookeeper服务一直维持在Broadcast状态，直到leader崩溃了或者leader失去了大部分的followers支持.</p><p>广播模式需要保证proposal被按顺序处理，因此zk采用了<strong>递增的事务id号(zxid)</strong>来保证。所有的提议(proposal)都在被提出的时候加上了zxid。实现中zxid是一个64位的数字，它高32位是epoch用来标识leader关系是否改变，每次一个leader被选出来，它都会有一个新的epoch。低32位是个递增计数。</p><p>当leader崩溃或者leader失去大多数的follower，这时候zk进入恢复模式，恢复模式需要重新选举出一个新的leader，让所有的server都恢复到一个正确的状态。</p></blockquote><h2 id="2、Znode节点"><a href="#2、Znode节点" class="headerlink" title="2、Znode节点"></a>2、Znode节点</h2><p>（1）Znode有两种类型，<strong>短暂的（ephemeral）和持久的（persistent）</strong></p><p> Znode的类型在创建时确定并且之后不能再修改。</p><ul><li><p>短暂znode的客户端会话结束时，zookeeper会将该短暂znode删除，<strong>短暂znode不可以有子节点</strong></p></li><li><p>持久znode不依赖于客户端会话，只有当客户端明确要删除该持久znode时才会被删除</p></li></ul><p>（2）Znode有四种形式的目录节点</p><ul><li><p>PERSISTENT、持久的</p></li><li><p>EPHEMERAL、短暂的</p></li><li><p>PERSISTENT_SEQUENTIAL、持久且有序的</p></li><li><p>EPHEMERAL_SEQUENTIAL   短暂且有序的</p></li></ul><h2 id="3、shell操作"><a href="#3、shell操作" class="headerlink" title="3、shell操作"></a>3、shell操作</h2><p>启动服务端：./zkServer.sh start</p><p>停止服务：./zkServer.sh stop</p><p>启动客户端：./zkCli.sh -server 127.0.0.1 : 2081</p><p>​                                                         (localhost、node01)</p><p>​                     （也可连接其他节点）</p><p>​                      (port默认2081,可省；ip也可省)</p><p>退出客户端：quit</p><p>操作指南：help</p><p>查看根目录：ll /</p><p>​                   （ll  +路径） </p><p>获取具体服务内容：get /</p><p>​                  (get +路径+服务)可查看注册zookeeper服务的节点信息</p><p>（如果作为leader的namenode挂了，最新文件会相应的更换数据信息，如果没有nn，那么就没有相应的最新文件，只会有记录上一个阶段数据的文件）</p><p>创建服务：create /sun aabbcc</p><p>​               (create +路径 + 数据内容) </p><p>在其他节点也可启动客户端，创建服务</p><p>删除服务：rmr /sun</p><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcfzkia9j30fd091wgj.jpg" alt=""></p><h2 id="4、API操作"><a href="#4、API操作" class="headerlink" title="4、API操作"></a>4、API操作</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcgvx18uj30fe0akwie.jpg" alt=""></p><p><code>见代码testzookeeper</code></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote><p>Zookeeper 作为 Hadoop 项目中的一个子项目，是Hadoop 集群管理的一个必不可少的模块，它<strong>主要用来控制集群中的数据</strong>，如它管理 Hadoop 集群中的NameNode，还有 Hbase 中 Master、 Server 之间状态同步等。</p><p>​    Zoopkeeper 提供了一套很好的分布式集群管理的机制，就是它这种基于层次型的目录树的数据结构，并对树中的节点进行有效管理，从而可以设计出多种多样的分布式的数据管理模型。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;动物园管理员&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;推荐图书：&lt;/code&gt;《从Paxo到Zookeeper》&lt;/p&gt;
+&lt;h1 id=&quot;Zookeeper&quot;&gt;&lt;a href=&quot;#Zookeeper&quot; class=&quot;headerlink&quot; title=&quot;Zook
+      
+    
+    </summary>
+    
+      <category term="Zookeeper" scheme="http://sungithup.github.io/categories/Zookeeper/"/>
+    
+    
+      <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
     
   </entry>
   

@@ -134,6 +134,16 @@
 
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
@@ -189,6 +199,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tag" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Tags
           </a>
         </li>
       
@@ -490,6 +520,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/05/大数据思想/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sunrise">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise山脉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/大数据思想/" itemprop="url">大数据思想</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T00:00:00+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p>
+<h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p>
+<blockquote>
+<p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"></p>
+<h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p>
+<h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"></p>
+<p><strong>==方法==</strong></p>
+<p> 答：共需要2次IO：2*30min=1h</p>
+<p>==第一次IO==：</p>
+<ol>
+<li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li>
+<li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li>
+</ol>
+<p>==第二次IO==：</p>
+<ol start="3">
+<li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li>
+</ol>
+<h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p>
+<p>两次IO，2 * 30分钟 = 1小时</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"></p>
+<p><strong>==方法一：先全局有序后局部有序==</strong></p>
+<p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"></p>
+<p><strong>==方法二：先局部有序后全局有序==</strong></p>
+<ol>
+<li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li>
+<li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li>
+</ol>
+<p><img src="./images/坚持_1.jpg" alt="知否"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/05/MapReduce学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -736,180 +940,6 @@
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz87chuik1j30y50g00wu.jpg" alt=""></p>
 <p>我</p>
 <h1 id="MapReduce应用程序执行过程"><a href="#MapReduce应用程序执行过程" class="headerlink" title="MapReduce应用程序执行过程"></a>MapReduce应用程序执行过程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz87d53czuj30vp0fltap.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/05/大数据思想/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sunrise">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise山脉">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/05/大数据思想/" itemprop="url">大数据思想</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T00:00:00+08:00">
-                2019-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[TOC]</p>
-<h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p>
-<h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p>
-<blockquote>
-<p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p>
-</blockquote>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"></p>
-<h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p>
-<h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"></p>
-<p><strong>==方法==</strong></p>
-<p> 答：共需要2次IO：2*30min=1h</p>
-<p>==第一次IO==：</p>
-<ol>
-<li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li>
-<li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li>
-</ol>
-<p>==第二次IO==：</p>
-<ol start="3">
-<li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li>
-</ol>
-<h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p>
-<p>两次IO，2 * 30分钟 = 1小时</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"></p>
-<p><strong>==方法一：先全局有序后局部有序==</strong></p>
-<p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"></p>
-<p><strong>==方法二：先局部有序后全局有序==</strong></p>
-<ol>
-<li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li>
-<li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li>
-</ol>
-<p><img src="./images/坚持_1.jpg" alt="知否"></p>
 
           
         
@@ -1620,6 +1650,292 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/03/Yarn学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sunrise">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise山脉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/03/Yarn学习/" itemprop="url">YARN的入门学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:00+08:00">
+                2019-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/yarn/" itemprop="url" rel="index">
+                    <span itemprop="name">yarn</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h2 id="yarn（资源管理器）"><a href="#yarn（资源管理器）" class="headerlink" title="yarn（资源管理器）"></a>yarn（资源管理器）</h2><h3 id="（1）存在背景："><a href="#（1）存在背景：" class="headerlink" title="（1）存在背景："></a>（1）存在背景：</h3><p>MR1.0存在缺陷：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg" alt=""></p>
+<ul>
+<li>单点故障：</li>
+</ul>
+<p>仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度</p>
+<p>（一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）</p>
+<ul>
+<li>JobTracker‘大包大揽’，管理事项过多</li>
+</ul>
+<p>（上限4000个节点）</p>
+<ul>
+<li><p>容易出现内存溢出</p>
+</li>
+<li><p>资源划分不合理</p>
+<p>（强行划分slot，map资源和reduce资源不能互用，导致忙的忙死，闲的闲死）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">既是一个计算框架，也是一个资源管理框架</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg" alt=""></p>
+<h3 id="（2）yarn产生"><a href="#（2）yarn产生" class="headerlink" title="（2）yarn产生"></a>（2）yarn产生</h3><ul>
+<li>对JobTracker进行功能分解，将资源管理功能分给ResourceManager，将任务调度和任务监控分给ApplicationMaster，将TaskTracker的任务交给NodeManager</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">纯粹的资源管理框架</span><br><span class="line">被剥离资源管理调度功能的MapReduce就变成了MR2.0，他就是一个运行在YARN上的一个纯粹的计算框架，由YARN为其提供资源管理调度服务</span><br></pre></td></tr></table></figure>
+<p><code>什么叫纯粹的计算框架？？</code></p>
+<p>它提供一些计算基类，使用时，编写map类和reduce类的子类，去继承它。然后计算框架去做后台自动分片，shuffle过程。</p>
+<p><code>资源管理框架？？</code></p>
+<p>它专门管理CPU内存资源的分配</p>
+<h1 id="二、YARN设计思路"><a href="#二、YARN设计思路" class="headerlink" title="二、YARN设计思路"></a>二、YARN设计思路</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg" alt=""></p>
+<h1 id="三、YARN体系结构"><a href="#三、YARN体系结构" class="headerlink" title="三、YARN体系结构"></a>三、YARN体系结构</h1><p>三大核心：</p>
+<h2 id="1、RecourceManager（RM）"><a href="#1、RecourceManager（RM）" class="headerlink" title="1、RecourceManager（RM）"></a>1、RecourceManager（RM）</h2><blockquote>
+<ul>
+<li><p>ResourceManager（RM）是一个全局的资源管理器，负责整个系统的资源管理和分配，主<br>要包括两个组件，即调度器（Scheduler）和应用程序管理器（Applications Manager）</p>
+</li>
+<li><p>调度器接收来自ApplicationMaster的应用程序资源请求，把集群中的资源以“容器”的形式<br>分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行<br>就近选择，从而实现“计算向数据靠拢”</p>
+</li>
+<li><p>容器（Container）作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、<br>磁盘等资源，从而限定每个应用程序可以使用的资源量</p>
+</li>
+<li><p>调度器被设计成是一个可插拔的组件，YARN不仅自身提供了许多种直接可用的调度器，也<br>允许用户根据自己的需求重新设计调度器</p>
+</li>
+<li><p>应用程序管理器（Applications Manager）负责系统中所有应用程序的管理工作，主要包括<br>应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状<br>态并在失败时重新启动等</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="2、ApplicationMaster"><a href="#2、ApplicationMaster" class="headerlink" title="2、ApplicationMaster"></a>2、ApplicationMaster</h2><blockquote>
+<p>ResourceManager接收用户提交的作业，按照作业的上下文信息以及从NodeManager收集<br>来的容器状态信息，启动调度过程，为用户作业启动一个ApplicationMaster<br>ApplicationMaster的主要功能是：<br>（1）当用户作业提交时，ApplicationMaster与ResourceManager协商获取资源，<br>ResourceManager会以容器的形式为ApplicationMaster分配资源；</p>
+<p>（2）把获得的资源进一步分配给内部的各个任务（Map任务或Reduce任务），实现资源<br>的“二次分配”；</p>
+<p>（3）与NodeManager保持交互通信进行应用程序的启动、运行、监控和停止，监控申请<br>到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行<br>失败恢复（即重新申请资源重启任务）；</p>
+<p>（4）定时向ResourceManager发送“心跳”消息，报告资源的使用情况和应用的进度信<br>息；</p>
+<p>（5）当作业完成时，ApplicationMaster向ResourceManager注销容器，执行周期完成。</p>
+</blockquote>
+<h2 id="3、NodeManager"><a href="#3、NodeManager" class="headerlink" title="3、NodeManager"></a>3、NodeManager</h2><blockquote>
+<p>NodeManager是驻留在一个YARN集群中的每个节点上的代理，有所需数据的节点，主要负责：</p>
+<ul>
+<li><p>容器生命周期管理</p>
+</li>
+<li><p>监控每个容器的资源（CPU、内存等）使用情况</p>
+</li>
+<li><p>跟踪节点健康状况</p>
+</li>
+<li><p>以“心跳”的方式与ResourceManager保持通信</p>
+</li>
+<li><p>向ResourceManager汇报作业的资源使用情况和每个容器的运行状态</p>
+</li>
+<li><p>接收来自ApplicationMaster的启动/停止容器的各种请求</p>
+</li>
+</ul>
+<p>需要说明的是，NodeManager主要负责管理抽象的容器，只处理与容器相关的事<br>情，而不具体负责每个任务（Map任务或Reduce任务）自身状态的管理，因为这<br>些管理工作是由ApplicationMaster完成的，ApplicationMaster会通过不断与<br>NodeManager通信来掌握各个任务的执行状态</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg" alt=""></p>
+<h1 id="四、YARN-工作流程"><a href="#四、YARN-工作流程" class="headerlink" title="四、YARN 工作流程"></a>四、YARN 工作流程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg" alt=""></p>
+<h1 id="五、YARN框架与MapReduce1-0框架的对比分析"><a href="#五、YARN框架与MapReduce1-0框架的对比分析" class="headerlink" title="五、YARN框架与MapReduce1.0框架的对比分析"></a>五、YARN框架与MapReduce1.0框架的对比分析</h1><blockquote>
+<ul>
+<li>从MapReduce1.0框架发展到YARN框架，客户端并没有发生变化，其大部分调用API及<br>接口都保持兼容，因此，原来针对Hadoop1.0开发的代码不用做大的改动，就可以直接放<br>到Hadoop2.0平台上运行</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>总体而言，YARN相对于MapReduce1.0来说具有以下优势：</p>
+<p>大大减少了承担中心服务功能的ResourceManager的资源消耗</p>
+<ul>
+<li>ApplicationMaster来完成需要大量资源消耗的任务调度和监控</li>
+<li>多个作业对应多个ApplicationMaster，实现了监控分布化</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>MapReduce1.0既是一个计算框架，又是一个资源管理调度框架，但是，只能支持<br>MapReduce编程模型。而YARN则是一个纯粹的资源调度管理框架，在它上面可以运行包<br>括MapReduce在内的不同类型的计算框架，只要编程实现相应的ApplicationMaster</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>YARN中的资源管理比MapReduce1.0更加高效<ul>
+<li>以容器为单位，而不是以slot为单位</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="六、YARN-的发展目标"><a href="#六、YARN-的发展目标" class="headerlink" title="六、YARN 的发展目标"></a>六、YARN 的发展目标</h1><p><strong>YARN 的目标就是实现“一个集群多个框架”？ ，为什么？</strong></p>
+<ul>
+<li><p>一个企业当中同时存在各种不同的业务应用场景，需要采用不同的计算框架</p>
+<ul>
+<li><p>MapReduce实现离线批处理</p>
+</li>
+<li><p>使用Impala实现实时交互式查询分析</p>
+</li>
+<li><p>使用Storm实现流式数据实时分析</p>
+</li>
+<li><p>使用Spark实现迭代计算</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>这些产品通常来自不同的开发团队，具有各自的资源调度管理机制</p>
+</li>
+<li><p>为了避免不同类型应用之间互相干扰，企业就需要把内部的服务器拆分成多个集群，分<br>别安装运行不同的计算框架，即“一个框架一个集群”</p>
+</li>
+</ul>
+<ul>
+<li><p>导致问题</p>
+<ul>
+<li><p>集群资源利用率低</p>
+</li>
+<li><p>数据无法共享</p>
+</li>
+<li><p>维护代价高</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>YARN的目标就是实现“一个集群多个框架”，即在一个集群上部署一个统一的资源<br>调度管理框架YARN，在YARN之上可以部署其他各种计算框架</p>
+</li>
+<li><p>由YARN为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架<br>的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩</p>
+</li>
+<li><p>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率</p>
+</li>
+<li><p>不同计算框架可以共享底层存储，避免了数据集跨集群移动</p>
+</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/03/Zookeeper学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1859,292 +2175,6 @@
 <p>Zookeeper 作为 Hadoop 项目中的一个子项目，是Hadoop 集群管理的一个必不可少的模块，它<strong>主要用来控制集群中的数据</strong>，如它管理 Hadoop 集群中的NameNode，还有 Hbase 中 Master、 Server 之间状态同步等。</p>
 <p>​    Zoopkeeper 提供了一套很好的分布式集群管理的机制，就是它这种基于层次型的目录树的数据结构，并对树中的节点进行有效管理，从而可以设计出多种多样的分布式的数据管理模型。</p>
 </blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/03/Yarn学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sunrise">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunrise山脉">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/03/Yarn学习/" itemprop="url">YARN的入门学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:00+08:00">
-                2019-01-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/yarn/" itemprop="url" rel="index">
-                    <span itemprop="name">yarn</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[TOC]</p>
-<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h2 id="yarn（资源管理器）"><a href="#yarn（资源管理器）" class="headerlink" title="yarn（资源管理器）"></a>yarn（资源管理器）</h2><h3 id="（1）存在背景："><a href="#（1）存在背景：" class="headerlink" title="（1）存在背景："></a>（1）存在背景：</h3><p>MR1.0存在缺陷：</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg" alt=""></p>
-<ul>
-<li>单点故障：</li>
-</ul>
-<p>仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度</p>
-<p>（一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）</p>
-<ul>
-<li>JobTracker‘大包大揽’，管理事项过多</li>
-</ul>
-<p>（上限4000个节点）</p>
-<ul>
-<li><p>容易出现内存溢出</p>
-</li>
-<li><p>资源划分不合理</p>
-<p>（强行划分slot，map资源和reduce资源不能互用，导致忙的忙死，闲的闲死）</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">既是一个计算框架，也是一个资源管理框架</span><br></pre></td></tr></table></figure>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg" alt=""></p>
-<h3 id="（2）yarn产生"><a href="#（2）yarn产生" class="headerlink" title="（2）yarn产生"></a>（2）yarn产生</h3><ul>
-<li>对JobTracker进行功能分解，将资源管理功能分给ResourceManager，将任务调度和任务监控分给ApplicationMaster，将TaskTracker的任务交给NodeManager</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">纯粹的资源管理框架</span><br><span class="line">被剥离资源管理调度功能的MapReduce就变成了MR2.0，他就是一个运行在YARN上的一个纯粹的计算框架，由YARN为其提供资源管理调度服务</span><br></pre></td></tr></table></figure>
-<p><code>什么叫纯粹的计算框架？？</code></p>
-<p>它提供一些计算基类，使用时，编写map类和reduce类的子类，去继承它。然后计算框架去做后台自动分片，shuffle过程。</p>
-<p><code>资源管理框架？？</code></p>
-<p>它专门管理CPU内存资源的分配</p>
-<h1 id="二、YARN设计思路"><a href="#二、YARN设计思路" class="headerlink" title="二、YARN设计思路"></a>二、YARN设计思路</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg" alt=""></p>
-<h1 id="三、YARN体系结构"><a href="#三、YARN体系结构" class="headerlink" title="三、YARN体系结构"></a>三、YARN体系结构</h1><p>三大核心：</p>
-<h2 id="1、RecourceManager（RM）"><a href="#1、RecourceManager（RM）" class="headerlink" title="1、RecourceManager（RM）"></a>1、RecourceManager（RM）</h2><blockquote>
-<ul>
-<li><p>ResourceManager（RM）是一个全局的资源管理器，负责整个系统的资源管理和分配，主<br>要包括两个组件，即调度器（Scheduler）和应用程序管理器（Applications Manager）</p>
-</li>
-<li><p>调度器接收来自ApplicationMaster的应用程序资源请求，把集群中的资源以“容器”的形式<br>分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行<br>就近选择，从而实现“计算向数据靠拢”</p>
-</li>
-<li><p>容器（Container）作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、<br>磁盘等资源，从而限定每个应用程序可以使用的资源量</p>
-</li>
-<li><p>调度器被设计成是一个可插拔的组件，YARN不仅自身提供了许多种直接可用的调度器，也<br>允许用户根据自己的需求重新设计调度器</p>
-</li>
-<li><p>应用程序管理器（Applications Manager）负责系统中所有应用程序的管理工作，主要包括<br>应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状<br>态并在失败时重新启动等</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="2、ApplicationMaster"><a href="#2、ApplicationMaster" class="headerlink" title="2、ApplicationMaster"></a>2、ApplicationMaster</h2><blockquote>
-<p>ResourceManager接收用户提交的作业，按照作业的上下文信息以及从NodeManager收集<br>来的容器状态信息，启动调度过程，为用户作业启动一个ApplicationMaster<br>ApplicationMaster的主要功能是：<br>（1）当用户作业提交时，ApplicationMaster与ResourceManager协商获取资源，<br>ResourceManager会以容器的形式为ApplicationMaster分配资源；</p>
-<p>（2）把获得的资源进一步分配给内部的各个任务（Map任务或Reduce任务），实现资源<br>的“二次分配”；</p>
-<p>（3）与NodeManager保持交互通信进行应用程序的启动、运行、监控和停止，监控申请<br>到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行<br>失败恢复（即重新申请资源重启任务）；</p>
-<p>（4）定时向ResourceManager发送“心跳”消息，报告资源的使用情况和应用的进度信<br>息；</p>
-<p>（5）当作业完成时，ApplicationMaster向ResourceManager注销容器，执行周期完成。</p>
-</blockquote>
-<h2 id="3、NodeManager"><a href="#3、NodeManager" class="headerlink" title="3、NodeManager"></a>3、NodeManager</h2><blockquote>
-<p>NodeManager是驻留在一个YARN集群中的每个节点上的代理，有所需数据的节点，主要负责：</p>
-<ul>
-<li><p>容器生命周期管理</p>
-</li>
-<li><p>监控每个容器的资源（CPU、内存等）使用情况</p>
-</li>
-<li><p>跟踪节点健康状况</p>
-</li>
-<li><p>以“心跳”的方式与ResourceManager保持通信</p>
-</li>
-<li><p>向ResourceManager汇报作业的资源使用情况和每个容器的运行状态</p>
-</li>
-<li><p>接收来自ApplicationMaster的启动/停止容器的各种请求</p>
-</li>
-</ul>
-<p>需要说明的是，NodeManager主要负责管理抽象的容器，只处理与容器相关的事<br>情，而不具体负责每个任务（Map任务或Reduce任务）自身状态的管理，因为这<br>些管理工作是由ApplicationMaster完成的，ApplicationMaster会通过不断与<br>NodeManager通信来掌握各个任务的执行状态</p>
-</blockquote>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg" alt=""></p>
-<h1 id="四、YARN-工作流程"><a href="#四、YARN-工作流程" class="headerlink" title="四、YARN 工作流程"></a>四、YARN 工作流程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg" alt=""></p>
-<h1 id="五、YARN框架与MapReduce1-0框架的对比分析"><a href="#五、YARN框架与MapReduce1-0框架的对比分析" class="headerlink" title="五、YARN框架与MapReduce1.0框架的对比分析"></a>五、YARN框架与MapReduce1.0框架的对比分析</h1><blockquote>
-<ul>
-<li>从MapReduce1.0框架发展到YARN框架，客户端并没有发生变化，其大部分调用API及<br>接口都保持兼容，因此，原来针对Hadoop1.0开发的代码不用做大的改动，就可以直接放<br>到Hadoop2.0平台上运行</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><p>总体而言，YARN相对于MapReduce1.0来说具有以下优势：</p>
-<p>大大减少了承担中心服务功能的ResourceManager的资源消耗</p>
-<ul>
-<li>ApplicationMaster来完成需要大量资源消耗的任务调度和监控</li>
-<li>多个作业对应多个ApplicationMaster，实现了监控分布化</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>MapReduce1.0既是一个计算框架，又是一个资源管理调度框架，但是，只能支持<br>MapReduce编程模型。而YARN则是一个纯粹的资源调度管理框架，在它上面可以运行包<br>括MapReduce在内的不同类型的计算框架，只要编程实现相应的ApplicationMaster</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>YARN中的资源管理比MapReduce1.0更加高效<ul>
-<li>以容器为单位，而不是以slot为单位</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h1 id="六、YARN-的发展目标"><a href="#六、YARN-的发展目标" class="headerlink" title="六、YARN 的发展目标"></a>六、YARN 的发展目标</h1><p><strong>YARN 的目标就是实现“一个集群多个框架”？ ，为什么？</strong></p>
-<ul>
-<li><p>一个企业当中同时存在各种不同的业务应用场景，需要采用不同的计算框架</p>
-<ul>
-<li><p>MapReduce实现离线批处理</p>
-</li>
-<li><p>使用Impala实现实时交互式查询分析</p>
-</li>
-<li><p>使用Storm实现流式数据实时分析</p>
-</li>
-<li><p>使用Spark实现迭代计算</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>这些产品通常来自不同的开发团队，具有各自的资源调度管理机制</p>
-</li>
-<li><p>为了避免不同类型应用之间互相干扰，企业就需要把内部的服务器拆分成多个集群，分<br>别安装运行不同的计算框架，即“一个框架一个集群”</p>
-</li>
-</ul>
-<ul>
-<li><p>导致问题</p>
-<ul>
-<li><p>集群资源利用率低</p>
-</li>
-<li><p>数据无法共享</p>
-</li>
-<li><p>维护代价高</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>YARN的目标就是实现“一个集群多个框架”，即在一个集群上部署一个统一的资源<br>调度管理框架YARN，在YARN之上可以部署其他各种计算框架</p>
-</li>
-<li><p>由YARN为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架<br>的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩</p>
-</li>
-<li><p>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率</p>
-</li>
-<li><p>不同计算框架可以共享底层存储，避免了数据集跨集群移动</p>
-</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg" alt=""></p>
 
           
         
@@ -3077,10 +3107,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
-                
+                </a>
               </div>
             
 
@@ -3088,10 +3118,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
