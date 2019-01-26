@@ -1,106 +1,331 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+
+
+
   
-  <title>Hive优化 | Sunrise山脉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式：  explain [extended] query; 命令： 12&amp;gt; hive&amp;gt; explain select *">
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux系统环境,HDFS,数据仓库,MapReduce,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
 <meta name="keywords" content="Linux系统环境,HDFS,数据仓库,MapReduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive优化">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/14/Hive优化/index.html">
 <meta property="og:site_name" content="Sunrise山脉">
-<meta property="og:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式：  explain [extended] query; 命令： 12&amp;gt; hive&amp;gt; explain select *">
+<meta property="og:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-24T02:33:25.551Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg">
+<meta property="og:updated_time" content="2019-01-25T10:52:16.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive优化">
-<meta name="twitter:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式：  explain [extended] query; 命令： 12&amp;gt; hive&amp;gt; explain select *">
+<meta name="twitter:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sungithup.github.io/2019/01/14/Hive优化/">
+
+
+
+
+
+  <title>Hive优化 | Sunrise山脉</title>
   
-    <link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+
+
+
+
+
+
+
 
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    
-    <div id="header-inner" class="inner">
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://sungithup.github.io"></form>
-      </div>
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">首页</a>
-        
-          <a class="main-nav-link" href="/archives">归档</a>
-        
-          <a class="main-nav-link" href="/about">关于</a>
-        
-      </nav>
-      
-    </div>
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Sunrise山脉</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">肆意玩耍，肆意高歌</a>
-        </h2>
-      
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Hive优化" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/14/Hive优化/" class="article-date">
-  <time datetime="2019-01-13T16:00:00.000Z" itemprop="datePublished">2019-01-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Hive/">Hive</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
   
-    <h1 class="article-title" itemprop="name">
-      Hive优化
-    </h1>
+  
+    
   
 
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunrise山脉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">肆意玩耍，肆意高歌</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sungithup.github.io/2019/01/14/Hive优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sunrise">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunrise山脉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-14T00:00:00+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <!-- Table of Contents -->
-        
+      
+
+      
         <p>[TOC]</p>
 <h1 id="Hive优化"><a href="#Hive优化" class="headerlink" title="Hive优化"></a>Hive优化</h1><h2 id="一、核心思想："><a href="#一、核心思想：" class="headerlink" title="一、核心思想："></a>一、核心思想：</h2><blockquote>
 <p>把Hive SQL 当做MapReduce程序进行优化</p>
@@ -111,11 +336,25 @@
 <h2 id="二、explain"><a href="#二、explain" class="headerlink" title="二、explain"></a>二、explain</h2><blockquote>
 <p>用以显示任务执行计划</p>
 <p>格式：</p>
-<p> explain [extended] query;</p>
-<p>命令：</p>
+<p>EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query</p>
+</blockquote>
+<p><code>语法解释</code></p>
+<blockquote>
+<p>从语法组成可以看出来是一个“explain ”+三个可选参数+查询语句。大家可以积极尝试一下，后面两个显示内容很简单的，我介绍一下第一个 extended 这个可以显示hql语句的语法树</p>
+<p>其次，执行计划一共有三个部分：</p>
+<ul>
+<li>这个语句的抽象语法树</li>
+<li><p>这个计划不同阶段之间的依赖关系</p>
+</li>
+<li><p>对于每个阶段的详细描述</p>
+</li>
+</ul>
+</blockquote>
+<p><code>例子：</code></p>
+<blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; hive&gt; explain select * from log;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<p><code>附加</code>课下查询MySQl的执行计划。</p>
+<p><code>拓展</code>课下查询MySQl的执行计划。</p>
 <h2 id="三、Hive运行方式"><a href="#三、Hive运行方式" class="headerlink" title="三、Hive运行方式"></a>三、Hive运行方式</h2><h3 id="集群模式："><a href="#集群模式：" class="headerlink" title="集群模式："></a>集群模式：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">执行hql：</span><br><span class="line">hive&gt; select count(*) from log;</span><br></pre></td></tr></table></figure>
 <p><code>结论：</code></p>
 <blockquote>
@@ -124,8 +363,8 @@
 <hr>
 <h3 id="优化一"><a href="#优化一" class="headerlink" title="优化一:"></a>优化一:</h3><p>设置  本地模式（运行速度加快。但对加载文件有限制）</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;set hive.exec.mode.local.auto=true;</span><br><span class="line"></span><br><span class="line">查看：</span><br><span class="line">hive&gt;set hive.exec.mode.local.auto</span><br></pre></td></tr></table></figure>
-<p><code>但是</code>如果加载文件的最大值大于配置，仍会使用集群模式运行（在yarn所在的节点）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看最大加载文件</span><br><span class="line">hive&gt; set hive.exec.mode.local.auto.inputbytes.max;</span><br><span class="line">显示：</span><br><span class="line">hive.exec.mode.local.auto.inputbytes.max=134217728</span><br></pre></td></tr></table></figure>
+<p><code>但是</code>如果加载文件的最大值大于配置（默认配置为100M），仍会使用集群模式运行（在yarn所在的节点）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看最大加载文件</span><br><span class="line">hive&gt; set hive.exec.mode.local.auto.inputbytes.max;</span><br><span class="line"></span><br><span class="line">显示：</span><br><span class="line">hive.exec.mode.local.auto.inputbytes.max=134217728</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="优化二："><a href="#优化二：" class="headerlink" title="优化二："></a>优化二：</h3><p>设置 严格模式</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过设置以下参数开启严格模式[防止误操作]：</span><br><span class="line">hive&gt; set hive.mapred.mode=strict;</span><br><span class="line">（默认为：nonstrict非严格模式）</span><br></pre></td></tr></table></figure>
@@ -136,29 +375,62 @@
 </blockquote>
 <blockquote>
 <p>2、order by语句必须包含limit输出限制；</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; hive&gt; select * from log order by id limit 1 ;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; hive&gt; select * from log order by id limit 1;</span><br><span class="line">&gt; 这里的1， 表示显示前多少条记录，只能设一个数字</span><br><span class="line">&gt; 和Mysql（可以从0 开始）不同的是，它只能从1开始</span><br><span class="line">&gt; mysql可以有两个数字，表示从第几条开始，显示几条</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>3、限制执行笛卡尔积的查询</p>
 </blockquote>
-<h2 id="四、Hive排序"><a href="#四、Hive排序" class="headerlink" title="四、Hive排序"></a>四、Hive排序</h2><h3 id="1、Order-By"><a href="#1、Order-By" class="headerlink" title="1、Order By"></a>1、Order By</h3><p>— 对于查询结果做<code>全</code>排序，只允许有<code>一个</code>reduce处理<br>（当数据量较大时，reduce数量有限，应慎用。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg" alt="imit"></p>
+<h2 id="四、Hive排序"><a href="#四、Hive排序" class="headerlink" title="四、Hive排序"></a>四、Hive排序</h2><h3 id="1、Order-By"><a href="#1、Order-By" class="headerlink" title="1、Order By"></a>1、Order By</h3><p>— 对于查询结果做<code>全局</code>排序，只允许有<code>一个</code>reduce处理<br>（当数据量较大时，reduce数量有限，应慎用。</p>
 <p>​     严格模式下，必须结合limit来使用）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from log order by id；</span><br></pre></td></tr></table></figure>
 <h3 id="2、Sort-By"><a href="#2、Sort-By" class="headerlink" title="2、Sort By"></a>2、Sort By</h3><p>– 对于<code>单个</code>reduce的数据进行排序</p>
-<p>–局部有序</p>
-<h3 id="3、Distribute-By"><a href="#3、Distribute-By" class="headerlink" title="3、Distribute By"></a>3、Distribute By</h3><p>– 分区排序，经常和 Sort By 结合使用</p>
-<p>–全局有序</p>
+<p>–局部（单个reduce）有序，全局无序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以通过设置mapred.reduce.tasks的值来控制reduce的数，然后对reduce输出的结果做二次排序</span><br></pre></td></tr></table></figure>
+<p><code>案例</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> <span class="keyword">sort</span> <span class="keyword">by</span> <span class="keyword">id</span>;       (结果无序)</span><br></pre></td></tr></table></figure>
+<p><code>显示</code></p>
+<blockquote>
+<p>Time taken: 147.077 seconds, Fetched: 7 row(s)</p>
+</blockquote>
+<h3 id="3、Distribute-By"><a href="#3、Distribute-By" class="headerlink" title="3、Distribute By"></a>3、Distribute By</h3><p>– 分区排序，经常和 Sort By 结合使用 全局有序，局部无序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> <span class="keyword">distribute</span> <span class="keyword">by</span> <span class="keyword">id</span>;     （结果无序）</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Time taken: 144.708 seconds, Fetched: 7 row(s)</p>
+</blockquote>
+<p><code>注意：</code>hive要求DISTRIBUTE BY语句出现在SORT BY语句之前</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Distribute By可以将Map阶段输出的数据按指定的字段划分到不同的reduce文件中，然后，sort by 对reduce阶段的输出数据做排序。</span><br></pre></td></tr></table></figure>
+<p><code>案例:</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> <span class="keyword">distribute</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">sort</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">asc</span>;   （结果无序）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from (select * from log distribute by id) a sort by a.id ;s</span><br></pre></td></tr></table></figure>
+<p><code>改良</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.* <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> cluster <span class="keyword">by</span> <span class="keyword">id</span> ) a <span class="keyword">order</span> <span class="keyword">by</span> a.id <span class="keyword">limit</span> <span class="number">9</span> ; (结果有序)</span><br><span class="line"></span><br><span class="line">9 在这里是表中数据记录的总条数</span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<blockquote>
+<p> Time taken: 234.593 seconds, Fetched: 7 row(s)</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">limit</span> <span class="number">9</span>;    （结果有序）</span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<blockquote>
+<p> Time taken: 102.065 seconds, Fetched: 7 row(s)</p>
+</blockquote>
 <h3 id="4、Cluster-By"><a href="#4、Cluster-By" class="headerlink" title="4、Cluster By"></a>4、Cluster By</h3><p>– 相当于 Sort By + Distribute By<br>（Cluster By不能通过asc、desc的方式指定排序规则；<br>可通过 distribute by column sort by column asc|desc 的方式）</p>
-<h2 id="五、Hive-Join-（重难点）"><a href="#五、Hive-Join-（重难点）" class="headerlink" title="五、Hive Join  （重难点）"></a>五、Hive Join  （重难点）</h2><h3 id="1、Join-连接时，将小表（驱动表）放在join的左边"><a href="#1、Join-连接时，将小表（驱动表）放在join的左边" class="headerlink" title="1、Join 连接时，将小表（驱动表）放在join的左边"></a>1、Join 连接时，将小表（驱动表）放在join的左边</h3><h3 id="2、Map-Join-："><a href="#2、Map-Join-：" class="headerlink" title="2、Map Join ："></a>2、Map Join ：</h3><p>在Map端完成Join：</p>
-<h3 id="方式：（两种）"><a href="#方式：（两种）" class="headerlink" title="方式：（两种）"></a>方式：（两种）</h3><h4 id="1、SQL方式："><a href="#1、SQL方式：" class="headerlink" title="1、SQL方式："></a>1、SQL方式：</h4><p>​     在HQl语句中添加MapJoin标记（mapjoin）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> cluster <span class="keyword">by</span> <span class="keyword">id</span>；    （结果无序）</span><br></pre></td></tr></table></figure>
+<h2 id="五、Hive-Join-（重难点）"><a href="#五、Hive-Join-（重难点）" class="headerlink" title="五、Hive Join  （重难点）"></a>五、Hive Join  （重难点）</h2><h3 id="1、Join-连接时，将小表（驱动表）放在join的左边"><a href="#1、Join-连接时，将小表（驱动表）放在join的左边" class="headerlink" title="1、Join 连接时，将小表（驱动表）放在join的左边"></a>1、Join 连接时，将小表（驱动表）放在join的左边</h3><h3 id="2、Map-Join-："><a href="#2、Map-Join-：" class="headerlink" title="2、Map Join ："></a>2、Map Join ：</h3><blockquote>
+<p>因为Map Join 是在Map端且在内存中进行的，所以不需要启动Reduce任务，也没有shuffle阶段，从而在一定程度上节省资源，提高Join效率。</p>
+</blockquote>
+<h3 id="方式：（两种）"><a href="#方式：（两种）" class="headerlink" title="方式：（两种）"></a>方式：（两种）</h3><h4 id="1、SQL方式："><a href="#1、SQL方式：" class="headerlink" title="1、SQL方式："></a>1、SQL方式：</h4><p>​     在HQl语句中添加MapJoin标记（mapjoin）(将小表加入到内存，注意小表的大小)</p>
 <p>​     语法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [  MAPJOIN(smallTable)  ]  smallTable.key,  bigTable.value </span><br><span class="line"><span class="keyword">FROM</span>  smallTable  <span class="keyword">JOIN</span>  bigTable  <span class="keyword">ON</span>  smallTable.key  = bigTable.key;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ MAPJOIN(smallTable) */</span>  smallTable.key,  bigTable.value </span><br><span class="line"><span class="keyword">FROM</span>  smallTable  <span class="keyword">JOIN</span>  bigTable  <span class="keyword">ON</span>  smallTable.key  = bigTable.key;</span><br></pre></td></tr></table></figure>
+<p><code>案例：</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ MAPJOIN(log1) */</span>  log.id,log1.name </span><br><span class="line"><span class="keyword">FROM</span>  <span class="keyword">log</span>  <span class="keyword">JOIN</span>  log1  <span class="keyword">ON</span>  log.id  = log1.id;</span><br></pre></td></tr></table></figure>
 <h4 id="2、自动的MapJoin"><a href="#2、自动的MapJoin" class="headerlink" title="2、自动的MapJoin"></a>2、自动的MapJoin</h4><p>​           通过修改以下配置启用自动的mapjoin：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; set hive.auto.convert.join = true;</span><br></pre></td></tr></table></figure>
 <p>​    （  该参数为true时，Hive自动对左边的表统计数据量，如果是小表就加入内存，即对小表使用Map join）<br>其他相关配置参数：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; set hive.mapjoin.smalltable.filesize;</span><br></pre></td></tr></table></figure>
 <p>（默认：大表小表判断的阈值25MB左右，如果表的大小小于该值则会被加载到内存中运行，可自定义）</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; set hive.ignore.mapjoin.hint;</span><br></pre></td></tr></table></figure>
-<p>（默认值：true；是否忽略mapjoin hint 即mapjoin标记；如果为false，这则需要添加添加MapJoin标记，mapjoin（smalltable））</p>
+<p>（默认值：true；是否忽略mapjoin hint 即mapjoin标记；如果为false，这则需要添加-MapJoin标记，mapjoin（smalltable））</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; set hive.auto.convert.join.noconditionaltask;</span><br></pre></td></tr></table></figure>
 <p>（默认值：true；将普通的join转化为普通的mapjoin时，是否将多个mapjoin转化为一个mapjoin）</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; set hive.auto.convert.join.noconditionaltask.size;</span><br></pre></td></tr></table></figure>
@@ -182,7 +454,7 @@
 <p><code>附加：</code></p>
 <blockquote>
 <ul>
-<li>数据倾斜问题解决：多种方式</li>
+<li>数据倾斜问题解决：多种方式（使用MapJoin、使用MapSide）</li>
 </ul>
 </blockquote>
 <p><code>参考</code></p>
@@ -194,7 +466,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mapred.min.split.size.per.rack;</span><br></pre></td></tr></table></figure>
 <p>(一个机架上最小split数：1个)</p>
 <h3 id="2、Reduce数量相关的参数"><a href="#2、Reduce数量相关的参数" class="headerlink" title="2、Reduce数量相关的参数"></a>2、Reduce数量相关的参数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mapred.reduce.tasks;</span><br></pre></td></tr></table></figure>
-<p>(默认为：-1，强制指定reduce任务的数量，-1，指的是未定义，不发挥作用。如果指定了，就会按指定的数量执行)</p>
+<p>(默认为：-1，强制指定reduce任务的数量。-1，是未定义，不发挥作用。如果指定了，就会按指定的数量执行)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.reducers.bytes.per.reducer;</span><br></pre></td></tr></table></figure>
 <p>（默认为：256M ，每个reduce任务处理的数据量）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.reducers.max;</span><br></pre></td></tr></table></figure>
@@ -209,230 +481,394 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://sungithup.github.io/2019/01/14/Hive优化/" data-id="cjra06uij0000osl0cv135k9p" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据仓库/">数据仓库</a></li></ul>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux系统环境/" rel="tag"># Linux系统环境</a>
+          
+            <a href="/tags/HDFS/" rel="tag"># HDFS</a>
+          
+            <a href="/tags/数据仓库/" rel="tag"># 数据仓库</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/Hive学习/" rel="next" title="Hive学习">
+                <i class="fa fa-chevron-left"></i> Hive学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/15/HBase学习/" rel="prev" title="HBase学习">
+                HBase学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
     </footer>
   </div>
   
-    
- <script src="/jquery/jquery.min.js"></script>
-  <div id="random_posts">
-    <h2>推荐文章</h2>
-    <div class="random_posts_ul">
-      <script>
-          var random_count =4
-          var site = {BASE_URI:'/'};
-          function load_random_posts(obj) {
-              var arr=site.posts;
-              if (!obj) return;
-              // var count = $(obj).attr('data-count') || 6;
-              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
-              arr = arr.slice(0, random_count);
-              var html = '<ul>';
-            
-              for(var j=0;j<arr.length;j++){
-                var item=arr[j];
-                html += '<li><strong>' + 
-                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
-                (item.title || item.uri) + '</a></strong>';
-                if(item.excerpt){
-                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
-                }
-                html +='</li>';
-                
-              }
-              $(obj).html(html + '</ul>');
-          }
-          $('.random_posts_ul').each(function () {
-              var c = this;
-              if (!site.posts || !site.posts.length){
-                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
-              } 
-               else{
-                load_random_posts(c);
-              }
-          });
-      </script>
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
     </div>
   </div>
 
-    
-<nav id="article-nav">
-  
-    <a href="/2019/01/15/HBase学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          HBase学习
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/01/11/Hive学习/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Hive学习</div>
-    </a>
-  
-</nav>
 
-  
-</article>
- 
-     
-  <div class="comments" id="comments">
-    
-     
-       
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-       
-      
-      
-  </div>
- 
-  
-
-</section>
-           
-    <aside id="sidebar">
-  
-    
-
-  
-    
-    <div class="widget-wrap">
-    
-      <div class="widget" id="toc-widget-fixed">
-      
-        <strong class="toc-title">文章目录</strong>
-        <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hive优化"><span class="toc-number">1.</span> <span class="toc-text">Hive优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、核心思想："><span class="toc-number">1.1.</span> <span class="toc-text">一、核心思想：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、explain"><span class="toc-number">1.2.</span> <span class="toc-text">二、explain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hive运行方式"><span class="toc-number">1.3.</span> <span class="toc-text">三、Hive运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集群模式："><span class="toc-number">1.3.1.</span> <span class="toc-text">集群模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化一"><span class="toc-number">1.3.2.</span> <span class="toc-text">优化一:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化二："><span class="toc-number">1.3.3.</span> <span class="toc-text">优化二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Hive排序"><span class="toc-number">1.4.</span> <span class="toc-text">四、Hive排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Order-By"><span class="toc-number">1.4.1.</span> <span class="toc-text">1、Order By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Sort-By"><span class="toc-number">1.4.2.</span> <span class="toc-text">2、Sort By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、Distribute-By"><span class="toc-number">1.4.3.</span> <span class="toc-text">3、Distribute By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、Cluster-By"><span class="toc-number">1.4.4.</span> <span class="toc-text">4、Cluster By</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、Hive-Join-（重难点）"><span class="toc-number">1.5.</span> <span class="toc-text">五、Hive Join  （重难点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Join-连接时，将小表（驱动表）放在join的左边"><span class="toc-number">1.5.1.</span> <span class="toc-text">1、Join 连接时，将小表（驱动表）放在join的左边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Map-Join-："><span class="toc-number">1.5.2.</span> <span class="toc-text">2、Map Join ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式：（两种）"><span class="toc-number">1.5.3.</span> <span class="toc-text">方式：（两种）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、SQL方式："><span class="toc-number">1.5.3.1.</span> <span class="toc-text">1、SQL方式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、自动的MapJoin"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">2、自动的MapJoin</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、Map-Side聚合"><span class="toc-number">1.6.</span> <span class="toc-text">六、Map-Side聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、控制Hive中Map和Reduce的数量"><span class="toc-number">1.7.</span> <span class="toc-text">七、控制Hive中Map和Reduce的数量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Map数量相关的参数"><span class="toc-number">1.7.1.</span> <span class="toc-text">1、Map数量相关的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Reduce数量相关的参数"><span class="toc-number">1.7.2.</span> <span class="toc-text">2、Reduce数量相关的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、Hive-JVM重用"><span class="toc-number">1.8.</span> <span class="toc-text">八、Hive - JVM重用</span></a></li></ol></li></ol>
           </div>
-      </div>
-    </div>
-
-  
-    
-
-  
-    
-  
-    
-  
-    
-
-  
-    
-  
-    <!--微信公众号二维码-->
+          
 
 
-  
-</aside>
+          
 
-      </div>
-      <footer id="footer">
   
-  <div class="outer">
-    <div id="footer-left">
-      &copy; 2014 - 2019 Sunrise&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
-    </div>
-     <div id="footer-right">
-      联系方式&nbsp;|&nbsp;sunyaru216@163.com
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
-</footer>
- <script src="/jquery/jquery.min.js"></script>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">首页</a>
-  
-    <a href="/archives" class="mobile-nav-link">归档</a>
-  
-    <a href="/about" class="mobile-nav-link">关于</a>
-  
-</nav>
-    <img class="back-to-top-btn" src="/images/fly-to-top.png">
-<script>
-// Elevator script included on the page, already.
-window.onload = function() {
-  var elevator = new Elevator({
-    selector:'.back-to-top-btn',
-    element: document.querySelector('.back-to-top-btn'),
-    duration: 1000 // milliseconds
-  });
-}
-</script>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
       
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Sunrise</p>
+              <p class="site-description motion-element" itemprop="description">Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive优化"><span class="nav-number">1.</span> <span class="nav-text">Hive优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、核心思想："><span class="nav-number">1.1.</span> <span class="nav-text">一、核心思想：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、explain"><span class="nav-number">1.2.</span> <span class="nav-text">二、explain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Hive运行方式"><span class="nav-number">1.3.</span> <span class="nav-text">三、Hive运行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群模式："><span class="nav-number">1.3.1.</span> <span class="nav-text">集群模式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化一"><span class="nav-number">1.3.2.</span> <span class="nav-text">优化一:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化二："><span class="nav-number">1.3.3.</span> <span class="nav-text">优化二：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Hive排序"><span class="nav-number">1.4.</span> <span class="nav-text">四、Hive排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Order-By"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、Order By</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Sort-By"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、Sort By</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Distribute-By"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、Distribute By</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Cluster-By"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、Cluster By</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Hive-Join-（重难点）"><span class="nav-number">1.5.</span> <span class="nav-text">五、Hive Join  （重难点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Join-连接时，将小表（驱动表）放在join的左边"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、Join 连接时，将小表（驱动表）放在join的左边</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Map-Join-："><span class="nav-number">1.5.2.</span> <span class="nav-text">2、Map Join ：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式：（两种）"><span class="nav-number">1.5.3.</span> <span class="nav-text">方式：（两种）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、SQL方式："><span class="nav-number">1.5.3.1.</span> <span class="nav-text">1、SQL方式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、自动的MapJoin"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">2、自动的MapJoin</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Map-Side聚合"><span class="nav-number">1.6.</span> <span class="nav-text">六、Map-Side聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、控制Hive中Map和Reduce的数量"><span class="nav-number">1.7.</span> <span class="nav-text">七、控制Hive中Map和Reduce的数量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Map数量相关的参数"><span class="nav-number">1.7.1.</span> <span class="nav-text">1、Map数量相关的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Reduce数量相关的参数"><span class="nav-number">1.7.2.</span> <span class="nav-text">2、Reduce数量相关的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、Hive-JVM重用"><span class="nav-number">1.8.</span> <span class="nav-text">八、Hive - JVM重用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sunrise</span>
+
   
-    <script>
-      var cloudTieConfig = {
-        url: document.location.href, 
-        sourceId: "",
-        productKey: "e2fb4051c49842688ce669e634bc983f",
-        target: "cloud-tie-wrapper"
-      };
-    </script>
-    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-  
+    
 
-
-
-
-
-
-
-<!-- author:forvoid begin -->
-<!-- author:forvoid begin -->
-
-<!-- author:forvoid end -->
-
-<!-- author:forvoid end -->
-
-
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      })
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      })
-    </script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-
-
- <script src="/js/is.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-<script src="/js/elevator.js"></script>
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
