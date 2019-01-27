@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>Flume学习</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    Flume学习（测试一下啦！）
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-01-17T16:00:00.000Z" itemprop="datePublished">2019-01-18</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-24T05:56:44.035Z" itemprop="dateUpdated">2019-01-24</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>[TOC]</p>
+<h2 id="一、分类"><a href="#一、分类" class="headerlink" title="一、分类"></a>一、分类</h2><p><code>exec</code>：</p>
+<blockquote>
+<p> Unix等操作系统执行命令行，如tail ，cat 。可监听文件</p>
+</blockquote>
+<p><code>netcat</code></p>
+<blockquote>
+<p>监听一个指定端口，并将接收到的数据的每一行转换为一个event事件</p>
+</blockquote>
+<p><code>avro</code></p>
+<blockquote>
+<p>序列化的一种，实现RPC（一种远程过程调用协议）。</p>
+<p>监听AVRO端口来接收外部AVRO客户端事件流</p>
+</blockquote>
+<blockquote>
+<p>capacity：默认该通道中最大的可以存储的event数量是1000</p>
+<p>Trasaction Capacity：每次最大可以source中拿到或者送到sink中的event数量也是100</p>
+</blockquote>
+<h2 id="二、操作"><a href="#二、操作" class="headerlink" title="二、操作"></a>二、操作</h2><h3 id="1、-netcat（监听端口，在本地控制台打印）"><a href="#1、-netcat（监听端口，在本地控制台打印）" class="headerlink" title="1、 netcat（监听端口，在本地控制台打印）"></a>1、 netcat（监听端口，在本地控制台打印）</h3><h4 id="（1）-vim-netcat-logger"><a href="#（1）-vim-netcat-logger" class="headerlink" title="（1） vim netcat_logger"></a>（1） vim netcat_logger</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># example.conf: A single-node Flume configuration</span><br><span class="line"></span><br><span class="line"># Name the components on this agent</span><br><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line"># Describe/configure the source</span><br><span class="line">a1.sources.r1.type = netcat</span><br><span class="line">a1.sources.r1.bind = localhost</span><br><span class="line">a1.sources.r1.port = 44444</span><br><span class="line"></span><br><span class="line"># Describe the sink</span><br><span class="line">a1.sinks.k1.type = logger</span><br><span class="line"></span><br><span class="line"># Use a channel which buffers events in memory</span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line">a1.channels.c1.capacity = 1000</span><br><span class="line">a1.channels.c1.transactionCapacity = 100</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
+<h4 id="（2）命令操作"><a href="#（2）命令操作" class="headerlink" title="（2）命令操作"></a>（2）命令操作</h4><ul>
+<li>（在会话1端）</li>
+</ul>
+<blockquote>
+<p>在node00节点的控制台输入<code>启动</code>命令：</p>
+<p>(<code>方式一</code>：指定配置文件的路径+文件名)</p>
+<p>flume-ng agent</p>
+<p> –conf-file /root/flume/netcat_logger –name a1 -Dflume.root.logger=INFO,console</p>
+<p>（<code>方式二</code>：配置文件在当前目录）</p>
+<p>flume-ng agent –conf ./ –conf-file netcat_logger –name a1 -Dflume.root.logger=INFO,console</p>
+</blockquote>
+<p><code>特别注意</code>：</p>
+<p>#####<code>官网方式</code>#########</p>
+<blockquote>
+<p>flume-ng agent</p>
+<p> –conf conf –conf-file netcat_logger –name a1 -Dflume.root.logger=INFO,console</p>
+<p>解释：此命令适用于将配置文件放在flume解压安装目录的conf中（不常用）</p>
+</blockquote>
+<p><code>控制台显示</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​`````</span><br></pre></td></tr></table></figure>
+<p>19/01/18 12:27:31 INFO instrumentation.MonitoredCounterGroup: Component type: CHANNEL, name: c1 started<br>19/01/18 12:27:31 INFO node.Application: Starting Sink k1<br>19/01/18 12:27:31 INFO node.Application: Starting Source r1<br>19/01/18 12:27:31 INFO source.NetcatSource: Source starting<br>19/01/18 12:27:31 INFO source.NetcatSource: Created serverSocket:sun.nio.ch.ServerSocketChannelImpl[/127.0.0.1:44444]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* (在会话2端)</span><br><span class="line"></span><br><span class="line">&gt; 在node00节点的控制台输入命令：</span><br><span class="line">&gt;</span><br><span class="line">&gt; 1、在节点上安装telnet：</span><br><span class="line">&gt;</span><br><span class="line">&gt; yum install -y telnet</span><br><span class="line">&gt;</span><br><span class="line">&gt; yum -y install telnet-server</span><br><span class="line">&gt;</span><br><span class="line">&gt; 2、启动：</span><br><span class="line">&gt;</span><br><span class="line">&gt; telnet localhost 44444  </span><br><span class="line">&gt;</span><br><span class="line">&gt; `注意：`：</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>a1.sources.r1.bind = localhost<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">&gt; 前提是/etc/hosts中已经配置</span><br><span class="line">&gt;</span><br><span class="line">&gt; 如果此处配置localhost 那么启动时，localhost  或127.0.0.1都可以，node00就不行</span><br><span class="line">&gt;</span><br><span class="line">&gt; 如果此处配置node00那么启动时，node00或ip都可以，localhost就不行</span><br><span class="line">&gt;</span><br><span class="line">&gt; 3、在控制台输入任何内容;</span><br><span class="line">&gt;</span><br><span class="line">&gt; 都会在会话1端显示，且会话1端（ctrl+c）退出服务，会话2端也自动结束</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>  yum list telnet*   查看telnet相关的安装包<br>   直接yum –y install telnet 就OK<br>     yum -y install telnet-server 安装telnet服务<br>     yum -y install telnet-client  安装telnet客户端(大部分系统默认安装)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2、avro（监听远程发送文件，在本地控制台打印）</span><br><span class="line"></span><br><span class="line">#### （1）vim avro_logger</span><br></pre></td></tr></table></figure>
+<p>#test avro sources</p>
+<p>##使用avro方式在某节点上将文件发送到本服务器上且通过logger方式显示</p>
+<p>##当前flume节点执行：</p>
+<p>#flume-ng agent –conf ./ –conf-file avro_loggers –name a1 -Dflume.root.logger=INFO,console</p>
+<p>##其他flume节点执行：</p>
+<p>#flume-ng avro-client –conf ./ -H 192.168.198.128 -p 55555 -F ./logs</p>
+<p>a1.sources=r1<br>a1.channels=c1<br>a1.sinks=k1</p>
+<p>a1.sources.r1.type = avro<br>a1.sources.r1.bind=192.168.198.128<br>a1.sources.r1.port=55555</p>
+<p>a1.sinks.k1.type=logger</p>
+<p>a1.channels.c1.type = memory<br>a1.channels.c1.capacity=1000<br>a1.channels.c1.transactionCapacity = 100</p>
+<p>a1.sources.r1.channels=c1<br>a1.sinks.k1.channel=c1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">实现功能：</span><br><span class="line"></span><br><span class="line">&gt; 使用avro方式在某节点上将文件发送到本服务器上且通过logger方式显示</span><br><span class="line"></span><br><span class="line">#### （2）命令操作</span><br><span class="line"></span><br><span class="line">##### `启动` </span><br><span class="line"></span><br><span class="line">（在会话1端）</span><br><span class="line"></span><br><span class="line">在node00上</span><br><span class="line"></span><br><span class="line">*  ##当前flume节点执行（配置文件在当前目录）：</span><br><span class="line"></span><br><span class="line">* &gt;  flume-ng agent --conf ./ --conf-file avro_logger --name a1 -Dflume.root.logger=INFO,console</span><br><span class="line"></span><br><span class="line">`显示：`</span><br></pre></td></tr></table></figure></p>
+<p>19/01/18 13:53:16 INFO instrumentation.MonitoredCounterGroup: Component type: CHANNEL, name: c1 started<br>19/01/18 13:53:16 INFO node.Application: Starting Sink k1<br>19/01/18 13:53:16 INFO node.Application: Starting Source r1<br>19/01/18 13:53:16 INFO source.AvroSource: Starting Avro source r1: { bindAddress: 192.168.198.128, port: 55555 }…<br>19/01/18 13:53:17 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SOURCE, name: r1: Successfully registered new MBean.<br>19/01/18 13:53:17 INFO instrumentation.MonitoredCounterGroup: Component type: SOURCE, name: r1 started<br>19/01/18 13:53:17 INFO source.AvroSource: Avro source r1 started.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#####  发送</span><br><span class="line"></span><br><span class="line">(在会话2端)</span><br><span class="line"></span><br><span class="line">在node00上发送文件到node00</span><br><span class="line"></span><br><span class="line">`启动`</span><br><span class="line"></span><br><span class="line">##可在本地和其他flume节点执行（配置文件在当前目录）：</span><br></pre></td></tr></table></figure>
+<p>flume-ng avro-client –conf ./ -H 192.168.198.128 -p 55555 -F ./flume.log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(在会话1端)</span><br></pre></td></tr></table></figure></p>
+<p>19/01/18 14:12:57 INFO sink.LoggerSink: Event: { headers:{} body: 68 65 6C 6C 6F 20 62 69 67 64 61 74 61          hello bigdata }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">时刻监听传输文件的内容</span><br><span class="line"></span><br><span class="line">`注意`</span><br><span class="line"></span><br><span class="line">&gt; 该过程也可应用于不同节点之间</span><br><span class="line"></span><br><span class="line">### 3、exec（监听某一命令，在本地控制台打印）</span><br><span class="line"></span><br><span class="line">#### （1）vim exec_logger</span><br></pre></td></tr></table></figure></p>
+<p>#单节点flume配置</p>
+<h1 id="example-conf-A-single-node-Flume-configuration"><a href="#example-conf-A-single-node-Flume-configuration" class="headerlink" title="example.conf: A single-node Flume configuration"></a>example.conf: A single-node Flume configuration</h1><p>#给agent三大结构命名</p>
+<h1 id="Name-the-components-on-this-agent"><a href="#Name-the-components-on-this-agent" class="headerlink" title="Name the components on this agent"></a>Name the components on this agent</h1><p>a1.sources = r1<br>a1.sinks = k1<br>a1.channels = c1</p>
+<p>#描述source的配置：类型、命令（监听/root/flume.log文件）</p>
+<h1 id="Describe-configure-the-source"><a href="#Describe-configure-the-source" class="headerlink" title="Describe/configure the source"></a>Describe/configure the source</h1><p>a1.sources.r1.type = exec<br>a1.sources.r1.command = tail -F /root/flume.log</p>
+<p>#描述sink的配置：类型</p>
+<h1 id="Describe-the-sink"><a href="#Describe-the-sink" class="headerlink" title="Describe the sink"></a>Describe the sink</h1><p>a1.sinks.k1.type = logger</p>
+<p>#在内存中使用一个channel缓存事件</p>
+<h1 id="Use-a-channel-which-buffers-events-in-memory"><a href="#Use-a-channel-which-buffers-events-in-memory" class="headerlink" title="Use a channel which buffers events in memory"></a>Use a channel which buffers events in memory</h1><p>a1.channels.c1.type = memory<br>a1.channels.c1.capacity = 1000<br>a1.channels.c1.transactionCapacity = 100</p>
+<p>#将source和sink绑定到channel上</p>
+<h1 id="Bind-the-source-and-sink-to-the-channel"><a href="#Bind-the-source-and-sink-to-the-channel" class="headerlink" title="Bind the source and sink to the channel"></a>Bind the source and sink to the channel</h1><p>a1.sources.r1.channels = c1<br>a1.sinks.k1.channel = c1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">（xshell会话1：）</span><br><span class="line"></span><br><span class="line">&gt; 在node00上：`启动`</span><br><span class="line">&gt;</span><br><span class="line">&gt; 在exec_logger文件所在的目录下</span><br><span class="line">&gt;</span><br><span class="line">&gt; 命令：flume-ng agent  --conf-file exec_logger --name a1 -Dflume.root.logger=INFO,console</span><br><span class="line">&gt;</span><br><span class="line">&gt; r1 启动</span><br><span class="line"></span><br><span class="line">&gt; （复制会话：会话2）</span><br><span class="line">&gt;</span><br><span class="line">&gt; 在node00上：</span><br><span class="line">&gt;</span><br><span class="line">&gt; 在root目录下</span><br><span class="line">&gt;</span><br><span class="line">&gt; 命令：echo hello bigdata &gt;&gt;flume.log</span><br><span class="line"></span><br><span class="line">&gt; 之后在会话2上</span><br><span class="line">&gt;</span><br><span class="line">&gt; `logger本地控制台打印：`</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>19/01/18 12:03:23 INFO sink.LoggerSink:<br>Event:<br>{ headers:{} body: 68 65 6C 6C 6F 20 62 69 67 64 61 74 61  hello bigdata }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 4、netcat–hdfs(监听数据，传到hdfs上)</span><br><span class="line"></span><br><span class="line">#### （1）vim netcat_hdfs</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="a1-which-ones-we-want-to-activate"><a href="#a1-which-ones-we-want-to-activate" class="headerlink" title="a1 which ones we want to activate."></a>a1 which ones we want to activate.</h1><p>a1.channels = c1<br>a1.sources = r1<br>a1.sinks = k1</p>
+<p>a1.sources.r1.type = netcat<br>a1.sources.r1.bind = node00<br>a1.sources.r1.port = 41414</p>
+<p>a1.sinks.k1.type = hdfs<br>a1.sinks.k1.hdfs.path = hdfs://Sunrise/myflume/%y-%m-%d<br>a1.sinks.k1.hdfs.useLocalTimeStamp=true</p>
+<h1 id="Define-a-memory-channel-called-c1-on-a1"><a href="#Define-a-memory-channel-called-c1-on-a1" class="headerlink" title="Define a memory channel called c1 on a1"></a>Define a memory channel called c1 on a1</h1><p>a1.channels.c1.type = memory</p>
+<p>#默认值，可省</p>
+<p>#a1.channels.c1.capacity = 1000</p>
+<p>#a1.channels.c1.transactionCapacity = 100</p>
+<h1 id="Define-an-Avro-source-called-r1-on-a1-and-tell-it"><a href="#Define-an-Avro-source-called-r1-on-a1-and-tell-it" class="headerlink" title="Define an Avro source called r1 on a1 and tell it"></a>Define an Avro source called r1 on a1 and tell it</h1><p>a1.sources.r1.channels = c1<br>a1.sinks.k1.channel = c1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### (2)操作</span><br><span class="line"></span><br><span class="line">在node00的会话1上</span><br><span class="line"></span><br><span class="line">启动</span><br><span class="line"></span><br><span class="line">&gt; 在node00上：</span><br><span class="line">&gt;</span><br><span class="line">&gt; 在netcat_hdfs文件所在的目录下</span><br><span class="line">&gt;</span><br><span class="line">&gt; 命令：flume-ng agent  --conf-file netcat_hdfs --name a1 -Dflume.root.logger=INFO,console</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">显示：</span><br></pre></td></tr></table></figure></p>
+<p>19/01/18 14:34:44 INFO instrumentation.MonitoredCounterGroup: Component type: CHANNEL, name: c1 started<br>19/01/18 14:34:44 INFO node.Application: Starting Sink k1<br>19/01/18 14:34:44 INFO node.Application: Starting Source r1<br>19/01/18 14:34:44 INFO source.NetcatSource: Source starting<br>19/01/18 14:34:44 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SINK, name: k1: Successfully registered new MBean.<br>19/01/18 14:34:44 INFO instrumentation.MonitoredCounterGroup: Component type: SINK, name: k1 started<br>19/01/18 14:34:44 INFO source.NetcatSource: Created serverSocket:sun.nio.ch.ServerSocketChannelImpl[/192.168.198.128:41414]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在node00的会话2上</span><br><span class="line"></span><br><span class="line">启动</span><br><span class="line"></span><br><span class="line">&gt; telnet node00 41414</span><br><span class="line"></span><br><span class="line">显示</span><br></pre></td></tr></table></figure>
+<p>Trying 192.168.198.128…<br>Connected to node00.<br>Escape character is ‘^]’.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输入任意内容</span><br><span class="line"></span><br><span class="line">在node00会话1端会显示</span><br></pre></td></tr></table></figure>
+<p>19/01/18 14:36:50 INFO hdfs.HDFSSequenceFile: writeFormat = Writable, UseRawLocalFileSystem = false<br>19/01/18 14:36:51 INFO hdfs.BucketWriter: Creating hdfs://Sunrise/myflume/19-01-18/FlumeData.1547822210259.tmp<br>19/01/18 14:37:29 INFO hdfs.BucketWriter: Closing hdfs://Sunrise/myflume/19-01-18/FlumeData.1547822210259.tmp<br>19/01/18 14:37:29 INFO hdfs.BucketWriter: Renaming hdfs://Sunrise/myflume/19-01-18/FlumeData.1547822210259.tmp to hdfs://Sunrise/myflume/19-01-18/FlumeData.1547822210259<br>19/01/18 14:37:29 INFO hdfs.HDFSEventSink: Writer callback called.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在HDF分布式系统上会显示，生成的文件</span><br><span class="line"></span><br><span class="line">![](https://ws1.sinaimg.cn/large/005zftzDgy1fzb4acaz5fj30u10blmzc.jpg)</span><br><span class="line"></span><br><span class="line">![](https://ws1.sinaimg.cn/large/005zftzDgy1fzb4bsv8d2j30wd08k74i.jpg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">`注意：`</span><br><span class="line"></span><br><span class="line">这种情况会在hdfs上生成很多小文件，</span><br><span class="line"></span><br><span class="line">[在官网](http://flume.apache.org/releases/content/1.8.0/FlumeUserGuide.html)</span><br><span class="line"></span><br><span class="line">#### HDFS Sink[¶](http://flume.apache.org/releases/content/1.8.0/FlumeUserGuide.html#hdfs-sink)</span><br><span class="line"></span><br><span class="line">有很多关于文件生成过程中的配置</span><br><span class="line"></span><br><span class="line">| Name                   | Default      | Description                                                  |</span><br><span class="line">| ---------------------- | ------------ | ------------------------------------------------------------ |</span><br><span class="line">| **channel**            | –            |                                                              |</span><br><span class="line">| **type**               | –            | The component type name, needs to be `hdfs`                  |</span><br><span class="line">| **hdfs.path**          | –            | HDFS directory path (eg hdfs://namenode/flume/webdata/)      |</span><br><span class="line">| hdfs.filePrefix        | FlumeData    | Name prefixed to files created by Flume in hdfs directory    |</span><br><span class="line">| hdfs.fileSuffix        | –            | Suffix to append to file (eg `.avro` - *NOTE: period is not automatically added*) |</span><br><span class="line">| hdfs.inUsePrefix       | –            | Prefix that is used for temporal files that flume actively writes into |</span><br><span class="line">| hdfs.inUseSuffix       | `.tmp`       | Suffix that is used for temporal files that flume actively writes into |</span><br><span class="line">| hdfs.rollInterval      | 30           | Number of seconds to wait before rolling current file (0 = never roll based on time interval) |</span><br><span class="line">| hdfs.rollSize          | 1024         | File size to trigger roll, in bytes (0: never roll based on file size) |</span><br><span class="line">| hdfs.rollCount         | 10           | Number of events written to file before it rolled (0 = never roll based on number of events) |</span><br><span class="line">| hdfs.idleTimeout       | 0            | Timeout after which inactive files get closed (0 = disable automatic closing of idle files) |</span><br><span class="line">| hdfs.batchSize         | 100          | number of events written to file before it is flushed to HDFS |</span><br><span class="line">| hdfs.codeC             | –            | Compression codec. one of following : gzip, bzip2, lzo, lzop, snappy |</span><br><span class="line">| hdfs.fileType          | SequenceFile | File format: currently `SequenceFile`, `DataStream` or `CompressedStream` (1)DataStream will not compress output file and please don’t set codeC (2)CompressedStream requires set hdfs.codeC with an available codeC |</span><br><span class="line">| hdfs.maxOpenFiles      | 5000         | Allow only this number of open files. If this number is exceeded, the oldest file is closed. |</span><br><span class="line">| hdfs.minBlockReplicas  | –            | Specify minimum number of replicas per HDFS block. If not specified, it comes from the default Hadoop config in the classpath. |</span><br><span class="line">| hdfs.writeFormat       | Writable     | Format for sequence file records. One of `Text` or `Writable`. Set to `Text` before creating data files with Flume, otherwise those files cannot be read by either Apache Impala (incubating) or Apache Hive. |</span><br><span class="line">| hdfs.callTimeout       | 10000        | Number of milliseconds allowed for HDFS operations, such as open, write, flush, close. This number should be increased if many HDFS timeout operations are occurring. |</span><br><span class="line">| hdfs.threadsPoolSize   | 10           | Number of threads per HDFS sink for HDFS IO ops (open, write, etc.) |</span><br><span class="line">| hdfs.rollTimerPoolSize | 1            | Number of threads per HDFS sink for scheduling timed file rolling |</span><br><span class="line">| hdfs.kerberosPrincipal | –            | Kerberos user principal for accessing secure HDFS            |</span><br><span class="line">| hdfs.kerberosKeytab    | –            | Kerberos keytab for accessing secure HDFS                    |</span><br><span class="line">| hdfs.proxyUser         |              |                                                              |</span><br><span class="line">| hdfs.round             | false        | Should the timestamp be rounded down (if true, affects all time based escape sequences except %t) |</span><br><span class="line">| hdfs.roundValue        | 1            | Rounded down to the highest multiple of this (in the unit configured using `hdfs.roundUnit`), less than current time. |</span><br><span class="line">| hdfs.roundUnit         | second       | The unit of the round down value - `second`, `minute` or `hour`. |</span><br><span class="line">| hdfs.timeZone          | Local Time   | Name of the timezone that should be used for resolving the directory path, e.g. America/Los_Angeles. |</span><br><span class="line">| hdfs.useLocalTimeStamp | false        | Use the local time (instead of the timestamp from the event header) while replacing the escape sequences. |</span><br><span class="line">| hdfs.closeTries        | 0            | Number of times the sink must try renaming a file, after initiating a close attempt. If set to 1, this sink will not re-try a failed rename (due to, for example, NameNode or DataNode failure), and may leave the file in an open state with a .tmp extension. If set to 0, the sink will try to rename the file until the file is eventually renamed (there is no limit on the number of times it would try). The file may still remain open if the close call fails but the data will be intact and in this case, the file will be closed only after a Flume restart. |</span><br><span class="line">| hdfs.retryInterval     | 180          | Time in seconds between consecutive attempts to close a file. Each close call costs multiple RPC round-trips to the Namenode, so setting this too low can cause a lot of load on the name node. If set to 0 or less, the sink will not attempt to close the file if the first attempt fails, and may leave the file open or with a ”.tmp” extension. |</span><br><span class="line">| serializer             | `TEXT`       | Other possible options include `avro_event` or the fully-qualified class name of an implementation of the `EventSerializer.Builder` interface. |</span><br><span class="line"></span><br><span class="line">netcat-hdfs </span><br><span class="line"></span><br><span class="line">（配置方式二）</span><br></pre></td></tr></table></figure>
+<h1 id="a1-which-ones-we-want-to-activate-1"><a href="#a1-which-ones-we-want-to-activate-1" class="headerlink" title="a1 which ones we want to activate."></a>a1 which ones we want to activate.</h1><p>a1.channels = c1<br>a1.sources = r1<br>a1.sinks = k1</p>
+<p>a1.sources.r1.type = avro<br>a1.sources.r1.bind=node01<br>a1.sources.r1.port=55555</p>
+<p>a1.sinks.k1.type = hdfs<br>a1.sinks.k1.hdfs.path = hdfs://shsxt/hdfsflume</p>
+<h1 id="Define-a-memory-channel-called-c1-on-a1-1"><a href="#Define-a-memory-channel-called-c1-on-a1-1" class="headerlink" title="Define a memory channel called c1 on a1"></a>Define a memory channel called c1 on a1</h1><p>a1.channels.c1.type = memory<br>a1.channels.c1.capacity=1000<br>a1.channels.c1.transactionCapacity = 100</p>
+<h1 id="Define-an-Avro-source-called-r1-on-a1-and-tell-it-1"><a href="#Define-an-Avro-source-called-r1-on-a1-and-tell-it-1" class="headerlink" title="Define an Avro source called r1 on a1 and tell it"></a>Define an Avro source called r1 on a1 and tell it</h1><p>a1.sources.r1.channels = c1<br>a1.sinks.k1.channel = c1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 5、结合版（netcat-avro）</span><br><span class="line"></span><br><span class="line">#### （1）vim netcat2_logger</span><br><span class="line"></span><br><span class="line">（node00）</span><br></pre></td></tr></table></figure></p>
+<h1 id="example-conf-A-single-node-Flume-configuration-1"><a href="#example-conf-A-single-node-Flume-configuration-1" class="headerlink" title="example.conf: A single-node Flume configuration"></a>example.conf: A single-node Flume configuration</h1><p>#flume-ng agent –conf ./ –conf-file netcat2_logger –name a1 -Dflume.root.logger=INFO,console</p>
+<p>#flume-ng –conf conf –conf-file /root/flume_test/netcat_hdfs -n a1 -Dflume.root.logger=INFO,console</p>
+<p>#telnet 192.168.235.15 44444</p>
+<h1 id="Name-the-components-on-this-agent-1"><a href="#Name-the-components-on-this-agent-1" class="headerlink" title="Name the components on this agent"></a>Name the components on this agent</h1><p> a1.sources = r1<br> a1.sinks = k1<br> a1.channels = c1</p>
+<h1 id="Describe-configure-the-source-1"><a href="#Describe-configure-the-source-1" class="headerlink" title="Describe/configure the source"></a>Describe/configure the source</h1><p> a1.sources.r1.type = netcat<br> a1.sources.r1.bind = node00<br> a1.sources.r1.port = 44444</p>
+<h1 id="Describe-the-sink-1"><a href="#Describe-the-sink-1" class="headerlink" title="Describe the sink"></a>Describe the sink</h1><p> a1.sinks.k1.type = avro<br> a1.sinks.k1.hostname = node01<br> a1.sinks.k1.port = 60000</p>
+<h1 id="Use-a-channel-which-buffers-events-in-memory-1"><a href="#Use-a-channel-which-buffers-events-in-memory-1" class="headerlink" title="Use a channel which buffers events in memory"></a>Use a channel which buffers events in memory</h1><p> a1.channels.c1.type = memory<br> a1.channels.c1.capacity = 1000<br> a1.channels.c1.transactionCapacity = 100</p>
+<h1 id="Bind-the-source-and-sink-to-the-channel-1"><a href="#Bind-the-source-and-sink-to-the-channel-1" class="headerlink" title="Bind the source and sink to the channel"></a>Bind the source and sink to the channel</h1><p> a1.sources.r1.channels = c1<br> a1.sinks.k1.channel = c1</p>
+<p>#—————————</p>
+<p>#flume-ng agent –conf-file etect2_logger –name a1 -#Dflume.root.logger=INFO,console</p>
+<p>#flume-ng agent –conf conf –conf-file netcat_logger –name a1 -#Dflume.root.logger=INFO,console<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">（node01）</span><br></pre></td></tr></table></figure></p>
+<p>#flume-ng agent –conf ./ –conf-file avro2 -n a1<br>a1.sources = r1<br>a1.sinks = k1<br>a1.channels = c1</p>
+<p>a1.sources.r1.type = avro<br>a1.sources.r1.bind = node01<br>a1.sources.r1.port = 60000</p>
+<p>a1.sinks.k1.type = logger</p>
+<h1 id="Use-a-channel-which-buffers-events-in-memory-2"><a href="#Use-a-channel-which-buffers-events-in-memory-2" class="headerlink" title="Use a channel which buffers events in memory"></a>Use a channel which buffers events in memory</h1><p>a1.channels.c1.type = memory<br>a1.channels.c1.capacity = 1000<br>a1.channels.c1.transactionCapacity = 100</p>
+<h1 id="Bind-the-source-and-sink-to-the-channel-2"><a href="#Bind-the-source-and-sink-to-the-channel-2" class="headerlink" title="Bind the source and sink to the channel"></a>Bind the source and sink to the channel</h1><p>a1.sources.r1.channels = c1<br>a1.sinks.k1.channel = c1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(2)操作</span><br><span class="line"></span><br><span class="line">&gt; 先启动后面的flume节点node01  ，在启动node00，最后启动node02</span><br><span class="line"></span><br><span class="line">在node01上</span><br><span class="line"></span><br><span class="line">`启动`</span><br><span class="line"></span><br><span class="line">&gt; flume-ng </span><br><span class="line">&gt;</span><br><span class="line">&gt; --conf conf --conf-file avro2 -n a1 -Dflume.root.logger=INFO,console</span><br><span class="line"></span><br><span class="line">显示</span><br></pre></td></tr></table></figure>
+<p>19/01/18 23:22:27 INFO node.Application: Starting Channel c1<br>19/01/18 23:22:28 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: CHANNEL, name: c1: Successfully registered new MBean.<br>19/01/18 23:22:28 INFO instrumentation.MonitoredCounterGroup: Component type: CHANNEL, name: c1 started<br>19/01/18 23:22:28 INFO node.Application: Starting Sink k1<br>19/01/18 23:22:28 INFO node.Application: Starting Source r1<br>19/01/18 23:22:28 INFO source.AvroSource: Starting Avro source r1: { bindAddress: node01, port: 60000 }…<br>19/01/18 23:22:30 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SOURCE, name: r1: Successfully registered new MBean.<br>19/01/18 23:22:30 INFO instrumentation.MonitoredCounterGroup: Component type: SOURCE, name: r1 started<br>19/01/18 23:22:30 INFO source.AvroSource: Avro source r1 started.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在node00上</span><br><span class="line"></span><br><span class="line">`启动`</span><br><span class="line"></span><br><span class="line">&gt; flume-ng agent</span><br><span class="line">&gt;</span><br><span class="line">&gt; --conf ./ --conf-file netcat2_logger --name a1 -Dflume.root.logger=INFO,console</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在node02上</span><br><span class="line"></span><br><span class="line">`启动`</span><br><span class="line"></span><br><span class="line">&gt; telnet node00 44444</span><br><span class="line"></span><br><span class="line">然后输入数据文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">最后在</span><br><span class="line"></span><br><span class="line">node01节点上</span><br><span class="line"></span><br><span class="line">显示文件信息</span><br></pre></td></tr></table></figure>
+<p>19/01/18 23:33:01 INFO sink.LoggerSink: Event: { headers:{} body: 68 65 6C 6C 6F 20 77 6F 72 6C 64 0D             hello world. }</p>
+<p><code>`</code></p>
+<p>flume-ng agent  –conf-file flumeproject –name a1 -Dflume.root.logger=INFO,console</p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>
