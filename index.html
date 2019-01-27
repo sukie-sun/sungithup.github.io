@@ -1,930 +1,348 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no">
-    
-    
-    <!--Simple SEO-->
-
-<meta name="description" content="Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。/">
-
-
-<meta name="robots" content="all">
-<meta name="google" content="all">
-<meta name="googlebot" content="all">
-<meta name="verify" content="all">
-    <!--Title-->
-
-<title>Sunrise山脉</title>
-
-<link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
-
-
-<link rel="icon" href="/favicon.ico">
-
-    
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/pages/article-exp.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/thirdParty/highlight/github.css">
-
-    <!--script-->
-
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>-->
-
-
-    
-    
-</head>
-</html>
-<body id="normal">
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<style>
-    header{ top: 71px; position: absolute!important;}
-    #container{padding-top: 151px!important;}
-</style>
-<div style="position:fixed;z-index:9999;left:0;top:0;width:100%;height:70px;background-color:#e0e0e0;color:#396CA5;border-bottom:1px solid #cecece;text-align:center;line-height:70px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
-<div id="wrap">
-    <header>
-    <div id="site-meta">
-        <a href="/" id="logo">
-            <h1 class="title">Sunrise山脉</h1>
-        </a>
-        
-        <h2 class="subtitle">肆意玩耍，肆意高歌</h2>
-        
-    </div>
-    <ul id="nav">
-        
-            <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
-        
-            <li><a href="/atom.xml"><i class="fa fa-rss"></i>RSS</a></li>
-        
-        <li id="search"><a href="javascript:void(0)"><i class="fa fa-search"></i>Search</a></li>
-    </ul>
-</header>
-
-    <div id="container">
-        
-<ul id="sidebar">
-    
-    
-<li class="widget notification">
-    <i class="fa fa-bell-o"></i>
-    <div>
-        
-<p>主题ylion v0.0.0版本即将上线，敬请期待~！
-主题作者：<a href="https://github.com/GeekaholicLin" title="fork me" target="_blank">Geekaholic</a></p>
-    </div>
-</li>
-
-    
-    
-<li class="widget widget-normal category">
-    <h3 class="fa fa-th widget-title">Categories</h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/"><i class="fa" aria-hidden="true">BigData</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/"><i class="fa" aria-hidden="true">HBase</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hbase/"><i class="fa" aria-hidden="true">Hbase</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/"><i class="fa" aria-hidden="true">Hive</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mapreduce/"><i class="fa" aria-hidden="true">Mapreduce</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/"><i class="fa" aria-hidden="true">MySQL</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/"><i class="fa" aria-hidden="true">Nginx</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Zookeeper/"><i class="fa" aria-hidden="true">Zookeeper</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flume/"><i class="fa" aria-hidden="true">flume</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/"><i class="fa" aria-hidden="true">maven</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/yarn/"><i class="fa" aria-hidden="true">yarn</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li></ul>
-</li>
-
-
-    
-    
-<li class="widget widget-normal archive">
-  <h3 class="fa fa-archive widget-title">Archives</h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/"><i class="fa" aria-hidden="true">January 2019</i></a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/"><i class="fa" aria-hidden="true">December 2018</i></a><span class="archive-list-count">5</span></li></ul>
-</li>
-
-
-    
-    
-<li class="widget widget-normal popular-posts" id="popular-posts">
-    <h3 class="fa fa-thermometer-3 widget-title">Popular Posts</h3>
-    <ul id="popular-content">
-        <li class="load-first"><i class="fa fa-spinner fa-pulse"></i></li>
-    </ul>
-</li>
-
-    
-    
-<li class="widget widget-normal tags">
-  <h3 class="fa fa-tags widget-title">Tag Cloud</h3>
-  <div class="tagcloud-content">
-    
-      <a href="/tags/分而治之/" style="font-size: 0.14rem; color: #69c">分而治之</a> <a href="/tags/Linux系统环境/" style="font-size: 0.2rem; color: #0a407c">Linux系统环境</a> <a href="/tags/HBase/" style="font-size: 0.14rem; color: #69c">HBase</a> <a href="/tags/BigData/" style="font-size: 0.16rem; color: #4f83b8">BigData</a> <a href="/tags/Hadoop/" style="font-size: 0.14rem; color: #69c">Hadoop</a> <a href="/tags/NoSQL/" style="font-size: 0.14rem; color: #69c">NoSQL</a> <a href="/tags/hadoop/" style="font-size: 0.14rem; color: #69c">hadoop</a> <a href="/tags/MySQL/" style="font-size: 0.16rem; color: #4f83b8">MySQL</a> <a href="/tags/资源管理框架/" style="font-size: 0.14rem; color: #69c">资源管理框架</a> <a href="/tags/Linux命令/" style="font-size: 0.17rem; color: #386da4">Linux命令</a> <a href="/tags/头脑风暴/" style="font-size: 0.14rem; color: #69c">头脑风暴</a> <a href="/tags/HDFS/" style="font-size: 0.18rem; color: #215690">HDFS</a> <a href="/tags/maven/" style="font-size: 0.14rem; color: #69c">maven</a> <a href="/tags/数据仓库/" style="font-size: 0.14rem; color: #69c">数据仓库</a> <a href="/tags/MapReduce/" style="font-size: 0.16rem; color: #4f83b8">MapReduce</a> <a href="/tags/Base/" style="font-size: 0.14rem; color: #69c">Base</a> <a href="/tags/负载均衡/" style="font-size: 0.16rem; color: #4f83b8">负载均衡</a> <a href="/tags/Nginx/" style="font-size: 0.14rem; color: #69c">Nginx</a> <a href="/tags/分布式/" style="font-size: 0.16rem; color: #4f83b8">分布式</a> <a href="/tags/计算框架/" style="font-size: 0.14rem; color: #69c">计算框架</a> <a href="/tags/Zookeeper/" style="font-size: 0.14rem; color: #69c">Zookeeper</a> <a href="/tags/Hive/" style="font-size: 0.14rem; color: #69c">Hive</a>
-  </div>
-</li>
-
-
-    
-    
-<li class="widget widget-normal friends-link">
-    <h3 class="fa fa-globe widget-title">Friends</h3><br>
-
-    
-        <a href="http://geekaholiclin.github.io" class="fa" target="_blank">主题作者</a>
-
-    
-
-</li>
-
-    
-</ul>
-
-
-        <ul id="main">
-    
-
-    
-    
-    
-    
-    
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/23/Nginx入门学习（第二回合）/">
-        <div class="article-img img-ajax" data-src="/img/default-1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <h2 style="margin-bottom: 0.35rem;"></h2>
-            
-            <p class="article-content">
-                Nginx入门学习（第二回合）2018年12月20日  周四  阴
-一、虚拟主机1、什么是虚拟主机？（1）是指在网络服务器上分出一定的磁盘空间，租给用户以放置站点以及应用空间，并提供必要的存储和传输功能。
-（2）是被虚拟化的逻辑主机，也可理解为就是把一台物理服务器划分成多个“虚拟“的服务器，各个虚拟主机之间完全独立，对外界呈现的状态也同单独物理主机表现完全相同。
-2、虚拟主有啥特点？（1）多台虚拟主机共享一台真实主机资源，大幅度降低了硬件、网络维护、通信线路等的费用
-（2）也大大简化了服务器管理的复杂性；
-3、虚拟主机有哪些类别？（1）基于域名
-1234567891011121314151617181920212223242526http &#123;     upstream shsxt&#123;         server node01;         server nod...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>null</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            null
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/23</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="" data-leadcloud-url="/2019/01/23/Nginx入门学习（第二回合）/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/23/Nginx入门学习（第二回合）/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/23/Linux系统CentOS 6安装/">
-        <div class="article-img img-ajax" data-src="///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wps46F4.tmp.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <h2 style="margin-bottom: 0.35rem;"></h2>
-            
-            <p class="article-content">
-                Linux系统CentOS 6一、安装 资源准备：
-CentOS-6.6-x86_64-minimal.iso（简易迷你版） ：
-CentOS-6.7-x86_64-bin-DVD1.iso（完整版）：
-1、点击新建虚拟机 
-2、选择典型。（专业人士使用的话建议选择高级） 
-3. 选择稍后安装操作系统 
-4. 选择操作系统类型，选择linux,centos 64位 
-5. 选择虚拟机安装位置和名称。 
-6. 指定磁盘容量，默认20GB。 
-7. 选择自定义硬件 
-8. 点击CD/DVD,然后选择操作系统的ISO映像文件，选择完后，点击关闭。  
-9.点击完成。 
-二、配置虚拟机1. 启动虚拟机。注意：如果启动虚拟机时，发生以下问题，说明是你的电脑默认未开启虚拟化技术。
- 
-此时你应该把机器重启并进入bios界面（不同的机器进入bios界面的快捷键不同，一般为F1~F10键中的某个键，...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>null</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            null
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/23</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="" data-leadcloud-url="/2019/01/23/Linux系统CentOS 6安装/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/23/Linux系统CentOS 6安装/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/">
-        <div class="article-img img-ajax" data-src="///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDC3.tmp.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <h2 style="margin-bottom: 0.35rem;"></h2>
-            
-            <p class="article-content">
-                Linux网络配置+常用命令学习[TOC]
-一、 Linux概述1.1. 简介Linux是一个自由的，免费的，源码开放的操作系统。也是开源软件中最著名的例子。其最主要的目的就是为了建立不受任何商品化软件版权制约的，全世界都能使用的类Unix兼容产品.而我们将服务器部署在Linux将会更加的稳定、安全、高效以及出色的性能这时windows无法比的。
-1.2.Linux作者 
-林纳斯·本纳第克特·托瓦兹（Linus Benedict Torvalds, 1969年~ ），著名的电脑程序员、黑客。Linux内核的发明人及该计划的合作者。托瓦兹利用个人时间及器材创造出了这套当今全球最流行的操作系统（作业系统）内核之一。现受聘于开放源代码开发实验室（OSDL：Open Source Development Labs, Inc），全力开发Linux内核。
-1.3.Linux 发行版发行版是基于 ...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>null</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            null
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/23</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="" data-leadcloud-url="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/23/Linux网络配置+常用命令学习(第一回合)/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/23/Linux 入门学习（第二回合）/">
-        <div class="article-img img-ajax" data-src="/.png">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <h2 style="margin-bottom: 0.35rem;"></h2>
-            
-            <p class="article-content">
-                Linux 入门学习（第二回合）2018年12月18日  周二  晴
-今日学习要点：
-[TOC]
-Linux后半程一、Linux系统配置1.主机名配置：
-vim  /etc/sysconfig/network
-
-
-配置完成之后需要重启机器才能生效
-
-reboot
-
-2.DNS配置
-查看DNS服务器的地址cat  /etc/resolv.conf
-修改DNS服务器地址方式一：vim  /etc/sysconfig/network.scripts/ifconfig-eth0
-​             在配置网关时，配置DNS1=114.114.114.114（不推荐，江苏南京的IP）
-方式二：vim   /etc/resolv.conf    （用本地网关解析）
-​              nameserver   192.168.198.0   ( 此为虚拟机中的网关地址)
-
-3....
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>null</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            null
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/23</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="" data-leadcloud-url="/2019/01/23/Linux 入门学习（第二回合）/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/23/Linux 入门学习（第二回合）/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/18/Flume学习/">
-        <div class="article-img img-ajax" data-src="http://XXXX.example.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/18/Flume学习/">
-                <h2 class="article-title">Flume学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-一、分类exec：
-
- Unix等操作系统执行命令行，如tail ，cat 。可监听文件
-
-netcat
-
-监听一个指定端口，并将接收到的数据的每一行转换为一个event事件
-
-avro
-
-序列化的一种，实现RPC（一种远程过程调用协议）。
-监听AVRO端口来接收外部AVRO客户端事件流
-
-
-capacity：默认该通道中最大的可以存储的event数量是1000
-Trasaction Capacity：每次最大可以source中拿到或者送到sink中的event数量也是100
-
-二、操作1、 netcat（监听端口，在本地控制台打印）（1） vim netcat_logger1234567891011121314151617181920212223# example.conf: A single-node Flume configuration# Name the com...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>flume</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/18</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Flume学习" data-leadcloud-url="/2019/01/18/Flume学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/18/Flume学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/17/HBase性能优化/">
-        <div class="article-img img-ajax" data-src="/img/default-1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/17/HBase性能优化/">
-                <h2 class="article-title">HBase性能优化</h2>
-            </a>
-            
-            <p class="article-content">
-                HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区
-
-解决海量导入数据时的热点问题
-
-背景：
-
-在创建HBase表的时候默认一张表只有一个region，
-所有的put操作都会往这一个region中填充数据，
-当这一个region过大时就会进行split。
-如果在创建HBase的时候就进行预分区
-则会减少当数据量猛增时由于region split带来的资源消耗。
-
-注意：
-
-每个region都有一个startKey和一个endKey来表示该region存储的rowKey范围。
-
-1&gt; create &apos;t1&apos;, &apos;cf&apos;, SPLITS =&gt; [&apos;20150501000000000&apos;, &apos;20150515000000000&apos;, &apos;20150601000...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>HBase</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/17</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="HBase性能优化" data-leadcloud-url="/2019/01/17/HBase性能优化/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/17/HBase性能优化/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/15/HBase学习/">
-        <div class="article-img img-ajax" data-src="/img/default-1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/15/HBase学习/">
-                <h2 class="article-title">HBase学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-Hbase学习非关系型数据库
-官网
-一、对数据库的 基本了解1、简介
-基于Hadoop 的分布式数据库
-特点：
-1、高可靠性
-2、高性能
-（以上两点：基于分布式的特点）
-3、面向列
-（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）
-4、可伸缩
-（搭建在集群上）
-5、实时读写
-（用时间戳唯一标记每一版本的数据记录）
-
-2、工作结构
-1、利用Hadoop的HDFS作为其文件存储系统
-2,利用Hadoop的MapReduce来处理HBase中的海量数据
-3,利用Zookeeper作为其分布式协同服务
-4,主要用来存储非结构化和半结构化的松散数据（NoSQL非关系型数据库有redis、MongoDB等
-
-3、关系型数据库
-1、定义
-关系模型指的就是二维表格模型；
-而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织
-2、三大优点
-
-容易理...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Hbase</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/15</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="HBase学习" data-leadcloud-url="/2019/01/15/HBase学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/15/HBase学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/14/Hive优化/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/14/Hive优化/">
-                <h2 class="article-title">Hive优化</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-Hive优化一、核心思想：
-把Hive SQL 当做MapReduce程序进行优化
-
-注意：以下不能HQL转化为Mapreduce任务运行
-—select 仅查询本表字段
-—where 仅对本表字段做条件过滤
-二、explain
-用以显示任务执行计划
-格式：
-EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query
-
-语法解释
-
-从语法组成可以看出来是一个“explain ”+三个可选参数+查询语句。大家可以积极尝试一下，后面两个显示内容很简单的，我介绍一下第一个 extended 这个可以显示hql语句的语法树
-其次，执行计划一共有三个部分：
-
-这个语句的抽象语法树
-这个计划不同阶段之间的依赖关系
-
-对于每个阶段的详细描述
-
-
-
-例子：
-
-12&gt; hive&gt; explain select * from log;&gt...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Hive</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/14</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Hive优化" data-leadcloud-url="/2019/01/14/Hive优化/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/14/Hive优化/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/12/Nginx入门学习（第一回合）/">
-        <div class="article-img img-ajax" data-src="/img/default-1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/12/Nginx入门学习（第一回合）/">
-                <h2 class="article-title">Nginx入门学习（第一回合）</h2>
-            </a>
-            
-            <p class="article-content">
-                Nginx入门学习（第一回合）[^开发者]: 由俄罗斯的程序设计师Igor Sysoev所开发
-[TOC]
-一、产生背景1.巨大流量—海量的并发访问
-2.单台服务器资源和能力有限
-引发服务器宕机而无法提供服务
-二、负载均衡(Load Balance)1、高并发（1）、高（大量的）
-（2）、并发就是可以使用多个线程或者多个进程，同时处理（就是并发）不同的操作
-（3）、简而言之就是每秒内有多少个请求同时访问。
-2、负载均衡（1）、将请求/数据【均匀】分摊到多个操作单元上执行
-（2）、关键在于【均匀】,也是分布式系统架构设计中必须考虑的因素之一。
-3、互联网分布式架构常见，分为客户端层、反向代理nginx层、站点层、服务层、数据层。只需要实现“将请求/数据 均匀分摊到多个操作单元上执行”，就能实现负载均衡。
-三、对Nginx的基本了解1、什么是Nginx？1一款轻量级的Web 服务器/反向...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Nginx</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/12</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Nginx入门学习（第一回合）" data-leadcloud-url="/2019/01/12/Nginx入门学习（第一回合）/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/12/Nginx入门学习（第一回合）/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/11/Hive学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fz5c8bvsjkj30im077wft.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/11/Hive学习/">
-                <h2 class="article-title">Hive学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具
-可以将结构化的数据文件映射为一张hive数据库表；
-这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中
-并提供简单的 sql 查询功能；
-可以将 sql 语句转换为 MapReduce 任务进行运行。
-
-2、快速实现简单的MapReduce 统计的工具
-方便非Java编程者对HDFS的数据做mapreduce操作；
-学习成本低，十分适合数据仓库的统计分析。
-
-3、什么是数据仓库？
-Data Warehouse(DW 或DWH）是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。
-单个数据存储，出于分析性报告和决策支持目的而创建。
-为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制.
-数据仓库是用来做查询...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>BigData</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/11</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Hive学习" data-leadcloud-url="/2019/01/11/Hive学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/11/Hive学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-
-</ul>
-
-<div id="page-pagination">
-    <div id="page-nav">
-        <span class="extend disable prev" rel="prev">&laquo; Prev</span><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </div>
-</div>
-
-    </div>
-    <footer id="footer">
-    
-    <div class="social">
-        
-        <a href="https://www.example1.com" class="fa fa-free-code-camp" target="_blank" title="freecodecamp"></a>
-        
-        <a href="https://www.example2.com" class="fa fa-github" target="_blank" title="Follow me~"></a>
-        
-    </div>
-    
-    <div>
-        
-        <a href="/" class="copyright-links">Sunrise</a>&copy;2015 - 2019.All Rights
-        Reserved.
-    </div>
-    <p>Powered by <a href="https://hexo.io" class="copyright-links" target="_blank">Hexo</a> | Theme by <a href="https://github.com/GeekaholicLin" class="copyright-links" target="_blank">GeekaholicLin</a>
-    </p>
-    
-    
-    <p>
-        <span id="busuanzi_container_site_uv" class="fa fa-bar-chart">
-        欢迎第<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>位小伙伴~
-        </span>
-    </p>
-    
-</footer>
-
-</div>
-    <ul id="tools">
-    <li class="totop-btn fa fa-angle-up"></li>
-    <li class="exchange-btn fa fa-exchange"></li>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
   
-    
-
-    
-</ul>
-<p id="process"></p>
-<div id="search-overlay">
-    <div class="search-area-wrap">
-        <div id="search-area">
-            <div class="input-wrap focus">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <input id="search-input" autofocus autocomplete="off" type="text" placeholder="search this website...">
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>Sunrise山脉</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<div class="left-aside">
+    <div class="face-img"><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg"></div>
+    <div class="intro-word">
+        <h2>Sunrise</h2>
+        <p>天马行空，爱生活，爱coding，爱美食</p>
+    </div>
+    <div class="sns">
+        <ul>
+            
+            <li>
+                <a class="github" target="_blank" href="https://github.com/sungithup" title="github">
+                    <img src="/./img/icon-github.png" alt="github" data-tooltip="github">
+                </a>
+            </li>
+            
+            <li>
+                <a class="weibo" target="_blank" href="http://weibo.com/sunrise200 " title="weibo">
+                    <img src="/./img/icon-weibo.png" alt="weibo" data-tooltip="weibo">
+                </a>
+            </li>
+            
+            <li>
+                <a class="email" target="_blank" href="mailto:sunyaru2166@163.com" title="email">
+                    <img src="/./img/icon-email.png" alt="email" data-tooltip="email">
+                </a>
+            </li>
+            
+            <li>
+                <a class="sf" target="_blank" href="https://segmentfault.com/u/555555" title="sf">
+                    <img src="/./img/icon-sf.png" alt="sf" data-tooltip="sf">
+                </a>
+            </li>
+            
+            <li>
+                <a class="rss" target="_blank" href="/atom.xml" title="rss">
+                    <img src="/./img/icon-rss.png" alt="rss" data-tooltip="rss">
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+<div class="right-aside">
+    <div class="right-nav ms">
+        <div class="main">
+            <ul class="left">
+                
+                <li>
+                    <a href="/2014/friends/">
+                        友链
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="search">
+                <input type="search" id="search" class="input-search" placeholder="搜索">
+                <i class="icon-search"></i>
+                <div class="search-result-box">
+                  <ul id="search-result">
+                  </ul>
+                </div>
             </div>
-            <ul id="search-result">
-                <li class="load-first"><i class="fa fa-spinner fa-pulse"></i></li>
+        </div>
+    </div>
+    <div class="right-main">
+        <div class="category">
+            <ul>
+                <li><a href="/" class="active">最新</a></li>
+                
+                    <li><a href="/categories/BigData/" class="">BigData</a></li>
+                
+                    <li><a href="/categories/HBase/" class="">HBase</a></li>
+                
+                    <li><a href="/categories/Hbase/" class="">Hbase</a></li>
+                
+                    <li><a href="/categories/Hive/" class="">Hive</a></li>
+                
+                    <li><a href="/categories/Linux/" class="">Linux</a></li>
+                
+                    <li><a href="/categories/Mapreduce/" class="">Mapreduce</a></li>
+                
+                    <li><a href="/categories/MySQL/" class="">MySQL</a></li>
+                
+                    <li><a href="/categories/Nginx/" class="">Nginx</a></li>
+                
+                    <li><a href="/categories/Zookeeper/" class="">Zookeeper</a></li>
+                
+                    <li><a href="/categories/flume/" class="">flume</a></li>
+                
+                    <li><a href="/categories/maven/" class="">maven</a></li>
+                
+                    <li><a href="/categories/yarn/" class="">yarn</a></li>
+                
+                    <li><a href="/categories/大数据/" class="">大数据</a></li>
+                
             </ul>
         </div>
+        <div class="clear"></div>
+        <div class="list">
+            <div>
+                
+                
+
+                
+                
+
+                
+                
+
+                
+                
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/18/Flume学习/">Flume学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-17T16:00:00.000Z" itemprop="date">2019-01-18</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T05:56:44.035Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/18/Flume学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/17/HBase性能优化/">HBase性能优化</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-16T16:00:00.000Z" itemprop="date">2019-01-17</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:13:29.687Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/17/HBase性能优化/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/15/HBase学习/">HBase学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-14T16:00:00.000Z" itemprop="date">2019-01-15</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:13:41.490Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/15/HBase学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/14/Hive优化/">Hive优化</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-13T16:00:00.000Z" itemprop="date">2019-01-14</time>
+          </li>
+          <li>更新 <time datetime="2019-01-25T10:52:16.860Z" itemprop="dateUpdated">2019-01-25</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/14/Hive优化/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（第一回合）</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-11T16:00:00.000Z" itemprop="date">2019-01-12</time>
+          </li>
+          <li>更新 <time datetime="2019-01-26T13:13:59.886Z" itemprop="dateUpdated">2019-01-26</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/12/Nginx入门学习（第一回合）/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/11/Hive学习/">Hive学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-10T16:00:00.000Z" itemprop="date">2019-01-11</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:23:07.748Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/11/Hive学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+<nav class="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+</nav>
+
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="hosted">
+          <ul>
+            <li class="coding">
+              <a href="https://coding.net/pages">
+                <img src="/./img/coding.png">
+              </a>
+            </li>
+            <li class="github-pages">
+              <a href="https://pages.github.com">
+                <img src="/./img/github-pages.png">
+              </a>
+            </li>
+          </ul>
+        </div>
     </div>
 </div>
-
-
-    <script src="/js/highsong.js"></script>
-
-
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-    //theme config datas
-    var copyrightObj = {};
-    copyrightObj.enable = 'true';
-    copyrightObj.triggerCopyLength = '200';
-    copyrightObj.appendText = '商业转载请联系作者获得授权,非商业转载请注明出处 © example';
-    var leancloudObj = {};
-    leancloudObj.enable = 'true';
-    leancloudObj.className = 'BlogCounter';
-    leancloudObj.limits = '10';
+<script>
+  var homeLeftBgArr = 'https://ws3.sinaimg.cn/large/006tKfTcly1fsulzlvofnj30af0k5jvu.jpg,https://ws2.sinaimg.cn/large/006tNbRwly1fwl2alhqibj31kw2dcu0y.jpg,https://ws1.sinaimg.cn/large/006tNbRwly1fwl2bclcirj31kw2czk7v.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2c765jej31kw2d1npe.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2dentnvj31kw2dc1l2.jpg,https://ws4.sinaimg.cn/large/006tNbRwly1fwl2dqawiej31kw2d8x6p.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2f7yp25j31kw3a97wh.jpg'.split(',');
+  var homeLeftBgArrLen = homeLeftBgArr.length;
+  var leftBackgroundUrl = homeLeftBgArr[Math.floor(Math.random() * homeLeftBgArrLen)];
+  var homeLeftAsideNode = document.getElementsByClassName('left-aside')[0];
+  if (homeLeftAsideNode) {
+    homeLeftAsideNode.style.backgroundImage = 'url(' + leftBackgroundUrl + ')';
+  }
 </script>
-<script type="text/javascript">
-    var search = {};
-    var search_path = "search.xml";
-    if (!search_path) {
-        search_path = "search.xml";
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
     }
-    search.path = "/" + search_path;
-    search.func =  _ajax.init();
-</script>
-<script src="/js/app.js"></script>
-
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
 
 </body>
 </html>

@@ -1,1005 +1,420 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no">
-    
-    
-    <!--Simple SEO-->
-
-<meta name="description" content="Sunrise的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。/">
-
-
-<meta name="robots" content="all">
-<meta name="google" content="all">
-<meta name="googlebot" content="all">
-<meta name="verify" content="all">
-    <!--Title-->
-
-<title>Sunrise山脉</title>
-
-<link rel="alternate" href="/atom.xml" title="Sunrise山脉" type="application/atom+xml">
-
-
-<link rel="icon" href="/favicon.ico">
-
-    
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/pages/article-exp.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/thirdParty/highlight/github.css">
-
-    <!--script-->
-
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>-->
-
-
-    
-    
-</head>
-</html>
-<body id="normal">
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<style>
-    header{ top: 71px; position: absolute!important;}
-    #container{padding-top: 151px!important;}
-</style>
-<div style="position:fixed;z-index:9999;left:0;top:0;width:100%;height:70px;background-color:#e0e0e0;color:#396CA5;border-bottom:1px solid #cecece;text-align:center;line-height:70px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
-<div id="wrap">
-    <header>
-    <div id="site-meta">
-        <a href="/" id="logo">
-            <h1 class="title">Sunrise山脉</h1>
-        </a>
-        
-        <h2 class="subtitle">肆意玩耍，肆意高歌</h2>
-        
-    </div>
-    <ul id="nav">
-        
-            <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
-        
-            <li><a href="/atom.xml"><i class="fa fa-rss"></i>RSS</a></li>
-        
-        <li id="search"><a href="javascript:void(0)"><i class="fa fa-search"></i>Search</a></li>
-    </ul>
-</header>
-
-    <div id="container">
-        
-<ul id="sidebar">
-    
-    
-<li class="widget notification">
-    <i class="fa fa-bell-o"></i>
-    <div>
-        
-<p>主题ylion v0.0.0版本即将上线，敬请期待~！
-主题作者：<a href="https://github.com/GeekaholicLin" title="fork me" target="_blank">Geekaholic</a></p>
-    </div>
-</li>
-
-    
-    
-<li class="widget widget-normal category">
-    <h3 class="fa fa-th widget-title">Categories</h3>
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/"><i class="fa" aria-hidden="true">BigData</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/"><i class="fa" aria-hidden="true">HBase</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hbase/"><i class="fa" aria-hidden="true">Hbase</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/"><i class="fa" aria-hidden="true">Hive</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mapreduce/"><i class="fa" aria-hidden="true">Mapreduce</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/"><i class="fa" aria-hidden="true">MySQL</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/"><i class="fa" aria-hidden="true">Nginx</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Zookeeper/"><i class="fa" aria-hidden="true">Zookeeper</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flume/"><i class="fa" aria-hidden="true">flume</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/maven/"><i class="fa" aria-hidden="true">maven</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/yarn/"><i class="fa" aria-hidden="true">yarn</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li></ul>
-</li>
-
-
-    
-    
-<li class="widget widget-normal archive">
-  <h3 class="fa fa-archive widget-title">Archives</h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/"><i class="fa" aria-hidden="true">January 2019</i></a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/"><i class="fa" aria-hidden="true">December 2018</i></a><span class="archive-list-count">5</span></li></ul>
-</li>
-
-
-    
-    
-<li class="widget widget-normal popular-posts" id="popular-posts">
-    <h3 class="fa fa-thermometer-3 widget-title">Popular Posts</h3>
-    <ul id="popular-content">
-        <li class="load-first"><i class="fa fa-spinner fa-pulse"></i></li>
-    </ul>
-</li>
-
-    
-    
-<li class="widget widget-normal tags">
-  <h3 class="fa fa-tags widget-title">Tag Cloud</h3>
-  <div class="tagcloud-content">
-    
-      <a href="/tags/分而治之/" style="font-size: 0.14rem; color: #69c">分而治之</a> <a href="/tags/Linux系统环境/" style="font-size: 0.2rem; color: #0a407c">Linux系统环境</a> <a href="/tags/HBase/" style="font-size: 0.14rem; color: #69c">HBase</a> <a href="/tags/BigData/" style="font-size: 0.16rem; color: #4f83b8">BigData</a> <a href="/tags/Hadoop/" style="font-size: 0.14rem; color: #69c">Hadoop</a> <a href="/tags/NoSQL/" style="font-size: 0.14rem; color: #69c">NoSQL</a> <a href="/tags/hadoop/" style="font-size: 0.14rem; color: #69c">hadoop</a> <a href="/tags/MySQL/" style="font-size: 0.16rem; color: #4f83b8">MySQL</a> <a href="/tags/资源管理框架/" style="font-size: 0.14rem; color: #69c">资源管理框架</a> <a href="/tags/Linux命令/" style="font-size: 0.17rem; color: #386da4">Linux命令</a> <a href="/tags/头脑风暴/" style="font-size: 0.14rem; color: #69c">头脑风暴</a> <a href="/tags/HDFS/" style="font-size: 0.18rem; color: #215690">HDFS</a> <a href="/tags/maven/" style="font-size: 0.14rem; color: #69c">maven</a> <a href="/tags/数据仓库/" style="font-size: 0.14rem; color: #69c">数据仓库</a> <a href="/tags/MapReduce/" style="font-size: 0.16rem; color: #4f83b8">MapReduce</a> <a href="/tags/Base/" style="font-size: 0.14rem; color: #69c">Base</a> <a href="/tags/负载均衡/" style="font-size: 0.16rem; color: #4f83b8">负载均衡</a> <a href="/tags/Nginx/" style="font-size: 0.14rem; color: #69c">Nginx</a> <a href="/tags/分布式/" style="font-size: 0.16rem; color: #4f83b8">分布式</a> <a href="/tags/计算框架/" style="font-size: 0.14rem; color: #69c">计算框架</a> <a href="/tags/Zookeeper/" style="font-size: 0.14rem; color: #69c">Zookeeper</a> <a href="/tags/Hive/" style="font-size: 0.14rem; color: #69c">Hive</a>
-  </div>
-</li>
-
-
-    
-    
-<li class="widget widget-normal friends-link">
-    <h3 class="fa fa-globe widget-title">Friends</h3><br>
-
-    
-        <a href="http://geekaholiclin.github.io" class="fa" target="_blank">主题作者</a>
-
-    
-
-</li>
-
-    
-</ul>
-
-
-        <ul id="main">
-    
-
-    
-    
-    
-    
-    
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/10/Linux系统数据库MySQL安装/">
-        <div class="article-img img-ajax" data-src="http://XXXX.example.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/10/Linux系统数据库MySQL安装/">
-                <h2 class="article-title">Linux系统数据库MySQL安装</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-Linux系统数据库MySQL安装一、第一次安装MySQL1、yum安装
-命令 ： yum -y install mysql-server mysql-devel
-
-2、登录
-命令 ： mysql -u -p
-
-显示：
-1mysql&gt;
-3、查看数据库(注意用‘ ; ’结束 )
-命令 ： show databases;
-
-4、退出：
-命令： quit；
-
-5、创建用户：
-命令 ： mysqladmin -uroot password 123456
-
-6、再登录：
-命令 ：mysql -u root -p
-
-显示：
-1mysql&gt;
-说明成功了！
-7、数据库操作：
-命令 ： use mysql;
-
-显示：
-1234Reading table information for completion of table and column namesYou can tur...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>MySQL</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/10</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Linux系统数据库MySQL安装" data-leadcloud-url="/2019/01/10/Linux系统数据库MySQL安装/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/10/Linux系统数据库MySQL安装/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/05/大数据思想/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/05/大数据思想/">
-                <h2 class="article-title">大数据思想</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-1、大数据核心问题：==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==
-2、大数据思维分而治之
-
-把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）
-
-
-3、业务场景仓储、数牌
-业务一：找{重复行}(chongfuhang)++现有1TB的TXT文件 ;格式：数字+字符 ；网速：500M/s ；服务器内存大小：128M ；条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++
-
-==方法==
- 答：共需要2次IO：2*30min=1h
-==第一次IO==：
-
-给每一行内容加上唯一标记（hashcode（内容），value（行号））。对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>大数据</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            BigData
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/05</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="大数据思想" data-leadcloud-url="/2019/01/05/大数据思想/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/05/大数据思想/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/05/MapReduce学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6ivspvrcj30y50dujum.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/05/MapReduce学习/">
-                <h2 class="article-title">MapReduce学习</h2>
-            </a>
-            
-            <p class="article-content">
-                MapReduce学习一、MapReduce是什么1、概念
-MapReduce是一种分布式离线计算框架，是一种编程模型，用于在分布式系统上大规模数据集(大于1TB)的并行运算。
-分布式编程：
-
-借助一个集群，通过多台机器去并行处理大规模数据集，从而获得海量计算能力。
-
-2、理解
-Map(映射)
-Reduce(归约)
-
-指定一个Map(映射)函数，用来把一组键值对映射成一组新的键值对，指定并发的Reduce(归约)函数，用来保证所有映射的键值对中的每一个共享相同的键组。
-
-二、MapReduce设计理念1、分布式计算
-
-分布式计算将该应用分解成许多小的部分，分配给多台计算机节点进行处理。这样可以节约整体计算时间，大大提高计算效率。
-
- 分而治之 策略：
-
-一个存储在分布式文件系统中的大规模数据集，
-会被切分成许多独立的分片（split），
-这些分片可以被
-多个Map任务并行处理
-
-2、...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Mapreduce</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/05</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="MapReduce学习" data-leadcloud-url="/2019/01/05/MapReduce学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/05/MapReduce学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/04/Hadoop2.X/">
-        <div class="article-img img-ajax" data-src="/img/default-1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/04/Hadoop2.X/">
-                <h2 class="article-title">Hadoop2.X</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-一、Hadoop 2.x产生背景1、Hadoop 1.0存在的问题（1）HDFS存在的问题
-NameNode单点故障，难以应用于在线场景
-NameNode（一个）压力过大，内存受限，影响系统扩展性
-
-（2）MapReduce存在的问题
-JobTracker访问压力大，影响系统扩展性
-难以支持MapReduce以外的计算框架，比如Spark、Storm
-
-2、Hadoop 2.0分支HDFS：分布式文件存储系统MapReduce：计算框架YARN：资源管理系统
-3、特点 1）. 解决单点故障：HDFS HA（高可用）
-
-  通过主备NameNode解决，如果主NameNode发生故障，就切换到备NameNode上   |
-
- 2).解决内存受限问题：HDFS Federation（联邦制）、HA
-
- HA：两个NameNode (3.0就实现了一组多从：水平扩展，支持多个N...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>null</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            hadoop
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/04</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Hadoop2.X" data-leadcloud-url="/2019/01/04/Hadoop2.X/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/04/Hadoop2.X/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/03/Yarn学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/03/Yarn学习/">
-                <h2 class="article-title">YARN的入门学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-一、简介yarn（资源管理器）（1）存在背景：MR1.0存在缺陷：
-
-
-单点故障：
-
-仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度
-（一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）
-
-JobTracker‘大包大揽’，管理事项过多
-
-（上限4000个节点）
-
-容易出现内存溢出
-
-资源划分不合理
-（强行划分slot，map资源和reduce资源不能互用，导致忙的忙死，闲的闲死）
-
-
-1既是一个计算框架，也是一个资源管理框架
-
-（2）yarn产生
-对JobTracker进行功能分解，将资源管理功能分给ResourceManager，将任务调度和任务监控分给ApplicationMaster，将TaskTracker的任务交给NodeManager
-
-1...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>yarn</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/03</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="YARN的入门学习" data-leadcloud-url="/2019/01/03/Yarn学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/03/Yarn学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/03/HDFS学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut7fj9xj30fe09kq3i.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/03/HDFS学习/">
-                <h2 class="article-title">HDFS学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-Hadoop学习一、分布式文件存储系统HDFS1、什么是分布式？
-定义：将海量的数据，复杂的业务分发到不同的计算机节点和服务器上分开处理和计算。
-特点：
-
-多副本，提高服务的容错率、安全性、高可靠性
-适合批处理，提高服务的效率和速度，
-减轻单台服务的压力
-具有很好的可扩展性
-计算向数据靠拢，安全，高效
-
-
-大数据三驾马车：GFS、MapReduce、Bigtable
-2、什么是HDFS？（1）HDFS为什么会出现？
-主要解决大量【pb级以上】的大数据的分布式存储问题
-
-（2）HDFS的特点
-$$ 分布式特性：
-
-适合大数据处理：GB、TB、PB以上的数据
-百万规模以上的文件数量:10K+ 节点
-适合批处理：移动计算而非数据(MR),数据位置暴露给计算框架
-
-$$ 自身特性：
-
-可构建在廉价机器上
-高可靠性：通过多副本提提高
-高容错性：数据自动保存多个副本；副本丢失后，自动...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Linux</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/03</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="HDFS学习" data-leadcloud-url="/2019/01/03/HDFS学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/03/HDFS学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/03/Zookeeper学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd81ntj7tj30fd06pgn1.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/03/Zookeeper学习/">
-                <h2 class="article-title">Zookeeper学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-动物园管理员
-推荐图书：《从Paxo到Zookeeper》
-Zookeeper1、简介
-开源的、分布式应用程序，提供一致性服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件
-
-提供的功能：
-
-配置维护
-域名维护
-分布式的同步
-组服务
-
-Zookeeper→提供通用分布式锁服务，用以协调分布式应用
-Keepalived→实现节点健康检查，采用优先级监控，没有协同工作，功能单一，可扩展性差。
-2、Zookeep而角色 
-
-（一般很少配置Observer，因为用的少，而且配置的节点一般为奇数）
-
-Zookeeper需保证高可用和强一致性；
-​    为了支持更多的客户端，需要增加更多Server；
-​    Server增多，投票阶段延迟增大，影响性能；
-​    权衡伸缩性和高吞吐率，引入Observer
-​    Observer不参...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Zookeeper</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Zookeeper
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/03</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Zookeeper学习" data-leadcloud-url="/2019/01/03/Zookeeper学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/03/Zookeeper学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2019/01/02/Nginx学习/">
-        <div class="article-img img-ajax" data-src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0gr7u5zoj31740hb42u.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2019/01/02/Nginx学习/">
-                <h2 class="article-title">Nginx学习</h2>
-            </a>
-            
-            <p class="article-content">
-                [TOC]
-Nginx学习：大型网站高并发运行处理一、Nginx使用背景1、背景
-1）高并发（海量数据，复杂业务，大量线程）集中访问服务器
-2)服务器资源和能力有限
-使得服务器宕机，无法提供服务
-2、概念理解
-1)高并发
-
-海量数据访问，多个进程同时处理不同操作
-
-2）负载均衡
-
-均匀分配请求|数据到不同操作单元上
-
-3）常见互联网架构
-
-客户端层→反向代理层→站点层→服务层→数据层
-
-
-二、Nginx入门1、了解nginx是什么
-nginx是一款轻量级（开发方便，配置简捷）的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器
-
-2、特点
-占有内存少，并发能力强，nginx的并发能力确实在同类型的网页服务器中表现非常好。
-（使用C语言编写）
-
-3、配置搭建Nginx（Linux系统环境下）资源：
-Tengine（推荐）：Tengine-2.2.3.tar.gz ...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Nginx</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux系统环境
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2019/01/02</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="Nginx学习" data-leadcloud-url="/2019/01/02/Nginx学习/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2019/01/02/Nginx学习/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2018/12/28/手动安装maven坐标依赖/">
-        <div class="article-img img-ajax" data-src="/.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2018/12/28/手动安装maven坐标依赖/">
-                <h2 class="article-title">手动安装maven坐标依赖</h2>
-            </a>
-            
-            <p class="article-content">
-                手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。
-12345678910111213提示："Dependency 'xxxx‘ not found"，	并且添加的如下两个坐标依赖均报红。        &lt;dependency&gt;            &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;            &lt;artifactId&gt;quartz&lt;/artifactId&gt;            &lt;version&gt;2.3.0&lt;/version&gt;        &lt;/dependency&gt;         &lt;!-- 工具 --&gt;    ...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>maven</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            maven
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2018/12/28</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="手动安装maven坐标依赖" data-leadcloud-url="/2018/12/28/手动安装maven坐标依赖/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2018/12/28/手动安装maven坐标依赖/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-    <li class="article-excerpt-wrap " _href="/2018/12/28/常用Linux命令的学习（二）/">
-        <div class="article-img img-ajax" data-src="http://XXXX.example.jpg">
-           <div class="loading-img"><i class="fa fa-pulse fa-spinner"></i></div>
-        </div>
-        <div class="article-excerpt">
-            
-            <a class="article-title-link" href="/2018/12/28/常用Linux命令的学习（二）/">
-                <h2 class="article-title">常用Linux命令的学习（二）</h2>
-            </a>
-            
-            <p class="article-content">
-                ​​ 
-[TOC]
-一、磁盘指令
-查看硬盘信息
-
-
-命令：df
-
-（默认大小以kb显示） df -k（以kb为单位） df -m（ 以mb为单位） df –h （易于阅读）
-
-查看文件/目录的大小
-
-
-命令：du filename|foldername
-
-（默认单位为kb）-k    kb单位 -m    mb单位 -a 所有文件和目录  -h 更易于阅读
-​    --max-depth=0    目录深度
-二、网络指令
-查看网络配置信息
-
-
-命令:ifconfig
-
-
-测试与目标主机的连通性
-
-
-命令：ping remote_ip     
-
-ctrl + c :结束ping进程
-
-显示各种网络相关信息
-
-
-命令：netstat
-
-查看端口号（是否被占用）
-(1)、lsof -i:端口号  （需要先安装lsof）
-(2)、netstat -tunlp|grep 端口号
-
-测试远程...
-            </p>
-            <div class="article-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-        <span>Linux</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-         <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-            Linux命令
-            
-        </span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta ">2018/12/28</span>
-    </span>
-    
-    
-    <span class="fa-wrap">
-            <i class="fa fa-thermometer-three-quarters"></i>
-        <span class="hits hits-meta " data-leadcloud-title="常用Linux命令的学习（二）" data-leadcloud-url="/2018/12/28/常用Linux命令的学习（二）/"><i class="fa fa-spinner fa-spin"></i></span>
-    </span>
-    
-    
-    <a href="/2018/12/28/常用Linux命令的学习（二）/" class="read-article">Read</a>
-    
-</div>
-
-        </div>
-        
-    </li>
-    
-    
-
-</ul>
-
-<div id="page-pagination">
-    <div id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </div>
-</div>
-
-    </div>
-    <footer id="footer">
-    
-    <div class="social">
-        
-        <a href="https://www.example1.com" class="fa fa-free-code-camp" target="_blank" title="freecodecamp"></a>
-        
-        <a href="https://www.example2.com" class="fa fa-github" target="_blank" title="Follow me~"></a>
-        
-    </div>
-    
-    <div>
-        
-        <a href="/" class="copyright-links">Sunrise</a>&copy;2015 - 2019.All Rights
-        Reserved.
-    </div>
-    <p>Powered by <a href="https://hexo.io" class="copyright-links" target="_blank">Hexo</a> | Theme by <a href="https://github.com/GeekaholicLin" class="copyright-links" target="_blank">GeekaholicLin</a>
-    </p>
-    
-    
-    <p>
-        <span id="busuanzi_container_site_uv" class="fa fa-bar-chart">
-        欢迎第<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>位小伙伴~
-        </span>
-    </p>
-    
-</footer>
-
-</div>
-    <ul id="tools">
-    <li class="totop-btn fa fa-angle-up"></li>
-    <li class="exchange-btn fa fa-exchange"></li>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
   
-    
-
-    
-</ul>
-<p id="process"></p>
-<div id="search-overlay">
-    <div class="search-area-wrap">
-        <div id="search-area">
-            <div class="input-wrap focus">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <input id="search-input" autofocus autocomplete="off" type="text" placeholder="search this website...">
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>Sunrise山脉</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<div class="left-aside">
+    <div class="face-img"><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg"></div>
+    <div class="intro-word">
+        <h2>Sunrise</h2>
+        <p>天马行空，爱生活，爱coding，爱美食</p>
+    </div>
+    <div class="sns">
+        <ul>
+            
+            <li>
+                <a class="github" target="_blank" href="https://github.com/sungithup" title="github">
+                    <img src="/./img/icon-github.png" alt="github" data-tooltip="github">
+                </a>
+            </li>
+            
+            <li>
+                <a class="weibo" target="_blank" href="http://weibo.com/sunrise200 " title="weibo">
+                    <img src="/./img/icon-weibo.png" alt="weibo" data-tooltip="weibo">
+                </a>
+            </li>
+            
+            <li>
+                <a class="email" target="_blank" href="mailto:sunyaru2166@163.com" title="email">
+                    <img src="/./img/icon-email.png" alt="email" data-tooltip="email">
+                </a>
+            </li>
+            
+            <li>
+                <a class="sf" target="_blank" href="https://segmentfault.com/u/555555" title="sf">
+                    <img src="/./img/icon-sf.png" alt="sf" data-tooltip="sf">
+                </a>
+            </li>
+            
+            <li>
+                <a class="rss" target="_blank" href="/atom.xml" title="rss">
+                    <img src="/./img/icon-rss.png" alt="rss" data-tooltip="rss">
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+<div class="right-aside">
+    <div class="right-nav ms">
+        <div class="main">
+            <ul class="left">
+                
+                <li>
+                    <a href="/2014/friends/">
+                        友链
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="search">
+                <input type="search" id="search" class="input-search" placeholder="搜索">
+                <i class="icon-search"></i>
+                <div class="search-result-box">
+                  <ul id="search-result">
+                  </ul>
+                </div>
             </div>
-            <ul id="search-result">
-                <li class="load-first"><i class="fa fa-spinner fa-pulse"></i></li>
+        </div>
+    </div>
+    <div class="right-main">
+        <div class="category">
+            <ul>
+                <li><a href="/" class="active">最新</a></li>
+                
+                    <li><a href="/categories/BigData/" class="">BigData</a></li>
+                
+                    <li><a href="/categories/HBase/" class="">HBase</a></li>
+                
+                    <li><a href="/categories/Hbase/" class="">Hbase</a></li>
+                
+                    <li><a href="/categories/Hive/" class="">Hive</a></li>
+                
+                    <li><a href="/categories/Linux/" class="">Linux</a></li>
+                
+                    <li><a href="/categories/Mapreduce/" class="">Mapreduce</a></li>
+                
+                    <li><a href="/categories/MySQL/" class="">MySQL</a></li>
+                
+                    <li><a href="/categories/Nginx/" class="">Nginx</a></li>
+                
+                    <li><a href="/categories/Zookeeper/" class="">Zookeeper</a></li>
+                
+                    <li><a href="/categories/flume/" class="">flume</a></li>
+                
+                    <li><a href="/categories/maven/" class="">maven</a></li>
+                
+                    <li><a href="/categories/yarn/" class="">yarn</a></li>
+                
+                    <li><a href="/categories/大数据/" class="">大数据</a></li>
+                
             </ul>
         </div>
+        <div class="clear"></div>
+        <div class="list">
+            <div>
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-09T16:00:00.000Z" itemprop="date">2019-01-10</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:22:57.496Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/10/Linux系统数据库MySQL安装/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/05/MapReduce学习/">MapReduce学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-04T16:00:00.000Z" itemprop="date">2019-01-05</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:35:07.614Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/05/MapReduce学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/05/大数据思想/">大数据思想</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-04T16:00:00.000Z" itemprop="date">2019-01-05</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T01:43:29.130Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/05/大数据思想/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-04T11:05:47.000Z" itemprop="date">2019-01-04</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T01:25:19.144Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/04/Hadoop2.X/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/03/HDFS学习/">HDFS学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-02T16:00:00.000Z" itemprop="date">2019-01-03</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:21:16.198Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/03/HDFS学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-02T16:00:00.000Z" itemprop="date">2019-01-03</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:00:22.657Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/03/Zookeeper学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/03/Yarn学习/">YARN的入门学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-02T16:00:00.000Z" itemprop="date">2019-01-03</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:33:13.692Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/03/Yarn学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2019/01/02/Nginx学习/">Nginx学习</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2019-01-01T16:00:00.000Z" itemprop="date">2019-01-02</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T02:31:45.080Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2019/01/02/Nginx学习/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2018-12-27T18:16:47.000Z" itemprop="date">2018-12-28</time>
+          </li>
+          <li>更新 <time datetime="2019-01-23T16:51:13.805Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+  
+    <div class="item">
+      <div class="title">
+        <a href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li>发布 <time datetime="2018-12-27T16:00:00.000Z" itemprop="date">2018-12-28</time>
+          </li>
+          <li>更新 <time datetime="2019-01-24T01:54:29.328Z" itemprop="dateUpdated">2019-01-24</time>
+          </li>
+          <!--<li> 评论 <span id = "url::http://sungithup.github.io/2018/12/28/常用Linux命令的学习（二）/" class = "cy_cmt_count" ></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  
+
+
+                
+                
+<nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+</nav>
+
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="hosted">
+          <ul>
+            <li class="coding">
+              <a href="https://coding.net/pages">
+                <img src="/./img/coding.png">
+              </a>
+            </li>
+            <li class="github-pages">
+              <a href="https://pages.github.com">
+                <img src="/./img/github-pages.png">
+              </a>
+            </li>
+          </ul>
+        </div>
     </div>
 </div>
-
-
-    <script src="/js/highsong.js"></script>
-
-
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-    //theme config datas
-    var copyrightObj = {};
-    copyrightObj.enable = 'true';
-    copyrightObj.triggerCopyLength = '200';
-    copyrightObj.appendText = '商业转载请联系作者获得授权,非商业转载请注明出处 © example';
-    var leancloudObj = {};
-    leancloudObj.enable = 'true';
-    leancloudObj.className = 'BlogCounter';
-    leancloudObj.limits = '10';
+<script>
+  var homeLeftBgArr = 'https://ws3.sinaimg.cn/large/006tKfTcly1fsulzlvofnj30af0k5jvu.jpg,https://ws2.sinaimg.cn/large/006tNbRwly1fwl2alhqibj31kw2dcu0y.jpg,https://ws1.sinaimg.cn/large/006tNbRwly1fwl2bclcirj31kw2czk7v.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2c765jej31kw2d1npe.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2dentnvj31kw2dc1l2.jpg,https://ws4.sinaimg.cn/large/006tNbRwly1fwl2dqawiej31kw2d8x6p.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2f7yp25j31kw3a97wh.jpg'.split(',');
+  var homeLeftBgArrLen = homeLeftBgArr.length;
+  var leftBackgroundUrl = homeLeftBgArr[Math.floor(Math.random() * homeLeftBgArrLen)];
+  var homeLeftAsideNode = document.getElementsByClassName('left-aside')[0];
+  if (homeLeftAsideNode) {
+    homeLeftAsideNode.style.backgroundImage = 'url(' + leftBackgroundUrl + ')';
+  }
 </script>
-<script type="text/javascript">
-    var search = {};
-    var search_path = "search.xml";
-    if (!search_path) {
-        search_path = "search.xml";
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
     }
-    search.path = "/" + search_path;
-    search.func =  _ajax.init();
-</script>
-<script src="/js/app.js"></script>
-
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
 
 </body>
 </html>
