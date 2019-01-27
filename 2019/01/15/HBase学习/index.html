@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>HBase学习</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    HBase学习
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-01-14T16:00:00.000Z" itemprop="datePublished">2019-01-15</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-24T02:13:41.490Z" itemprop="dateUpdated">2019-01-24</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>[TOC]</p>
+<h1 id="Hbase学习"><a href="#Hbase学习" class="headerlink" title="Hbase学习"></a>Hbase学习</h1><p>非关系型数据库</p>
+<p><a href="https://cwiki.apache.org/confluence/display/Hive/HBaseIntegration" target="_blank" rel="noopener">官网</a></p>
+<h2 id="一、对数据库的-基本了解"><a href="#一、对数据库的-基本了解" class="headerlink" title="一、对数据库的 基本了解"></a>一、对数据库的 基本了解</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
+<p>基于Hadoop 的分布式数据库</p>
+<p>特点：</p>
+<p>1、高可靠性</p>
+<p>2、高性能</p>
+<p>（以上两点：基于分布式的特点）</p>
+<p>3、面向列</p>
+<p>（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）</p>
+<p>4、可伸缩</p>
+<p>（搭建在集群上）</p>
+<p>5、实时读写</p>
+<p>（用时间戳唯一标记每一版本的数据记录）</p>
+</blockquote>
+<h3 id="2、工作结构"><a href="#2、工作结构" class="headerlink" title="2、工作结构"></a>2、工作结构</h3><blockquote>
+<p>1、利用Hadoop的HDFS作为其文件存储系统</p>
+<p>2,利用Hadoop的MapReduce来处理HBase中的海量数据</p>
+<p>3,利用Zookeeper作为其分布式协同服务</p>
+<p>4,主要用来存储非结构化和半结构化的松散数据（NoSQL非关系型数据库有redis、MongoDB等</p>
+</blockquote>
+<h3 id="3、关系型数据库"><a href="#3、关系型数据库" class="headerlink" title="3、关系型数据库"></a>3、关系型数据库</h3><blockquote>
+<p>1、定义</p>
+<p>关系模型指的就是二维表格模型；</p>
+<p>而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织</p>
+<p>2、三大优点</p>
+<ul>
+<li>容易理解</li>
+<li>使用方便</li>
+<li>易于维护</li>
+</ul>
+<p>3、三大瓶颈</p>
+<ul>
+<li>高并发读写需求</li>
+</ul>
+<p>硬盘I/O是一个很大的瓶颈，并且很难能做到数据的强一致性。</p>
+<ul>
+<li>海量数据的读写性能低</li>
+</ul>
+<p>在一张包含海量数据的表中查询，效率是非常低的。</p>
+<ul>
+<li>​    扩展性和可用性差</li>
+</ul>
+<p>丰富的完整性使得横向扩展把难度加大了</p>
+</blockquote>
+<h3 id="4、非关系型数据库"><a href="#4、非关系型数据库" class="headerlink" title="4、非关系型数据库"></a>4、非关系型数据库</h3><blockquote>
+<p>1、存储格式：key value键值对，文档，图片等等 结构不固定<br>  2、可以减少一些时间和空间的开销，仅需要根据id取出相应的value就可以完成查询。</p>
+<p>3、一般不支持ACID特性，无需经过SQL解析，读写性能高</p>
+<p> 4、不提供where字段条件过滤</p>
+<p>5、难以体现设计的完整性，只适合存储一些较为简单的数据</p>
+</blockquote>
+<h2 id="二、对HBase的基本里了解"><a href="#二、对HBase的基本里了解" class="headerlink" title="二、对HBase的基本里了解"></a>二、对HBase的基本里了解</h2><h3 id="1、数据结构组成"><a href="#1、数据结构组成" class="headerlink" title="1、数据结构组成"></a>1、数据结构组成</h3><p>（ 1）Row key  :</p>
+<blockquote>
+<p>唯一标记决定一行数据<br>按照字典排序<br>最大只能存储64KB的字节数据<br>设计非常关键</p>
+</blockquote>
+<p>（2）Column Family列族 &amp; qualifier列</p>
+<blockquote>
+<p><code>列族</code>必须作为表模式(schema)定义的一部分预先给出，</p>
+<p>表中的每个列都归属于某个列族；</p>
+<p>权限控制、存储以及调优都是在列族层面进行的；</p>
+<p><code>列名</code>以列族作为前缀，每个“列族”都可以有多个列成员(column)； </p>
+<p>新的列可以随后按需、动态加入；</p>
+</blockquote>
+<p>（3）Cell单元格</p>
+<blockquote>
+<p> 由行和列的坐标交叉决定； 单元格是有版本的（有时间戳决定）；</p>
+<p> 单元格的内容是未解析的字节数组；cell中的数据是没有类型的，全部是字节码形式存贮。</p>
+<p>由{rowkey， column( =<family> +<qualifier>)， version} 唯一确定的单元。</qualifier></family></p>
+</blockquote>
+<p>（4）Timestamp时间戳</p>
+<blockquote>
+<p>在HBase每个cell存储单元对同一份数据有多个版本，</p>
+<p>根据唯一的时间戳来区分每个版本之间的差异，</p>
+<p>不同版本的数据按照时间倒序排序，最新的数据版本排在最前面</p>
+<p>时间戳的类型是64位整型。<br>时间戳可以由HBase(在数据写入时自动)赋值，精确到毫秒</p>
+<p>时间戳。也可以由客户显式赋值，但必须唯一性</p>
+</blockquote>
+<p>（5）HLog(WAL log)</p>
+<blockquote>
+<ul>
+<li><p>HLog文件就是一个普通的Hadoop SequenceFile</p>
+</li>
+<li><p>HLog Sequence File的Key是HLogKey对象<br> ​         **HLogKey中记录了写入数据的归属信息，包括table和region名字，sequence number（起始值为0或是最近一次存入文件系统中sequence  number）和timestamp（写入时间）</p>
+</li>
+<li><p>HLog SequeceFile的Value是HBase的KeyValue对象，即对应HFile中的KeyValue</p>
+</li>
+</ul>
+<p>​               **存储hbase表的操作记录，KV数据信息   </p>
+</blockquote>
+<p>2、体系架构</p>
+<p>（1）Client</p>
+<blockquote>
+<p>包含访问HBase的接口并维护cache来加快对HBase的访问</p>
+</blockquote>
+<p>（2）Zookeeper</p>
+<blockquote>
+<ul>
+<li><p>保证任何时候，集群中只有一个master；</p>
+</li>
+<li><p>存贮所有Region的寻址入口。</p>
+</li>
+<li><p>实时监控Region server的上线和下线信息。并实时通知Master</p>
+</li>
+<li><p>存储HBase的schema和table元数据</p>
+</li>
+</ul>
+</blockquote>
+<p>（3）Master</p>
+<blockquote>
+<p>为Region server分配region；</p>
+<ul>
+<li><p>负责Region server的负载均衡；</p>
+</li>
+<li><p>发现失效的Region server并将其上的region重新分配；</p>
+</li>
+<li><p>管理用户对table的增删改操作；</p>
+</li>
+</ul>
+</blockquote>
+<p>（4）RegionServer    </p>
+<blockquote>
+<ul>
+<li><p>维护region，处理对这些region的IO请求</p>
+</li>
+<li><p>负责切分在运行过程中变得过大的region</p>
+</li>
+</ul>
+</blockquote>
+<p>（5）Region</p>
+<blockquote>
+<ul>
+<li><p>保存一个表里面某段连续的数据，每个表一开始只有一个region；</p>
+</li>
+<li><p>随着数据不断插入表，region不断增大，当增大到一个阀值的时候，region就会等分会两个新的region（裂变）</p>
+<p>（HBase自动把表水平划分成多个区域(region)）</p>
+</li>
+<li><p>当table中的行不断增多，就会有越来越多的region。这样一张完整的表被保存在多个Regionserver上</p>
+</li>
+</ul>
+</blockquote>
+<p>（6）Memstore与storefile</p>
+<blockquote>
+<ul>
+<li>一个region由2-3store组成，一个store对应一个CF（列族）</li>
+<li>store包括位于内存中的memstore和位于磁盘的storefile。</li>
+<li>写操作先写入memstore，当memstore中的数据达到某个阈值，hregionserver会启动flashcache进程写入storefile，每次写入形成单独的一个storefile；</li>
+<li>当storefile文件的数量增长到一定阈值后，系统会进行合并（minor、major<br>compaction），在合并过程中会进行版本合并和删除工作（majar），形成更大的storefile</li>
+<li>当一个region所有storefile的大小和数量超过一定阈值后，会把当前的region分割为两个，并由hmaster分配到相应的regionserver服务器，实现负载均衡</li>
+<li>客户端检索数据，先在memstore找，找不到再找storefile</li>
+<li>HRegion是HBase中分布式存储和负载均衡的最小单元。最小单元就表示不同的HRegion可以分布在不同的HRegion server上。</li>
+<li>每个Strore又由一个memStore和0至多个StoreFile组成,StoreFile以HFile格式保存在HDFS上(HFile)。</li>
+</ul>
+</blockquote>
+<h2 id="三、Hbase-安装部署"><a href="#三、Hbase-安装部署" class="headerlink" title="三、Hbase 安装部署"></a>三、Hbase 安装部署</h2><p>完全分布式搭建</p>
+<p>1、安装包准备</p>
+<p><a href="http://hbase.apache.org/downloads.html" target="_blank" rel="noopener">Hbase</a>（本文使用0.98版本）</p>
+<p>将tar上传至Linux系统，进行解压安装</p>
+<p>2、修改配置文件hbase-env.sh（在Hbase的解压目录的conf目录中）</p>
+<p>修添加JAVA_HOME环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># The java implementation to use.  Java 1.7+ required.</span><br><span class="line"># export JAVA_HOME=/usr/java/jdk1.6.0/</span><br><span class="line">export JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br></pre></td></tr></table></figure>
+<p>不使用HBase的默认zookeeper配置，（使用自己的）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Tell HBase whether it should manage it&apos;s own instance of Zookeeper or not.</span><br><span class="line"> export HBASE_MANAGES_ZK=false</span><br></pre></td></tr></table></figure>
+<p>3、修改配置hbase-site.xml（在Hbase的解压目录的conf目录中）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--Hdfs配置时的集群名--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://Sunrise:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--zookeeper的三台节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>node00,node01,node02<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置http访问的port---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.master.info.port<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>60010<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>注意：（会出bug的地方）</code>：</p>
+<p>1、问题描述：</p>
+<blockquote>
+<p>HBase启动时，警告：<br>Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0 </p>
+</blockquote>
+<p>解决方案：</p>
+<p><code>原因：</code>由于使用了JDK8 ，需要在HBase的配置文件中hbase-env.sh，注释掉两行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+</span><br><span class="line">#export HBASE_MASTER_OPTS=&quot;$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br><span class="line">#export HBASE_REGIONSERVER_OPTS=&quot;$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br></pre></td></tr></table></figure>
+<p>重新启动HBase。</p>
+<p>2、问题描述：</p>
+<blockquote>
+<p>配置好HBase后，各项服务正常，但想从浏览器通过端口60010看下节点情况，但是提示拒绝访问</p>
+</blockquote>
+<p><code>检测：</code>在服务器上netstat -natl|grep 60010 发现并没有60010端口</p>
+<p><code>原因：</code>HBase 1.0 之后的版本都需要在hbase-site.xml中配置端口，如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.master.info.port<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>60010<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重新启动HBase,在浏览器再次访问，就ok了</p>
+<p>4、添加配置regionservers 文件（在Hbase的解压目录的conf目录中）</p>
+<p>添加配置的regionservers 的主机名</p>
+<p>regionservers</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node00</span><br><span class="line">node01</span><br><span class="line">node02</span><br></pre></td></tr></table></figure>
+<p>5、添加配置backup-masters</p>
+<p>添加配置的master备份的主机名（在Hbase的解压目录的conf目录中）</p>
+<p>backup-masters</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node02</span><br></pre></td></tr></table></figure>
+<p>6、将Hadoop安装解压目录/etc/hadoop目录下的hdfs-site.xml文件 拷贝到Hbase的解压目录的conf目录中</p>
+<p>7、配置环境变量 ~/.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line">HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin</span><br><span class="line">SQOOP_HOME=/usr/soft/sqoop-1.4.6</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br><span class="line">HBASE_HOME=/usr/soft/hbase-1.2.9</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>source ~/.bash_profile</p>
+</blockquote>
+<p>8、将如上配置远程发送至其他节点（Hbase 、 ./bash_profile）</p>
+<p>9、各个节点注意要做时间同步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate cn.ntp.org.cn</span><br></pre></td></tr></table></figure>
+<p>10、启动HDFS集群：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br><span class="line">start-hdfs.sh</span><br></pre></td></tr></table></figure>
+<p>11、启动：start-hbase.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node00.out</span><br><span class="line">node02: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node02.out</span><br><span class="line">node01: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node01.out</span><br><span class="line">node00: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node00.out</span><br><span class="line">node02: starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node02.out</span><br></pre></td></tr></table></figure>
+<p>12、查看进程：jps</p>
+<p>13、浏览器访问：node00:60010</p>
+<p>14、关闭：stop-hbase.sh</p>
+<h2 id="四、通过hbase-shell命令进入HBase-命令行接口"><a href="#四、通过hbase-shell命令进入HBase-命令行接口" class="headerlink" title="四、通过hbase shell命令进入HBase 命令行接口"></a>四、通过hbase shell命令进入HBase 命令行接口</h2><p>通过<code>help</code>可查看所有命令的支持以及帮助手册</p>
+<blockquote>
+<p>帮助创建</p>
+<p>hbase(main):007:0&gt;  help create</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th>Shell命令</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">创建表</td>
+<td>create ‘表名’, ‘列族名1’[,…]</td>
+<td>create ‘t1’，‘cf1’</td>
+</tr>
+<tr>
+<td style="text-align:center">列出所有表</td>
+<td>list</td>
+<td>list</td>
+</tr>
+<tr>
+<td style="text-align:center">添加记录</td>
+<td>put ‘表名’, ‘RowKey’, ‘列族名称:列名’, ‘值’</td>
+<td>put        ‘t1’,‘rk_00101’,‘cf1:name’,‘zs’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看记录</td>
+<td>get ‘表名’, ‘RowKey’, ‘列族名称:列名’</td>
+<td>get ‘t1’,‘rk_00101’                         get ‘t1’,‘rk_00101’,‘cf1:name’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看表中                           记录总数</td>
+<td>count  ‘表名’</td>
+<td>count ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center">删除记录</td>
+<td>delete  ‘表名’   , ‘RowKey’,   ‘列族名称:列名’</td>
+<td>delete ‘t1’,‘rk_00101’,‘cf1:name’</td>
+</tr>
+<tr>
+<td style="text-align:center">删除一张表</td>
+<td>先要屏蔽该表，才能对该表进行删除。                                           第一步 disable   ‘表名称’                                                                         第二步 drop   ‘表名称’</td>
+<td>disable ‘t1’                                                      drop ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center">查看所有              记录</td>
+<td>scan   ‘表名 ‘</td>
+<td>scan ‘t1’</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td>create ‘t2’, {NAME =&gt; ‘cf1’, VERSIONS =&gt; 2}, METADATA =&gt; { ‘mykey’ =&gt; ‘myvalue’ }</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">查看未加工的数据中指定版本记录</td>
+<td>scan ‘t1’, {RAW =&gt; true, VERSIONS =&gt; 3}                           raw  未加工的</td>
+<td>3</td>
+</tr>
+<tr>
+<td style="text-align:center">查看保存   版本记录</td>
+<td>scan ‘t1’, {VERSIONS =&gt; 2}</td>
+<td>2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="五、HBase优化"><a href="#五、HBase优化" class="headerlink" title="五、HBase优化"></a>五、HBase优化</h2><p><code>详见HBase性能优化文档</code></p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>

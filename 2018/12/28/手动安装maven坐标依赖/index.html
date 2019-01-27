@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>手动安装maven坐标依赖</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    手动安装maven坐标依赖
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-12-27T18:16:47.000Z" itemprop="datePublished">2018-12-28</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-23T16:51:13.805Z" itemprop="dateUpdated">2019-01-24</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h1 id="手动安装maven坐标依赖"><a href="#手动安装maven坐标依赖" class="headerlink" title="手动安装maven坐标依赖"></a>手动安装maven坐标依赖</h1><h2 id="一、事件原因："><a href="#一、事件原因：" class="headerlink" title="一、事件原因："></a>一、事件原因：</h2><p>学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">提示："Dependency 'xxxx‘ not found"，	</span><br><span class="line">并且添加的如下两个坐标依赖均报红。</span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!-- 工具 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz-jobs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>分析：</p>
+<table>
+<thead>
+<tr>
+<th>1、maven项目所需要的jar包均存放在maven的F:\m2\repository(项目所需的jar包仓库)文件夹中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2、在F:\apache-maven-3.5.4\conf的settings.xml文件中有如下设置：（由于使用远程仓库太慢，阿里云给我们提供了一个镜像仓库，便于我们使用，且只包含central仓库中的jar）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--文件中原有的配置：远程仓库---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>mirrorId<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>repositoryId<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Human Readable Name for this Mirror.<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://my.repository.com/repo/path<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--文件中自己手动配置：阿里镜像仓库---&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span>    </span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\Administrator\Desktop\1.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>3.可是我们在<a href="https://mvnrepository.com/（maven仓库）中发现有我们要的jar包，而且就在Central仓库里，这里我们就很奇怪了，后来就选择还是手动安装jar包吧" target="_blank" rel="noopener">https://mvnrepository.com/（maven仓库）中发现有我们要的jar包，而且就在Central仓库里，这里我们就很奇怪了，后来就选择还是手动安装jar包吧</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（如果有小伙伴有别的解决方案，还请指点一二。）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h2><p>1、首先，我们需要从maven  Repository中下载我们需要的jar包（需要的两个jar包，下载原理相同）</p>
+<p><img src="C:\Users\Administrator\Desktop\2.jpg" alt=""></p>
+<p>2、注意我们的maven安装，需要配置环境变量，才能在dos窗口，指令安装jar包</p>
+<p><img src="C:\Users\Administrator\Desktop\4.jpg" alt=""></p>
+<p>因为我之前查资料时，有小伙伴说，java的环境变量配置也会影响，所以，我在这里也把java的环境变量配置也贴出来</p>
+<p><img src="C:\Users\Administrator\Desktop\5.jpg" alt="1"><span class="img-alt">1</span></p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544699916763.png" alt="1544699916763"><span class="img-alt">1544699916763</span></p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544699989775.png" alt="1544699989775"><span class="img-alt">1544699989775</span></p>
+<table>
+<thead>
+<tr>
+<th>JAVA_HOME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F:\Java\jdk1.8.0_131（  根据自己的jdk安装目录）</td>
+</tr>
+<tr>
+<td><strong>CLASSPATH</strong></td>
+</tr>
+<tr>
+<td>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar</td>
+</tr>
+<tr>
+<td><strong>MAVEN_HOME</strong></td>
+</tr>
+<tr>
+<td>F:\apache-maven-3.5.4（ 根据自己maven安装目录）</td>
+</tr>
+<tr>
+<td><strong>Path</strong>（注意配置的时候，一定要和配置home时的变量名一致，如MAVEN_HOME,我配置成了%MVN_HOME%\bin;）</td>
+</tr>
+<tr>
+<td>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%MYSQL_HOME%\bin;%MAVEN_HOME%\bin;</td>
+</tr>
+</tbody>
+</table>
+<p>配置这些环境变量，在dos窗口才能使java  ，mvn  之类的指令可以用；</p>
+<p>否则会出现如下显示。</p>
+<table>
+<thead>
+<tr>
+<th>‘mvn’ 不是内部或外部命令，也不是可运行的程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(这就是环境变量没有配成功的结果)</td>
+</tr>
+</tbody>
+</table>
+<p>3.安装</p>
+<table>
+<thead>
+<tr>
+<th>C:\Users\Administrator&gt;mvn -v</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544701045091.png" alt="1544701045091"><span class="img-alt">1544701045091</span></td>
+</tr>
+<tr>
+<td>C:\Users\Administrator&gt;mvn install:install-file -Dfile=F:/apache-maven-3.5.4/m2/quartz-2.3.0.jar（jar包所在路径） -DgroupId=org.quartz-scheduler -DartifactId=quartz -Dversion=2.3.0 -Dpackaging=jar</td>
+</tr>
+<tr>
+<td>（根据下面所示的配置groupId、artifactId、version）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544702128551.png" alt="1544702128551"><span class="img-alt">1544702128551</span></p>
+<p>如图所示，安装成功。</p>
+<p><img src="C:\Users\ADMINI~1\AppData\Local\Temp\1544702179172.png" alt="1544702179172"><span class="img-alt">1544702179172</span></p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>

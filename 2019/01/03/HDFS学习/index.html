@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>HDFS学习</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    HDFS学习
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished">2019-01-03</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-24T02:21:16.198Z" itemprop="dateUpdated">2019-01-24</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>[TOC]</p>
+<h1 id="Hadoop学习"><a href="#Hadoop学习" class="headerlink" title="Hadoop学习"></a>Hadoop学习</h1><h2 id="一、分布式文件存储系统HDFS"><a href="#一、分布式文件存储系统HDFS" class="headerlink" title="一、分布式文件存储系统HDFS"></a>一、分布式文件存储系统HDFS</h2><h3 id="1、什么是分布式？"><a href="#1、什么是分布式？" class="headerlink" title="1、什么是分布式？"></a>1、什么是分布式？</h3><blockquote>
+<p>定义：将海量的数据，复杂的业务分发到不同的计算机节点和服务器上分开处理和计算。</p>
+<p>特点：</p>
+<ul>
+<li>多副本，提高服务的容错率、安全性、高可靠性</li>
+<li>适合批处理，提高服务的效率和速度，</li>
+<li>减轻单台服务的压力</li>
+<li>具有很好的可扩展性</li>
+<li>计算向数据靠拢，安全，高效</li>
+</ul>
+</blockquote>
+<p><code>大数据三驾马车：GFS、MapReduce、Bigtable</code></p>
+<h3 id="2、什么是HDFS？"><a href="#2、什么是HDFS？" class="headerlink" title="2、什么是HDFS？"></a>2、什么是HDFS？</h3><h4 id="（1）HDFS为什么会出现？"><a href="#（1）HDFS为什么会出现？" class="headerlink" title="（1）HDFS为什么会出现？"></a>（1）HDFS为什么会出现？</h4><blockquote>
+<p>主要解决大量【pb级以上】的大数据的分布式存储问题</p>
+</blockquote>
+<h4 id="（2）HDFS的特点"><a href="#（2）HDFS的特点" class="headerlink" title="（2）HDFS的特点"></a>（2）HDFS的特点</h4><blockquote>
+<p>$$ 分布式特性：</p>
+<ul>
+<li>适合大数据处理：GB、TB、PB以上的数据</li>
+<li>百万规模以上的文件数量:10K+ 节点</li>
+<li>适合批处理：移动计算而非数据(MR),数据位置暴露给计算框架</li>
+</ul>
+<p>$$ 自身特性：</p>
+<ul>
+<li>可构建在廉价机器上</li>
+<li>高可靠性：通过多副本提提高</li>
+<li>高容错性：数据自动保存多个副本；副本丢失后，自动恢复,提供了恢复机制</li>
+</ul>
+<p>$$ 缺点：</p>
+<p>—–低延迟高数据吞吐访问问题（不适合低延迟数据访问，Hbase适合）</p>
+<ul>
+<li>不支持毫秒级</li>
+<li>吞吐量大但有限制于其延迟（瓶颈：低延迟无法突破）</li>
+</ul>
+<p>—–小文件存取占用NameNode大量内存(寻道时间超过读取时间,约占99%)</p>
+<p>——-不支持多用户写入及任意修改文件</p>
+<ul>
+<li>不支持文件修改：一个文件只能有一个写者</li>
+<li>文件仅支持append不支持修改</li>
+<li>（其实本身是支持的，主要为了用空间换时间，节约成本）</li>
+</ul>
+<p>$$ 实现目标：</p>
+<ul>
+<li>兼容廉价的硬件设施</li>
+<li>实现流数据读写</li>
+<li>支持大数据集</li>
+<li>支持简单的文件模型</li>
+<li>强大的跨平台兼容性</li>
+</ul>
+</blockquote>
+<h4 id="（3）HDFS架构图"><a href="#（3）HDFS架构图" class="headerlink" title="（3）HDFS架构图"></a>（3）HDFS架构图</h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lg96gkqj30hz0dsgmf.jpg" alt="HDFS架构图"><span class="img-alt">HDFS架构图</span></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lq2gmmtj30f009vwfj.jpg" alt="HDFS架构图"><span class="img-alt">HDFS架构图</span></p>
+<blockquote>
+<p><code>关系型数据库：</code>安全，存储在磁盘中；如MySql、Oracle、SQlServer</p>
+<p><code>非关系型数据库：</code>不安全，存储在内存中；如Redis、MemcacheDB、mongDB、Hbase</p>
+</blockquote>
+<h3 id="3、HDFS的功能模块及原理详解"><a href="#3、HDFS的功能模块及原理详解" class="headerlink" title="3、HDFS的功能模块及原理详解"></a>3、HDFS的功能模块及原理详解</h3><h4 id="HDFS数据存储模型（block）"><a href="#HDFS数据存储模型（block）" class="headerlink" title=" HDFS数据存储模型（block）"></a><1> HDFS数据存储模型（block）</1></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0n3j6xvnj30fe09vdh0.jpg" alt="block"><span class="img-alt">block</span></p>
+<h5 id="（1）文件被线性切分固定大小的数据块：block"><a href="#（1）文件被线性切分固定大小的数据块：block" class="headerlink" title="（1）文件被线性切分固定大小的数据块：block"></a>（1）文件被<code>线性切分</code>固定大小的数据块：block</h5><ul>
+<li><p>通过偏移量offset（单位：byte）标记</p>
+</li>
+<li><p>默认数据块大小为64MB (hadoop1.x，hadoop2.x默认为128M）)，可自定义配置</p>
+</li>
+<li><p>若文件大小不到64MB ，则单独存成一个block</p>
+</li>
+</ul>
+<h5 id="（2）一个文件存储方式"><a href="#（2）一个文件存储方式" class="headerlink" title="（2）一个文件存储方式"></a>（2）一个文件存储方式</h5><ul>
+<li><p>按大小被切分成若干个block ，存储到<code>不同节点上</code></p>
+</li>
+<li><p>默认情况下每个block都有2个副本 共3个副本</p>
+</li>
+<li><p>副本数不大于节点数</p>
+</li>
+</ul>
+<h5 id="（3）Block大小和副本数通过Client端上传文件时设置，"><a href="#（3）Block大小和副本数通过Client端上传文件时设置，" class="headerlink" title="（3）Block大小和副本数通过Client端上传文件时设置，"></a>（3）Block大小和副本数通过Client端上传文件时设置，</h5><blockquote>
+<p> 文件上传成功后副本数可以变更，Block Size大小不可变更</p>
+<p>块的大小远远大于普通文件系统，可以最小化寻址开销</p>
+</blockquote>
+<h4 id="NameNode（简称NN）"><a href="#NameNode（简称NN）" class="headerlink" title="NameNode（简称NN）"></a><2>NameNode（简称NN）</2></h4><blockquote>
+<ul>
+<li>存储<code>元数据</code>；</li>
+<li>元数据保存在<code>内存中</code>；</li>
+<li>保存<code>文件</code>、<code>block块</code>、<code>datanode</code>之间的映射关系</li>
+</ul>
+</blockquote>
+<h5 id="1-gt-NN主要功能："><a href="#1-gt-NN主要功能：" class="headerlink" title="1&gt; NN主要功能："></a>1&gt; NN主要功能：</h5><blockquote>
+<p>接收客户端的读写服务；接收DN汇报block位置关系</p>
+</blockquote>
+<h5 id="2-gt-NN保存metadate元信息"><a href="#2-gt-NN保存metadate元信息" class="headerlink" title="2&gt; NN保存metadate元信息"></a>2&gt; NN保存metadate元信息</h5><blockquote>
+<p>基于<code>内存</code>存储，<code>不会</code>和磁盘发生交换</p>
+</blockquote>
+<p>​        <code>metadata</code>元数据信息包括以下</p>
+<blockquote>
+<ul>
+<li><p>文件的归属（ownership）和权限（permission）</p>
+</li>
+<li><p>文件大小和写入时间</p>
+</li>
+<li><p>block列表【偏移量】：即一个完整文件有哪些block（b0+b1+b2+..=file）</p>
+</li>
+<li><p>位置信息（<code>动态</code>的）：Block每个副本保存在哪个DataNode中</p>
+<p><code>*注意*</code>：位置信息是由DN启动时上报给NN ，因为它会随时变化，所以不会保存在内存和磁盘中</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="3-gt-NameNode的metadate信息在启动后会加载到内存"><a href="#3-gt-NameNode的metadate信息在启动后会加载到内存" class="headerlink" title="3&gt; NameNode的metadate信息在启动后会加载到内存"></a>3&gt; NameNode的metadate信息在启动后会加载到内存</h5><blockquote>
+<p>同时：</p>
+<p>metadata信息也会保存fsimage文件中（fsimage文件是位于磁盘上的镜像文件）</p>
+<p>对metadata的操作日志也会记录在edits 文件中（edits文件是位于磁盘上的日志文件）</p>
+</blockquote>
+<h4 id="SecondaryNameNode（简称SNN）"><a href="#SecondaryNameNode（简称SNN）" class="headerlink" title="SecondaryNameNode（简称SNN）"></a><3>SecondaryNameNode（简称SNN）</3></h4><h5 id="1-gt-SNN主要功能"><a href="#1-gt-SNN主要功能" class="headerlink" title="1&gt;SNN主要功能"></a>1&gt;SNN主要功能</h5><blockquote>
+<p>帮助NameNode合并edits和fsimage文件，减少NN启动时间；</p>
+<p>SecondaryNameNode一般是单独运行在一台机器上；</p>
+<p>它不是NN的备份（但可以做备份)。</p>
+</blockquote>
+<h5 id="2-gt-合并流程"><a href="#2-gt-合并流程" class="headerlink" title="2&gt;合并流程"></a>2&gt;合并流程</h5><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0p1lys2zj30f009vwf2.jpg" alt="SNN合并"><span class="img-alt">SNN合并</span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SecondaryNameNode的工作情况：</span><br><span class="line">（1）SecondaryNameNode会定期和NameNode通信，请求其停止使用EditLog文件，</span><br><span class="line">     暂时将新的写操作写到一个新的文件edit.new上来，这个操作是瞬间完成，</span><br><span class="line">     上层写日志的函数完全感觉不到差别；</span><br><span class="line">（2）SecondaryNameNode通过HTTP GET方式从NameNode上获取到FsImage和EditLog文</span><br><span class="line">    件，并下载到本地的相应目录下；</span><br><span class="line">（3）SecondaryNameNode将下载下来的FsImage载入到内存，然后一条一条地执行EditLog文件      中的各项更新操作，使得内存中的FsImage保持最新；</span><br><span class="line">    这个过程就是EditLog和FsImage文件合并；</span><br><span class="line">（4）SecondaryNameNode执行完（3）操作之后，</span><br><span class="line">     会通过post方式将新的FsImage文件发送到NameNode节点上</span><br><span class="line">（5）NameNode将从SecondaryNameNode接收到的新的FsImage替换旧的FsImage文件，</span><br><span class="line">     同时将edit.new替换EditLog文件，通过这个过程EditLog就变小了</span><br></pre></td></tr></table></figure>
+<h5 id="3-gt-合并机制"><a href="#3-gt-合并机制" class="headerlink" title="3&gt;合并机制"></a>3&gt;合并机制</h5><blockquote>
+<p> ——-SNN执行合并时间和机制</p>
+<ul>
+<li><p>A、根据配置文件设置的时间间隔fs.checkpoint.period 默认3600秒</p>
+</li>
+<li><p>B、根据配置文件设置edits log大小 fs.checkpoint.size </p>
+</li>
+</ul>
+<p>​          规定edits文件的最大值默认是64MB</p>
+</blockquote>
+<h4 id="DataNode（简称DN）"><a href="#DataNode（简称DN）" class="headerlink" title="DataNode（简称DN）"></a><4>DataNode（简称DN）</4></h4><h5 id="1-gt-DN主要功能"><a href="#1-gt-DN主要功能" class="headerlink" title="1&gt;  DN主要功能"></a>1&gt;  DN主要功能</h5><blockquote>
+<ul>
+<li>存储<code>文件内容</code>（block）；</li>
+<li>文件内容保存在<code>磁盘</code>；</li>
+<li>维护了<code>block id</code> 到<code>datanode本地文件</code>的映射关系</li>
+<li>启动DN线程的时候会向NameNode汇报block位置信息</li>
+</ul>
+</blockquote>
+<h5 id="2-gt-DN工作机制"><a href="#2-gt-DN工作机制" class="headerlink" title="2&gt;   DN工作机制"></a>2&gt;   DN工作机制</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">•    数据节点是分布式文件系统HDFS的工作节点，负责数据的存储和读取，</span><br><span class="line">•    会根据客户端或者是名称节点的调度来进行数据的存储和检索，</span><br><span class="line">•    并且通过心跳机制向名称节点定期发送自己所存储的块的列表，保持与其联系（3秒一次）</span><br><span class="line">    （如果NN 10分钟没有收到DN的心跳，则认为其已经lost，并copy其上的block到其它DN）</span><br><span class="line">•    每个数据节点中的数据会被保存在各自节点的本地Linux文件系统中</span><br></pre></td></tr></table></figure>
+<h5 id="3-gt-block的副本放置策略"><a href="#3-gt-block的副本放置策略" class="headerlink" title="3&gt; block的副本放置策略"></a>3&gt; block的副本放置策略</h5><blockquote>
+<p>–  第一个副本：放置在上传文件的DN（集群内提交）；</p>
+<p>​                           如果是集群外提交，则随机挑选一台磁盘不太满，CPU不太忙的节点。</p>
+<p>–  第二个副本：放置在于第一个副本不同的机架的节点上。</p>
+<p>–  第三个副本：与第二个副本相同机架的不同节点。</p>
+<p>–  更多副本：随机节点</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ny1tfrjj30f00akaaf.jpg" alt="block块存放位置"><span class="img-alt">block块存放位置</span></p>
+<h3 id="4、HDFS读写流程"><a href="#4、HDFS读写流程" class="headerlink" title="4、HDFS读写流程"></a>4、HDFS读写流程</h3><h4 id="读文件过程"><a href="#读文件过程" class="headerlink" title=" 读文件过程"></a><1> 读文件过程</1></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1o4z4nmwj30gm09vgmg.jpg" alt="read"><span class="img-alt">read</span></p>
+<blockquote>
+<p>1、首先<code>client端</code>调用FileSystem对象（<code>FS</code>）的<code>open方法</code>，（FS：一个DistributedFileSystem的实例）。<br>2、DistributedFileSystem通过<code>rpc</code>协议从NameNode（<code>NN</code>）获得文件的第一批block的<code>locations</code>，（同一个block按副本数会返回多个locations，因为同一文件的block<code>分布式存储</code>在不同节点上），这些locations按照hadoop拓扑结构排序，距离客户端近的排在前面（<code>就近选择</code>）。</p>
+<p>3、前两步会返回一个FSDataInputStream对象，该对象会被封装DFSInputStream对象，DFSInputStream可以方便的管理DN和NN的数据流。客户端调用<code>read方法</code>，DFSInputStream会连接离客户端最近的DN，数据从DN源源不断的流向客户端（对客户端是透明的，只能看到一个读入的Input流）。</p>
+<p>4、如果第一批block都读完了， DFSInputStream就会去NN拿下一批block的locations，然后继续读，如果所有的块都读完，这时就会关闭掉所有的流</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ptkw9krj30q40gegpp.jpg" alt="读"><span class="img-alt">读</span></p>
+<p><code>注意：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果在读数据的时候， DFSInputStream和DN的通讯发生异常，就会尝试连接正在读的block的排序第二近的DN,并且会记录哪个DN发生错误，剩余的blocks读的时候就会直接跳过该DN。 DFSInputStream也会检查block数据校验和，如果发现一个坏的block,就会先报告到NN，然后DFSInputStream在其他的DN上读该block的镜像。</span><br><span class="line">该设计就是客户端直接连接DN来检索数据，并且NN来负责为每一个block提供最优的DN，NN仅仅处理block location的请求，这些信息都加载在NN的内存中，hdfs通过DN集群可以承受大量客户端的并发访问。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* RPC *（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</span><br><span class="line">RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。</span><br></pre></td></tr></table></figure>
+<h4 id="写文件过程"><a href="#写文件过程" class="headerlink" title="写文件过程"></a><2>写文件过程</2></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1o6wamv3j30ga0aawfd.jpg" alt="write"><span class="img-alt">write</span></p>
+<blockquote>
+<p><strong>1.</strong>客户端通过调用DistributedFileSystem的<code>create方法</code>创建新文件。</p>
+<p><strong>2.</strong>DistributedFileSystem通过<code>RPC</code>调用NN去创建一个没有blocks关联的新文件，创建前，NN会做各种校验，比如文件是否存在，客户端有无权限去创建等。如果校验通过，NN就会记录下新文件，否则就会抛出IO异常。</p>
+<p><strong>3.</strong>前两步结束后，会返回FSDataOutputStream的对象，封装在DFSOutputStream，客户端开始写数据到DFSOutputStream，DFSOutputStream会把数据切成一个个小的<code>packet</code>，然后排成队列dataQuene。</p>
+<p><strong>4.</strong>NN会给这个新的block分配最适合存储的几个datanode，DFSOutputStream把packet包排成一个<code>管道pipeline</code>输出。先按队列输出到管道的第一个datanode中，并将该Packet从dataQueue队列中移到ackQueue队列中，第一个datanode又把packet输出到第二个datanode中，以此类推。</p>
+<p><strong>5.</strong>DFSOutputStream中的<code>ackQuene</code>，也是由packet组成，等待DN的收到响应，当pipeline中的DN都表示已经收到数据的时候，这时ackQuene才会把对应的packet包移除掉。 如果在写的过程中某个DN发生错误，会采取以下几步：</p>
+<p>​      1) pipeline被关闭掉；  </p>
+<p>​      2)为了防止丢包，ackQuene里的packet会<code>同步</code>到dataQuene里;新建pipeline管道接到其他正常DN上</p>
+<p>​     4)剩下的部分被写到剩下的正常的datanode中； </p>
+<p>​     5)NN找到另外的DN去创建这个块的复制。（对客户端透明）</p>
+<p><strong>6.</strong>客户端完成写数据后调用<code>close方法</code>关闭写入流</p>
+</blockquote>
+<p><code>注意：</code>客户端执行write操作后，写完的block才是可见的，正在写的block对客户端是不可见的</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ptp2xlej30on0gf78r.jpg" alt="写"><span class="img-alt">写</span></p>
+<h3 id="5-HDFS文件权限和安全模式"><a href="#5-HDFS文件权限和安全模式" class="headerlink" title="5.HDFS文件权限和安全模式"></a>5.HDFS文件权限和安全模式</h3><h4 id="？？HDFS文件权限？？"><a href="#？？HDFS文件权限？？" class="headerlink" title="？？HDFS文件权限？？"></a><1>？？HDFS文件权限？？</1></h4><p>– 与Linux文件权限类似 </p>
+<blockquote>
+<p>   • r: read;    w:write;    x:execute，权限x对于文件忽略，对于文件夹表示是否允许访问其内容 </p>
+</blockquote>
+<p>– 如果Linux系统用户zs使用hadoop命令创建一个文件，那么这个 文件在HDFS中owner就是zs。 </p>
+<p>– HDFS的权限目的：阻止好人做错事，而不是阻止坏人做坏事。</p>
+<h4 id="？？安全模式？？"><a href="#？？安全模式？？" class="headerlink" title="？？安全模式？？"></a><2>？？安全模式？？</2></h4><blockquote>
+<ul>
+<li>NN启动的时候，首先将映像文件(fsimage)载入内存，并执行编辑日志(edits)中的各项操作。 </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>一旦在内存中成功建立文件系统元数据的映射，则创建一个新的fsimage文件(这个操作不需要SecondaryNameNode)和一个空的编辑日志。 </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>此刻namenode运行在安全模式。即namenode的文件系统对于客服端来说是只读的。(显示目录，显示文件内容等。写、删除、重命名都会失败)。 </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>在此阶段Namenode收集各个datanode的报告，当数据块达到最小副本数以上时，会被认为是“安全”的， 在一定比例（可设置）的数据块被确定为“安全”后，再过若干时间，安全模式结束 </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>当检测到副本数不足的数据块时，该块会被复制直到达到最小副本数，系统中数据块的位置并不是由namenode维护的，而是以块列表形式存储在datanode中。</li>
+</ul>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1s32tmr2j30hj04ggmr.jpg" alt="异常"><span class="img-alt">异常</span></p>
+<h2 id="二、完全分布式搭建及eclipse插件"><a href="#二、完全分布式搭建及eclipse插件" class="headerlink" title="二、完全分布式搭建及eclipse插件"></a>二、完全分布式搭建及eclipse插件</h2><h3 id="1、完全分布式搭建（必备）"><a href="#1、完全分布式搭建（必备）" class="headerlink" title="1、完全分布式搭建（必备）"></a>1、完全分布式搭建（必备）</h3><h4 id="1-环境的准备"><a href="#1-环境的准备" class="headerlink" title="(1)环境的准备"></a>(1)环境的准备</h4><blockquote>
+<ul>
+<li>Linux (前面已经安装好了)</li>
+</ul>
+<ul>
+<li><p>JDK（前面已经安装好了）</p>
+</li>
+<li><p>准备至少3台机器（通过克隆虚拟机；)</p>
+</li>
+<li><p>(网络配置、JDK搭建、hosts配置，保证节点间能互ping通）</p>
+</li>
+<li><p>时间同步  (ntpdate time.nist.gov)</p>
+</li>
+<li><p>ssh免秘钥登录   (两两互通免秘钥)</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="（2）完全分布式搭建步骤"><a href="#（2）完全分布式搭建步骤" class="headerlink" title="（2）完全分布式搭建步骤"></a>（2）完全分布式搭建步骤</h4><p><code>详情见Hadoop2.X.md文件</code></p>
+<h3 id="2、HDFS命令"><a href="#2、HDFS命令" class="headerlink" title="2、HDFS命令"></a>2、HDFS命令</h3><h4 id="0-命令-：hdfs-dfs"><a href="#0-命令-：hdfs-dfs" class="headerlink" title="(0)  命令 ：hdfs dfs"></a>(0)  命令 ：hdfs dfs</h4><h4 id="1-上传文件到HDFS："><a href="#1-上传文件到HDFS：" class="headerlink" title="(1)上传文件到HDFS："></a>(1)上传文件到HDFS：</h4><blockquote>
+<p> <strong>hdfs dfs -put fileName[</strong>本地文件名] <strong>PATH</strong>【hdfs的文件路劲】</p>
+</blockquote>
+<blockquote>
+<p>上传本地文件install.log到/myhdfs目录下</p>
+<p><strong>hdfs dfs -put install.log /myhdfs</strong></p>
+<p>​                       （文件路径) (上传目录）    </p>
+</blockquote>
+<h4 id="2-创建文件夹"><a href="#2-创建文件夹" class="headerlink" title="(2)创建文件夹"></a>(2)创建文件夹</h4><blockquote>
+<p><strong>hdfs dfs -mkdir[-p] <paths></paths></strong> </p>
+</blockquote>
+<h4 id="3-删除文件或文件夹"><a href="#3-删除文件或文件夹" class="headerlink" title="(3)删除文件或文件夹"></a>(3)<strong>删除文件或文件夹</strong></h4><blockquote>
+<p><strong>hdfs dfs -rm -r /myhadoop1.0</strong>  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -du -s URI[URI ...] 显示文件(夹)大小. </span><br><span class="line"></span><br><span class="line">hdfs dfs -cp -f]URI[URI...]&lt;dest&gt;    复制文件(夹)，可以覆盖，可以保留原有权限信息</span><br><span class="line"></span><br><span class="line">hdfs dfs -count -q&lt;paths&gt;列出文件夹数量、文件数量、内容大小.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chown -R[:[GROUP]]URI[URI] 修改所有者.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chmod [-R]&lt;MODE[,MODE]...|OCTALMODE&gt;URI[URI ...] 修改权限.</span><br></pre></td></tr></table></figure>
+<p>（4）指定block大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">产生100000条数据：</span><br><span class="line"></span><br><span class="line">for i in `seq 100000`;do  echo &quot;hello sxt $i&quot; &gt;&gt; test.txt;done</span><br><span class="line"></span><br><span class="line">上传文件test.txt到指定的Java22目录下，并指定block块的大小1M：</span><br><span class="line"></span><br><span class="line">hdfs dfs -D dfs.blocksize=1048576-put test.txt /java22</span><br><span class="line"></span><br><span class="line">-D   ----设置属性</span><br></pre></td></tr></table></figure>
+<h3 id="3、eclipse插件安装配置"><a href="#3、eclipse插件安装配置" class="headerlink" title="3、eclipse插件安装配置"></a>3、eclipse插件安装配置</h3><h4 id="（1）、导入插件"><a href="#（1）、导入插件" class="headerlink" title="（1）、导入插件"></a>（1）、导入插件</h4><blockquote>
+<p>将以下jar包放入eclipse的plugins文件夹中</p>
+<p>​         hadoop-eclipse-plugin-2.6.0.jar</p>
+</blockquote>
+<p>启动eclipse：出现界面如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uhqzg9oj30fe09nt9c.jpg" alt="插件应用"><span class="img-alt">插件应用</span></p>
+<h4 id="（2）配置环境变量"><a href="#（2）配置环境变量" class="headerlink" title="（2）配置环境变量"></a>（2）配置环境变量</h4><p><strong>Eclipse</strong>插件安装完后修改windows下的用户名，然后重启Eclipse：</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uk49nbrj30fe0770tj.jpg" alt="环境变量"><span class="img-alt">环境变量</span></p>
+<h4 id="（3）新建Java项目"><a href="#（3）新建Java项目" class="headerlink" title="（3）新建Java项目"></a>（3）新建Java项目</h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut3z3r2j30et0ah0tw.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut7fj9xj30fe09kq3i.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1utb5r5tj30fe0brgmt.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uw9a82yj30g508qmxh.jpg" alt=""></p>
+<h2 id="三、网盘"><a href="#三、网盘" class="headerlink" title="三、网盘"></a>三、网盘</h2><p><strong>1、代码编写</strong></p>
+<p><strong>新建Java项目，导入所需要的jar包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hadoop中的share\hadoop\hdfs</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\hdfs\lib</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\common</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\common\lib下的jar包。</span><br></pre></td></tr></table></figure>
+<p><strong>block</strong>底层—offset偏移量来读取字节数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blk</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Path ifile = <span class="keyword">new</span> Path(<span class="string">""</span>);</span><br><span class="line">		FileStatus file = fs.getFileStatus(ifile );</span><br><span class="line"><span class="comment">//      获取block的location信息HDFS分布式文件存储系统根据其偏移量的位置信息来读取其内容</span></span><br><span class="line">		BlockLocation[] blk = fs.getFileBlockLocations(file,<span class="number">0</span>, file.getLen());</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (BlockLocation bb : blk) &#123;</span><br><span class="line">			System.out.println(bb);</span><br><span class="line">		&#125;</span><br><span class="line">		FSDataInputStream input = fs.open(ifile);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());		</span><br><span class="line"><span class="comment">//		指定从哪个offset的位置偏移量来读</span></span><br><span class="line">		input.seek(<span class="number">1048576</span>);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">		input.seek(<span class="number">1048576</span>);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>   private   static void blk() throws Exception {           Path ifile = new Path(“”);           FileStatus file =   fs.getFileStatus(ifile );   //      获取block的location信息    HDFS分布式文件存储系统根据其偏移量的位置信息来读取其内容           BlockLocation[] blk =   fs.getFileBlockLocations(file , 0, file.getLen());                      for (BlockLocation bb : blk) {               System.out.println(bb);           }           FSDataInputStream input =   fs.open(ifile);           System.out.println((char)input.readByte());           System.out.println((char)input.readByte());          //      指定从哪个offset的位置偏移量来读           input.seek(1048576);           System.out.println((char)input.readByte());           input.seek(1048576);           System.out.println((char)input.readByte());       }   </p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>

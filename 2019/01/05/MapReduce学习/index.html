@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>MapReduce学习</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    MapReduce学习
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">2019-01-05</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-24T02:35:07.614Z" itemprop="dateUpdated">2019-01-24</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h1 id="MapReduce学习"><a href="#MapReduce学习" class="headerlink" title="MapReduce学习"></a>MapReduce学习</h1><h2 id="一、MapReduce是什么"><a href="#一、MapReduce是什么" class="headerlink" title="一、MapReduce是什么"></a>一、MapReduce是什么</h2><p>1、概念</p>
+<p>MapReduce是一种<code>分布式离线计算框架</code>，是一种编程模型，用于在分布式系统上大规模数据集(大于1TB)的并行运算。</p>
+<p>分布式编程：</p>
+<blockquote>
+<p>借助一个集群，通过多台机器去并行处理大规模数据集，从而获得海量计算能力。</p>
+</blockquote>
+<p>2、理解</p>
+<p><code>Map</code>(映射)</p>
+<p><code>Reduce</code>(归约)</p>
+<blockquote>
+<p>指定一个Map(映射)函数，用来把一组键值对映射成一组新的键值对，指定并发的Reduce(归约)函数，用来保证所有映射的键值对中的每一个共享相同的键组。</p>
+</blockquote>
+<h2 id="二、MapReduce设计理念"><a href="#二、MapReduce设计理念" class="headerlink" title="二、MapReduce设计理念"></a>二、MapReduce设计理念</h2><p>1、分布式计算</p>
+<blockquote>
+<p>分布式计算将该应用分解成许多小的部分，分配给多台计算机节点进行处理。这样可以节约整体计算时间，大大提高计算效率。</p>
+</blockquote>
+<p><strong> 分而治之 </strong>策略：</p>
+<blockquote>
+<p>一个存储在分布式文件系统中的大规模数据集，</p>
+<p>会被切分成许多独立的分片（split），</p>
+<p>这些分片可以被</p>
+<p>多个Map任务并行处理</p>
+</blockquote>
+<p>2、移动计算，而分移动数据</p>
+<blockquote>
+<p>将计算程序应用移动到具有数据的集群计算机节点之上进行计算操作；</p>
+<p>将有用、准确、及时的信息提供给任何时间、任何地点的任何客户。</p>
+</blockquote>
+<p>3、Master/Slave架构</p>
+<blockquote>
+<p>包括一个Master和若干个Slave。<br>Master上运行JobTracker，Slave上运行TaskTracker</p>
+</blockquote>
+<h2 id="三、MapReduce计算框架的组成"><a href="#三、MapReduce计算框架的组成" class="headerlink" title="三、MapReduce计算框架的组成"></a>三、MapReduce计算框架的组成</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6guaswsqj30fd06pwgh.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6hucmi5pj30v90exn7e.jpg" alt="MR"><span class="img-alt">MR</span></p>
+<p>1、 Mapper负责“<strong>分</strong>”，即把得到的复杂的任务分解为若干个“简单的任务”执行。</p>
+<p>​        “简单的任务”：</p>
+<ul>
+<li><p>数据或计算规模相对于原任务要大大缩小；</p>
+</li>
+<li><p>就近计算，即会被分配到存放了所需数据的节点进行计算；</p>
+</li>
+<li>每个map任务之间可以并行计算，不产生任何通信。</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6hw158klj30f308eq7e.jpg" alt="split"><span class="img-alt">split</span></p>
+<p>2、Split规则：（取三者的中间值）</p>
+<p>–  max.split(100M)</p>
+<p>–  min.split(10M)</p>
+<p>–  block(64M)</p>
+<p><strong>max(min.split,min(max.split,block))</strong></p>
+<p><strong>split实际大小=block大小</strong>（2.X：128M）</p>
+<p>Map的数目通常是由输入数据的大小决定的，一般就是所有输入文件的总块（block）数</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6hz81714j30ea07vmzd.jpg" alt=""></p>
+<p>3、Reduce详解（总·重要）</p>
+<p>–  Reduce的任务是对map阶段的结果进行“<strong>汇总</strong>”并输出。</p>
+<p>Reducer的数目由mapred-site.xml配置文件里的项目mapred.reduce.tasks决定。缺省值为1，用户可自定义。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6i3l3zo1j30fe09mq62.jpg" alt=""></p>
+<p>4、Shuffle详解（总·核心）</p>
+<p>– 在mapper和reducer中间的一个步骤</p>
+<p>   可以把mapper的输出按照某种key值重新切分和组合成n份，把key值符合某种范围的输出送到特定的reducer那里去处理。</p>
+<p>–  可以简化reducer过程</p>
+<p>Partitoner ： hash(key) mod R</p>
+<h2 id="四、MapReduce架构"><a href="#四、MapReduce架构" class="headerlink" title="四、MapReduce架构"></a>四、MapReduce架构</h2><h3 id="1、非共享式架构"><a href="#1、非共享式架构" class="headerlink" title="1、非共享式架构"></a>1、非共享式架构</h3><p>每个节点都有自己的内存，容错性比较好。</p>
+<h3 id="2、一主多从架构"><a href="#2、一主多从架构" class="headerlink" title="2、一主多从架构"></a>2、一主多从架构</h3><p>可扩展性好，硬件要求易达到。</p>
+<p>–  主 JobTracker:（ResourceManager资源管理）</p>
+<blockquote>
+<p>负责调度分配每一个子任务task运行于TaskTracker上，</p>
+<p>如果发现有失败的task就重新分配其任务到其他节点。</p>
+<p>每一个hadoop集群中只一个 JobTracker, 一般它运行在Master节点上。</p>
+</blockquote>
+<p>–  从TaskTracker:（NodeManager）</p>
+<blockquote>
+<p>TaskTracker主动与JobTracker通信，接收作业，并负责直接执行每一个任务，</p>
+<p>为了减少网络带宽TaskTracker最好运行在HDFS的DataNode上。</p>
+</blockquote>
+<h1 id="MapReduce的体系结构"><a href="#MapReduce的体系结构" class="headerlink" title="MapReduce的体系结构"></a>MapReduce的体系结构</h1><p>MapReduce主要有以下4个部分组成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1 ）Client</span><br><span class="line">•用户编写的MapReduce程序通过Client提交到JobTracker端</span><br><span class="line">•用户可通过Client提供的一些接口查看作业运行状态</span><br><span class="line">2 ）JobTracker</span><br><span class="line">•JobTracker负责资源监控和作业调度</span><br><span class="line">•JobTracker 监控所有TaskTracker与Job的健康状况，一旦发现失败，就将相应的任务转移到其他节点</span><br><span class="line">•JobTracker 会跟踪任务的执行进度、资源使用量等信息，并将这些信息告诉任务调度器</span><br><span class="line">（TaskScheduler），而调度器会在资源出现空闲时，选择合适的任务去使用这些资源</span><br><span class="line">3 ）TaskTracker</span><br><span class="line">•TaskTracker 会周期性地通过“心跳”将本节点上资源的使用情况和任务的运行进度汇报</span><br><span class="line">给JobTracker，同时接收JobTracker 发送过来的命令并执行相应的操作（如启动新任务、</span><br><span class="line">杀死任务等）</span><br><span class="line">•TaskTracker 使用“slot”等量划分本节点上的资源量（CPU、内存等）。一个Task 获取到</span><br><span class="line">一个slot 后才有机会运行，而Hadoop调度器的作用就是将各个TaskTracker上的空闲slot分</span><br><span class="line">配给Task使用。slot 分为Map slot 和Reduce slot 两种，分别供MapTask和Reduce Task使用</span><br><span class="line">（所以最好放在DataNode上）</span><br><span class="line">4 ）Task</span><br><span class="line">Task 分为Map Task 和Reduce Task 两种，均由TaskTracker 启动</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6i591yd9j30tp0fqq4x.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6ivspvrcj30y50dujum.jpg" alt=""></p>
+<h2 id="五、MapReduce搭建"><a href="#五、MapReduce搭建" class="headerlink" title="五、MapReduce搭建"></a>五、MapReduce搭建</h2><h3 id="1、节点分布情况"><a href="#1、节点分布情况" class="headerlink" title="1、节点分布情况"></a>1、节点分布情况</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">NN</th>
+<th style="text-align:center">DN</th>
+<th style="text-align:center">JN</th>
+<th style="text-align:center">ZK</th>
+<th style="text-align:center">ZKFC</th>
+<th style="text-align:center">RM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">node00</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">node01</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">node02</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6j2l1t72j30fe0begoy.jpg" alt=""></p>
+<p>修改配置文件</p>
+<p>(1)<strong>mapred-site.xml:</strong>（配置mapreudce需要的框架环境）</p>
+<p>路径：F:\hadoop-2.6.5\etc\hadoop\mapred-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（2）<strong>yarn-site.xml:</strong>（配置yarn的任务调度的计算框架）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为<strong>ResourceManager</strong> <strong>和NodeManager</strong>主从结构，RM存在单点故障，要对它做HA（通过ZK）</p>
+<p>修改yarn-site.xml配置文件,完整的内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.cluster-id<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>Sunrise<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.rm-ids<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>rm1,rm2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node03<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node04<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.zk-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>node01:2181,node02:2181,node03:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="六、个人理解"><a href="#六、个人理解" class="headerlink" title="六、个人理解"></a>六、个人理解</h2><blockquote>
+<p>基于源码，对mapreduce的工作流程的描述：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">一个应用程序要进行大规模数据处理分析</span><br><span class="line"></span><br><span class="line">数据文件保存在HDFS中，分块存储在分布式节点上</span><br><span class="line"></span><br><span class="line">首先是将数据文件切分成许多split切片</span><br><span class="line"></span><br><span class="line">每一个split切片单独启动一个map任务，所以会启动多个map任务</span><br><span class="line"></span><br><span class="line">map阶段的输入是诸多(key,value),输出是新的（key,value）,然后被拉去到不同的reduce上并行处理操作</span><br><span class="line"></span><br><span class="line">所以每个map的输出阶段都执行分区操作，并决定reduce任务的个数</span><br><span class="line"></span><br><span class="line">然后对map输出结果进行排序、归并、合并，这个过程叫map阶段的shuffle</span><br><span class="line"></span><br><span class="line">shuffle结束后，将相应的结果分发给reduce，让reduce完成后续的工作 </span><br><span class="line"></span><br><span class="line">结束后，将结果输出给HDFS。</span><br><span class="line"></span><br><span class="line">不同的map之间不会通信，不同的reduce也不会通信，整个过程对用户透明。</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6zgfpvqnj30tw0fxace.jpg" alt="shuffle"><span class="img-alt">shuffle</span></p>
+<blockquote>
+<p>MapReduce执行的各个阶段：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、从HDFS中加载文件，加载读取由INputFormat模块来完成，对输入负责格式验证，同时，对数据进行逻辑上切分成split</span><br><span class="line"></span><br><span class="line">2、由record read具体根据分片的位置长度信息去找各个block，以（key，value）输出，作为map的输入，</span><br><span class="line"></span><br><span class="line">3、map中有用户自定义的map函数就可以进行相应的数据处理，并输出一堆（key，value），作为中间结果</span><br><span class="line"></span><br><span class="line">4、之后，是shuffle（洗牌）过程对这中间结果进行分区、排序、合并，并溢写到磁盘，</span><br><span class="line"></span><br><span class="line">5、相应的reduce任务就会来fetch对应的分区（key，value（list））</span><br><span class="line"></span><br><span class="line">6、reduce中有用户自定义的reduce函数就可以完成对数据的分析，结果以新的（key，value）输出</span><br><span class="line"></span><br><span class="line">7、输出结果借助OutputFormat模块对输出格式进行检查，以及相关目录是否存在等，最后写入到HDFS中。</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6zikp8mbj30vh0fldle.jpg" alt="split"><span class="img-alt">split</span></p>
+<blockquote>
+<p>关于split的切分的理解：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、InputFormat将大的数据文件分成很多split</span><br><span class="line">2、文件在HDFS中是以很多个物理块block分布式存储不同的节点上</span><br><span class="line">3、切片是用户自定义的逻辑分片</span><br><span class="line">4、split的数量决定map任务的数量</span><br><span class="line">5、切片过多会导致map任务启动过多，map任务之间切换的时候就会耗费相关的管理资源，所以切片过多会影响执行效率</span><br><span class="line">6、 切片过少又会影响任务执行的并行度，所以理想情况用block块的大小作为切片的大小。</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz6ztmqg0oj30s00dg42p.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz85ufnyj9j30ud0b3mz0.jpg" alt=""></p>
+<blockquote>
+<p>关于shuffle的理解</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">map端shuffle</span><br><span class="line">1、从HDFS输入数据和执行map任务，在map任务执行之前，RecordReader阅读器还将数据变成满足Map函数所需的（K，V）形式，然后InputFormat会将其切分成若干切片（一堆（K，V））。</span><br><span class="line">2、每个切片会分配一个map任务，每个map任务会分配一个默认的缓存，一般默认缓存为100M.map的输出键值对作为中间结果先写入到缓存（直接写入磁盘会增加寻址开销，所以集中写入磁盘一次寻址就可以完成批量写入，就可以将寻址开销分摊到大量数据中，这就是缓存的作用）。</span><br><span class="line">3、当写入的内容达到缓存空间的一定比例后（溢写比，一般为0.8，就是80M的时候，为了不影响map任务的继续执行），会启动溢写进程，把缓存中相关数据写入磁盘。</span><br><span class="line">4、在溢写过程中，会执行分区（partition）、排序（sort，按照key值）和可能的合并（combine，为了减少溢写到磁盘的数据量，慎用）操作，写入磁盘，生成磁盘的溢写文件。5、在map任务运行结束前，系统会对溢写文件进行归并（merge），形成大文件（里面的键值对是分区，排序的）,文件格式为（key,value&lt;list&gt;），归并时如果溢写文件大于预定值（默认为3），会再次合并</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">reduce端shuffle</span><br><span class="line">1、reduce任务会询问JobTracker，去拉取map机器上的属于自己的分区，对来自不同机器的数据进行归并、合并，然后输入到reduce函数中进行数据的处理分析，再写入磁盘</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz87b2w9k0j30vg0fijvo.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz87chuik1j30y50g00wu.jpg" alt=""></p>
+<p>我</p>
+<h1 id="MapReduce应用程序执行过程"><a href="#MapReduce应用程序执行过程" class="headerlink" title="MapReduce应用程序执行过程"></a>MapReduce应用程序执行过程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz87d53czuj30vp0fltap.jpg" alt=""></p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="Sukie的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>Sunrise山脉</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/949e21d7.js","daovoice");daovoice('init',{app_id: "949e21d7"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Sunrise山脉</a>
+  <a class="face-img" href="/">
+    <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1545985146898&amp;di=2861af758f070858999b0a2a0e708388&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201610%2F11%2F20161011203442_eHhSV.jpeg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-01-23T15:33:18.407Z" itemprop="datePublished">2019-01-23</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-01-19T03:06:57.229Z" itemprop="dateUpdated">2019-01-19</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h1 id="Linux网络配置-常用命令学习"><a href="#Linux网络配置-常用命令学习" class="headerlink" title="Linux网络配置+常用命令学习"></a>Linux网络配置+常用命令学习</h1><p>[TOC]</p>
+<h2 id="一、-Linux概述"><a href="#一、-Linux概述" class="headerlink" title="一、 Linux概述"></a>一、 <strong>Linux</strong>概述</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1. 简介"></a><strong>1.</strong>1. 简介</h3><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB68.tmp.jpg" alt="img"><span class="img-alt">img</span>Linux是一个自由的，免费的，源码开放的操作系统。也是开源软件中最著名的例子。其最主要的目的就是为了建立不受任何商品化软件版权制约的，全世界都能使用的类Unix兼容产品.而我们将服务器部署在Linux将会更加的稳定、安全、高效以及出色的性能这时windows无法比的。</p>
+<h3 id="1-2-Linux作者"><a href="#1-2-Linux作者" class="headerlink" title="1.2.Linux作者"></a><strong>1.2.L</strong>inux作者</h3><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB69.tmp.png" alt="img"><span class="img-alt">img</span> </p>
+<p>林纳斯·本纳第克特·托瓦兹（Linus Benedict Torvalds, 1969年~ ），著名的电脑程序员、黑客。Linux内核的发明人及该计划的合作者。托瓦兹利用个人时间及器材创造出了这套当今全球最流行的操作系统（作业系统）内核之一。现受聘于开放源代码开发实验室（OSDL：Open Source Development Labs, Inc），全力开发Linux内核。</p>
+<h3 id="1-3-Linux-发行版"><a href="#1-3-Linux-发行版" class="headerlink" title="1.3.Linux 发行版"></a><strong>1.3.</strong>Linux 发行版</h3><p>发行版是基于 Linux 内核的一个操作系统。它带有用户可以使用的软件集合。更多的，它还包含系统管理包。目前有许多 Linux 发行版。因为我们不能数清目前所有的 Linux 发行版，所以我们来看一下一些有名的版本： Ubuntu、Fedora、Opensuse、Red hat Linux 和 Debian 等是几个非常受欢迎的 Linux 发行版。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6A.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><strong>C**</strong>entos**</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6B.tmp.jpg" alt="img"><span class="img-alt">img</span> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6C.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<p><strong>U</strong>buntu</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6D.tmp.jpg" alt="img"><span class="img-alt">img</span><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6E.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><strong>R</strong>ehat</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB6F.tmp.jpg" alt="img"><span class="img-alt">img</span> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB80.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<h3 id="1-4-Linux的特点"><a href="#1-4-Linux的特点" class="headerlink" title="1.4.Linux的特点"></a><strong>1.4.</strong>Linux的特点</h3><p>开放性，多用户，多任务，丰富的网络功能，可靠的系统安全，良好的可移植性，具有标准兼容性</p>
+<h2 id="二、环境准备"><a href="#二、环境准备" class="headerlink" title="二、环境准备"></a><strong>二、环境</strong>准备</h2><h3 id="2-1-Vmware"><a href="#2-1-Vmware" class="headerlink" title="2.1. Vmware"></a><strong>2.1. Vmware</strong></h3><h4 id="2-1-1-Vmware简介"><a href="#2-1-1-Vmware简介" class="headerlink" title="2.1.1 Vmware简介"></a><strong>2.1.1</strong> <strong>Vmware</strong>简介</h4><p>大多数服务器的容量（CPU,内存，磁盘等）利用率不足 30%，这不仅导致了资源浪费，也加大了服务器的数量。实现服务器虚拟化后，多个操作系统可以作为虚拟机在单台物理服务器上运行，并且每个操作系统都可以访问底层服务器的计算资源，从而解决效率低下问题。</p>
+<p>Vmware虚拟机化技术由此诞生，它可以将一台服务器虚拟化出多台虚拟机，供多人同时使用，提高资源利用率。</p>
+<h4 id="2-1-2-Vmware-workstation安装"><a href="#2-1-2-Vmware-workstation安装" class="headerlink" title="2.1.2 Vmware workstation安装"></a><strong>2.</strong>1<strong>.</strong>2 Vmware workstation<strong>安装</strong></h4><p>详细见vmware安装文档</p>
+<h3 id="2-2-linux安装"><a href="#2-2-linux安装" class="headerlink" title="2.2. linux安装"></a><strong>2.</strong>2. <strong>l</strong>inux安装</h3><p>详细见Linux安装文档</p>
+<h3 id="2-3-网络配置"><a href="#2-3-网络配置" class="headerlink" title="2.3.网络配置"></a><strong>2.3</strong>.网络配置</h3><h4 id="2-3-1-查看网关"><a href="#2-3-1-查看网关" class="headerlink" title="2.3.1 查看网关"></a><strong>2.</strong>3.1 <strong>查看网关</strong></h4><p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB81.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB82.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="2-3-2-配置静态IP-NAT模式"><a href="#2-3-2-配置静态IP-NAT模式" class="headerlink" title="2.3.2 配置静态IP(NAT模式)"></a><strong>2.</strong>3<strong>.2</strong> <strong>配置静态IP(NAT模式)</strong></h4><p>1.编辑配置文件,添加修改以下内容</p>
+<p>vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>按i 进入文本编辑模式，出现游标，左下角会出现INSERT,即可以编辑</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB83.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>应包含以下配置，除此之外的可以删除掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth0     #网卡设备名,请勿修改名字</span><br><span class="line"></span><br><span class="line">TYPE=Ethernet	#网络类型，以太网</span><br><span class="line"></span><br><span class="line">BOOTPROTO=static   #启用静态IP地址</span><br><span class="line"></span><br><span class="line">ONBOOT=yes  #开启自动启用网络连接	</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.78.100  #设置IP地址</span><br><span class="line"></span><br><span class="line">NETMASK=255.255.255.0  #设置子网掩码</span><br><span class="line"></span><br><span class="line">GATEWAY=192.168.78.2   #设置网关</span><br><span class="line"></span><br><span class="line">DNS1=114.114.114.114  #设置备DNS</span><br></pre></td></tr></table></figure>
+<p>按ESC退出编辑模式</p>
+<p>:wq  #保存退出</p>
+<p>2.修改完后执行以下命令</p>
+<p>service network restart  #重启网络连接</p>
+<p>ifconfig  #查看IP地址</p>
+<p>3.验证是否配置成功:</p>
+<p>虚拟机能ping通虚拟网关</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB84.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>虚拟机与物理机（笔记本）相互可ping通</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEB95.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>虚拟机与公网上的百度网址相互可ping通（此步ping通，才说明网络配置成功，Ctrl键+C停止）</p>
+<p>命令：ping  <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> </p>
+<p><strong>注意：</strong></p>
+<p>a.保证VMware的虚拟网卡没有被禁用<img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF3.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>b.网关IP不能被占用</p>
+<h3 id="2-4-XShell安装与使用"><a href="#2-4-XShell安装与使用" class="headerlink" title="2.4.XShell安装与使用"></a><strong>2.</strong>4.XShell安装与使用</h3><h4 id="2-4-1安装步骤"><a href="#2-4-1安装步骤" class="headerlink" title="2.4.1安装步骤"></a><strong>2.4.1安装步骤</strong></h4><p>除了安装路径需要修改，其他一直下一步。</p>
+<h4 id="2-4-2-连接虚拟机"><a href="#2-4-2-连接虚拟机" class="headerlink" title="2.4.2 连接虚拟机"></a><strong>2.4.2 连接虚拟机</strong></h4><ol>
+<li>打开xshell软件新建一个会话</li>
+</ol>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF4.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<ol start="2">
+<li>填写所要连接的虚拟机IP，会话名称可改可不改，点击确定。</li>
+</ol>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF5.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>3.连接虚拟机。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF6.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>4．输入root用户名，可以勾选”记住用户名”</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEBF7.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>5.填写密码，可以勾选“记住密码”</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC08.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>6.登录成功。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC09.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="三、文件系统"><a href="#三、文件系统" class="headerlink" title="三、文件系统"></a><strong>三、</strong>文件系统</h2><p>Linux文件系统中的文件是数据的集合，文件系统不仅包含着文件中的数据而且还有文件系统的结构，所有Linux 用户和程序看到的文件、目录、软连接及文件保护信息等都存储在其中。</p>
+<p>Linux目录结构：</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0A.tmp.png" alt="img"><span class="img-alt">img</span> </p>
+<p>   bin  存放二进制可执行文件(ls,cat,mkdir等)                                                           </p>
+<p>  boot  存放用于系统引导时使用的各种文件</p>
+<p>  dev 用于存放设备文件</p>
+<p>  etc  存放系统配置文件</p>
+<p>  home 存放所有用户文件的根目录</p>
+<p>  lib  存放跟文件系统中的程序运行所需要的共享库及内核模块</p>
+<p>  mnt  系统管理员安装临时文件系统的安装点</p>
+<p>  opt  额外安装的可选应用程序包所放置的位置</p>
+<p>  proc  虚拟文件系统，存放当前内存的映射</p>
+<p>  root  超级用户目录</p>
+<p>  sbin  存放二进制可执行文件，只有root才能访问</p>
+<p>  tmp  用于存放各种临时文件</p>
+<p>  usr  用于存放系统应用程序，比较重要的目录/usr/local 本地管理员软件安装目录</p>
+<p>var  用于存放运行时需要改变数据的文件</p>
+<h3 id="3-1目录操作"><a href="#3-1目录操作" class="headerlink" title="3.1目录操作"></a><strong>3</strong>.1目录操作</h3><h4 id="3-1-1-切换目录"><a href="#3-1-1-切换目录" class="headerlink" title="3.1.1**切换目录"></a><strong>3.</strong>1<strong><strong>.</strong></strong>1<em>**</em>切换目录</h4><p>命令：<strong>cd</strong> + 目录的路径  </p>
+<p>查看当前目录的完整路径 ：pwd</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0B.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>命令 cd  ..   返回到父目录</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0C.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="3-1-2-新建目录"><a href="#3-1-2-新建目录" class="headerlink" title="3.1.2**新建目录"></a><strong>3.</strong>1<strong><strong>.</strong></strong>2<em>**</em>新建目录</h4><p>命令：<strong>m</strong>kdir+ 目录名字 </p>
+<p>查看当前目录下拥有的子目录和文件: ls</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC0D.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="3-1-3-拷贝目录"><a href="#3-1-3-拷贝目录" class="headerlink" title="3.1.3  拷贝目录"></a><strong>3.1.</strong>3  拷贝目录</h4><p><strong>cp</strong> source dest  -r</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC1E.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="3-1-4删除目录"><a href="#3-1-4删除目录" class="headerlink" title="3.1.4删除目录"></a><strong>3.1.4删除目录</strong></h4><p><strong>rmdir</strong> directory</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC1F.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>注意：rmdir只能删除空目录,若要删除非空目录则用rm命令</p>
+<p><strong>rm</strong> -rf dir </p>
+<h4 id="3-1-5移动-更改-目录"><a href="#3-1-5移动-更改-目录" class="headerlink" title="3.1.5移动/更改 目录"></a><strong>3.1.5移动/更改 目录</strong></h4><p>​            移动文件或目录：<strong>mv</strong> + 目录/文件名字 + 其他路径</p>
+<p>​          <strong>m</strong>v  test  /     将test目录移动到 根目录/ 下</p>
+<p>​    <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC20.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<p>​    更改文件或目录的名字：<strong>m</strong>v + 旧目录名字 + 新目录名字。</p>
+<p>​    <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC21.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<h3 id="3-2-文件操作"><a href="#3-2-文件操作" class="headerlink" title="3.2.文件操作"></a><strong>3</strong>.2.文件操作</h3><h4 id="3-2-1新建文件：（一切皆文件）"><a href="#3-2-1新建文件：（一切皆文件）" class="headerlink" title="3.2.1新建文件：（一切皆文件）"></a><strong>3</strong>.2.1新建文件：（一切皆文件）</h4><p><strong>touch</strong> web.log   创建一个空文件。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC22.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="3-2-2-复制文"><a href="#3-2-2-复制文" class="headerlink" title="3.2.2 复制文"></a><strong>3.</strong>2.2 <strong>复制文</strong></h4><p>​     <strong>cp</strong> web.log web_cp.log</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC23.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>  复制文件，加个-r 参数，代表遍历复制，此时可用于复制一个目录。</p>
+<h4 id="3-2-3删除文件"><a href="#3-2-3删除文件" class="headerlink" title="3.2.3删除文件"></a><strong>3.</strong>2<strong><strong>.</strong></strong>3删除文件</h4><p><strong>r</strong>m web_cp.log</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC24.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>此时需要手动输入y ，代表确认删除。可加 –f参数，直接删除，无需确认。当需要一个目录下所有东西时，加-r参数，代表遍历删除。</p>
+<p><strong>rm</strong> -f web.log</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC25.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h4 id="3-2-4-查看"><a href="#3-2-4-查看" class="headerlink" title="3.2.4**查看"></a><strong>3.2</strong>.4<em>**</em>查看</h4><h5 id="3-2-4-1-查看目录下的东西"><a href="#3-2-4-1-查看目录下的东西" class="headerlink" title="3.2.4.1**查看目录下的东西"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>1<em>**</em>查看目录下的东西</h5><p>​    ls / ll</p>
+<p>   命令 ls -l 等价于 ll </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC26.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>   查看目录下的所有东西（包括隐藏文件） </p>
+<p>命令：ls –al 等价于  ll –a </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC27.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h5 id="3-2-4-2查看文件内容"><a href="#3-2-4-2查看文件内容" class="headerlink" title="3.2.4.2查看文件内容"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>2<strong><strong>查看文件</strong></strong>内容</h5><p><strong>cat</strong> filename: 一次性显示整个文件的内容</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC37.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>注意：当文件较大时，文本在屏幕上迅速闪过（滚屏），用户往往看不清所显示的内容。</p>
+<p>因此，一般用<a href="http://www.linuxde.net/tag/more" target="_blank" rel="noopener">more</a>等命令分屏显示.</p>
+<p><strong>more</strong> filename 该命令一次显示一屏文本，满屏后停下来，并且在屏幕的底部出现一个提示信息，给出至今己显示的该文件的百分比。</p>
+<p>按Space键，显示文本的下一屏内容。<br>按Enter键，只显示文本的下一行内容。</p>
+<p>按B键，显示上一屏内容。</p>
+<p>按Q键，退出。</p>
+<p><strong>命令：</strong>more  /etc/profile</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC38.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>显示的内容：</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC39.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>​        </p>
+<p>less命令 与 more命令 非常类似</p>
+<p>less filename:</p>
+<p>​    h 显示帮助界面 </p>
+<p>Q 退出less 命令 </p>
+<p>u 向后滚动半页 </p>
+<p>d 向前翻半页 </p>
+<p>空格键 滚动一页 </p>
+<p>b 向后翻一页 </p>
+<p>回车键 滚动一行</p>
+<p>[pagedown]： 向下翻动一页 </p>
+<p>[pageup]： 向上翻动一页</p>
+<p>以及上下键，向上一行，向下一行</p>
+<h5 id="3-2-4-3从头打印-文件内容"><a href="#3-2-4-3从头打印-文件内容" class="headerlink" title="3.2.4.3从头打印**文件内容"></a><strong>3.</strong>2<strong><strong>.</strong></strong>4<strong><strong>.</strong></strong>3<strong><strong>从</strong></strong>头打印<em>**</em>文件内容</h5><p>​        <strong>head</strong>  -10 filename  打印文件1到10行</p>
+<p>  <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3A.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<h5 id="3-2-4-4从尾部打印文件内容"><a href="#3-2-4-4从尾部打印文件内容" class="headerlink" title="3.2.4.4从尾部打印文件内容"></a><strong>3</strong>.<strong><strong>2</strong></strong>.<strong><strong>4</strong></strong>.<strong><strong>4</strong></strong>从<strong><strong>尾部打印</strong></strong>文件内容</h5><p>  <strong>tail</strong> -10 filename 打印文件最后10行</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3B.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>   注意：tail 还经常可以拿来查看文件的内容变化</p>
+<p>加-f参数，tail –f filename</p>
+<h4 id="3-2-5查找文件或目录"><a href="#3-2-5查找文件或目录" class="headerlink" title="3.2.5查找文件或目录"></a><strong>3.2.5</strong>查找<strong><strong>文件</strong></strong>或目录</h4><p>​        <strong>f</strong>ind  pathname –name filename</p>
+<p>​      例子：find / -name profile</p>
+<p>​      该命令表示为，在/目录下查找 名字为profile的文件或目录，最后列出它的绝对路径</p>
+<p>​      <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3C.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<p>​      最后发现，linux系统根目录/ 下 一共有两个名字为profile，</p>
+<p>​      其中/etc/profile是一个文件，/etc/lvm/profile为目录</p>
+<p>还可以按正则表达式来查找，且pathname越精确，查找的范围越小，速度越快。</p>
+<p>​      find /etc -name pro*</p>
+<p>  注意：（命令执行时，其查找的目录必须是所在目录的父级目录）</p>
+<p>​      该命令表示为：在/etc目录下查找以pro开头的文件或目录。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC3D.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="四、文本编辑"><a href="#四、文本编辑" class="headerlink" title="四、文本编辑"></a><strong>四、</strong>文本编辑</h2><h3 id="4-1-vi"><a href="#4-1-vi" class="headerlink" title="4.1.vi"></a><strong>4</strong>.1.vi</h3><p><strong>编辑</strong>模式</p>
+<p>vi filename :打开或新建文件，并将光标置于第一行首 </p>
+<p>vi +n filename ：打开文件，并将光标置于第n行首 </p>
+<p>vi + filename ：打开文件，并将光标置于最后一行首 </p>
+<p>vi +/pattern filename：打开文件，并将光标置于第一个与 pattern匹配的串处 </p>
+<p>• q!：不保存文件并退出vi </p>
+<p>– 在VI的命令模式下输入“:set nu”，就有行号了。 </p>
+<p>– 在VI的命令模式下输入“:set nonu”，取消行号。 </p>
+<p><strong>一般模式</strong></p>
+<p>• yy 复制光标所在行(常用) </p>
+<p>• nyy 复制光标所在行的向下n行，例如， 20yy则是复制20行(常用) </p>
+<blockquote>
+<p>（不同：在我的xshell中是 yyn实现复制所在行的向下n行）</p>
+</blockquote>
+<p>• p,P   p为复制的数据粘贴在光标下一行， P则为粘贴在光标上一行(常用)</p>
+<p>G:光标移至第最后一行</p>
+<p>nG：光标移动至第N行行首</p>
+<p>n（shift）+：光标下移n行 </p>
+<blockquote>
+<p>（nB|nb:光标向上移动n行）</p>
+</blockquote>
+<p>n-：光标上移n行 </p>
+<p>H ：光标移至屏幕顶行 </p>
+<p>M ：光标移至屏幕中间行 </p>
+<p>L ：光标移至屏幕最后行 </p>
+<p>• dd：删除 行 </p>
+<p>x或X：删除一个字符，x删除光标后的，而X删除光标前的 </p>
+<p>• u 恢复前一个动作(常用)</p>
+<p>删除第N行到第M行：</p>
+<p>  :N,Md</p>
+<h3 id="4-2-vim"><a href="#4-2-vim" class="headerlink" title="4.2.vim"></a><strong>4.</strong>2.vim</h3><p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、语法高亮、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用.</p>
+<p><strong>安装vim 软件</strong></p>
+<p><strong>yum</strong>  install  vim </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC4E.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><strong>按y确认, 这中间一共要按两次确认</strong></p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC4F.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>可以在书写命令时就加y,这样就不用逐一确认。</p>
+<p><strong>yum</strong> install vim  -y</p>
+<p>   用vim 打开/etc/profile 文件，会发现编辑器对文本的内容进行了高亮，使整个文件的内容可读性大大加强</p>
+<p>命令：vim /etc/profile</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC50.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="五、文件传输"><a href="#五、文件传输" class="headerlink" title="五、文件传输"></a><strong>五、</strong>文<strong><strong>件</strong></strong>传输</h2><h3 id="5-1-远程拷贝"><a href="#5-1-远程拷贝" class="headerlink" title="5.1.远程拷贝"></a><strong>5.</strong>1.远程拷贝</h3><h4 id="5-1-1将本地文件复制到远程机器"><a href="#5-1-1将本地文件复制到远程机器" class="headerlink" title="5.1.1将本地文件复制到远程机器"></a><strong>5.1.1将本地文件复制到远程机器</strong></h4><p> <code>举例：</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; 方式一：</span><br><span class="line">&gt;   scp -rf /etc/profile root@192.168.198.128:/etc/</span><br><span class="line">&gt; </span><br><span class="line">&gt; 方式二:</span><br><span class="line">&gt;   scp  -r /etc/profile root@node01 /etc/ </span><br><span class="line">&gt;   </span><br><span class="line">&gt; 方式三：</span><br><span class="line">&gt;   scp -r /etc/profile node01:/etc/</span><br><span class="line">&gt;   </span><br><span class="line">&gt; 方式四：</span><br><span class="line">&gt;   scp -r /ec/profile node01:&apos;pwd&apos;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>scp</strong> ：远程传输文件命令</p>
+<p><strong>-r</strong>  ：- 指的是后面跟的是参数    r  指的是遍历指定文件    <strong>f</strong>  指的是不用询问</p>
+<p><strong>/etc/profile</strong>  : 是指定传输的文件</p>
+<p><strong>root</strong>： 远程机器的账户名      <strong>@</strong>    远程机器的IP地址   <strong>：</strong>   <strong>/etc/</strong>    远程机器上指定的目录</p>
+<p><strong>node01</strong>：远程机器的别名</p>
+<p><strong>‘pwd’</strong>： 本地要远程传输文件所在的目录</p>
+<p><strong>scp</strong> local_file remote_username@remote_ip:remote_folder   </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC51.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>第一次远程拷贝时，需要在箭头1初输入yes确认一下，验证一下远程主机。然后在箭头2处输入一下远程主机的密码。</p>
+<h4 id="5-1-2将本地目录复制到远程机器"><a href="#5-1-2将本地目录复制到远程机器" class="headerlink" title="5.1.2将本地目录复制到远程机器"></a><strong>5.1.2将本地目录复制到远程机器</strong></h4><p><strong>scp</strong> -r local_folder remote_username@remote_ip:remote_folder </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC52.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>在test目录下创建一个myfile文件，然后将test目录远程拷贝到192虚拟机的根目录下。</p>
+<h3 id="5-2-上传"><a href="#5-2-上传" class="headerlink" title="5.2.上传"></a><strong>5</strong>.2.上传</h3><p>​    需先安装好lrzsz :  <strong>yum</strong>  install  lrzsz  -y</p>
+<p>安装好后，输入上传的命令rz,弹出一下界面：</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC53.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>选择一个windows系统里的文件上传至虚拟机的当前目录下,然后ll命令，查看结果</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC54.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="5-3-下载"><a href="#5-3-下载" class="headerlink" title="5.3.下载"></a><strong>5.</strong>3.下载</h3><p>  下载命令为sz，sz命令只能下载文件，不能是目录，可先将目录压缩成一个包，再下载至windows系统。下载完之后，按ctrl+c结束。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC65.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="5-4-Xftp的安装与使用"><a href="#5-4-Xftp的安装与使用" class="headerlink" title="5.4    Xftp的安装与使用"></a><strong>5.4</strong>    Xftp的安装与使用</h3><p>​    除了可以用rz sz命令进行本地windows系统和虚拟机之间的文件传输，还可以使用XFTP软件。</p>
+<h2 id="六、网络指令"><a href="#六、网络指令" class="headerlink" title="六、网络指令"></a><strong>六、网络指令</strong></h2><h3 id="6-1-查看网络配置信息"><a href="#6-1-查看网络配置信息" class="headerlink" title="6.1.查看网络配置信息"></a><strong>6.1.查看网络配置信息</strong></h3><p>命令:ifconfig</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC66.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>箭头1指向的是本机IP，箭头2为广播地址，箭头3位子网掩码。</p>
+<h3 id="6-2-测试与目标主机的连通性"><a href="#6-2-测试与目标主机的连通性" class="headerlink" title="6.2.测试与目标主机的连通性"></a><strong>6.</strong>2.测试与目标主机的连通性</h3><p>命令：ping remote_ip（可以ping通Windows系统的IP）</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC67.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>输入ping 192.168.78.192代表测试本机和192主机的网络情况，</p>
+<p>箭头1表示一共接收到了3个包，箭头2表示丢包率为0，表示两者之间的网络顺畅。</p>
+<p>注意：linux系统的ping命令会一直发送数据包，进行测试，除非认为的按ctrl + c停止掉，</p>
+<p>​           windows系统默认只会发4个包进行测试，以下为windows的dos命令。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC68.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="6-3-显示各种网络相关信息"><a href="#6-3-显示各种网络相关信息" class="headerlink" title="6.3.显示各种网络相关信息"></a><strong>6.</strong>3.显示各种网络相关信息</h3><p>​    命令：<strong>n</strong>etstat <strong>–a n p t</strong></p>
+<p>-a (all)显示所有选项，默认不显示LISTEN相关<br>-t (tcp)仅显示tcp相关选项<br>-u (udp)仅显示udp相关选项<br>-n 拒绝显示别名，能显示数字的全部转化成数字。<br>-l 仅列出有在 Listen (监听) 的服務状态</p>
+<p>-p 显示建立相关链接的程序名<br>-r 显示路由信息，路由表<br>-e 显示扩展信息，例如uid等<br>-s 按各个协议进行统计<br>-c 每隔一个固定时间，执行该netstat命令。</p>
+<p>提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC69.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="七、系统配置"><a href="#七、系统配置" class="headerlink" title="七、系统配置"></a><strong>七、系统配置</strong></h2><h3 id="7-1-主机名配置"><a href="#7-1-主机名配置" class="headerlink" title="7.1 主机名配置"></a><strong>7.1</strong> <strong>主机名配置</strong></h3><p>  若要修改主机名字，可在/etc/sysconfig/network文件里修改.</p>
+<p>vim /etc/sysconfig/network</p>
+<p>​       <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC6A.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<p>   机器重启才能生效</p>
+<h3 id="7-2-DNS配置"><a href="#7-2-DNS配置" class="headerlink" title="7.2 DNS配置"></a><strong>7.2</strong> <strong>DNS配置</strong></h3><p> /etc/resolv.conf 为DNS服务器的地址文件</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7A.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="7-3-环境变量"><a href="#7-3-环境变量" class="headerlink" title="7.3 环境变量"></a><strong>7.3</strong> <strong>环境变量</strong></h3><p>Linux系统的环境变量是在/etc/profile文件里配置。</p>
+<p>首先考虑一个问题，为什么我们先前敲的yum, service,date,useradd等等，可以直接使用，系统怎么知道这些命令对应的程序是放在哪里的呢？</p>
+<p>这是由于无论是windows系统还是linux系统，都有一个叫做path的系统环境变量，当我们在敲命令时，系统会到path对应的目录下寻找，找到的话就会执行，找不到就会报没有这个命令。如下图：</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7B.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>我们可以查看一下，系统一共在哪些目录里寻找命令对应的程序。</p>
+<p>命令：echo $PATH</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7C.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>   可以看到path里有很多路径，路径之间有冒号隔开。当用户敲命令时，系统会从左往右依次寻找对应的程序，有的话则运行该程序，没有的就报错，command not found.</p>
+<p>那如果我写了一个脚本（脚本后面会专门讲），我该怎样运行它呢？</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7D.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7E.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>对test.sh添加可执行权限，chmod 700 test.sh</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC7F.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>运行方法有三种：</p>
+<p>一种是到脚本的目录下执行：</p>
+<p>运行命令 ： ./test.sh  ,代表执行当前目录里的脚本test.sh</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC80.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>一种是敲脚本的绝对路径：/usr/test/test.sh</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC81.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>以上两种运行方式都不是很简便，因为先前我们执行yum service命令等，都是直接敲对应的命令的。所以我们也可以参照这样子做，只要我们配一个环境变量就好。</p>
+<p>编辑： vim /etc/profile 将test.sh所在目录添加到PATH里就OK，我这里test.sh是在/usr/test目录（通过pwd查看）下。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC92.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>编辑完之后，执行source /etc/profile命令，重新加载环境变量，此时会发现PATH路径多了一个/usr/test。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC93.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>​       最后验证一下，直接执行test.sh</p>
+<p>​       <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC94.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<h2 id="八、服务操作"><a href="#八、服务操作" class="headerlink" title="八、服务操作"></a><strong>八、服务操作</strong></h2><h3 id="8-1-列出所有服务"><a href="#8-1-列出所有服务" class="headerlink" title="8.1 列出所有服务"></a><strong>8.1 列出所有服务</strong></h3><p>命令：chkconfig</p>
+<p>查询操作系统在每一个执行等级中会执行哪些系统服务，其中包括各类常驻服务。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC95.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>各数字代表的系统初始化级别含义：</p>
+<p>​     0：停机状态</p>
+<p>　　1：单用户模式，root账户进行操作</p>
+<p>　　2：多用户，不能使用net file system，一般很少用</p>
+<p>　　3：完全多用户，一部分启动，一部分不启动，命令行界面</p>
+<p>　　4：未使用、未定义的保留模式</p>
+<p>　　5：图形化，3级别中启动的进程都启动，并且会启动一部分图形界面进程。</p>
+<p>　　6：停止所有进程，卸载文件系统，重新启动(reboot)</p>
+<p>　　这些级别中1、2、4很少用，相对而言0、3、5、6用的会较多。3级别和5级别除了桌面相关的进程外没有什么区别。为了减少资源占用，推荐都用3级别.</p>
+<p>注意 ：linux默认级别为3，不要把/etc/inittab 中initdefault 设置为0 和 6 </p>
+<h3 id="8-2-服务操作"><a href="#8-2-服务操作" class="headerlink" title="8.2 服务操作"></a><strong>8.2</strong> <strong>服务操作</strong></h3><p>service 服务名 start/stop/status/restart</p>
+<p>例子：对防火墙服务进行操作，防火墙的服务名为：iptables.</p>
+<p>​    查看防火墙服务运行状态。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEC96.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>   关闭防火墙.  </p>
+<p> <img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsECA6.tmp.jpg" alt="img"><span class="img-alt">img</span></p>
+<p>开启防火墙 </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsECA7.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="8-3-关闭防火墙"><a href="#8-3-关闭防火墙" class="headerlink" title="8.3 关闭防火墙"></a><strong>8.3 关闭防火墙</strong></h3><p>service iptables start/stop/status</p>
+<p>注：学习期间直接把防火墙关掉就是，工作期间也是运维人员来负责防火墙的。</p>
+<p>永久开启/关闭防火墙</p>
+<p>chkconfig iptables on/off</p>
+<h3 id="8-4-服务初执行等级更改"><a href="#8-4-服务初执行等级更改" class="headerlink" title="8.4 服务初执行等级更改"></a><strong>8.4</strong> <strong>服务初执行等级更改</strong></h3><p>chkconfig –level   2345    name      off|on</p>
+<p>​                                        <code>（服务名）</code></p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDC2.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>若不加级别，默认是2345级别</p>
+<p>命令：chkconfig name on|off</p>
+<p>​                          <code>（服务名）</code></p>
+<h2 id="九、linux进程操作"><a href="#九、linux进程操作" class="headerlink" title="九、linux进程操作"></a><strong>九、linux进程操作</strong></h2><h3 id="9-1-查看所有进程"><a href="#9-1-查看所有进程" class="headerlink" title="9.1 查看所有进程"></a><strong>9.1 查看所有进程</strong></h3><p>命令： ps  -aux</p>
+<p>​    -a 列出所有</p>
+<p>​    -u 列出用户</p>
+<p>​    -x 详细列出，如cpu、内存等</p>
+<ul>
+<li>e </li>
+</ul>
+<p>​    -f </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDC3.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>命令： ps  - ef  |  grep ssh</p>
+<p> 查看所有进程里CMD是ssh 的进程信息。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD3.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>其中箭头所指的是sshd服务进程的进程号（PID）</p>
+<h3 id="9-2-杀死进程"><a href="#9-2-杀死进程" class="headerlink" title="9.2 杀死进程"></a><strong>9.2</strong> <strong>杀死进程</strong></h3><p>Kill</p>
+<p>用法 kill pid </p>
+<p>-9：强制杀死</p>
+<p>ps 命令先查出对应程序的PID或PPID ，然后杀死掉进程。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD4.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="十、-其他常用命令"><a href="#十、-其他常用命令" class="headerlink" title="十、 其他常用命令"></a>十、 <strong>其他常用命令</strong></h2><h3 id="10-1-yum"><a href="#10-1-yum" class="headerlink" title="10.1 yum"></a><strong>10.1</strong> <strong>yum</strong></h3><p>yum是一个在Fedora和RedHat以及CentOS中的<a href="https://baike.baidu.com/item/Shell" target="_blank" rel="noopener">Shell</a>前端软件包管理器。基于<a href="https://baike.baidu.com/item/RPM" target="_blank" rel="noopener">RPM</a>包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
+<p>由于centos系统的yum默认是到国外网站下载，有时下载速度会很慢，故我们可以换一个yum的下载源，这里我们换一个国内的下载源 阿里云镜像。</p>
+<p>第一步：备份你的原镜像文件，以免出错后可以恢复。</p>
+<p>cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD5.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>第二步：下载新的CentOS-Base.rep到/etc/yum.repos.d/</p>
+<p>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a></p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD6.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>下载完之后，vim /etc/yum.repos.d/CentOS-Base.repo 查看一下文件内容。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD7.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>第三步：运行yum makecache生成缓存</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD8.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>查看当前源</p>
+<p>yum list | head -50</p>
+<h3 id="10-2-wget"><a href="#10-2-wget" class="headerlink" title="10.2 wget"></a>10.2 <strong>wget</strong></h3><p>wget 是一个从网络上自动下载文件的自由工具，支持通过 HTTP、HTTPS、FTP 三个最常见的 <a href="https://baike.baidu.com/item/TCP%2FIP%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">TCP/IP协议</a> 下载，并可以使用 HTTP 代理</p>
+<p>需先安装 yum install wget  –y </p>
+<p>wget用法:wget [option] 网址  -O    指定下载保存的路径    </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDD9.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEA.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>wget 工具还可以用来做一些简单的爬虫，这里不是我们的学习重点，如果想做爬虫，可以用java或python语言来做。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEB.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="10-3-tar"><a href="#10-3-tar" class="headerlink" title="10.3 tar"></a><strong>10.3 tar</strong></h3><p>tar </p>
+<p>​    -z    gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加</p>
+<p>​    -x    解压</p>
+<p>​    -c    压缩</p>
+<p>​    -f    目标文件，压缩文件新命名或解压文件名</p>
+<p>​    -v    解压缩过程信息打印</p>
+<p>解压命令：tar  -zvxf  xxxx.tar.gz</p>
+<p>例子：先用rz命令或wscp上传一个tar包，然后解压。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEC.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDED.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>解压后：</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEE.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>压缩命令：tar -zcf 压缩包命名 压缩目标</p>
+<p>例子：tar -zcf tomcat.tar.gz apache-tomcat-7.0.61 </p>
+<p>将 apache-tomcat-7.0.61 目录压缩成tomcat.tar.gz包。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEDEF.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h2 id="十一、JDK部署"><a href="#十一、JDK部署" class="headerlink" title="十一、JDK部署"></a><strong>十一、JDK部署</strong></h2><h3 id="11-1-官网下载"><a href="#11-1-官网下载" class="headerlink" title="11.1 官网下载"></a><strong>11.1 官网下载</strong></h3><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE00.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE01.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="11-2-上传并解压"><a href="#11-2-上传并解压" class="headerlink" title="11.2 上传并解压"></a><strong>11.2 上传并解压</strong></h3><p>用xftp将jdk包上传到linux系统里，我这里上传到/usr/soft目录下。</p>
+<p>然后解压: tar -zxf jdk-7u80-linux-x64.tar.gz</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE02.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="11-3配置环境变量"><a href="#11-3配置环境变量" class="headerlink" title="11.3配置环境变量"></a><strong>11.</strong>3<strong>配置环境变量</strong></h3><p>配置全局JAVA_HOME，并在PATH路径里加入java_home/bin.</p>
+<p>注意：新的path路径必须要包含旧的PATH路径，且每个路径之间以冒号隔开，而不是分号</p>
+<p>vim /etc/profile</p>
+<p>JAVA_HOME= /usr/soft/jdk1.7.0_75</p>
+<p>PATH=$PATH:$JAVA_HOME/bin</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE03.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>重新加载环境变量：source  /etc/profile</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE04.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="11-4-验证"><a href="#11-4-验证" class="headerlink" title="11.4 验证"></a><strong>11.4 </strong>验证</h3><p>java  -version</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE05.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>如出现上图，则表示java环境变量配置成功。</p>
+<h2 id="十二、部署Tomcat"><a href="#十二、部署Tomcat" class="headerlink" title="十二、部署Tomcat"></a><strong>十二、部署Tomcat</strong></h2><h3 id="12-1-官网下载"><a href="#12-1-官网下载" class="headerlink" title="12.1 官网下载"></a><strong>1</strong>2<strong><strong>.</strong></strong>1 官网下载</h3><p>下载tomcat</p>
+<p><a href="http://tomcat.apache.org/" target="_blank" rel="noopener">http://tomcat.apache.org/</a></p>
+<h3 id="12-2-上传并解压"><a href="#12-2-上传并解压" class="headerlink" title="12**.2 上传并解压**"></a><strong>1</strong>2<strong>**.2 </strong>上传并解压**</h3><p>我这里上传至/usr/soft目录下，然后解压。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE06.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<h3 id="12-3-启动tomcat"><a href="#12-3-启动tomcat" class="headerlink" title="12.3 启动tomcat"></a><strong>12.3 启动tomcat</strong></h3><p>在tomcat的bin目录下有个startup.sh 脚本可以直接启动tomcat服务</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE16.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>关闭tomcat服务，可以用shutdown.sh命令。</p>
+<p>或者ps -ef | grep tomcat 查看出tomcat进程号后，用kill命令。</p>
+<h3 id="12-4-jps"><a href="#12-4-jps" class="headerlink" title="12.4 jps"></a><strong>12.4</strong> <strong>jps</strong></h3><p>jps是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE17.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+<p>如上图所示，jps命令显示出了，系统当前运行在jvm上的进程情况。其中Bootstrap是tomcat的进程名字，1996是tomcat的PID</p>
+<h3 id="13-5验证"><a href="#13-5验证" class="headerlink" title="13.5验证"></a><strong>13.</strong>5验证</h3><p>先把防火墙关了（service iptables stop），然后访问虚拟机IP的8080端口</p>
+<p><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml\wpsEE18.tmp.jpg" alt="img"><span class="img-alt">img</span> </p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://888.com/index.html" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '6b3c35f853de938a9612',
+    clientSecret: '70003661fc70b011a32d9d1b2197666021305201',
+    repo: 'sungithup.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2019 Sukie的个人博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>
