@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Sunrise山脉</title>
+  <title>Sukie山脉</title>
   
   <subtitle>肆意玩耍，肆意高歌</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://sungithup.github.io/</id>
   
   <author>
-    <name>Sunrise</name>
+    <name>Sukie</name>
     
   </author>
   
