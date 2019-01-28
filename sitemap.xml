@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sungithup.github.io/about/aboutme.html</loc>
+    
+    <lastmod>2019-01-28T09:42:16.606Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sungithup.github.io/2018/12/25/about/</loc>
     
     <lastmod>2019-01-28T08:14:49.573Z</lastmod>
@@ -138,13 +145,6 @@
     <loc>http://sungithup.github.io/2019/01/18/Flume%E5%AD%A6%E4%B9%A0/</loc>
     
     <lastmod>2019-01-28T07:38:53.190Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sungithup.github.io/about/index.html</loc>
-    
-    <lastmod>2019-01-26T09:32:02.598Z</lastmod>
     
   </url>
   
