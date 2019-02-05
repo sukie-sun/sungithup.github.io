@@ -124,26 +124,6 @@
   </entry>
   
   <entry>
-    <title>Hive学习</title>
-    <link href="http://sungithup.github.io/2019/01/11/Hive%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/11/Hive学习/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-05T16:09:45.458Z</updated>
-    
-    <summary type="html">
-    
-      用于数据分析、统计的数据仓库
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="Hive" scheme="http://sungithup.github.io/tags/Hive/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux 入门学习（一）</title>
     <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
     <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
@@ -227,6 +207,26 @@
   </entry>
   
   <entry>
+    <title>Hive学习</title>
+    <link href="http://sungithup.github.io/2019/01/11/Hive%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/11/Hive学习/</id>
+    <published>2019-01-10T16:00:00.000Z</published>
+    <updated>2019-02-05T16:09:45.458Z</updated>
+    
+    <summary type="html">
+    
+      用于数据分析、统计的数据仓库
+    
+    </summary>
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
+    
+    
+      <category term="Hive" scheme="http://sungithup.github.io/tags/Hive/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux系统数据库MySQL安装</title>
     <link href="http://sungithup.github.io/2019/01/10/Linux%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93MySQL%E5%AE%89%E8%A3%85/"/>
     <id>http://sungithup.github.io/2019/01/10/Linux系统数据库MySQL安装/</id>
@@ -250,32 +250,6 @@
     
     
       <category term="Linux系统环境" scheme="http://sungithup.github.io/tags/Linux%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MapReduce学习</title>
-    <link href="http://sungithup.github.io/2019/01/05/MapReduce%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/05/MapReduce学习/</id>
-    <published>2019-01-04T16:00:00.000Z</published>
-    <updated>2019-01-28T07:47:02.640Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;MapReduce学习&quot;&gt;&lt;a href=&quot;#MapReduce学习&quot; class=&quot;headerlink&quot; title=&quot;MapReduce学习&quot;&gt;&lt;/a&gt;MapReduce学习&lt;/h1&gt;&lt;h2 id=&quot;一、MapReduce是什么&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
     
   </entry>
   
@@ -307,6 +281,32 @@
   </entry>
   
   <entry>
+    <title>MapReduce学习</title>
+    <link href="http://sungithup.github.io/2019/01/05/MapReduce%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/05/MapReduce学习/</id>
+    <published>2019-01-04T16:00:00.000Z</published>
+    <updated>2019-01-28T07:47:02.640Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;MapReduce学习&quot;&gt;&lt;a href=&quot;#MapReduce学习&quot; class=&quot;headerlink&quot; title=&quot;MapReduce学习&quot;&gt;&lt;/a&gt;MapReduce学习&lt;/h1&gt;&lt;h2 id=&quot;一、MapReduce是什么&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
+    
+    
+      <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop2.X</title>
     <link href="http://sungithup.github.io/2019/01/04/Hadoop2.X/"/>
     <id>http://sungithup.github.io/2019/01/04/Hadoop2.X/</id>
@@ -334,11 +334,11 @@
   </entry>
   
   <entry>
-    <title>YARN的入门学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
+    <title>Zookeeper学习</title>
+    <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
     <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-01-28T07:51:25.149Z</updated>
+    <updated>2019-01-28T07:51:39.144Z</updated>
     
     <summary type="html">
     
@@ -347,7 +347,9 @@
         
         
           &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h1&gt;&lt;h2 id=&quot;yarn（资源管理器）&quot;&gt;&lt;a href=&quot;#yarn（资源管理器）&quot;
+&lt;p&gt;动物园管理员&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;推荐图书：&lt;/code&gt;《从Paxo到Zookeeper》&lt;/p&gt;
+&lt;h1 id=&quot;Zookeeper&quot;&gt;&lt;a href=&quot;#Zookeeper&quot; class=&quot;headerlink&quot;
         
       
     
@@ -356,7 +358,7 @@
       <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
     
     
-      <category term="yarn" scheme="http://sungithup.github.io/tags/yarn/"/>
+      <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
     
   </entry>
   
@@ -388,11 +390,11 @@
   </entry>
   
   <entry>
-    <title>Zookeeper学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
+    <title>YARN的入门学习</title>
+    <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
     <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-01-28T07:51:39.144Z</updated>
+    <updated>2019-01-28T07:51:25.149Z</updated>
     
     <summary type="html">
     
@@ -401,9 +403,7 @@
         
         
           &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;动物园管理员&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;推荐图书：&lt;/code&gt;《从Paxo到Zookeeper》&lt;/p&gt;
-&lt;h1 id=&quot;Zookeeper&quot;&gt;&lt;a href=&quot;#Zookeeper&quot; class=&quot;headerlink&quot;
+&lt;h1 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h1&gt;&lt;h2 id=&quot;yarn（资源管理器）&quot;&gt;&lt;a href=&quot;#yarn（资源管理器）&quot;
         
       
     
@@ -412,7 +412,7 @@
       <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
     
     
-      <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
+      <category term="yarn" scheme="http://sungithup.github.io/tags/yarn/"/>
     
   </entry>
   
