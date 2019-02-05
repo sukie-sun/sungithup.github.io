@@ -393,24 +393,6 @@
       
           
               <h1 id="HBase性能优化"><a href="#HBase性能优化" class="headerlink" title="HBase性能优化"></a>HBase性能优化</h1><h1 id="（一）、表的设计"><a href="#（一）、表的设计" class="headerlink" title="（一）、表的设计"></a>（一）、表的设计</h1><p>一、Pre-Creating Regions 预分区</p>
-<blockquote>
-<p>解决海量导入数据时的热点问题</p>
-</blockquote>
-<p><code>背景：</code></p>
-<blockquote>
-<p>在创建HBase表的时候默认一张表只有一个region，</p>
-<p>所有的put操作都会往这一个region中填充数据，</p>
-<p>当这一个region过大时就会进行split。</p>
-<p>如果在创建HBase的时候就进行预分区</p>
-<p>则会减少当数据量猛增时由于region split带来的资源消耗。</p>
-</blockquote>
-<p><code>注意：</code></p>
-<blockquote>
-<p>每个region都有一个startKey和一个endKey来表示该region存储的rowKey范围。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t1&apos;, &apos;cf&apos;, SPLITS =&gt; [&apos;20150501000000000&apos;, &apos;20150515000000000&apos;, &apos;20150601000000000&apos;]</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t2&apos;, &apos;cf&apos;, SPLITS_FILE =&gt; &apos;/home/hadoop/splitfile.txt&apos; </span><br><span class="line"></span><br><span class="line">/home/hadoop/splitfile.txt中存储内容如下： </span><br><span class="line">20150501000000000</span><br><span class="line">20150515000000000</span><br><span class="line">20150601000000000</span><br></pre></td></tr></table></figure>
           
       
     </div>
@@ -480,19 +462,7 @@
           
               <h1 id="Hbase学习"><a href="#Hbase学习" class="headerlink" title="Hbase学习"></a>Hbase学习</h1><p>非关系型数据库</p>
 <p><a href="https://cwiki.apache.org/confluence/display/Hive/HBaseIntegration" target="_blank" rel="noopener">官网</a></p>
-<h2 id="一、对数据库的-基本了解"><a href="#一、对数据库的-基本了解" class="headerlink" title="一、对数据库的 基本了解"></a>一、对数据库的 基本了解</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
-<p>基于Hadoop 的分布式数据库</p>
-<p>特点：</p>
-<p>1、高可靠性</p>
-<p>2、高性能</p>
-<p>（以上两点：基于分布式的特点）</p>
-<p>3、面向列</p>
-<p>（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）</p>
-<p>4、可伸缩</p>
-<p>（搭建在集群上）</p>
-<p>5、实时读写</p>
-<p>（用时间戳唯一标记每一版本的数据记录）</p>
-</blockquote>
+<h2 id="一、对数据库的-基本了解"><a href="#一、对数据库的-基本了解" class="headerlink" title="一、对数据库的 基本了解"></a>一、对数据库的 基本了解</h2>
           
       
     </div>

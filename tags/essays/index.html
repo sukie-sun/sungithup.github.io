@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
-<meta name="keywords" content="HBase">
-<meta property="og:type" content="article">
-<meta property="og:title" content="HBase性能优化">
-<meta property="og:url" content="http://sungithup.github.io/2019/01/17/HBase性能优化/index.html">
+<meta name="description" content="Sukie的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
+<meta name="keywords" content="各种资源">
+<meta property="og:type" content="website">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http://sungithup.github.io/tags/essays/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
+<meta property="og:description" content="Sukie的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-05T16:02:05.564Z">
+<meta property="og:updated_time" content="2019-01-26T05:02:58.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HBase性能优化">
-<meta name="twitter:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
+<meta name="twitter:title" content="tags">
+<meta name="twitter:description" content="Sukie的个人博客，主要涉及到编程（Java、Python、C、MySql、Linux，etc），仅供个人提升学习之用。">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -58,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>HBase性能优化 | Sukie山脉</title>
+<title>tags | Sukie山脉</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -68,7 +68,7 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: true,
+        isPost: false,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -289,11 +289,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="post-HBase性能优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/01/17/HBase性能优化/" class="article-date">
-      <time datetime="2019-01-16T16:00:00.000Z" itemprop="datePublished">2019-01-17</time>
+      <a href="/tags/essays/index.html" class="article-date">
+      <time datetime="2018-12-18T18:17:34.000Z" itemprop="datePublished">2018-12-19</time>
 </a>
 
 
@@ -308,7 +308,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      HBase性能优化
+      tags
     </h1>
   
 
@@ -316,16 +316,8 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/HDFS/">HDFS</a>
-    </div>
-
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HBase/">HBase</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -333,109 +325,36 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="HBase性能优化"><a href="#HBase性能优化" class="headerlink" title="HBase性能优化"></a>HBase性能优化</h1><h1 id="（一）、表的设计"><a href="#（一）、表的设计" class="headerlink" title="（一）、表的设计"></a>（一）、表的设计</h1><p>一、Pre-Creating Regions 预分区</p>
-<a id="more"></a>
-<blockquote>
-<p>解决海量导入数据时的热点问题</p>
-</blockquote>
-<p><code>背景：</code></p>
-<blockquote>
-<p>在创建HBase表的时候默认一张表只有一个region，</p>
-<p>所有的put操作都会往这一个region中填充数据，</p>
-<p>当这一个region过大时就会进行split。</p>
-<p>如果在创建HBase的时候就进行预分区</p>
-<p>则会减少当数据量猛增时由于region split带来的资源消耗。</p>
-</blockquote>
-<p><code>注意：</code></p>
-<blockquote>
-<p>每个region都有一个startKey和一个endKey来表示该region存储的rowKey范围。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t1&apos;, &apos;cf&apos;, SPLITS =&gt; [&apos;20150501000000000&apos;, &apos;20150515000000000&apos;, &apos;20150601000000000&apos;]</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; create &apos;t2&apos;, &apos;cf&apos;, SPLITS_FILE =&gt; &apos;/home/hadoop/splitfile.txt&apos; </span><br><span class="line"></span><br><span class="line">/home/hadoop/splitfile.txt中存储内容如下： </span><br><span class="line">20150501000000000</span><br><span class="line">20150515000000000</span><br><span class="line">20150601000000000</span><br></pre></td></tr></table></figure>
-<p>二、row key</p>
-<p>HBase中row key用来检索表中的记录，支持以下三种方式：</p>
-<blockquote>
-<p>· 通过单个row key访问：即按照某个row key键值进行get操作；</p>
-<p>·  通过row key的range进行scan：即通过设置startRowKey和endRowKey，在这个范围内进行扫描；过滤器</p>
-<p>·  全表扫描：即直接扫描整张表中所有行记录。</p>
-</blockquote>
-<h1 id="（二）、写表操作"><a href="#（二）、写表操作" class="headerlink" title="（二）、写表操作"></a>（二）、写表操作</h1><p>一、多HTable客户端并发写</p>
-<p>二、HTable参数设置</p>
-<p>三、批量写</p>
-<p>四、多线程并发写</p>
-<h1 id="（三）、读表操作"><a href="#（三）、读表操作" class="headerlink" title="（三）、读表操作"></a>（三）、读表操作</h1><p>一、多HTable客户端并发读</p>
-<p>二、HTable参数设置</p>
-<p>三、批量读</p>
-<p>四、多线程并发读</p>
-<p>五、缓存查询结果</p>
-<p>六、 Blockcache</p>
+              <style>
+    .article-meta { display: none; }
+    #container .article .article-title { padding-right: 0; }
+    .article-header {
+        padding: 0;
+        padding-top: 26px;
+        border-left: none;
+        text-align: center;
+    }
+    .article-header:hover { border-left: none; }
+    .article-title { font-size: 1.6em }
+    .article-entry hr { margin: 0;}
+    .article-meta,
+    #container .article-info-post.article-info { display: none;}
+    #container .article .article-title { padding: 0; }
+</style>
 
+
+          
+        
       
     </div>
     
   </div>
   
     
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/01/17/HBase性能优化/">HBase性能优化</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
-        <p><span>发布时间:</span>2019-01-17, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-06, 00:02:05</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/01/17/HBase性能优化/" title="HBase性能优化">http://sungithup.github.io/2019/01/17/HBase性能优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/17/HBase性能优化/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
 
-
-
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/01/18/Flume学习/">
-                    Flume学习
-                </a>
-            </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/01/15/HBase学习/">
-                    HBase学习
-                </a>
-            </div>
-        
-    </nav>
 
   
 </article>
-
-    <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
-        
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase性能优化"><span class="toc-text">HBase性能优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（一）、表的设计"><span class="toc-text">（一）、表的设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（二）、写表操作"><span class="toc-text">（二）、写表操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（三）、读表操作"><span class="toc-text">（三）、读表操作</span></a></li></ol>
-        
-    </div>
-    <style>
-        .left-col .switch-btn,
-        .left-col .switch-area {
-            display: none;
-        }
-        .toc-level-3 i,
-        .toc-level-3 ol {
-            display: none !important;
-        }
-    </style>
-
-    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
-
-    <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
-    </script>
 
 
 
@@ -453,7 +372,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"HBase性能优化　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"tags　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -466,28 +385,6 @@
 
 
 
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2019/01/18/Flume学习/" title="上一篇: Flume学习">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
-
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-
-        
-            <a href="/2019/01/15/HBase学习/" title="下一篇: HBase学习">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/about/">about</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

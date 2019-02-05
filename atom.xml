@@ -41,29 +41,11 @@
     <link href="http://sungithup.github.io/2019/01/17/HBase%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     <id>http://sungithup.github.io/2019/01/17/HBase性能优化/</id>
     <published>2019-01-16T16:00:00.000Z</published>
-    <updated>2019-02-05T15:51:54.200Z</updated>
+    <updated>2019-02-05T16:02:05.564Z</updated>
     
     <summary type="html">
     
       &lt;h1 id=&quot;HBase性能优化&quot;&gt;&lt;a href=&quot;#HBase性能优化&quot; class=&quot;headerlink&quot; title=&quot;HBase性能优化&quot;&gt;&lt;/a&gt;HBase性能优化&lt;/h1&gt;&lt;h1 id=&quot;（一）、表的设计&quot;&gt;&lt;a href=&quot;#（一）、表的设计&quot; class=&quot;headerlink&quot; title=&quot;（一）、表的设计&quot;&gt;&lt;/a&gt;（一）、表的设计&lt;/h1&gt;&lt;p&gt;一、Pre-Creating Regions 预分区&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;解决海量导入数据时的热点问题&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;背景：&lt;/code&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在创建HBase表的时候默认一张表只有一个region，&lt;/p&gt;
-&lt;p&gt;所有的put操作都会往这一个region中填充数据，&lt;/p&gt;
-&lt;p&gt;当这一个region过大时就会进行split。&lt;/p&gt;
-&lt;p&gt;如果在创建HBase的时候就进行预分区&lt;/p&gt;
-&lt;p&gt;则会减少当数据量猛增时由于region split带来的资源消耗。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;注意：&lt;/code&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;每个region都有一个startKey和一个endKey来表示该region存储的rowKey范围。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; create &amp;apos;t1&amp;apos;, &amp;apos;cf&amp;apos;, SPLITS =&amp;gt; [&amp;apos;20150501000000000&amp;apos;, &amp;apos;20150515000000000&amp;apos;, &amp;apos;20150601000000000&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;或者&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; create &amp;apos;t2&amp;apos;, &amp;apos;cf&amp;apos;, SPLITS_FILE =&amp;gt; &amp;apos;/home/hadoop/splitfile.txt&amp;apos; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/home/hadoop/splitfile.txt中存储内容如下： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20150501000000000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20150515000000000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20150601000000000&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -79,25 +61,13 @@
     <link href="http://sungithup.github.io/2019/01/15/HBase%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/15/HBase学习/</id>
     <published>2019-01-14T16:00:00.000Z</published>
-    <updated>2019-02-05T15:54:20.587Z</updated>
+    <updated>2019-02-05T16:02:29.928Z</updated>
     
     <summary type="html">
     
       &lt;h1 id=&quot;Hbase学习&quot;&gt;&lt;a href=&quot;#Hbase学习&quot; class=&quot;headerlink&quot; title=&quot;Hbase学习&quot;&gt;&lt;/a&gt;Hbase学习&lt;/h1&gt;&lt;p&gt;非关系型数据库&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://cwiki.apache.org/confluence/display/Hive/HBaseIntegration&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;一、对数据库的-基本了解&quot;&gt;&lt;a href=&quot;#一、对数据库的-基本了解&quot; class=&quot;headerlink&quot; title=&quot;一、对数据库的 基本了解&quot;&gt;&lt;/a&gt;一、对数据库的 基本了解&lt;/h2&gt;&lt;h3 id=&quot;1、简介&quot;&gt;&lt;a href=&quot;#1、简介&quot; class=&quot;headerlink&quot; title=&quot;1、简介&quot;&gt;&lt;/a&gt;1、简介&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;基于Hadoop 的分布式数据库&lt;/p&gt;
-&lt;p&gt;特点：&lt;/p&gt;
-&lt;p&gt;1、高可靠性&lt;/p&gt;
-&lt;p&gt;2、高性能&lt;/p&gt;
-&lt;p&gt;（以上两点：基于分布式的特点）&lt;/p&gt;
-&lt;p&gt;3、面向列&lt;/p&gt;
-&lt;p&gt;（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）&lt;/p&gt;
-&lt;p&gt;4、可伸缩&lt;/p&gt;
-&lt;p&gt;（搭建在集群上）&lt;/p&gt;
-&lt;p&gt;5、实时读写&lt;/p&gt;
-&lt;p&gt;（用时间戳唯一标记每一版本的数据记录）&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h2 id=&quot;一、对数据库的-基本了解&quot;&gt;&lt;a href=&quot;#一、对数据库的-基本了解&quot; class=&quot;headerlink&quot; title=&quot;一、对数据库的 基本了解&quot;&gt;&lt;/a&gt;一、对数据库的 基本了解&lt;/h2&gt;
     
     </summary>
     
