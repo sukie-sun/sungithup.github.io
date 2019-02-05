@@ -15,19 +15,19 @@
 
 
 
-<meta name="description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
+<meta name="description" content="一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤">
 <meta name="keywords" content="Hive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive优化">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/14/Hive优化/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
+<meta property="og:description" content="一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg">
-<meta property="og:updated_time" content="2019-01-28T07:41:05.108Z">
+<meta property="og:updated_time" content="2019-02-05T15:55:20.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive优化">
-<meta name="twitter:description" content="[TOC] Hive优化一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤 二、explain 用以显示任务执行计划 格式： EXPLAIN [EXTENDED|DEPENDENCY|AUTHORIZATION] query  语法解释  从语法组成可以">
+<meta name="twitter:description" content="一、核心思想： 把Hive SQL 当做MapReduce程序进行优化  注意：以下不能HQL转化为Mapreduce任务运行 —select 仅查询本表字段 —where 仅对本表字段做条件过滤">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzhry9ni0xj30m10cjdgp.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -335,13 +335,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>[TOC]</p>
-<h1 id="Hive优化"><a href="#Hive优化" class="headerlink" title="Hive优化"></a>Hive优化</h1><h2 id="一、核心思想："><a href="#一、核心思想：" class="headerlink" title="一、核心思想："></a>一、核心思想：</h2><blockquote>
+        <h2 id="一、核心思想："><a href="#一、核心思想：" class="headerlink" title="一、核心思想："></a>一、核心思想：</h2><blockquote>
 <p>把Hive SQL 当做MapReduce程序进行优化</p>
 </blockquote>
 <p><code>注意：</code>以下不能HQL转化为Mapreduce任务运行</p>
 <p>—select 仅查询本表字段</p>
 <p>—where 仅对本表字段做条件过滤</p>
+<a id="more"></a>
 <h2 id="二、explain"><a href="#二、explain" class="headerlink" title="二、explain"></a>二、explain</h2><blockquote>
 <p>用以显示任务执行计划</p>
 <p>格式：</p>
@@ -498,7 +498,7 @@
         <p><span>本文标题:</span><a href="/2019/01/14/Hive优化/">Hive优化</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-14, 00:00:00</p>
-        <p><span>最后更新:</span>2019-01-28, 15:41:05</p>
+        <p><span>最后更新:</span>2019-02-05, 23:55:20</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/14/Hive优化/" title="Hive优化">http://sungithup.github.io/2019/01/14/Hive优化/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/14/Hive优化/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -534,7 +534,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hive优化"><span class="toc-text">Hive优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、核心思想："><span class="toc-text">一、核心思想：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、explain"><span class="toc-text">二、explain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hive运行方式"><span class="toc-text">三、Hive运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集群模式："><span class="toc-text">集群模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化一"><span class="toc-text">优化一:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化二："><span class="toc-text">优化二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Hive排序"><span class="toc-text">四、Hive排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Order-By"><span class="toc-text">1、Order By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Sort-By"><span class="toc-text">2、Sort By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、Distribute-By"><span class="toc-text">3、Distribute By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、Cluster-By"><span class="toc-text">4、Cluster By</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、Hive-Join-（重难点）"><span class="toc-text">五、Hive Join  （重难点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Join-连接时，将小表（驱动表）放在join的左边"><span class="toc-text">1、Join 连接时，将小表（驱动表）放在join的左边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Map-Join-："><span class="toc-text">2、Map Join ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式：（两种）"><span class="toc-text">方式：（两种）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、SQL方式："><span class="toc-text">1、SQL方式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、自动的MapJoin"><span class="toc-text">2、自动的MapJoin</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、Map-Side聚合"><span class="toc-text">六、Map-Side聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、控制Hive中Map和Reduce的数量"><span class="toc-text">七、控制Hive中Map和Reduce的数量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Map数量相关的参数"><span class="toc-text">1、Map数量相关的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Reduce数量相关的参数"><span class="toc-text">2、Reduce数量相关的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、Hive-JVM重用"><span class="toc-text">八、Hive - JVM重用</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、核心思想："><span class="toc-text">一、核心思想：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、explain"><span class="toc-text">二、explain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hive运行方式"><span class="toc-text">三、Hive运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集群模式："><span class="toc-text">集群模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化一"><span class="toc-text">优化一:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化二："><span class="toc-text">优化二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Hive排序"><span class="toc-text">四、Hive排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Order-By"><span class="toc-text">1、Order By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Sort-By"><span class="toc-text">2、Sort By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、Distribute-By"><span class="toc-text">3、Distribute By</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、Cluster-By"><span class="toc-text">4、Cluster By</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、Hive-Join-（重难点）"><span class="toc-text">五、Hive Join  （重难点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Join-连接时，将小表（驱动表）放在join的左边"><span class="toc-text">1、Join 连接时，将小表（驱动表）放在join的左边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Map-Join-："><span class="toc-text">2、Map Join ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式：（两种）"><span class="toc-text">方式：（两种）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、SQL方式："><span class="toc-text">1、SQL方式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、自动的MapJoin"><span class="toc-text">2、自动的MapJoin</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、Map-Side聚合"><span class="toc-text">六、Map-Side聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、控制Hive中Map和Reduce的数量"><span class="toc-text">七、控制Hive中Map和Reduce的数量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Map数量相关的参数"><span class="toc-text">1、Map数量相关的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Reduce数量相关的参数"><span class="toc-text">2、Reduce数量相关的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、Hive-JVM重用"><span class="toc-text">八、Hive - JVM重用</span></a></li></ol>
         
     </div>
     <style>

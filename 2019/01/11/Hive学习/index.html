@@ -15,13 +15,13 @@
 
 
 
-<meta name="description" content="[TOC] 一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工">
+<meta name="description" content="一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工具 方便非J">
 <meta name="keywords" content="Hive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive学习">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/11/Hive学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="[TOC] 一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工">
+<meta property="og:description" content="一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工具 方便非J">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz2wawi0ujj30h106c0tg.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz53mse6n1j30fe0c3jxm.jpg">
@@ -31,10 +31,10 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz5c0cf550j30k406tjtk.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz5c6wynhnj30hs07kgmv.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz5c8bvsjkj30im077wft.jpg">
-<meta property="og:updated_time" content="2019-01-28T07:41:28.176Z">
+<meta property="og:updated_time" content="2019-02-05T15:55:46.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive学习">
-<meta name="twitter:description" content="[TOC] 一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工">
+<meta name="twitter:description" content="一、Hive是什么？1、基于 Hadoop 的一个数据仓库工具 可以将结构化的数据文件映射为一张hive数据库表； 这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中 并提供简单的 sql 查询功能； 可以将 sql 语句转换为 MapReduce 任务进行运行。  2、快速实现简单的MapReduce 统计的工具 方便非J">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz2wawi0ujj30h106c0tg.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -342,8 +342,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>[TOC]</p>
-<h2 id="一、Hive是什么？"><a href="#一、Hive是什么？" class="headerlink" title="一、Hive是什么？"></a>一、Hive是什么？</h2><h3 id="1、基于-Hadoop-的一个数据仓库工具"><a href="#1、基于-Hadoop-的一个数据仓库工具" class="headerlink" title="1、基于 Hadoop 的一个数据仓库工具"></a>1、基于 Hadoop 的一个<code>数据仓库工具</code></h3><ul>
+        <h2 id="一、Hive是什么？"><a href="#一、Hive是什么？" class="headerlink" title="一、Hive是什么？"></a>一、Hive是什么？</h2><h3 id="1、基于-Hadoop-的一个数据仓库工具"><a href="#1、基于-Hadoop-的一个数据仓库工具" class="headerlink" title="1、基于 Hadoop 的一个数据仓库工具"></a>1、基于 Hadoop 的一个<code>数据仓库工具</code></h3><ul>
 <li>可以将<code>结构化</code>的数据文件映射为一张<code>hive数据库表</code>；</li>
 <li>这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中</li>
 <li>并提供简单的 sql 查询功能；</li>
@@ -359,6 +358,7 @@
 <li>为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制.</li>
 <li><strong>数据仓库</strong>是用来做<strong>查询分析的数据库</strong>，<strong>基本不用来做插入，修改，删除操作</strong>。</li>
 </ul>
+<a id="more"></a>
 <h3 id="4、数据处理的两大分类"><a href="#4、数据处理的两大分类" class="headerlink" title="4、数据处理的两大分类"></a>4、数据处理的两大分类</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz2wawi0ujj30h106c0tg.jpg" alt="oltp+olap"><span class="img-alt">oltp+olap</span></p>
 <ul>
 <li><h4 id="联机事务处理OLTP（on-line-transaction-processing）"><a href="#联机事务处理OLTP（on-line-transaction-processing）" class="headerlink" title="联机事务处理OLTP（on-line transaction processing）"></a>联机事务处理OLTP（on-line transaction processing）</h4></li>
@@ -1494,7 +1494,7 @@
         <p><span>本文标题:</span><a href="/2019/01/11/Hive学习/">Hive学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-11, 00:00:00</p>
-        <p><span>最后更新:</span>2019-01-28, 15:41:28</p>
+        <p><span>最后更新:</span>2019-02-05, 23:55:46</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/11/Hive学习/" title="Hive学习">http://sungithup.github.io/2019/01/11/Hive学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/11/Hive学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
