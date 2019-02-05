@@ -603,116 +603,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>[^开发者]: 由俄罗斯的程序设计师Igor Sysoev所开发</p>
-<p>[TOC]</p>
-<h2 id="一、产生背景"><a href="#一、产生背景" class="headerlink" title="一、产生背景"></a>一、产生背景</h2><p>1.巨大流量—海量的并发访问</p>
-<p>2.单台服务器资源和能力有限</p>
-<p>引发服务器宕机而无法提供服务</p>
-<h2 id="二、负载均衡-Load-Balance"><a href="#二、负载均衡-Load-Balance" class="headerlink" title="二、负载均衡(Load Balance)"></a>二、负载均衡(Load Balance)</h2><h3 id="1、高并发"><a href="#1、高并发" class="headerlink" title="1、高并发"></a>1、高并发</h3><p>（1）、高（大量的）</p>
-<p>（2）、并发就是可以使用多个线程或者多个进程，同时处理（就是并发）不同的操作</p>
-<p>（3）、简而言之就是每秒内有多少个请求同时访问。</p>
-<h3 id="2、负载均衡"><a href="#2、负载均衡" class="headerlink" title="2、负载均衡"></a>2、负载均衡</h3><p>（1）、将请求/数据【均匀】分摊到多个操作单元上执行</p>
-<p>（2）、关键在于【均匀】,也是分布式系统架构设计中必须考虑的因素之一。</p>
-<h3 id="3、互联网分布式架构"><a href="#3、互联网分布式架构" class="headerlink" title="3、互联网分布式架构"></a>3、互联网分布式架构</h3><p>常见，分为客户端层、反向代理nginx层、站点层、服务层、数据层。只需要实现“将请求/数据 均匀分摊到多个操作单元上执行”，就能实现负载均衡。</p>
-<h2 id="三、对Nginx的基本了解"><a href="#三、对Nginx的基本了解" class="headerlink" title="三、对Nginx的基本了解"></a>三、对Nginx的基本了解</h2><h3 id="1、什么是Nginx？"><a href="#1、什么是Nginx？" class="headerlink" title="1、什么是Nginx？"></a>1、什么是Nginx？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一款轻量级的Web 服务器/反向代理服务器【后面有介绍】及电子邮件（IMAP/POP3）代理服务器。</span><br></pre></td></tr></table></figure>
-<p>​     <code>特点</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*是占有内存少，CPU、内存等资源消耗却非常低，</span><br><span class="line">*运行非常稳定并发能力强，nginx的并发能力确实在同类型的网页服务器中表现非常好。</span><br></pre></td></tr></table></figure>
-<h3 id="2、Nginx-VS-Apache"><a href="#2、Nginx-VS-Apache" class="headerlink" title="2、Nginx   VS   Apache"></a>2、Nginx   VS   Apache</h3><h1 id="（1）、nginx相对于apache的优点："><a href="#（1）、nginx相对于apache的优点：" class="headerlink" title="（1）、nginx相对于apache的优点："></a>（1）、nginx相对于apache的优点：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*轻量级，同样起web 服务，比apache 占用更少的内存及资源高并发，</span><br><span class="line">*nginx 处理请求是异步非阻塞（如前端ajax）的，而apache 则是阻塞型的，</span><br><span class="line">*在高并发下nginx能保持低资源低消耗高性能高度模块化的设计，编写模块相对简单</span><br><span class="line">*Nginx 配置简洁, Apache 复杂</span><br></pre></td></tr></table></figure>
-<h1 id="（2）、apache-相对于nginx-的优点："><a href="#（2）、apache-相对于nginx-的优点：" class="headerlink" title="（2）、apache 相对于nginx 的优点："></a>（2）、apache 相对于nginx 的优点：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* Rewrite重写 ，比nginx 的rewrite 强大模块超多，</span><br><span class="line">*基本想到的都可以找到少bug ，nginx 的bug 相对较多。（出身好起步高）</span><br></pre></td></tr></table></figure>
-<h2 id="四、安装Nginx"><a href="#四、安装Nginx" class="headerlink" title="四、安装Nginx"></a>四、安装Nginx</h2><p><code>这里以安装tengine为例</code></p>
-<h3 id="1、安装之前准备"><a href="#1、安装之前准备" class="headerlink" title="1、安装之前准备"></a>1、安装之前准备</h3><p>配置依赖 gcc openssl-devel pcre-devel zlib-devel</p>
-<p> 安装：</p>
-<blockquote>
-<p>yum install gcc openssl-devel pcre-devel zlib-devel -y</p>
-</blockquote>
-<h3 id="2、下载"><a href="#2、下载" class="headerlink" title="2、下载"></a>2、下载</h3><p>（目前最新版）：<a href="http://tengine.taobao.org/download.html" target="_blank" rel="noopener">tengine-2.2.3.tar</a></p>
-<h3 id="3、-解压缩"><a href="#3、-解压缩" class="headerlink" title="3、 解压缩"></a>3、 解压缩</h3><blockquote>
-<p>tar  -zvxf   tengine-2.2.3.tar </p>
-</blockquote>
-<h3 id="4、安装Nginx"><a href="#4、安装Nginx" class="headerlink" title="4、安装Nginx"></a>4、安装Nginx</h3><blockquote>
-<p>在Nginx解压的目录下运行：</p>
-<p>./configure</p>
-<p>make &amp;&amp; make install</p>
-</blockquote>
-<p>默认安装目录：<br>/usr/local/nginx</p>
-<h3 id="5、配置Nginx为系统服务，以方便管理"><a href="#5、配置Nginx为系统服务，以方便管理" class="headerlink" title="5、配置Nginx为系统服务，以方便管理"></a>5、配置Nginx为系统服务，以方便管理</h3><h4 id="（1）、在-etc-rc-d-init-d-目录中建立文本文件nginx"><a href="#（1）、在-etc-rc-d-init-d-目录中建立文本文件nginx" class="headerlink" title="（1）、在/etc/rc.d/init.d/目录中建立文本文件nginx"></a>（1）、在/etc/rc.d/init.d/目录中建立文本文件nginx</h4><h4 id="（2）、在文件中粘贴下面的内容："><a href="#（2）、在文件中粘贴下面的内容：" class="headerlink" title="（2）、在文件中粘贴下面的内容："></a>（2）、在文件中粘贴下面的内容：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># nginx - this script starts and stops the nginx daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig:   - 85 15 </span><br><span class="line"># description:  Nginx is an HTTP(S) server, HTTP(S) reverse \</span><br><span class="line">#               proxy and IMAP/POP3 proxy server</span><br><span class="line"># processname: nginx</span><br><span class="line"># config:      /etc/nginx/nginx.conf</span><br><span class="line"># config:      /etc/sysconfig/nginx</span><br><span class="line"># pidfile:     /var/run/nginx.pid</span><br><span class="line"> </span><br><span class="line"># Source function library.</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"> </span><br><span class="line"># Source networking configuration.</span><br><span class="line">. /etc/sysconfig/network</span><br><span class="line"> </span><br><span class="line"># Check that networking is up.</span><br><span class="line">[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0</span><br><span class="line"> </span><br><span class="line">nginx=&quot;/usr/local/nginx/sbin/nginx&quot;</span><br><span class="line">prog=$(basename $nginx)</span><br><span class="line"> </span><br><span class="line">NGINX_CONF_FILE=&quot;/usr/local/nginx/conf/nginx.conf&quot;</span><br><span class="line"> </span><br><span class="line">[ -f /etc/sysconfig/nginx ] &amp;&amp; . /etc/sysconfig/nginx</span><br><span class="line"> </span><br><span class="line">lockfile=/var/lock/subsys/nginx</span><br><span class="line"> </span><br><span class="line">make_dirs() &#123;</span><br><span class="line">   # make required directories</span><br><span class="line">   user=`nginx -V 2&gt;&amp;1 | grep &quot;configure arguments:&quot; | sed &apos;s/[^*]*--user=\([^ ]*\).*/\1/g&apos; -`</span><br><span class="line">   options=`$nginx -V 2&gt;&amp;1 | grep &apos;configure arguments:&apos;`</span><br><span class="line">   for opt in $options; do</span><br><span class="line">       if [ `echo $opt | grep &apos;.*-temp-path&apos;` ]; then</span><br><span class="line">           value=`echo $opt | cut -d &quot;=&quot; -f 2`</span><br><span class="line">           if [ ! -d &quot;$value&quot; ]; then</span><br><span class="line">               # echo &quot;creating&quot; $value</span><br><span class="line">               mkdir -p $value &amp;&amp; chown -R $user $value</span><br><span class="line">           fi</span><br><span class="line">       fi</span><br><span class="line">   done</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">start() &#123;</span><br><span class="line">    [ -x $nginx ] || exit 5</span><br><span class="line">    [ -f $NGINX_CONF_FILE ] || exit 6</span><br><span class="line">    make_dirs</span><br><span class="line">    echo -n $&quot;Starting $prog: &quot;</span><br><span class="line">    daemon $nginx -c $NGINX_CONF_FILE</span><br><span class="line">    retval=$?</span><br><span class="line">    echo</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">stop() &#123;</span><br><span class="line">    echo -n $&quot;Stopping $prog: &quot;</span><br><span class="line">    killproc $prog -QUIT</span><br><span class="line">    retval=$?</span><br><span class="line">    echo</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">restart() &#123;</span><br><span class="line">    configtest || return $?</span><br><span class="line">    stop</span><br><span class="line">    sleep 1</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">reload() &#123;</span><br><span class="line">    configtest || return $?</span><br><span class="line">    echo -n $&quot;Reloading $prog: &quot;</span><br><span class="line">    killproc $nginx -HUP</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">force_reload() &#123;</span><br><span class="line">    restart</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">configtest() &#123;</span><br><span class="line">  $nginx -t -c $NGINX_CONF_FILE</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">rh_status() &#123;</span><br><span class="line">    status $prog</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">rh_status_q() &#123;</span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    restart|configtest)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line">    condrestart|try-restart)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">            ;;</span><br><span class="line">    *)</span><br><span class="line">        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;&quot;</span><br><span class="line">        exit 2</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
-<h4 id="（3）、修改nginx文件的执行权限"><a href="#（3）、修改nginx文件的执行权限" class="headerlink" title="（3）、修改nginx文件的执行权限"></a>（3）、修改nginx文件的执行权限</h4><blockquote>
-<p>chmod +x nginx</p>
-</blockquote>
-<h4 id="（4）、添加该文件到系统服务中去"><a href="#（4）、添加该文件到系统服务中去" class="headerlink" title="（4）、添加该文件到系统服务中去"></a>（4）、添加该文件到系统服务中去</h4><blockquote>
-<p>chkconfig –add nginx</p>
-</blockquote>
-<p>查看是否添加成功</p>
-<blockquote>
-<p>chkconfig –list nginx</p>
-</blockquote>
-<p>启动，停止，重新装载</p>
-<blockquote>
-<p>service nginx start|stop</p>
-</blockquote>
-<h2 id="五、Nginx配置"><a href="#五、Nginx配置" class="headerlink" title="五、Nginx配置"></a>五、Nginx配置</h2><h3 id="1、查看配置"><a href="#1、查看配置" class="headerlink" title="1、查看配置"></a>1、查看配置</h3><blockquote>
-<p>cd   /usr/local/nginx/conf</p>
-<p>vim   nginx.conf</p>
-</blockquote>
-<h3 id="2、配置解析"><a href="#2、配置解析" class="headerlink" title="2、配置解析"></a>2、配置解析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#进程数，建议设置和CPU个数一样或2倍</span><br><span class="line">worker_processes  2;</span><br><span class="line"></span><br><span class="line">#日志级别</span><br><span class="line">error_log  logs/error.log  warning;(默认error级别)</span><br><span class="line"></span><br><span class="line"># nginx 启动后的pid 存放位置</span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	#配置每个进程的连接数，总的连接数= worker_processes * worker_connections</span><br><span class="line">    #默认1024</span><br><span class="line">    worker_connections  10240;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">#连接超时时间，单位秒</span><br><span class="line">keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost                 </span><br><span class="line">        #默认请求</span><br><span class="line">  		location / &#123;</span><br><span class="line">    				 root  html;   #定义服务器的默认网站根目录位置</span><br><span class="line">   				  index  index.php index.html index.htm;  #定义首页索引文件的名称</span><br><span class="line">        &#125;</span><br><span class="line">	    #定义错误提示页面</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、负载均衡配置"><a href="#3、负载均衡配置" class="headerlink" title="3、负载均衡配置"></a>3、负载均衡配置</h3><p>1）安装Tomcat，参考 <code>Tomcat配置</code></p>
-<h4 id="2）多负载均执行一下操作："><a href="#2）多负载均执行一下操作：" class="headerlink" title="2）多负载均执行一下操作："></a>2）多负载均执行一下操作：</h4><p> 多负载的情况下，打开指定虚拟机器</p>
-<blockquote>
-<p>open  node01    </p>
-<p>node01  为指定虚拟机器的别名，在hosts文件中配置的</p>
-</blockquote>
-<p>启动Tomcat</p>
-<blockquote>
-<p>在Tomcat解压的目录下       ./startup.sh  </p>
-</blockquote>
-<p>注意： 记得关闭虚拟机器的防火墙</p>
-<blockquote>
-<p>service  iptables  stop</p>
-</blockquote>
-<p>浏览器访问</p>
-<blockquote>
-<p>虚拟机器IP地址：8080</p>
-</blockquote>
-<p>默认负载均衡配置</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; http &#123; </span><br><span class="line">&gt;     upstream shsxt&#123;   </span><br><span class="line">&gt;     # 以下均为实际执行服务的服务器</span><br><span class="line">&gt;     #只有当hosts文件中给ip地址配置了别名，这里server后面才能用别名，</span><br><span class="line">&gt;     #否则跟IP地址</span><br><span class="line">&gt;         server node01; </span><br><span class="line">&gt;         server node02; </span><br><span class="line">&gt;         server node03; </span><br><span class="line">&gt;     &#125; </span><br><span class="line">&gt; </span><br><span class="line">&gt;     server &#123; </span><br><span class="line">&gt;     #指定访问端口为80 ，那么Tomcat服务器端的port也要改为80</span><br><span class="line">&gt;         listen 80;   </span><br><span class="line">&gt; 	    server_name  localhost;</span><br><span class="line">&gt;         location / &#123;</span><br><span class="line">&gt;             proxy_pass http://shsxt;    </span><br><span class="line">&gt;             # shsxt  是指定的代理服务器</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;     &#125; </span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>查看使用 80端口的程序</p>
-<blockquote>
-<p>netstat -anp |grep 80</p>
-</blockquote>
-<p>配置文件编辑结束后，启动nginx服务</p>
-<blockquote>
-<p>service  nginx  start</p>
-</blockquote>
-<h4 id="（1）、轮询负载均衡（默认）"><a href="#（1）、轮询负载均衡（默认）" class="headerlink" title="（1）、轮询负载均衡（默认）"></a>（1）、轮询负载均衡（默认）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 对应用程序服务器的请求以循环方式分发</span><br></pre></td></tr></table></figure>
-<h4 id="（2）、加权负载均衡"><a href="#（2）、加权负载均衡" class="headerlink" title="（2）、加权负载均衡"></a>（2）、加权负载均衡</h4><blockquote>
-<p>通过使用服务器权重，还可以进一步影响nginx负载均衡算法，</p>
-<p>谁的权重越大，分发到的请求就越多。</p>
-<p>权重总数：10</p>
-</blockquote>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt &#123;</span><br><span class="line">       server srv1.example.com weight=3;//域名为在/etc/hosts文件中取的别名</span><br><span class="line">       server srv2.example.com;</span><br><span class="line">       server srv3.example.com;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>配置修改之后，重启</p>
-<blockquote>
-<p>service  nginx  restart</p>
-</blockquote>
-<h4 id="（3）、最少连接负载平衡"><a href="#（3）、最少连接负载平衡" class="headerlink" title="（3）、最少连接负载平衡"></a>（3）、最少连接负载平衡</h4><blockquote>
-<p>在连接负载最少的情况下，nginx会尽量避免将过多的请求分发给繁忙的应用程序服务器，</p>
-<p>而是将新请求分发给不太繁忙的服务器，避免服务器过载。</p>
-</blockquote>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt &#123;</span><br><span class="line">        least_conn;</span><br><span class="line">        server srv1.example.com;</span><br><span class="line">        server srv2.example.com;</span><br><span class="line">        server srv3.example.com;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="（4）、会话持久性——ip-hash负载平衡机制"><a href="#（4）、会话持久性——ip-hash负载平衡机制" class="headerlink" title="（4）、会话持久性——ip-hash负载平衡机制"></a>（4）、会话持久性——ip-hash负载平衡机制</h4><p><code>特点</code>：保证相同的客户端总是定向到相同的服务;</p>
-<p>(此方法可确保来自同一客户端的请求将始终定向到同一台服务器，除非此服务器不可用。)</p>
-<p>在nginx.conf文件中修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream shsxt&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">    server （IP地址|别名）;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="5-、Nginx的访问控制"><a href="#5-、Nginx的访问控制" class="headerlink" title="(5)、Nginx的访问控制"></a>(5)、Nginx的访问控制</h4><blockquote>
-<p>Nginx还可以对IP的访问进行控制，allow代表允许，deny代表禁止.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">deny 192.168.2.180;</span><br><span class="line">allow 192.168.78.0/24;</span><br><span class="line">allow 10.1.1.0/16;</span><br><span class="line">allow 192.168.1.0/32;</span><br><span class="line">deny all;</span><br><span class="line">proxy_pass http://shsxt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">从上到下的顺序，匹配到了便跳出。</span><br><span class="line">如上的例子先禁止了1个，</span><br><span class="line">接下来允许了3个网段，</span><br><span class="line">其中包含了一个ipv6，</span><br><span class="line">最后未匹配的IP全部禁止访问</span><br></pre></td></tr></table></figure>
-
+              高并发的负载均衡。
+          
       
     </div>
     
@@ -729,6 +621,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2019/01/12/Nginx入门学习（第一回合）/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -775,22 +671,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h2 id="一、Hive是什么？"><a href="#一、Hive是什么？" class="headerlink" title="一、Hive是什么？"></a>一、Hive是什么？</h2><h3 id="1、基于-Hadoop-的一个数据仓库工具"><a href="#1、基于-Hadoop-的一个数据仓库工具" class="headerlink" title="1、基于 Hadoop 的一个数据仓库工具"></a>1、基于 Hadoop 的一个<code>数据仓库工具</code></h3><ul>
-<li>可以将<code>结构化</code>的数据文件映射为一张<code>hive数据库表</code>；</li>
-<li>这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中</li>
-<li>并提供简单的 sql 查询功能；</li>
-<li>可以将 sql 语句转换为 MapReduce 任务进行运行。</li>
-</ul>
-<h3 id="2、快速实现简单的MapReduce-统计的工具"><a href="#2、快速实现简单的MapReduce-统计的工具" class="headerlink" title="2、快速实现简单的MapReduce 统计的工具"></a>2、快速实现简单的MapReduce 统计的工具</h3><ul>
-<li>方便非Java编程者对HDFS的数据做mapreduce操作；</li>
-<li>学习成本低，十分适合数据仓库的统计分析。</li>
-</ul>
-<h3 id="3、什么是数据仓库？"><a href="#3、什么是数据仓库？" class="headerlink" title="3、什么是数据仓库？"></a>3、什么是数据仓库？</h3><ul>
-<li>Data Warehouse(DW 或DWH）是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。</li>
-<li>单个数据存储，出于分析性报告和决策支持目的而创建。</li>
-<li>为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制.</li>
-<li><strong>数据仓库</strong>是用来做<strong>查询分析的数据库</strong>，<strong>基本不用来做插入，修改，删除操作</strong>。</li>
-</ul>
+              用于数据分析、统计的数据仓库
           
       
     </div>

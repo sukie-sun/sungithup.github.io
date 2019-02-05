@@ -108,19 +108,11 @@
     <link href="http://sungithup.github.io/2019/01/12/Nginx%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/01/12/Nginx入门学习（第一回合）/</id>
     <published>2019-01-11T16:00:00.000Z</published>
-    <updated>2019-01-28T07:47:59.139Z</updated>
+    <updated>2019-02-05T16:08:07.741Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;Nginx&quot;&gt;&lt;a href=&quot;#Nginx&quot; class=&quot;headerlink&quot; title=&quot;Nginx&quot;&gt;&lt;/a&gt;Nginx&lt;/h2&gt;&lt;p&gt;[^开发者]: 由俄罗斯的程序设计师Igor Sysoev所开发&lt;/p&gt;
-&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h2
-        
-      
+      高并发的负载均衡。
     
     </summary>
     
@@ -136,26 +128,11 @@
     <link href="http://sungithup.github.io/2019/01/11/Hive%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/11/Hive学习/</id>
     <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-05T15:55:46.498Z</updated>
+    <updated>2019-02-05T16:09:45.458Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;一、Hive是什么？&quot;&gt;&lt;a href=&quot;#一、Hive是什么？&quot; class=&quot;headerlink&quot; title=&quot;一、Hive是什么？&quot;&gt;&lt;/a&gt;一、Hive是什么？&lt;/h2&gt;&lt;h3 id=&quot;1、基于-Hadoop-的一个数据仓库工具&quot;&gt;&lt;a href=&quot;#1、基于-Hadoop-的一个数据仓库工具&quot; class=&quot;headerlink&quot; title=&quot;1、基于 Hadoop 的一个数据仓库工具&quot;&gt;&lt;/a&gt;1、基于 Hadoop 的一个&lt;code&gt;数据仓库工具&lt;/code&gt;&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;可以将&lt;code&gt;结构化&lt;/code&gt;的数据文件映射为一张&lt;code&gt;hive数据库表&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;这张Hive数据库表保存不了metadata元数据信息，而是将metadata存储在本地磁盘上的MySQL（关系型数据库）中&lt;/li&gt;
-&lt;li&gt;并提供简单的 sql 查询功能；&lt;/li&gt;
-&lt;li&gt;可以将 sql 语句转换为 MapReduce 任务进行运行。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;2、快速实现简单的MapReduce-统计的工具&quot;&gt;&lt;a href=&quot;#2、快速实现简单的MapReduce-统计的工具&quot; class=&quot;headerlink&quot; title=&quot;2、快速实现简单的MapReduce 统计的工具&quot;&gt;&lt;/a&gt;2、快速实现简单的MapReduce 统计的工具&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;方便非Java编程者对HDFS的数据做mapreduce操作；&lt;/li&gt;
-&lt;li&gt;学习成本低，十分适合数据仓库的统计分析。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;3、什么是数据仓库？&quot;&gt;&lt;a href=&quot;#3、什么是数据仓库？&quot; class=&quot;headerlink&quot; title=&quot;3、什么是数据仓库？&quot;&gt;&lt;/a&gt;3、什么是数据仓库？&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;Data Warehouse(DW 或DWH）是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。&lt;/li&gt;
-&lt;li&gt;单个数据存储，出于分析性报告和决策支持目的而创建。&lt;/li&gt;
-&lt;li&gt;为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;数据仓库&lt;/strong&gt;是用来做&lt;strong&gt;查询分析的数据库&lt;/strong&gt;，&lt;strong&gt;基本不用来做插入，修改，删除操作&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ul&gt;
+      用于数据分析、统计的数据仓库
     
     </summary>
     
