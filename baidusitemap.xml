@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://sungithup.github.io/2018/12/19/hello-world/</loc>
+    <lastmod>2019-02-05</lastmod>
+  </url>  <url>
     <loc>http://sungithup.github.io/2019/01/18/Flume%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2019-02-05</lastmod>
   </url>  <url>
@@ -69,8 +72,5 @@
   </url>  <url>
     <loc>http://sungithup.github.io/2018/12/27/%E5%B8%B8%E7%94%A8Linux%E5%91%BD%E4%BB%A4%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2019-01-09</lastmod>
-  </url>  <url>
-    <loc>http://sungithup.github.io/2018/12/19/hello-world/</loc>
-    <lastmod>2018-12-18</lastmod>
   </url>
 </urlset>
