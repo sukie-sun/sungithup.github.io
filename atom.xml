@@ -124,33 +124,6 @@
   </entry>
   
   <entry>
-    <title>Linux系统CentOS 6</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-01-28T07:45:08.505Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;一、安装&quot;&gt;&lt;a href=&quot;#一、安装&quot; class=&quot;headerlink&quot; title=&quot;一、安装&quot;&gt;&lt;/a&gt;一、安装&lt;/h1&gt;&lt;p&gt; 资源准备：&lt;/p&gt;
-&lt;p&gt;CentOS-6.6-x86_64-minimal.iso（简易迷你版）
-        
-      
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
-    
-    
-      <category term="CentOS 6" scheme="http://sungithup.github.io/tags/CentOS-6/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux 入门学习（一）</title>
     <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
     <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
@@ -174,6 +147,33 @@
     
     
       <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux系统CentOS 6</title>
+    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
+    <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
+    <published>2019-01-10T16:00:00.000Z</published>
+    <updated>2019-01-28T07:45:08.505Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一、安装&quot;&gt;&lt;a href=&quot;#一、安装&quot; class=&quot;headerlink&quot; title=&quot;一、安装&quot;&gt;&lt;/a&gt;一、安装&lt;/h1&gt;&lt;p&gt; 资源准备：&lt;/p&gt;
+&lt;p&gt;CentOS-6.6-x86_64-minimal.iso（简易迷你版）
+        
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
+    
+    
+      <category term="CentOS 6" scheme="http://sungithup.github.io/tags/CentOS-6/"/>
     
   </entry>
   
@@ -334,33 +334,6 @@
   </entry>
   
   <entry>
-    <title>HDFS学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/HDFS%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/HDFS学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-01-28T07:40:37.247Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Hadoop学习&quot;&gt;&lt;a href=&quot;#Hadoop学习&quot; class=&quot;headerlink&quot; title=&quot;Hadoop学习&quot;&gt;&lt;/a&gt;Hadoop学习&lt;/h1&gt;&lt;h2 id=&quot;一、分布式文件存储系统HDFS&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>YARN的入门学习</title>
     <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
@@ -413,6 +386,33 @@
     
     
       <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HDFS学习</title>
+    <link href="http://sungithup.github.io/2019/01/03/HDFS%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/03/HDFS学习/</id>
+    <published>2019-01-02T16:00:00.000Z</published>
+    <updated>2019-01-28T07:40:37.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Hadoop学习&quot;&gt;&lt;a href=&quot;#Hadoop学习&quot; class=&quot;headerlink&quot; title=&quot;Hadoop学习&quot;&gt;&lt;/a&gt;Hadoop学习&lt;/h1&gt;&lt;h2 id=&quot;一、分布式文件存储系统HDFS&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
+    
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
     
   </entry>
   
