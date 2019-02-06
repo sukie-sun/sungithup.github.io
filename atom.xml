@@ -254,6 +254,32 @@
   </entry>
   
   <entry>
+    <title>MapReduce学习</title>
+    <link href="http://sungithup.github.io/2019/01/05/MapReduce%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/05/MapReduce学习/</id>
+    <published>2019-01-04T16:00:00.000Z</published>
+    <updated>2019-01-28T07:47:02.640Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;MapReduce学习&quot;&gt;&lt;a href=&quot;#MapReduce学习&quot; class=&quot;headerlink&quot; title=&quot;MapReduce学习&quot;&gt;&lt;/a&gt;MapReduce学习&lt;/h1&gt;&lt;h2 id=&quot;一、MapReduce是什么&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
+    
+    
+      <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大数据思想</title>
     <link href="http://sungithup.github.io/2019/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%80%9D%E6%83%B3/"/>
     <id>http://sungithup.github.io/2019/01/05/大数据思想/</id>
@@ -277,32 +303,6 @@
     
     
       <category term="分而治之" scheme="http://sungithup.github.io/tags/%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MapReduce学习</title>
-    <link href="http://sungithup.github.io/2019/01/05/MapReduce%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/05/MapReduce学习/</id>
-    <published>2019-01-04T16:00:00.000Z</published>
-    <updated>2019-01-28T07:47:02.640Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;MapReduce学习&quot;&gt;&lt;a href=&quot;#MapReduce学习&quot; class=&quot;headerlink&quot; title=&quot;MapReduce学习&quot;&gt;&lt;/a&gt;MapReduce学习&lt;/h1&gt;&lt;h2 id=&quot;一、MapReduce是什么&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
     
   </entry>
   

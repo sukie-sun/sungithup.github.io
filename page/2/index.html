@@ -295,103 +295,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-大数据思想" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/01/05/大数据思想/" class="article-date">
-      <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">2019-01-05</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/05/大数据思想/">大数据思想</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>[TOC]</p>
-<h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p>
-<h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p>
-<blockquote>
-<p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p>
-</blockquote>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
-<h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p>
-<h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
-<p><strong>==方法==</strong></p>
-<p> 答：共需要2次IO：2*30min=1h</p>
-<p>==第一次IO==：</p>
-<ol>
-<li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li>
-<li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li>
-</ol>
-<p>==第二次IO==：</p>
-<ol start="3">
-<li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li>
-</ol>
-<h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p>
-<p>两次IO，2 * 30分钟 = 1小时</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
-<p><strong>==方法一：先全局有序后局部有序==</strong></p>
-<p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
-<p><strong>==方法二：先局部有序后全局有序==</strong></p>
-<ol>
-<li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li>
-<li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li>
-</ol>
-<p><img src="./images/坚持_1.jpg" alt="知否"><span class="img-alt">知否</span></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/头脑风暴/">头脑风暴</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分而治之/">分而治之</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-MapReduce学习" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
@@ -589,6 +492,103 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapReduce/">MapReduce</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-大数据思想" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/05/大数据思想/" class="article-date">
+      <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">2019-01-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/05/大数据思想/">大数据思想</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>[TOC]</p>
+<h3 id="1、大数据核心问题："><a href="#1、大数据核心问题：" class="headerlink" title="1、大数据核心问题："></a>1、大数据核心问题：</h3><p>==海量数据、工业技术落后、硬件损坏常态化（Ctrl+M）==</p>
+<h3 id="2、大数据思维"><a href="#2、大数据思维" class="headerlink" title="2、大数据思维"></a>2、大数据思维</h3><p><strong>分而治之</strong></p>
+<blockquote>
+<p>把一个复杂的问题按一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解决，然后分别找出各部分的中间结果，最后将各个部分的中间结果组成整个问题的最终结果（Ctrl+Q）</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9d7pkpij30pr0eut99.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
+<h3 id="3、业务场景"><a href="#3、业务场景" class="headerlink" title="3、业务场景"></a>3、业务场景</h3><p>仓储、数牌</p>
+<h4 id="业务一：找-重复行-chongfuhang"><a href="#业务一：找-重复行-chongfuhang" class="headerlink" title="业务一：找{重复行}(chongfuhang)"></a><strong>业务一：找{重复行}(chongfuhang)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字+字符 ；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：仅有两行重复 ，内存不能放下全量数据（OM：out of memery）；++</em></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9cu9psdj30ht0a1wf1.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
+<p><strong>==方法==</strong></p>
+<p> 答：共需要2次IO：2*30min=1h</p>
+<p>==第一次IO==：</p>
+<ol>
+<li>给<em><code>每一行内容加上唯一标记（hashcode（内容），value（行号））</code></em>。<br>对每一行内容进行hash运算，得到唯一标识hashcode，作为key，将行号作为value。然而，对于内容完全重复的两行，其hashcode值一定相同。</li>
+<li><em>`对每一行的hash值进行取模运算，并放置于归类分区的小文件中</em>`。<br>由于数据基数过大，就将每行的key值对取模，转化为小文件，如将hash值对100取模，则产生100个小文件分区，取模后相同的放在同一个分区中。</li>
+</ol>
+<p>==第二次IO==：</p>
+<ol start="3">
+<li>在每个分区中的小文件遍历，对每一行进行比较，因为重复行一定会在同一个分区中。这样工作量就会大大减小。</li>
+</ol>
+<h4 id="业务二：快-排序-paixu"><a href="#业务二：快-排序-paixu" class="headerlink" title="业务二：快{排序}(paixu)"></a><strong>业务二：快{排序}(paixu)</strong></h4><p><em>++现有1TB的TXT文件 ;<br>格式：数字；<br>网速：500M/s ；<br>服务器内存大小：128M ；<br>条件：实现快排序，内存不能放下全量数据（OM：out of memery）；++</em></p>
+<p>两次IO，2 * 30分钟 = 1小时</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dek3xtj30pr0eu758.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
+<p><strong>==方法一：先全局有序后局部有序==</strong></p>
+<p> 1.对全局按分区排序（由大到小）。<br>​    用if。。else方法对数据进行按范围分类，落到不同的分区中（0~1000、1001~2000、2001~3000··················）<br> 2.对局部进行排序（由大到小）。<br>​    对每个分区进行排序。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fyw9dj82b6j30pr0ewdgm.jpg" alt="enter description here"><span class="img-alt">enter description here</span></p>
+<p><strong>==方法二：先局部有序后全局有序==</strong></p>
+<ol>
+<li>先实现局部有序(小–&gt;大)。<br>将文件划分为N个分区，在每个分区内部进行排序</li>
+<li>使用归并实现全局有序。<br>每个分区分别各自取出最小值，拿出来比较，最小值放在一旁，最小值所在的那个分区再拿出剩下数据中的最小值，再进行比较，比较出的最小值，排在上一次的最小值后，依次进行下去，这样就实现了全局有序。</li>
+</ol>
+<p><img src="./images/坚持_1.jpg" alt="知否"><span class="img-alt">知否</span></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/头脑风暴/">头脑风暴</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分而治之/">分而治之</a></li></ul>
     </div>
 
       
