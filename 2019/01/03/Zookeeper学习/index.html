@@ -15,22 +15,22 @@
 
 
 
-<meta name="description" content="[TOC] 动物园管理员 推荐图书：《从Paxo到Zookeeper》 Zookeeper1、简介 开源的、分布式应用程序，提供一致性服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件  提供的功能：  配置维护 域名维护 分布式的同步 组服务  Zookeeper→提供通用分布式锁服务，用以协调分布式应用 Keepalived→实现节点健康检查，采用优先级">
+<meta name="description" content="用于协同服务的框架">
 <meta name="keywords" content="Zookeeper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper学习">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/03/Zookeeper学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="[TOC] 动物园管理员 推荐图书：《从Paxo到Zookeeper》 Zookeeper1、简介 开源的、分布式应用程序，提供一致性服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件  提供的功能：  配置维护 域名维护 分布式的同步 组服务  Zookeeper→提供通用分布式锁服务，用以协调分布式应用 Keepalived→实现节点健康检查，采用优先级">
+<meta property="og:description" content="用于协同服务的框架">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd81ntj7tj30fd06pgn1.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd828tp44j30fo07lwgl.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcfzkia9j30fd091wgj.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzdcgvx18uj30fe0akwie.jpg">
-<meta property="og:updated_time" content="2019-01-28T07:51:39.144Z">
+<meta property="og:updated_time" content="2019-02-06T14:01:02.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper学习">
-<meta name="twitter:description" content="[TOC] 动物园管理员 推荐图书：《从Paxo到Zookeeper》 Zookeeper1、简介 开源的、分布式应用程序，提供一致性服务，是Haoop （实现HA）和Hbase（和zookeeper是强依赖关系）的重要组件  提供的功能：  配置维护 域名维护 分布式的同步 组服务  Zookeeper→提供通用分布式锁服务，用以协调分布式应用 Keepalived→实现节点健康检查，采用优先级">
+<meta name="twitter:description" content="用于协同服务的框架">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd81ntj7tj30fd06pgn1.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -495,7 +495,7 @@
         <p><span>本文标题:</span><a href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-03, 00:00:00</p>
-        <p><span>最后更新:</span>2019-01-28, 15:51:39</p>
+        <p><span>最后更新:</span>2019-02-06, 22:01:02</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/03/Zookeeper学习/" title="Zookeeper学习">http://sungithup.github.io/2019/01/03/Zookeeper学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/03/Zookeeper学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -511,15 +511,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/01/03/Yarn学习/">
-                    YARN的入门学习
+                <a href="/2019/01/03/HDFS学习/">
+                    HDFS学习
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/01/03/HDFS学习/">
-                    HDFS学习
+                <a href="/2019/01/02/Nginx学习/">
+                    Nginx学习(总)
                 </a>
             </div>
         
@@ -614,7 +614,7 @@ gitment.render('git')
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/01/03/Yarn学习/" title="上一篇: YARN的入门学习">
+            <a href="/2019/01/03/HDFS学习/" title="上一篇: HDFS学习">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -622,13 +622,13 @@ gitment.render('git')
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/01/03/HDFS学习/" title="下一篇: HDFS学习">
+            <a href="/2019/01/02/Nginx学习/" title="下一篇: Nginx学习(总)">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/about/">about</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

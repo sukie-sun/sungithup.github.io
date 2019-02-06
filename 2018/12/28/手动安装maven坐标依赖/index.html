@@ -15,13 +15,13 @@
 
 
 
-<meta name="description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta name="description" content="学习quartz时遇到的问题">
 <meta name="keywords" content="maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手动安装maven坐标依赖">
 <meta property="og:url" content="http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta property="og:description" content="学习quartz时遇到的问题">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="c:/Users/Administrator/Desktop/1.jpg">
 <meta property="og:image" content="c:/Users/Administrator/Desktop/2.jpg">
@@ -32,10 +32,10 @@
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544701045091.png">
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544702128551.png">
 <meta property="og:image" content="c:/Users/ADMINI~1/AppData/Local/Temp/1544702179172.png">
-<meta property="og:updated_time" content="2019-01-28T07:52:15.296Z">
+<meta property="og:updated_time" content="2019-02-06T14:06:23.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手动安装maven坐标依赖">
-<meta name="twitter:description" content="手动安装maven坐标依赖一、事件原因：学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。 12345678910111213提示：&quot;Dependency &apos;xxxx‘ not found&quot;，	并且添加的如下两个坐标依赖均报红。        &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt">
+<meta name="twitter:description" content="学习quartz时遇到的问题">
 <meta name="twitter:image" content="c:/Users/Administrator/Desktop/1.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -343,7 +343,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="手动安装maven坐标依赖"><a href="#手动安装maven坐标依赖" class="headerlink" title="手动安装maven坐标依赖"></a>手动安装maven坐标依赖</h1><h2 id="一、事件原因："><a href="#一、事件原因：" class="headerlink" title="一、事件原因："></a>一、事件原因：</h2><p>学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。</p>
+        <h2 id="一、事件原因："><a href="#一、事件原因：" class="headerlink" title="一、事件原因："></a>一、事件原因：</h2><p>学习quartz框架时，在maven项目的pom.xml文件中添加quartz所需要的坐标依赖时，显示jar包不存在。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">提示："Dependency 'xxxx‘ not found"，	</span><br><span class="line">并且添加的如下两个坐标依赖均报红。</span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!-- 工具 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz-jobs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>分析：</p>
 <table>
@@ -460,7 +460,7 @@
         <p><span>本文标题:</span><a href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2018-12-28, 02:16:47</p>
-        <p><span>最后更新:</span>2019-01-28, 15:52:15</p>
+        <p><span>最后更新:</span>2019-02-06, 22:06:23</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/12/28/手动安装maven坐标依赖/" title="手动安装maven坐标依赖">http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -496,7 +496,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#手动安装maven坐标依赖"><span class="toc-text">手动安装maven坐标依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、事件原因："><span class="toc-text">一、事件原因：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、解决方案"><span class="toc-text">二、解决方案</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、事件原因："><span class="toc-text">一、事件原因：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、解决方案"><span class="toc-text">二、解决方案</span></a></li></ol>
         
     </div>
     <style>
@@ -593,7 +593,7 @@ gitment.render('git')
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/about/">about</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

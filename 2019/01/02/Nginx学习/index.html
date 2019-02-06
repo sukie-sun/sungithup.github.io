@@ -15,19 +15,19 @@
 
 
 
-<meta name="description" content="[TOC] Nginx学习：大型网站高并发运行处理一、Nginx使用背景1、背景 1）高并发（海量数据，复杂业务，大量线程）集中访问服务器 2)服务器资源和能力有限 使得服务器宕机，无法提供服务 2、概念理解 1)高并发  海量数据访问，多个进程同时处理不同操作  2）负载均衡  均匀分配请求|数据到不同操作单元上  3）常见互联网架构  客户端层→反向代理层→站点层→服务层→数据层   二、Ng">
+<meta name="description" content="关于Nginx学习的总结">
 <meta name="keywords" content="负载均衡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx学习(总)">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/02/Nginx学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="[TOC] Nginx学习：大型网站高并发运行处理一、Nginx使用背景1、背景 1）高并发（海量数据，复杂业务，大量线程）集中访问服务器 2)服务器资源和能力有限 使得服务器宕机，无法提供服务 2、概念理解 1)高并发  海量数据访问，多个进程同时处理不同操作  2）负载均衡  均匀分配请求|数据到不同操作单元上  3）常见互联网架构  客户端层→反向代理层→站点层→服务层→数据层   二、Ng">
+<meta property="og:description" content="关于Nginx学习的总结">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0gr7u5zoj31740hb42u.jpg">
-<meta property="og:updated_time" content="2019-01-28T07:50:37.822Z">
+<meta property="og:updated_time" content="2019-02-06T13:59:42.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx学习(总)">
-<meta name="twitter:description" content="[TOC] Nginx学习：大型网站高并发运行处理一、Nginx使用背景1、背景 1）高并发（海量数据，复杂业务，大量线程）集中访问服务器 2)服务器资源和能力有限 使得服务器宕机，无法提供服务 2、概念理解 1)高并发  海量数据访问，多个进程同时处理不同操作  2）负载均衡  均匀分配请求|数据到不同操作单元上  3）常见互联网架构  客户端层→反向代理层→站点层→服务层→数据层   二、Ng">
+<meta name="twitter:description" content="关于Nginx学习的总结">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0gr7u5zoj31740hb42u.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -499,7 +499,7 @@
         <p><span>本文标题:</span><a href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-02, 00:00:00</p>
-        <p><span>最后更新:</span>2019-01-28, 15:50:37</p>
+        <p><span>最后更新:</span>2019-02-06, 21:59:42</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/02/Nginx学习/" title="Nginx学习(总)">http://sungithup.github.io/2019/01/02/Nginx学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/02/Nginx学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -515,8 +515,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/01/03/HDFS学习/">
-                    HDFS学习
+                <a href="/2019/01/03/Zookeeper学习/">
+                    Zookeeper学习
                 </a>
             </div>
         
@@ -618,7 +618,7 @@ gitment.render('git')
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/01/03/HDFS学习/" title="上一篇: HDFS学习">
+            <a href="/2019/01/03/Zookeeper学习/" title="上一篇: Zookeeper学习">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -632,7 +632,7 @@ gitment.render('git')
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/about/">about</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

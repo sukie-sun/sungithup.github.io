@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
+<meta name="description" content="HBase性能优化的三种方案">
 <meta name="keywords" content="HBase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HBase性能优化">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/17/HBase性能优化/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
+<meta property="og:description" content="HBase性能优化的三种方案">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-05T16:04:37.447Z">
+<meta property="og:updated_time" content="2019-02-06T13:46:40.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase性能优化">
-<meta name="twitter:description" content="HBase性能优化（一）、表的设计一、Pre-Creating Regions 预分区">
+<meta name="twitter:description" content="HBase性能优化的三种方案">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -333,7 +333,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="HBase性能优化"><a href="#HBase性能优化" class="headerlink" title="HBase性能优化"></a>HBase性能优化</h1><h1 id="（一）、表的设计"><a href="#（一）、表的设计" class="headerlink" title="（一）、表的设计"></a>（一）、表的设计</h1><p>一、Pre-Creating Regions 预分区</p>
+        <h2 id="HBase性能优化方案"><a href="#HBase性能优化方案" class="headerlink" title="HBase性能优化方案"></a>HBase性能优化方案</h2><h1 id="（一）、表的设计"><a href="#（一）、表的设计" class="headerlink" title="（一）、表的设计"></a>（一）、表的设计</h1><p>一、Pre-Creating Regions 预分区</p>
 <a id="more"></a>
 <blockquote>
 <p>解决海量导入数据时的热点问题</p>
@@ -381,7 +381,7 @@
         <p><span>本文标题:</span><a href="/2019/01/17/HBase性能优化/">HBase性能优化</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-17, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-06, 00:04:37</p>
+        <p><span>最后更新:</span>2019-02-06, 21:46:40</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/17/HBase性能优化/" title="HBase性能优化">http://sungithup.github.io/2019/01/17/HBase性能优化/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/17/HBase性能优化/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -417,9 +417,9 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HBase性能优化"><span class="toc-text">HBase性能优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（一）、表的设计"><span class="toc-text">（一）、表的设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（二）、写表操作"><span class="toc-text">（二）、写表操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（三）、读表操作"><span class="toc-text">（三）、读表操作</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HBase性能优化方案"><span class="toc-text">HBase性能优化方案</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#（一）、表的设计"><span class="toc-text">（一）、表的设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（二）、写表操作"><span class="toc-text">（二）、写表操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#（三）、读表操作"><span class="toc-text">（三）、读表操作</span></a>
         
-    </div>
+    </li></div>
     <style>
         .left-col .switch-btn,
         .left-col .switch-area {
@@ -514,7 +514,7 @@ gitment.render('git')
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/about/">about</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
