@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-02-14T16:05:01.022Z</updated>
+  <updated>2019-02-15T10:40:58.308Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Scala学习</title>
+    <link href="http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/02/15/Scala学习/</id>
+    <published>2019-02-14T16:00:00.000Z</published>
+    <updated>2019-02-15T10:40:58.308Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一、Scala官网6个特征。&quot;&gt;&lt;a href=&quot;#一、Scala官网6个特征。&quot; class=&quot;headerlink&quot; title=&quot;一、Scala官网6个特征。&quot;&gt;&lt;/a&gt;一、Scala官网6个特征。&lt;/h1&gt;&lt;p&gt;简捷，快速
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="编程语言" scheme="http://sungithup.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="静态" scheme="http://sungithup.github.io/tags/%E9%9D%99%E6%80%81/"/>
+    
+      <category term="JVM" scheme="http://sungithup.github.io/tags/JVM/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis学习</title>
@@ -171,26 +201,6 @@
   </entry>
   
   <entry>
-    <title>Linux 入门学习（一）</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-06T13:56:01.941Z</updated>
-    
-    <summary type="html">
-    
-      常用的、基本的Linux操作
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
-    
-    
-      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux系统CentOS 6</title>
     <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
     <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
@@ -211,26 +221,6 @@
   </entry>
   
   <entry>
-    <title>Linux 入门学习（二）</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%20%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88%EF%BC%89/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux 入门学习（第二回合）/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-06T13:51:01.396Z</updated>
-    
-    <summary type="html">
-    
-      Linux系统的基本服务操作
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
-    
-    
-      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hive学习</title>
     <link href="http://sungithup.github.io/2019/01/11/Hive%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/11/Hive学习/</id>
@@ -247,6 +237,46 @@
     
     
       <category term="Hive" scheme="http://sungithup.github.io/tags/Hive/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 入门学习（一）</title>
+    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
+    <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
+    <published>2019-01-10T16:00:00.000Z</published>
+    <updated>2019-02-06T13:56:01.941Z</updated>
+    
+    <summary type="html">
+    
+      常用的、基本的Linux操作
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
+    
+    
+      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 入门学习（二）</title>
+    <link href="http://sungithup.github.io/2019/01/11/Linux%20%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%90%88%EF%BC%89/"/>
+    <id>http://sungithup.github.io/2019/01/11/Linux 入门学习（第二回合）/</id>
+    <published>2019-01-10T16:00:00.000Z</published>
+    <updated>2019-02-06T13:51:01.396Z</updated>
+    
+    <summary type="html">
+    
+      Linux系统的基本服务操作
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
+    
+    
+      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -331,26 +361,6 @@
   </entry>
   
   <entry>
-    <title>YARN的入门学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-02-06T14:00:23.763Z</updated>
-    
-    <summary type="html">
-    
-      基于HDFS系统的资源调度框架
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="yarn" scheme="http://sungithup.github.io/tags/yarn/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Zookeeper学习</title>
     <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
@@ -391,6 +401,26 @@
   </entry>
   
   <entry>
+    <title>YARN的入门学习</title>
+    <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
+    <published>2019-01-02T16:00:00.000Z</published>
+    <updated>2019-02-06T14:00:23.763Z</updated>
+    
+    <summary type="html">
+    
+      基于HDFS系统的资源调度框架
+    
+    </summary>
+    
+      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
+    
+    
+      <category term="yarn" scheme="http://sungithup.github.io/tags/yarn/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Nginx学习(总)</title>
     <link href="http://sungithup.github.io/2019/01/02/Nginx%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/02/Nginx学习/</id>
@@ -407,26 +437,6 @@
     
     
       <category term="负载均衡" scheme="http://sungithup.github.io/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>手动安装maven坐标依赖</title>
-    <link href="http://sungithup.github.io/2018/12/28/%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85maven%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96/"/>
-    <id>http://sungithup.github.io/2018/12/28/手动安装maven坐标依赖/</id>
-    <published>2018-12-27T18:16:47.000Z</published>
-    <updated>2019-02-06T14:06:23.495Z</updated>
-    
-    <summary type="html">
-    
-      学习quartz时遇到的问题
-    
-    </summary>
-    
-      <category term="maven" scheme="http://sungithup.github.io/categories/maven/"/>
-    
-    
-      <category term="maven" scheme="http://sungithup.github.io/tags/maven/"/>
     
   </entry>
   
