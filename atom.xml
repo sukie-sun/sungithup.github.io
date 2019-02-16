@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-02-15T10:40:58.308Z</updated>
+  <updated>2019-02-16T07:07:15.252Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Scala学习</title>
-    <link href="http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/02/15/Scala学习/</id>
-    <published>2019-02-14T16:00:00.000Z</published>
-    <updated>2019-02-15T10:40:58.308Z</updated>
+    <title>Set方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Set%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Set方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:07:15.252Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,138 @@
       
         
         
-          &lt;h1 id=&quot;一、Scala官网6个特征。&quot;&gt;&lt;a href=&quot;#一、Scala官网6个特征。&quot; class=&quot;headerlink&quot; title=&quot;一、Scala官网6个特征。&quot;&gt;&lt;/a&gt;一、Scala官网6个特征。&lt;/h1&gt;&lt;p&gt;简捷，快速
+          &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Set" scheme="http://sungithup.github.io/tags/Set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数组方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95%20/"/>
+    <id>http://sungithup.github.io/2019/02/16/数组方法 /</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:08:41.411Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Array" scheme="http://sungithup.github.io/tags/Array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>String 方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:07:50.929Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Map方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:06:15.156Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>List方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:04:17.616Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/02/15/Scala学习/</id>
+    <published>2019-02-14T16:00:00.000Z</published>
+    <updated>2019-02-16T06:10:15.360Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;一、Scala官网6个特征。&quot;&gt;&lt;a href=&quot;#一、Scala官网6个特征。&quot; class=&quot;headerlink&quot; title=&quot;一、Scala官网6个特征。&quot;&gt;&lt;/a&gt;一、Scala官网6个特征。&lt;/h1&gt;&lt;h2
         
       
     
@@ -97,6 +228,36 @@
     
     
       <category term="Storm，流式处理框架" scheme="http://sungithup.github.io/tags/Storm%EF%BC%8C%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spark学习</title>
+    <link href="http://sungithup.github.io/2019/01/18/Spark%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/01/18/Spark学习/</id>
+    <published>2019-01-17T16:00:00.000Z</published>
+    <updated>2019-02-16T06:25:02.048Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;一、Spark简介&lt;/p&gt;
+&lt;p&gt;大数据分析引擎：计算框架&lt;/p&gt;
+&lt;p&gt;快速（100倍）:用于逻辑回归算法（机器学习）,迭代算法（在计算结果的基础上再计算）时：中间结果值在内存中流转，屏蔽磁盘开销；DAG调度&lt;/p&gt;
+&lt;p&gt;mr：离线，（迭代时：磁盘IO，较慢）&lt;/p&gt;
+
+        
+      
+    
+    </summary>
+    
+      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
+    
+    
+      <category term="Linux系统环境" scheme="http://sungithup.github.io/tags/Linux%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83/"/>
     
   </entry>
   
@@ -201,22 +362,22 @@
   </entry>
   
   <entry>
-    <title>Linux系统CentOS 6</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
+    <title>Linux 入门学习（一）</title>
+    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
+    <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
     <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-06T13:53:39.903Z</updated>
+    <updated>2019-02-06T13:56:01.941Z</updated>
     
     <summary type="html">
     
-      Linux常见系统之一-----CentOS
+      常用的、基本的Linux操作
     
     </summary>
     
       <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
     
     
-      <category term="CentOS 6" scheme="http://sungithup.github.io/tags/CentOS-6/"/>
+      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -241,22 +402,22 @@
   </entry>
   
   <entry>
-    <title>Linux 入门学习（一）</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE+%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0(%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88)/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux网络配置+常用命令学习(第一回合)/</id>
+    <title>Linux系统CentOS 6</title>
+    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
+    <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
     <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-06T13:56:01.941Z</updated>
+    <updated>2019-02-06T13:53:39.903Z</updated>
     
     <summary type="html">
     
-      常用的、基本的Linux操作
+      Linux常见系统之一-----CentOS
     
     </summary>
     
       <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
     
     
-      <category term="系统学习" scheme="http://sungithup.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="CentOS 6" scheme="http://sungithup.github.io/tags/CentOS-6/"/>
     
   </entry>
   
@@ -317,126 +478,6 @@
     
     
       <category term="MapReduce" scheme="http://sungithup.github.io/tags/MapReduce/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大数据思想</title>
-    <link href="http://sungithup.github.io/2019/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%80%9D%E6%83%B3/"/>
-    <id>http://sungithup.github.io/2019/01/05/大数据思想/</id>
-    <published>2019-01-04T16:00:00.000Z</published>
-    <updated>2019-02-06T14:01:43.154Z</updated>
-    
-    <summary type="html">
-    
-      关于大数据思维的案例
-    
-    </summary>
-    
-      <category term="头脑风暴" scheme="http://sungithup.github.io/categories/%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4/"/>
-    
-    
-      <category term="分而治之" scheme="http://sungithup.github.io/tags/%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hadoop2.X</title>
-    <link href="http://sungithup.github.io/2019/01/04/Hadoop2.X/"/>
-    <id>http://sungithup.github.io/2019/01/04/Hadoop2.X/</id>
-    <published>2019-01-04T11:05:47.000Z</published>
-    <updated>2019-02-06T13:42:30.515Z</updated>
-    
-    <summary type="html">
-    
-      hadoop升级版基础学习。
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="hadoop" scheme="http://sungithup.github.io/tags/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Zookeeper学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Zookeeper%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Zookeeper学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-02-06T14:01:02.211Z</updated>
-    
-    <summary type="html">
-    
-      用于协同服务的框架
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="Zookeeper" scheme="http://sungithup.github.io/tags/Zookeeper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HDFS学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/HDFS%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/HDFS学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-02-06T13:47:41.240Z</updated>
-    
-    <summary type="html">
-    
-      分布式存储系统---三驾马车之一
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>YARN的入门学习</title>
-    <link href="http://sungithup.github.io/2019/01/03/Yarn%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/03/Yarn学习/</id>
-    <published>2019-01-02T16:00:00.000Z</published>
-    <updated>2019-02-06T14:00:23.763Z</updated>
-    
-    <summary type="html">
-    
-      基于HDFS系统的资源调度框架
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="yarn" scheme="http://sungithup.github.io/tags/yarn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx学习(总)</title>
-    <link href="http://sungithup.github.io/2019/01/02/Nginx%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/02/Nginx学习/</id>
-    <published>2019-01-01T16:00:00.000Z</published>
-    <updated>2019-02-06T13:59:42.794Z</updated>
-    
-    <summary type="html">
-    
-      关于Nginx学习的总结
-    
-    </summary>
-    
-      <category term="Nginx" scheme="http://sungithup.github.io/categories/Nginx/"/>
-    
-    
-      <category term="负载均衡" scheme="http://sungithup.github.io/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
   </entry>
   
