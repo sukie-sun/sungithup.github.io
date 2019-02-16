@@ -24,7 +24,7 @@
 <meta property="og:description" content="Spark的详细学习">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sungithup.github.io/2019/01/18/Spark学习/images/rdd.jpg">
-<meta property="og:updated_time" content="2019-02-16T07:48:19.985Z">
+<meta property="og:updated_time" content="2019-02-16T08:12:06.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习">
 <meta name="twitter:description" content="Spark的详细学习">
@@ -361,8 +361,7 @@
 <li>RDD 提供一系列最佳的计算位置。</li>
 </ol>
 </blockquote>
-<p>3、RDD理解图</p>
-<p><img src="images/rdd.jpg" alt=""></p>
+<h2 id="3、RDD理解图"><a href="#3、RDD理解图" class="headerlink" title="3、RDD理解图"></a>3、RDD理解图</h2><p><img src="images/rdd.jpg" alt=""></p>
 <p><code>解释</code></p>
 <blockquote>
 <ul>
@@ -375,25 +374,43 @@
 </ul>
 </blockquote>
 <blockquote>
-<p>RDD 是由 Partition 组成，partition 是分布在不同节点上的。</p>
+<p>:point_up_2:  RDD 是由 Partition 组成，partition 是分布在不同节点上的。</p>
 <ul>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  哪里体现 RDD 的弹性（容错）？</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
 <blockquote>
-<p>  :100: partition 数量，大小没有限制,默认和split（block）一致体现了 RDD 的弹性。<br>  💯RDD 之间依赖关系，可以基于上一个 RDD 重新计算出 RDD。</p>
+<p> :100: partition 数量，大小没有限制,默认和split（block）一致体现了 RDD 的弹性。<br> 💯RDD 之间依赖关系，可以基于上一个 RDD 重新计算出 RDD。</p>
 <ul>
+<li><p>RDD 提供计算最佳位置，体现了数据本地化。体现了大数据中“计算移动数据不移动”的理念。</p>
+</li>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  什么是 K,V 格式的 RDD?</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
 <blockquote>
-<p> :100: 如果 RDD 里面存储的数据都是二元组对象，那么这个 RDD 我们就叫做 K,V 格式的 RDD。</p>
-<ul>
-<li>RDD 提供计算最佳位置，体现了数据本地化。体现了大数据中“计算移动数据不移动”的理念。</li>
-</ul>
+<p>💯 如果 RDD 里面存储的数据都是二元组对象，那么这个 RDD 我们就叫做 K,V 格式的 RDD。</p>
 </blockquote>
+<h2 id="Spark任务执行原理"><a href="#Spark任务执行原理" class="headerlink" title="Spark任务执行原理"></a>Spark任务执行原理</h2><p>Driver：（ApplicationMaster）</p>
+<p>监控任务、分发任务、回收计算结果</p>
+<p>Worker：（NodeManager）</p>
+<p>都是JVM进程</p>
+<h2 id="Spark代码流程"><a href="#Spark代码流程" class="headerlink" title="Spark代码流程"></a>Spark代码流程</h2><ol>
+<li>创建 SparkConf 对象<br> 可以设置 Application name。<br> 可以设置运行模式及资源需求。</li>
+<li>创建 SparkContext 对象</li>
+<li>基于 Spark 的上下文创建一个 RDD，对 RDD 进行处理。</li>
+<li>应用程序中要有 Action 类算子来触发 Transformation 类算子执行。</li>
+<li>关闭 Spark 上下文对象 SparkContext。</li>
+</ol>
+<h2 id="Transformations-转换算子"><a href="#Transformations-转换算子" class="headerlink" title="Transformations 转换算子"></a>Transformations 转换算子</h2><p>懒执行</p>
+<p>有action触发算子任务才能提交，</p>
+<p>几种运行方式</p>
+<p>1、本地运行</p>
+<p>2、yarn</p>
+<p>3、standalone</p>
+<p>4、mesos</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">      </span><br><span class="line">    conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"WC"</span>)</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)  <span class="comment">//用于了解集群</span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> linesRDD :<span class="type">RDD</span>[<span class="type">String</span>] = sc.textFile(<span class="string">"./words.txt"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> wordRDD :<span class="type">RDD</span>[<span class="type">String</span>]  = linesRDD.flatMap&#123;lines =&gt; &#123;</span><br><span class="line">      lines.split(<span class="string">" "</span>)  <span class="comment">//匿名函数</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> <span class="type">KVRDD</span>:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = wordRDD.map&#123; x =&gt; (x,<span class="number">1</span>) &#125;</span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> result:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = <span class="type">KVRDD</span>.reduceByKey&#123;(a,b)=&gt; &#123;</span><br><span class="line">        println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b)</span><br><span class="line">        a+b    </span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -405,7 +422,7 @@
         <p><span>本文标题:</span><a href="/2019/01/18/Spark学习/">Spark学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-18, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-16, 15:48:19</p>
+        <p><span>最后更新:</span>2019-02-16, 16:12:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/18/Spark学习/" title="Spark学习">http://sungithup.github.io/2019/01/18/Spark学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/18/Spark学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -441,7 +458,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Spark简介"><span class="toc-text">一、Spark简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、RDD"><span class="toc-text">二、RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念："><span class="toc-text">1、概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、五大特性"><span class="toc-text">2、五大特性</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Spark简介"><span class="toc-text">一、Spark简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、RDD"><span class="toc-text">二、RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念："><span class="toc-text">1、概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、五大特性"><span class="toc-text">2、五大特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、RDD理解图"><span class="toc-text">3、RDD理解图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark任务执行原理"><span class="toc-text">Spark任务执行原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark代码流程"><span class="toc-text">Spark代码流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transformations-转换算子"><span class="toc-text">Transformations 转换算子</span></a></li></ol></li></ol>
         
     </div>
     <style>
