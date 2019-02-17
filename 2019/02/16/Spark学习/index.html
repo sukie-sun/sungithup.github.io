@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="Sukie山脉">
 <meta property="og:description" content="Spark的详细学习">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/mr.jpg">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/mr1.jpg">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/spark.jpg">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/rdd1.jpg">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/rdd.jpg">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理.png">
-<meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理0.png">
-<meta property="og:updated_time" content="2019-02-17T02:54:35.501Z">
+<meta property="og:image" content="http://sungithup.github.io/images/mr.jpg">
+<meta property="og:image" content="http://sungithup.github.io/images/mr1.jpg">
+<meta property="og:image" content="http://sungithup.github.io/images/spark.jpg">
+<meta property="og:image" content="http://sungithup.github.io/images/rdd1.jpg">
+<meta property="og:image" content="http://sungithup.github.io/images/rdd.jpg">
+<meta property="og:image" content="http://sungithup.github.io/images/Spark任务执行原理.png">
+<meta property="og:image" content="http://sungithup.github.io/images/Spark任务执行原理0.png">
+<meta property="og:updated_time" content="2019-02-17T04:58:53.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习">
 <meta name="twitter:description" content="Spark的详细学习">
-<meta name="twitter:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/mr.jpg">
+<meta name="twitter:image" content="http://sungithup.github.io/images/mr.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -370,12 +370,12 @@
 <h2 id="2、与MapReduce的区别"><a href="#2、与MapReduce的区别" class="headerlink" title="2、与MapReduce的区别"></a>2、与MapReduce的区别</h2><ul>
 <li>MapReduce</li>
 </ul>
-<p><img src="images/mr.jpg" alt=""></p>
-<p><img src="images/mr1.jpg" alt=""></p>
+<p><img src="/images/mr.jpg" alt=""></p>
+<p><img src="/images/mr1.jpg" alt=""></p>
 <ul>
 <li>Spark</li>
 </ul>
-<p><img src="images/spark.jpg" alt=""></p>
+<p><img src="/images/spark.jpg" alt=""></p>
 <p>区别：</p>
 <blockquote>
 <p>同：分布式计算框架</p>
@@ -419,7 +419,7 @@
 <li>RDD 提供一系列最佳的计算位置。</li>
 </ol>
 </blockquote>
-<h3 id="（3）RDD理解图"><a href="#（3）RDD理解图" class="headerlink" title="（3）RDD理解图"></a>（3）RDD理解图</h3><p><img src="images/rdd1.jpg" alt=""></p>
+<h3 id="（3）RDD理解图"><a href="#（3）RDD理解图" class="headerlink" title="（3）RDD理解图"></a>（3）RDD理解图</h3><p><img src="/images/rdd1.jpg" alt=""></p>
 <p><code>理论注解</code></p>
 <blockquote>
 <p>:one: RDD  实际上不存储数据，这里方便理解，暂时理解为存储数据。</p>
@@ -443,9 +443,9 @@
 <p>👆 如果 RDD 里面存储的数据都是二元组对象，那么这个 RDD 我们就叫做 K,V 格式的 RDD。</p>
 <p>👆 MR有分区器（根据key值求hash，来决定数据存放在哪个分区中，所以分区器必须作用在K，V格式的RDD上）</p>
 </blockquote>
-<p><img src="images/rdd.jpg" alt=""></p>
-<h2 id="2、Spark任务执行原理"><a href="#2、Spark任务执行原理" class="headerlink" title="2、Spark任务执行原理"></a>2、Spark任务执行原理</h2><p><img src="images/Spark任务执行原理.png" alt=""></p>
-<p><img src="images/Spark任务执行原理0.png" alt=""></p>
+<p><img src="/images/rdd.jpg" alt=""></p>
+<h2 id="2、Spark任务执行原理"><a href="#2、Spark任务执行原理" class="headerlink" title="2、Spark任务执行原理"></a>2、Spark任务执行原理</h2><p><img src="/images/Spark任务执行原理.png" alt=""></p>
+<p><img src="/images/Spark任务执行原理0.png" alt=""></p>
 <p>Driver：（相当于ApplicationMaster）</p>
 <p>Worker：（相当于NodeManager）</p>
 <p>以上图中有四个机器节点，</p>
@@ -498,7 +498,7 @@
         <p><span>本文标题:</span><a href="/2019/02/16/Spark学习/">Spark学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-16, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-17, 10:54:35</p>
+        <p><span>最后更新:</span>2019-02-17, 12:58:53</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/16/Spark学习/" title="Spark学习">http://sungithup.github.io/2019/02/16/Spark学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/16/Spark学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
