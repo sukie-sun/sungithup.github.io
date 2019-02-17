@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/rdd.jpg">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理.png">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理0.png">
-<meta property="og:updated_time" content="2019-02-17T01:21:59.196Z">
+<meta property="og:updated_time" content="2019-02-17T01:39:17.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习">
 <meta name="twitter:description" content="Spark的详细学习">
@@ -353,8 +353,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>[TOC]</p>
-<h1 id="一、Spark简介"><a href="#一、Spark简介" class="headerlink" title="一、Spark简介"></a>一、Spark简介</h1><h2 id="1、什么是Spark？"><a href="#1、什么是Spark？" class="headerlink" title="1、什么是Spark？"></a>1、什么是Spark？</h2><blockquote>
+        <h1 id="一、Spark简介"><a href="#一、Spark简介" class="headerlink" title="一、Spark简介"></a>一、Spark简介</h1><h2 id="1、什么是Spark？"><a href="#1、什么是Spark？" class="headerlink" title="1、什么是Spark？"></a>1、什么是Spark？</h2><blockquote>
 <p>Apache Spark 是专为大规模数据处理而设计的快速通用的计算引擎。</p>
 </blockquote>
 <p>大数据分析引擎：计算框架</p>
@@ -371,12 +370,12 @@
 <h2 id="2、与MapReduce的区别"><a href="#2、与MapReduce的区别" class="headerlink" title="2、与MapReduce的区别"></a>2、与MapReduce的区别</h2><ul>
 <li>MapReduce</li>
 </ul>
-<p><img src="images\mr.jpg" alt=""></p>
-<p><img src="images\mr1.jpg" alt=""></p>
+<p><img src="images/mr.jpg" alt=""></p>
+<p><img src="images/mr1.jpg" alt=""></p>
 <ul>
 <li>Spark</li>
 </ul>
-<p><img src="images\spark.jpg" alt=""></p>
+<p><img src="images/spark.jpg" alt=""></p>
 <p>区别：</p>
 <blockquote>
 <p>同：分布式计算框架</p>
@@ -420,30 +419,43 @@
 <li>RDD 提供一系列最佳的计算位置。</li>
 </ol>
 </blockquote>
-<h3 id="（3）RDD理解图"><a href="#（3）RDD理解图" class="headerlink" title="（3）RDD理解图"></a>（3）RDD理解图</h3><p><img src="images\rdd1.jpg" alt=""></p>
+<h3 id="（3）RDD理解图"><a href="#（3）RDD理解图" class="headerlink" title="（3）RDD理解图"></a>（3）RDD理解图</h3><p><img src="images/rdd1.jpg" alt=""></p>
 <p><code>理论注解</code></p>
 <blockquote>
 <p>:one: RDD  实际上不存储数据，这里方便理解，暂时理解为存储数据。</p>
+</blockquote>
+<blockquote>
 <p>:two: textFile 方法底层封装的是MR 读取文件的方式，读取文件之前先 split，默认 split 大小是一个 block 大小。</p>
+</blockquote>
+<blockquote>
 <p>:three:RDD 提供计算最佳位置，体现了数据本地化。体现了大数据中“计算移动数据不移动”的理念。</p>
-<p>:grey_question:</p>
+</blockquote>
+<blockquote>
+<p>:grey_question: </p>
+</blockquote>
+<blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;哪里体现 RDD 的分布式？</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>:point_up_2:  RDD 是由 Partition 组成，partition 是分布在不同节点上的。</p>
+</blockquote>
+<blockquote>
 <p>:grey_question:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;哪里体现 RDD 的弹性（容错）？</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>:point_up_2: partition 数量，大小没有限制,默认和split（block）一致，体现了 RDD 的弹性。<br>:point_up_2: RDD 之间依赖关系，可以基于上一个 RDD 重新计算出 RDD。</p>
+</blockquote>
+<blockquote>
 <p>:grey_question:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;什么是 K,V 格式的 RDD?</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>👆 如果 RDD 里面存储的数据都是二元组对象，那么这个 RDD 我们就叫做 K,V 格式的 RDD。</p>
+<p>👆 MR有分区器（根据key值求hash，来决定数据存放在哪个分区中，所以分区器必须作用在K，V格式的RDD上）</p>
 </blockquote>
-<p><img src="images\rdd.jpg" alt=""></p>
-<h2 id="2、Spark任务执行原理"><a href="#2、Spark任务执行原理" class="headerlink" title="2、Spark任务执行原理"></a>2、Spark任务执行原理</h2><p><img src="images\Spark任务执行原理.png" alt=""></p>
+<p><img src="images/rdd.jpg" alt=""></p>
+<h2 id="2、Spark任务执行原理"><a href="#2、Spark任务执行原理" class="headerlink" title="2、Spark任务执行原理"></a>2、Spark任务执行原理</h2><p><img src="images/Spark任务执行原理.png" alt=""></p>
 <p><img src="images/Spark任务执行原理0.png" alt=""></p>
 <p>Driver：（相当于ApplicationMaster）</p>
 <p>Worker：（相当于NodeManager）</p>
@@ -496,7 +508,7 @@
         <p><span>本文标题:</span><a href="/2019/02/16/Spark学习/">Spark学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-16, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-17, 09:21:59</p>
+        <p><span>最后更新:</span>2019-02-17, 09:39:17</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/16/Spark学习/" title="Spark学习">http://sungithup.github.io/2019/02/16/Spark学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/16/Spark学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -512,8 +524,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/16/String方法/">
-                    String 方法
+                <a href="/2019/02/16/List方法/">
+                    List方法
                 </a>
             </div>
         
@@ -593,7 +605,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/16/String方法/" title="上一篇: String 方法">
+            <a href="/2019/02/16/List方法/" title="上一篇: List方法">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -607,7 +619,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
