@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/rdd.jpg">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理.png">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/16/Spark学习/images/Spark任务执行原理0.png">
-<meta property="og:updated_time" content="2019-02-17T01:49:11.516Z">
+<meta property="og:updated_time" content="2019-02-17T02:54:35.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习">
 <meta name="twitter:description" content="Spark的详细学习">
@@ -459,6 +459,7 @@
 <p>4、应用程序中要有 Action 类算子来触发 Transformation 类算子执行。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sortADD.foreach(println)</span><br></pre></td></tr></table></figure>
 <p>5、关闭 Spark 上下文对象 SparkContext。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
 <h2 id="4、Transformations-转换算子"><a href="#4、Transformations-转换算子" class="headerlink" title="4、Transformations 转换算子"></a>4、Transformations 转换算子</h2><h3 id="（1）概念"><a href="#（1）概念" class="headerlink" title="（1）概念"></a>（1）概念</h3><p>Transformations 类算子是一类算子（函数）叫做转换算子，如map,flatMap,reduceByKey 等。Transformations 算子是延迟执行，也叫懒加载执行。</p>
 <blockquote>
 <p>有action触发算子任务才能提交，才会执行runjob</p>
@@ -497,7 +498,7 @@
         <p><span>本文标题:</span><a href="/2019/02/16/Spark学习/">Spark学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-16, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-17, 09:49:11</p>
+        <p><span>最后更新:</span>2019-02-17, 10:54:35</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/16/Spark学习/" title="Spark学习">http://sungithup.github.io/2019/02/16/Spark学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/16/Spark学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -513,15 +514,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/16/Set方法/">
-                    Set方法
+                <a href="/2019/02/16/List方法/">
+                    List方法
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/16/数组方法 /">
-                    数组方法
+                <a href="/2019/02/16/String方法/">
+                    String 方法
                 </a>
             </div>
         
@@ -594,7 +595,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/16/Set方法/" title="上一篇: Set方法">
+            <a href="/2019/02/16/List方法/" title="上一篇: List方法">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -602,13 +603,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/16/数组方法 /" title="下一篇: 数组方法">
+            <a href="/2019/02/16/String方法/" title="下一篇: String 方法">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
