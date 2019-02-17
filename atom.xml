@@ -117,6 +117,26 @@
   </entry>
   
   <entry>
+    <title>Spark学习</title>
+    <link href="http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/02/16/Spark学习/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-17T01:02:50.352Z</updated>
+    
+    <summary type="html">
+    
+      Spark的详细学习
+    
+    </summary>
+    
+      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
+    
+    
+      <category term="计算引擎" scheme="http://sungithup.github.io/tags/%E8%AE%A1%E7%AE%97%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
     <title></title>
     <link href="http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/02/15/Scala学习/</id>
@@ -179,26 +199,6 @@
     
     
       <category term="Storm，流式处理框架" scheme="http://sungithup.github.io/tags/Storm%EF%BC%8C%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spark学习</title>
-    <link href="http://sungithup.github.io/2019/01/18/Spark%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/18/Spark学习/</id>
-    <published>2019-01-17T16:00:00.000Z</published>
-    <updated>2019-02-16T13:37:24.374Z</updated>
-    
-    <summary type="html">
-    
-      Spark的详细学习
-    
-    </summary>
-    
-      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
-    
-    
-      <category term="计算引擎" scheme="http://sungithup.github.io/tags/%E8%AE%A1%E7%AE%97%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   
