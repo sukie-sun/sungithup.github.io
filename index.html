@@ -336,431 +336,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>[TOC]</p>
-<h1 id="一、控制算子"><a href="#一、控制算子" class="headerlink" title="一、控制算子"></a>一、控制算子</h1><h2 id="1、概念："><a href="#1、概念：" class="headerlink" title="1、概念："></a>1、概念：</h2><ul>
-<li><p>控制算子有三种，cache、persist、checkpoint</p>
-</li>
-<li><p>以上算子都可以将RDD 持久化，持久化的单位是 partition。</p>
-</li>
-<li><p>cache 和 persist 都是懒 执行的。</p>
-</li>
-<li><p>必须有一个 action 类算子触发执行。</p>
-</li>
-<li><p>cache 和 persist 算子的返回值可赋值给一个变量，在其他 job 中直接使用这个变量就是使用持久化的数据了</p>
-</li>
-<li><p>checkpoint 算子不仅能将 RDD 持久化到磁盘，还能切断 RDD 之间的依赖关系（所有父RDD）。</p>
-</li>
-<li><code>错误：</code>rdd.cache().count() 返回的不是持久化的 RDD，而是一个数值了。</li>
-</ul>
-<h2 id="2、详解"><a href="#2、详解" class="headerlink" title="2、详解"></a>2、详解</h2><blockquote>
-<p>:one:<strong>​ cache</strong><br>默认将 RDD 的数据持久化到内存中。cache 是懒执行。</p>
-<p> <code>注意</code>：</p>
-<p>chche () =persist()=persist(StorageLevel.Memory_Only)</p>
-</blockquote>
-<blockquote>
-<p>:two: <strong>persist</strong> </p>
-<p>支持指定持久化级别</p>
-<p>useOffHeap  使用堆外内存</p>
-<p>disk、memory、offheap、deserialized（不序列化）、replication（副本数，默认为1）</p>
-<p>序列化：压缩数据（节省空间，使用数据时要反序列化，会额外消耗CPU性能）</p>
-<p>none 、disk_only、disk_only_2、memeory_only 、memeory_only _ser 、 memory_and_disk 、 memory_and_disk_2</p>
-</blockquote>
-<blockquote>
-<p>:three: <strong>checkpoint</strong>  </p>
-<p>checkpoint 将 RDD 持久化到磁盘，还可以切断 RDD 之间的依赖关系。</p>
-<ul>
-<li>checkpoint 的执行原理：</li>
-</ul>
-<ol>
-<li>当 RDD 的 job 执行完毕后，会从 finalRDD 从后往前回溯。</li>
-<li>当回溯到某一个 RDD 调用了 checkpoint 方法，会对当前的RDD 做一个标记。</li>
-<li>Spark 框架会自动启动一个新的 job，重新计算这个 RDD 的数据，将数据持久化到 HDFS 上。</li>
-</ol>
-<ul>
-<li>优化：</li>
-</ul>
-<p>对 RDD 执行 checkpoint 之前，最好对这个 RDD 先执行cache，这样新启动的 job 只需要将内存中的数据拷贝到 HDFS上就可以，省去了重新计算这一步。</p>
-</blockquote>
-<p>持久化级别：如下</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g098pwwdc9j30f70aztbu.jpg" alt=""></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> cocnf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppname(<span class="string">"count"</span>)</span><br><span class="line"><span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置CP在HDFS上的路径</span></span><br><span class="line">context.setCheckPointDir(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> lineADD = context.textFile(<span class="string">"./countword.txt"</span>)</span><br><span class="line"><span class="keyword">val</span> time1 = <span class="type">System</span>.currentTimeMillis()</span><br><span class="line"><span class="keyword">val</span> c =  lineADD.count()</span><br><span class="line"><span class="keyword">val</span> time2 = <span class="type">System</span>.currentTimeMillis()</span><br><span class="line"><span class="keyword">val</span> t1 = time2 - time1</span><br><span class="line"></span><br><span class="line"><span class="comment">//做缓存(persisit（m_o）)</span></span><br><span class="line">linelineADD = lineADD.cache()</span><br><span class="line"><span class="comment">//做持久化</span></span><br><span class="line">lineADD.persisit(<span class="type">StorageLevel</span>.memory_only)</span><br><span class="line"><span class="comment">//checkpoint 容错,最好还有cache</span></span><br><span class="line">lineADD.checkpoint()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> time3 = <span class="type">System</span>.currentTimeMillis()</span><br><span class="line"><span class="keyword">val</span> c =  lineADD.count()</span><br><span class="line"><span class="keyword">val</span> time4 = <span class="type">System</span>.currentTimeMillis()</span><br><span class="line"><span class="keyword">val</span> t2 = time4 - time3</span><br><span class="line"></span><br><span class="line"><span class="comment">//t1 远大于 t2</span></span><br></pre></td></tr></table></figure>
-<h1 id="二、算子补充"><a href="#二、算子补充" class="headerlink" title="二、算子补充"></a>二、算子补充</h1><h2 id="transformation转换算子"><a href="#transformation转换算子" class="headerlink" title="transformation转换算子"></a>transformation转换算子</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; join,leftOuterJoin,rightOuterJoin,fullOuterJoin</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>作用在 K,V 格式的 RDD 上。根据 K 进行连接，对（K,V）join(K,W)返回（K,(V,W)）</p>
-<ul>
-<li>join 后的分区数与父 RDD 分区数多的那一个相同 </li>
-</ul>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; union</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>合并两个数据集。两个数据集的类型要一致。</p>
-<ul>
-<li>返回新的 RDD 的分区数是合并 RDD 分区数的总和。</li>
-</ul>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; intersection</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>取两个数据集的交集</p>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  subtract</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>取两个数据集的差集</p>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  mapPartition</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>与 map 类似，遍历的单位是每个 partition 上的数据。</p>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  distinct(map+reduceByKey+map)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-</blockquote>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cogroup</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>当调用类型（K,V）和（K，W）的数据上时，返回一个数据集（K，（Iterable<v>,Iterable<w>））</w></v></p>
-</blockquote>
-<h2 id="action触发算子"><a href="#action触发算子" class="headerlink" title="action触发算子"></a>action触发算子</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  foreachPartition</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>遍历的数据是每个 partition 的数据。</p>
-</blockquote>
-<h1 id="三、集群搭建及测试"><a href="#三、集群搭建及测试" class="headerlink" title="三、集群搭建及测试"></a>三、集群搭建及测试</h1><h2 id="Standalone"><a href="#Standalone" class="headerlink" title="Standalone"></a><strong>Standalone</strong></h2><h3 id="1、下载安装包、解压"><a href="#1、下载安装包、解压" class="headerlink" title="1、下载安装包、解压"></a>1、下载安装包、解压</h3><p><a href="https://archive.apache.org/dist/spark/" target="_blank" rel="noopener">Spark历史版本下载</a></p>
-<p><code>注意</code>： 与Hadoop的版本保持对应。</p>
-<p>此处使用： <a href="https://archive.apache.org/dist/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.6.tgz" target="_blank" rel="noopener">spark-1.6.0-bin-hadoop2.6.tgz</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zvxf spark-1.6.0-bin-hadoop2.6.tgz</span><br></pre></td></tr></table></figure>
-<h3 id="2、改名"><a href="#2、改名" class="headerlink" title="2、改名"></a>2、改名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv spark-1.6.0-bin-hadoop2.6 spark-1.6.0</span><br></pre></td></tr></table></figure>
-<h3 id="3、修改slaves"><a href="#3、修改slaves" class="headerlink" title="3、修改slaves"></a>3、修改slaves</h3><p>进入安装包的conf目录下，修改slaves.template文件，添加从节点。并保存。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">备份</span></span><br><span class="line">cp slaves.template slaves</span><br><span class="line">vim slaves</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>常驻进程：master、worker</p>
-</blockquote>
-<p>配置slaves（与worker对应）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node01</span><br><span class="line">node02</span><br></pre></td></tr></table></figure>
-<h3 id="4、修改-spark-env-sh"><a href="#4、修改-spark-env-sh" class="headerlink" title="4、修改 spark-env.sh"></a>4、修改 spark-env.sh</h3><p>改名（备份）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp spark-env.sh.template spark-env.sh</span><br></pre></td></tr></table></figure>
-<p>配置spark-env.sh（注意与虚拟机实际配置对应）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#locally</span></span><br><span class="line"><span class="comment">#cluster</span></span><br><span class="line"><span class="comment">#YARN client</span></span><br><span class="line"><span class="comment">#standalone deploy</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置 java_home 路径</span></span><br><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line"><span class="comment">#master 的 ip</span></span><br><span class="line">SPARK_MASTER_IP=192.168.198.128</span><br><span class="line"><span class="comment">#提交任务的端口，默认是 7077</span></span><br><span class="line">SPARK_MASTER_PORT=7077</span><br><span class="line"><span class="comment">#每个 worker 从节点能够支配的 core 的个数</span></span><br><span class="line">SPARK_WORKER_CORES=2</span><br><span class="line"><span class="comment">#每个 worker 从节点能够支配的内存数</span></span><br><span class="line">SPARK_WORKER_MEMORY=1024m</span><br><span class="line"><span class="comment">#配置yarn</span></span><br><span class="line">HADOOP_CONF_DIR=/usr/soft/hadoop-2.6.5/etc/hadoop</span><br></pre></td></tr></table></figure>
-<h3 id="5、其他节点"><a href="#5、其他节点" class="headerlink" title="5、其他节点"></a>5、其他节点</h3><p>将spark解压文件发送到其他两个节点</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node00 soft]# scp -r  spark-1.6.0-bin-hadoop2.6 node01:`pwd`</span><br><span class="line">[root@node00 soft]# scp -r  spark-1.6.0-bin-hadoop2.6 node02:`pwd`</span><br></pre></td></tr></table></figure>
-<p>6、配置环境变量（可不配，因为bin路径中包含start-all ，该命令与hdfs中的命令会冲突）</p>
-<h3 id="7、启动：-node00"><a href="#7、启动：-node00" class="headerlink" title="7、启动：(node00)"></a>7、启动：(node00)</h3><p>在spark的解压文件的/sbin 目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure>
-<p>停止</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./stop-all.sh</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>显示：</p>
-<p>[root@node00 sbin]# ./start-all.sh<br>starting org.apache.spark.deploy.master.Master, logging to /usr/soft/spark-1.6.0-bin-hadoop2.6/logs/spark-root-org.apache.spark.deploymaster.Master-1-node00.out</p>
-<p>node01: starting org.apache.spark.deploy.worker.Worker, logging to /usr/soft/spark-1.6.0-bin-hadoop2.6/logs/spark-root-org.apache.spar.deploy.worker.Worker-1-node01.out</p>
-<p>node02: starting org.apache.spark.deploy.worker.Worker, logging to /usr/soft/spark-1.6.0-bin-hadoop2.6/logs/spark-root-org.apache.spar.deploy.worker.Worker-1-node02.out</p>
-</blockquote>
-<p>查看三台节点的进程</p>
-<p>node00（命令启动的节点）</p>
-<blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node00 sbin]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>2343 Master<br>2408 Jps</p>
-</blockquote>
-<p>nose01(配置的从节点)</p>
-<blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node01 ~]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>2292 Jps<br>2229 Worker</p>
-</blockquote>
-<p>node02(从节点)</p>
-<blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node02 ~]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>6216 Worker<br>6266 Jps</p>
-</blockquote>
-<p><code>注意：</code></p>
-<blockquote>
-<p>Worker在这里不是真正干活的进程，而是相当于Yarn中的NM。</p>
-<p>它是负责管理所在节点资源的、向Master汇报所在节点的信息（如核数、内存数）</p>
-<p>Master： 监控任务、分发任务、回收计算结果 </p>
-</blockquote>
-<h3 id="8、搭建客户端"><a href="#8、搭建客户端" class="headerlink" title="8、搭建客户端"></a>8、搭建客户端</h3><ul>
-<li>将 spark 安装包原封不动的拷贝到一个新的节点上，然后，在新的节点上提交任务即可。</li>
-</ul>
-<p><code>注意：</code><strong>8080</strong> 是Spark WEBUI页面的端口 ； <strong>7077</strong> 是Spark任务提交的端口</p>
-<p>web页面访问：ip:8080</p>
-<ul>
-<li>修改master的WEBUI端口，</li>
-</ul>
-<p>方法一（永久）：通过修改start-master.sh 文件（在/sbin目录下）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  start-master.sh</span><br></pre></td></tr></table></figure>
-<p>找到文件内容如下的部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ &quot;$SPARK_MASTER_WEBUI_PORT&quot; = &quot;&quot; ]; then</span><br><span class="line">  SPARK_MASTER_WEBUI_PORT=8080</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<p>方法二：在 Master 节点上导入临时环境变量，只作用于当前进程，重启就无效了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node00 sbin]# export SPARK_MASTER_WEBUI_PORT=8080</span><br></pre></td></tr></table></figure>
-<p>删除临时变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node00 sbin]# export -n SPARK_MASTER_WEBUI_PORT</span><br></pre></td></tr></table></figure>
-<p><img src="/images/standalone.jpg" alt=""></p>
-<h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><h3 id="1、步骤"><a href="#1、步骤" class="headerlink" title="1、步骤"></a>1、步骤</h3><p><strong>1。2。3。4。5。8。</strong>同standalone</p>
-<p>不用Master和Worker，所以不用第7步，我们使用的是yarn中的RM和NM</p>
-<h3 id="2、配置"><a href="#2、配置" class="headerlink" title="2、配置"></a>2、配置</h3><p>添加 HADOOP_CONF_DIR配置</p>
-<p><code>（在使用Yarn时，就能找到关于hdfs的所有配置，其中就包括IP 和Port）</code></p>
-<p>方式一：</p>
-<p>编辑spark-env.sh文件</p>
-<p>方式二：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_CONF_DIR=/usr/soft/hadoop-2.6.5/etc/hadoop</span><br></pre></td></tr></table></figure>
-<h2 id="测试：求π值"><a href="#测试：求π值" class="headerlink" title="测试：求π值"></a>测试：求π值</h2><p>Pi案例：</p>
-<p><img src="/images/π.jpg" alt=""></p>
-<h3 id="源码案例："><a href="#源码案例：" class="headerlink" title="源码案例："></a><strong>源码案例：</strong></h3><p>路径：在spark解压路径spark-1.6.0-bin-hadoop2.6中</p>
-<p>spark-1.6.0-bin-hadoop2.6/examples/src/main/scala/org/apache/spark/examples/SparkPi.scala</p>
-<p>原理：随机产生无穷多个点落入如上图形中，求落入圆中的概率：<br>$$<br>概率   p = π<em>r</em>r/(2r*2r)=π<br>$$</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Licensed to the Apache Software Foundation (ASF) under one or more</span></span><br><span class="line"><span class="comment"> * contributor license agreements.  See the NOTICE file distributed with</span></span><br><span class="line"><span class="comment"> * this work for additional information regarding copyright ownership.</span></span><br><span class="line"><span class="comment"> * The ASF licenses this file to You under the Apache License, Version 2.0</span></span><br><span class="line"><span class="comment"> * (the "License"); you may not use this file except in compliance with</span></span><br><span class="line"><span class="comment"> * the License.  You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment"> * distributed under the License is distributed on an "AS IS" BASIS,</span></span><br><span class="line"><span class="comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment"> * See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment"> * limitations under the License.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// scalastyle:off println</span></span><br><span class="line"><span class="keyword">package</span> org.apache.spark.examples</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scala.math.random</span><br><span class="line"><span class="keyword">import</span> org.apache.spark._</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Computes an approximation to pi */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SparkPi</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>(<span class="string">"local"</span>).setAppName(<span class="string">"Spark Pi"</span>)</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">      </span><br><span class="line">   <span class="comment">// args 运行时传入的参数   slices 分区数量 (决定task数量)</span></span><br><span class="line">    <span class="keyword">val</span> slices = <span class="keyword">if</span> (args.length &gt; <span class="number">0</span>) args(<span class="number">0</span>).toInt <span class="keyword">else</span> <span class="number">2</span></span><br><span class="line">      </span><br><span class="line">   <span class="comment">//MaxValue 一个无限大的数   n   随机产生的十万个的数</span></span><br><span class="line">    <span class="keyword">val</span> n = math.min(<span class="number">100000</span>L * slices, <span class="type">Int</span>.<span class="type">MaxValue</span>).toInt <span class="comment">// avoid overflow</span></span><br><span class="line">      </span><br><span class="line"> <span class="comment">//parallelize可以获得RDD  ，将1~n个数字放到RDD中</span></span><br><span class="line"> <span class="comment">//val count :[Int] = spark.parallelize(1 until n, slices)     </span></span><br><span class="line">    <span class="keyword">val</span> count = spark.parallelize(<span class="number">1</span> until n, slices).map &#123; i =&gt;</span><br><span class="line">      <span class="keyword">val</span> x = random * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line">      <span class="keyword">val</span> y = random * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (x*x + y*y &lt; <span class="number">1</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    &#125;.reduce(_ + _)</span><br><span class="line">      </span><br><span class="line">    println(<span class="string">"Pi is roughly "</span> + <span class="number">4.0</span> * count / n)</span><br><span class="line">    spark.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// scalastyle:on println</span></span><br></pre></td></tr></table></figure>
-<p>所需使用的jar包：spark-examples-1.6.0-hadoop2.6.0.jar</p>
-<p>位置：解压目录的lib路径下</p>
-<p>在任一节点的/bin路径下上执行如下命令：（node00）</p>
-<h3 id="Standalone-提交命令"><a href="#Standalone-提交命令" class="headerlink" title="Standalone 提交命令:"></a><strong>Standalone</strong> 提交命令:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit    #提交spark </span><br><span class="line">--master spark://node1:7077   #spark主节点的地址和端口 </span><br><span class="line">--class org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar 100   # 指明运行的jar包+路径 和 jar包中执行的包名+类名 100 为传入的参数</span><br><span class="line"></span><br><span class="line">./spark-submit --master spark://node00:7077 --class org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar 1000</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>显示：</code></p>
-<p>提交命令的节点（node00主节点）</p>
-<p>会显示执行日志、运算结果</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Starting task 999.0 <span class="keyword">in</span> stage 0.0 (TID 999, node02, partition 999,PROCESS_LOCAL, 2158 bytes)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Finished task 995.0 <span class="keyword">in</span> stage 0.0 (TID 995) <span class="keyword">in</span> 68 ms on node02 (996/1000)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Finished task 997.0 <span class="keyword">in</span> stage 0.0 (TID 997) <span class="keyword">in</span> 131 ms on node01 (997/1000)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Finished task 996.0 <span class="keyword">in</span> stage 0.0 (TID 996) <span class="keyword">in</span> 147 ms on node01 (998/1000)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Finished task 999.0 <span class="keyword">in</span> stage 0.0 (TID 999) <span class="keyword">in</span> 112 ms on node02 (999/1000)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSetManager: Finished task 998.0 <span class="keyword">in</span> stage 0.0 (TID 998) <span class="keyword">in</span> 115 ms on node02 (1000/1000)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.DAGScheduler: ResultStage 0 (reduce at SparkPi.scala:36) finished <span class="keyword">in</span> 79.202 s</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:31 INFO scheduler.DAGScheduler: Job 0 finished: reduce at SparkPi.scala:36, took 82.641779 s</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Pi is roughly 3.14148344      <span class="comment">#运算结果</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO handler.ContextHandler: stopped o.s.j.s.ServletContextHandler&#123;/metrics/json,null&#125;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO handler.ContextHandler: stopped o.s.j.s.ServletContextHandler&#123;/stages/stage/<span class="built_in">kill</span>,null&#125;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO handler.ContextHandler: stopped o.s.j.s.ServletContextHandler&#123;/api,null&#125;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 。。。。。。。。。。。。。。。。。。。。。。。。。</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO handler.ContextHandler: stopped o.s.j.s.ServletContextHandler&#123;/<span class="built_in">jobs</span>/json,null&#125;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO handler.ContextHandler: stopped o.s.j.s.ServletContextHandler&#123;/<span class="built_in">jobs</span>,null&#125;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO ui.SparkUI: Stopped Spark web UI at http://192.168.198.128:4040</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO cluster.SparkDeploySchedulerBackend: Shutting down all executors</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO cluster.SparkDeploySchedulerBackend: Asking each executor to shut down</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:32 INFO spark.MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO storage.MemoryStore: MemoryStore cleared</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO storage.BlockManager: BlockManager stopped</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO storage.BlockManagerMaster: BlockManagerMaster stopped</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO scheduler.OutputCommitCoordinator<span class="variable">$OutputCommitCoordinatorEndpoint</span>: OutputCommitCoordinator stopped!</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO remote.RemoteActorRefProvider<span class="variable">$RemotingTerminator</span>: Shutting down remote daemon.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:33 INFO remote.RemoteActorRefProvider<span class="variable">$RemotingTerminator</span>: Remote daemon shut down; proceeding with flushing remote transports.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:34 INFO spark.SparkContext: Successfully stopped SparkContext</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:34 INFO util.ShutdownHookManager: Shutdown hook called</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:34 INFO util.ShutdownHookManager: Deleting directory /tmp/spark-f7c2019e-10f4-4b31-9308-5a94603de113</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 19/02/13 23:27:35 INFO util.ShutdownHookManager: Deleting directory /tmp/spark-f7c2019e-10f4-4b31-9308-5a94603de113/httpd-39b8b4b3-9b80-4247-9c7e-ed6bd2dc389f</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>在命令执行期间：</p>
-<p>在三个节点敲如下命令：jps，会显示：</p>
-<p>node00：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node00 ~]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 4903 Jps</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2343 Master</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 4764 SparkSubmit  <span class="comment">#代表是提交spark的节点 (与主从无关)</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>node01和node02：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node01 bin]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2229 Worker</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 5096 CoarseGrainedExecutorBackend    <span class="comment">#代表是干活的节点 （仅为从节点进程）</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 5167 Jps</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>如果提交命令的节点是从节点（node01），则在该节点上会显示执行日志、运算结果</p>
-<p>则在提交过程中，敲命令：jps  该节点会显示</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> [root@node01 ~]<span class="comment"># jps</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 5298 CoarseGrainedExecutorBackend  <span class="comment">#代表是干活的节点 （仅为从节点进程）</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2229 Worker</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 5323 Jps</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 5213 SparkSubmit <span class="comment">#代表是提交spark的节点 (与主从无关)</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-</blockquote>
-<h3 id="YARN-提交命令："><a href="#YARN-提交命令：" class="headerlink" title="YARN 提交命令："></a><strong>YARN</strong> 提交命令：</h3><p>基于Hadoop ：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">NN</th>
-<th style="text-align:center">DN</th>
-<th style="text-align:center">JN</th>
-<th style="text-align:center">ZKFC</th>
-<th style="text-align:center">ZK</th>
-<th style="text-align:center">RM</th>
-<th style="text-align:center">RM</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">node00</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td style="text-align:center">node01</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td style="text-align:center">node02</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-</tbody>
-</table>
-<p>启动zookeeper ：（3台）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
-<p>启动hdfs ：（1台）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure>
-<p>相当于：Instead use start-dfs.sh and start-yarn.sh</p>
-<p>启动resourcemanager ：(在RM的主节点上启动 ：1台)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn-daemon.sh start resourcemanager</span><br></pre></td></tr></table></figure>
-<p>在任一节点的/bin路径下执行：（node01）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn #HADOOP_CONF_DIR配置使得在使用Yarn时能找到hdfs的所有配置，其中就有IP 和Port</span><br><span class="line">--class org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar 100</span><br><span class="line"></span><br><span class="line">./spark-submit --master yarn --class org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar 1000</span><br></pre></td></tr></table></figure>
-<p><code>显示</code></p>
-<blockquote>
-<ul>
-<li><p>执行日志、计算结果会在执行提交命令的节点上显示</p>
-</li>
-<li><p>在命令提交过程中在三台节点上敲命令：jps 会显示</p>
-</li>
-</ul>
-<p>node02：</p>
-<p>[root@node02 ~]# jps<br>3406 DataNode<br>3491 JournalNode<br>1681 QuorumPeerMain<br>4133 CoarseGrainedExecutorBackend    # 真正干活的进程<br>4092 ExecutorLauncher     # 启动executor<br>3585 NodeManager<br>3942 SparkSubmit     #提交spark的进程<br>4217 Jps</p>
-</blockquote>
-<h1 id="四、Standalone-模式两种提交任务方式"><a href="#四、Standalone-模式两种提交任务方式" class="headerlink" title="四、Standalone 模式两种提交任务方式"></a>四、Standalone 模式两种提交任务方式</h1><h2 id="1、Standalone-client-提交任务方式"><a href="#1、Standalone-client-提交任务方式" class="headerlink" title="1、Standalone-client 提交任务方式"></a>1、Standalone-client 提交任务方式</h2><h3 id="1-命令提交"><a href="#1-命令提交" class="headerlink" title="(1)命令提交"></a>(1)命令提交</h3><ul>
-<li>在/sbin路径下：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure>
-<ul>
-<li>提交spark</li>
-</ul>
-<p>方式一：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master spark://node00:7077</span><br><span class="line">--class org.apache.spark.examples.SparkPi</span><br><span class="line">../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
-<p>方式二：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master spark://node1:7077</span><br><span class="line">--deploy-mode client</span><br><span class="line">--class org.apache.spark.examples.SparkPi</span><br><span class="line">../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
-<h3 id="2-执行原理图"><a href="#2-执行原理图" class="headerlink" title="(2)执行原理图"></a>(2)执行原理图</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g09rz47usdj31b40vhq5r.jpg" alt=""></p>
-<h3 id="（3）执行流程"><a href="#（3）执行流程" class="headerlink" title="（3）执行流程"></a>（3）执行流程</h3><blockquote>
-<ol>
-<li>client 模式提交任务后，会在客户端启动 Driver 进程。</li>
-<li>Driver 会向 Master 申请启动 Application 启动的资源。</li>
-<li>client 模式提交任务后，会在客户端启动 Driver 进程。</li>
-<li>Driver 会向 Master 申请启动 Application 启动的资源。</li>
-</ol>
-</blockquote>
-<h3 id="（4）总结"><a href="#（4）总结" class="headerlink" title="（4）总结"></a>（4）总结</h3><blockquote>
-<ul>
-<li><p>client 模式适用于测试调试程序。</p>
-</li>
-<li><p>Driver 进程是在客户端启动的，这里的客户端就是指提交应用程序的当前节点。</p>
-</li>
-<li>在 Driver 端可以看到 task 执行的情况。生产环境下不能使用 client 模式，</li>
-</ul>
-<p><code>是因为</code>：</p>
-<p>假设要提交 100 个 application 到集群运行，Driver 每次都会在client 端启动，那么就会导致客户端 100 次网卡流量暴增的问题。</p>
-</blockquote>
-<h2 id="2、Standalone-cluster-提交任务方式"><a href="#2、Standalone-cluster-提交任务方式" class="headerlink" title="2、Standalone-cluster 提交任务方式"></a>2、Standalone-cluster 提交任务方式</h2><h3 id="（1）命令提交"><a href="#（1）命令提交" class="headerlink" title="（1）命令提交"></a>（1）命令提交</h3><ul>
-<li>在/sbin路径下：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure>
-<ul>
-<li>提交spark</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master spark://node00:7077</span><br><span class="line">--deploy-mode cluster</span><br><span class="line">--class org.apache.spark.examples.SparkPi</span><br><span class="line">../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
-<p><code>注意：</code></p>
-<blockquote>
-<p>​        Standalone-cluster 提交方式，应用程序使用的所有 jar 包和文件，必须保证所有的 worker 节点都要有，因为此种方式，spark 不会自动上传包。</p>
-<p>解决方式：</p>
-<ol>
-<li>将所有的依赖包和文件打到同一个包中，然后放在 hdfs 上。</li>
-<li>将所有的依赖包和文件各放一份在 worker 节点上。</li>
-</ol>
-</blockquote>
-<h3 id="（2）执行原理图"><a href="#（2）执行原理图" class="headerlink" title="（2）执行原理图"></a>（2）执行原理图</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzbjqjlj310w0qcwgh.jpg" alt=""></p>
-<h3 id="（3）执行流程-1"><a href="#（3）执行流程-1" class="headerlink" title="（3）执行流程"></a>（3）执行流程</h3><blockquote>
-<ol>
-<li>cluster 模式提交应用程序后，会向 Master 请求启动 Driver.</li>
-<li>Master 接受请求，随机在集群一台节点启动 Driver 进程。</li>
-<li>Driver 启动后为当前的应用程序申请资源。</li>
-<li>Driver 端发送 task 到 worker 节点上执行。</li>
-<li>worker 将执行情况和执行结果返回给 Driver 端。</li>
-</ol>
-</blockquote>
-<h3 id="（4）总结-1"><a href="#（4）总结-1" class="headerlink" title="（4）总结"></a>（4）总结</h3><blockquote>
-<p>Driver 进程是在集群某一台 Worker 上启动的，在客户端是无法查看 task 的执行情况的。假设要提交 100<br>个 application 到集群运行,每次 Driver 会随机在集群中某一台 Worker 上启动，那么这 100 次网卡流量暴<br>增的问题就散布在集群上</p>
-</blockquote>
-<h2 id="总结-Standalone"><a href="#总结-Standalone" class="headerlink" title="总结 Standalone"></a>总结 Standalone</h2><p>Standalone  两种方式提交任务，Driver  与集群的通信包括：</p>
-<blockquote>
-<ol>
-<li>Driver 负责应用程序资源的申请</li>
-<li>任务的分发。</li>
-<li>结果的回收。</li>
-<li>监控 task 执行情况。</li>
-</ol>
-</blockquote>
-<h1 id="五、Yarn-模式两种提交任务方式"><a href="#五、Yarn-模式两种提交任务方式" class="headerlink" title="五、Yarn  模式两种提交任务方式"></a>五、Yarn  模式两种提交任务方式</h1><h2 id="1、yarn-client-提交任务方式"><a href="#1、yarn-client-提交任务方式" class="headerlink" title="1、yarn-client 提交任务方式"></a>1、yarn-client 提交任务方式</h2><h3 id="（1）命令提交-1"><a href="#（1）命令提交-1" class="headerlink" title="（1）命令提交"></a>（1）命令提交</h3><ul>
-<li>提交spark</li>
-</ul>
-<p>方式一：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn</span><br><span class="line">--class</span><br><span class="line">org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
-<p>方式二：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn–client</span><br><span class="line">--class</span><br><span class="line">org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
-<p>方式三：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn</span><br><span class="line">--deploy-mode client</span><br><span class="line">--class</span><br><span class="line">org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
-<h3 id="（2）执行原理图-1"><a href="#（2）执行原理图-1" class="headerlink" title="（2）执行原理图"></a>（2）执行原理图</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzg6auij31750x4dj9.jpg" alt=""></p>
-<h3 id="（3）执行流程-2"><a href="#（3）执行流程-2" class="headerlink" title="（3）执行流程"></a>（3）执行流程</h3><blockquote>
-<ol>
-<li>客户端提交一个 Application，在客户端启动一个 Driver 进程。</li>
-<li>应用程序启动后会向 RS(ResourceManager)发送请求，启动AM(ApplicationMaster)的资源。</li>
-<li>RS 收到请求，随机选择一台 NM(NodeManager)启动 AM。这里的 NM 相当于 Standalone 中的 Worker 节点。</li>
-<li>AM启动后，会向RS请求一批container资源，用于启动Executor.</li>
-<li>RS 会找到一批 NM 返回给 AM,用于启动 Executor。</li>
-<li>AM 会向 NM 发送命令启动 Executor。</li>
-<li>Executor 启动后，会反向注册给 Driver，Driver 发送 task 到Executor,执行情况和结果返回给 Driver 端。</li>
-</ol>
-</blockquote>
-<h3 id="（4）总结-2"><a href="#（4）总结-2" class="headerlink" title="（4）总结"></a>（4）总结</h3><blockquote>
-<p>Yarn-client 模式同样是适用于测试，因为 Driver 运行在本地，Driver会与 yarn 集群中的 Executor 进行大量的通信，会造成客户机网卡流量的大量增加.</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>ApplicationMaster  的作用：</li>
-</ul>
-<ol>
-<li>为当前的 Application 申请资源</li>
-<li>给 NodeManager 发送消息启动 Executor。</li>
-</ol>
-<ul>
-<li>注意：</li>
-</ul>
-<p>ApplicationMaster 有 launchExecutor 和申请资源的功能，并没有作业调度的功能</p>
-</blockquote>
-<h2 id="2、yarn-cluster-提交任务方式"><a href="#2、yarn-cluster-提交任务方式" class="headerlink" title="2、yarn-cluster 提交任务方式"></a>2、yarn-cluster 提交任务方式</h2><h3 id="（1）命令提交-2"><a href="#（1）命令提交-2" class="headerlink" title="（1）命令提交"></a>（1）命令提交</h3><ul>
-<li>提交spark</li>
-</ul>
-<p>方式一：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn</span><br><span class="line">--deploy-mode cluster</span><br><span class="line">--class</span><br><span class="line">org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
-<p>方式二:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./spark-submit</span><br><span class="line">--master yarn-cluster</span><br><span class="line">--class</span><br><span class="line">org.apache.spark.examples.SparkPi ../lib/spark-examples-1.6.0-hadoop2.6.0.jar</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
-<h3 id="（2）执行原理图-2"><a href="#（2）执行原理图-2" class="headerlink" title="（2）执行原理图"></a>（2）执行原理图</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzn3fuwj318x0weq60.jpg" alt=""></p>
-<h3 id="（3）执行流程-3"><a href="#（3）执行流程-3" class="headerlink" title="（3）执行流程"></a>（3）执行流程</h3><blockquote>
-<ol>
-<li>客户机提交 Application 应用程序，发送请求到RS(ResourceManager),请求启动 AM(ApplicationMaster)。</li>
-<li>RS 收到请求后随机在一台 NM(NodeManager)上启动 AM（相当于 Driver 端）。</li>
-<li>AM 启动，AM 发送请求到 RS，请求一批 container 用于启动Excutor。</li>
-<li>RS 返回一批 NM 节点给 AM。</li>
-<li>AM 连接到 NM,发送请求到 NM 启动 Excutor。</li>
-<li>Excutor 反向注册到 AM 所在的节点的 Driver。Driver 发送 task到 Excutor。</li>
-</ol>
-</blockquote>
-<h3 id="（4）总结-3"><a href="#（4）总结-3" class="headerlink" title="（4）总结"></a>（4）总结</h3><blockquote>
-<p>Yarn-Cluster 主要用于生产环境中，因为 Driver 运行在 Yarn 集群中<br>某一台 nodeManager 中，每次提交任务的 Driver 所在的机器都是<br>随机的，不会产生某一台机器网卡流量激增的现象，缺点是任务提交<br>后不能看到日志。只能通过 yarn 查看日志。</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>ApplicationMaster  的作用：</li>
-</ul>
-<ol>
-<li>为当前的 Application 申请资源</li>
-<li>给 NodeManger 发送消息启动 Excutor。</li>
-<li>任务调度。</li>
-</ol>
-<ul>
-<li>停止集群任务命令：yarn application -kill applicationID</li>
-</ul>
-</blockquote>
-<h2 id="总结yarn"><a href="#总结yarn" class="headerlink" title="总结yarn"></a>总结yarn</h2>
+              Spark的详细学习第二篇章
+          
       
     </div>
     
@@ -777,6 +354,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算子/">算子</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2019/02/17/Spark学习（二）/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -828,7 +409,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              Spark的详细学习
+              Spark的详细学习第一篇章
           
       
     </div>
@@ -872,10 +453,10 @@
 
 <!--gitment 评论 end-->
   
-    <article id="post-List方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-String方法" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/02/16/List方法/" class="article-date">
+      <a href="/2019/02/16/String方法/" class="article-date">
       <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
 </a>
 
@@ -891,7 +472,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/16/List方法/">List方法</a>
+      <a class="article-title" href="/2019/02/16/String方法/">String 方法</a>
     </h1>
   
 
@@ -901,7 +482,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              Scala中List的方法
+              Scala中String的方法
           
       
     </div>
@@ -916,158 +497,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/List/">List</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2019/02/16/List方法/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-<!--gitment 评论-->
-
-<!--gitment 评论 end-->
-  
-    <article id="post-Map方法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/02/16/Map方法/" class="article-date">
-      <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/16/Map方法/">Map方法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              Scala中Map的方法
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Scala/">Scala</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Map/">Map</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2019/02/16/Map方法/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-<!--gitment 评论-->
-
-<!--gitment 评论 end-->
-  
-    <article id="post-数组方法 " class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/02/16/数组方法 /" class="article-date">
-      <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/16/数组方法 /">数组方法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              Scala中Array的方法
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Scala/">Scala</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2019/02/16/数组方法 /#more">阅读全文 >></a>
+          <a href="/2019/02/16/String方法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1164,10 +599,10 @@
 
 <!--gitment 评论 end-->
   
-    <article id="post-String方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-数组方法 " class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/02/16/String方法/" class="article-date">
+      <a href="/2019/02/16/数组方法 /" class="article-date">
       <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
 </a>
 
@@ -1183,7 +618,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/16/String方法/">String 方法</a>
+      <a class="article-title" href="/2019/02/16/数组方法 /">数组方法</a>
     </h1>
   
 
@@ -1193,7 +628,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              Scala中String的方法
+              Scala中Array的方法
           
       
     </div>
@@ -1208,12 +643,158 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2019/02/16/String方法/#more">阅读全文 >></a>
+          <a href="/2019/02/16/数组方法 /#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+<!--gitment 评论-->
+
+<!--gitment 评论 end-->
+  
+    <article id="post-Map方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/16/Map方法/" class="article-date">
+      <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/16/Map方法/">Map方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              Scala中Map的方法
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Scala/">Scala</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Map/">Map</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/02/16/Map方法/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+<!--gitment 评论-->
+
+<!--gitment 评论 end-->
+  
+    <article id="post-List方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/16/List方法/" class="article-date">
+      <time datetime="2019-02-15T16:00:00.000Z" itemprop="datePublished">2019-02-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/16/List方法/">List方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              Scala中List的方法
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Scala/">Scala</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/List/">List</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2019/02/16/List方法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
