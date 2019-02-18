@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://sungithup.github.io/images/Spark任务执行原理.png">
 <meta property="og:image" content="http://sungithup.github.io/images/Spark任务执行原理0.png">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g098pwwdc9j30f70aztbu.jpg">
-<meta property="og:updated_time" content="2019-02-18T01:45:25.876Z">
+<meta property="og:updated_time" content="2019-02-18T06:55:24.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习">
 <meta name="twitter:description" content="Spark的详细学习第一篇章">
@@ -193,6 +193,8 @@
                         
                             <li><a href="/tags/essays/">推荐</a></li>
                         
+                            <li><a href="/books/">书籍</a></li>
+                        
                             <li><a href="/tags/">标签云</a></li>
                         
                             <li><a href="/about/">关于我</a></li>
@@ -214,7 +216,7 @@
                             
                                 <a class="fa CSDN" href="/" title="CSDN"></a>
                             
-                                <a class="fa 网易云音乐" href="/netease" title="网易云音乐"></a>
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
                             
                         </ul>
                     </nav>
@@ -280,6 +282,8 @@
                 
                     <li><a href="/tags/essays/">推荐</a></li>
                 
+                    <li><a href="/books/">书籍</a></li>
+                
                     <li><a href="/tags/">标签云</a></li>
                 
                     <li><a href="/about/">关于我</a></li>
@@ -302,7 +306,7 @@
                             
                                 <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
                             
-                                <a class="fa 网易云音乐" target="_blank" href="/netease" title="网易云音乐"></a>
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
                             
                         </ul>
             </nav>
@@ -333,7 +337,28 @@
     </h1>
   
 
-      </header>
+        
+           <div style="margin-top:10px;"> 
+     <span class="post-time"> 
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-keyboard-o"></i> 
+                 <span class="post-meta-item-text"> 字数统计: </span> 
+                 <span class="post-count">3.2k字</span> 
+           </span>
+     </span> 
+
+     <span class="post-time">
+           |   
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-hourglass-half"></i> 
+                 <span class="post-meta-item-text"> 阅读时长: </span> 
+                 <span class="post-count">13分</span> 
+           </span> 
+     </span> 
+</div>
+
+           
+      </header>     
       
       <div class="article-info article-info-post">
         
@@ -500,6 +525,20 @@
 <p>去重</p>
 <p>🔼 <strong>cogroup</strong></p>
 <p>当调用类型（K,V）和（K，W）的数据上时，返回一个数据集（K，（Iterable<v>,Iterable<w>））</w></v></p>
+<p>🔼<strong>mapPartitionWithIndex</strong><br>类似于 mapPartitions,除此之外还会携带分区的索引值。</p>
+<p>🔼 <strong>repartition</strong></p>
+<p>repartition（3）</p>
+<p>增加或减少分区.会产生shuffle</p>
+<p>🔼<strong>coalesce</strong></p>
+<p>coalesce(3,false)</p>
+<p>常用于减少分区，第二个参数决定减少分区时是否产生shuffle：true 为产生 shuffle，false 不产生 shuffle。默认是 <code>false</code>。</p>
+<p>如果 coalesce 设置的分区数比原来的 RDD 的分区数还多的话，第二个参数设置为 <code>false</code> 不会起作用，</p>
+<p>如果设置成 true，效果和 repartition 一样。即 </p>
+<p>repartition(numPartitions) = coalesce(numPartitions,true)</p>
+<p>🔼<strong>groupByKey</strong><br>作用在 K，V 格式的 RDD 上。根据 Key 进行分组。作用在（K，V），返回（K，Iterable <v>）。</v></p>
+<p>🔼<strong>zip</strong><br>将两个 RDD 中的元素（KV 格式/非 KV 格式）变成一个 KV 格式的 RDD,两个 RDD 的个数必须相同。</p>
+<p>🔼zipWithIndex<br>该函数将 RDD 中的元素和这个元素在 RDD 中的索引号（从 0 开始）组合成（K,V）对。</p>
+<p>🔼</p>
 </blockquote>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">      </span><br><span class="line">    conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"WC"</span>)</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)  <span class="comment">//用于了解集群</span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> linesRDD :<span class="type">RDD</span>[<span class="type">String</span>] = sc.textFile(<span class="string">"./words.txt"</span>)</span><br><span class="line">      </span><br><span class="line"><span class="comment">//  lineRDD.filter(x=&gt;&#123;</span></span><br><span class="line"><span class="comment">//            x.contains("sh")</span></span><br><span class="line"><span class="comment">//        &#125;).foreach(println)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  lineRDD.sample(true,0.2).foreach(println)</span></span><br><span class="line">     </span><br><span class="line"><span class="comment">//  lineRDD.map((_,1)).reduceByKey(_ + _).sortBy(_._2,false).foreach(println)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  lineRDD.map((_,1)).sortByKey().foreach(println)</span></span><br><span class="line">         </span><br><span class="line">    <span class="keyword">val</span> wordRDD :<span class="type">RDD</span>[<span class="type">String</span>]  = linesRDD.flatMap&#123;lines =&gt; &#123;</span><br><span class="line">      lines.split(<span class="string">" "</span>)  <span class="comment">//匿名函数</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> <span class="type">KVRDD</span>:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = wordRDD.map&#123; x =&gt; (x,<span class="number">1</span>) &#125;</span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> result:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = <span class="type">KVRDD</span>.reduceByKey&#123;(a,b)=&gt; &#123;</span><br><span class="line">        println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b)</span><br><span class="line">        a+b    </span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
 <p><code>补充</code></p>
@@ -527,6 +566,9 @@
 <p>:arrow_up_small: <strong>foreach</strong><br>循环遍历数据集中的每个元素，运行相应的逻辑。<br>:arrow_up_small: <strong>collect</strong><br>将计算结果回收到 Driver 端。</p>
 <p>:arrow_up_small: <strong>foreachPartition</strong></p>
 <p>遍历的数据是每个 partition 的数据。</p>
+<p>:arrow_up_small:<strong>countByKey</strong><br>作用到 K,V 格式的 RDD 上，根据 Key 计数相同 Key 的数据集元素。</p>
+<p>:arrow_up_small:<strong>countByValue</strong><br>根据数据集每个元素相同的内容来计数。返回相同内容的元素对应的条数。</p>
+<p>:arrow_up_small:<strong>reduce</strong><br>根据聚合逻辑聚合数据集中的每个元素。</p>
 </blockquote>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">    conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"transf"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> lineADD = context.textFile(<span class="string">"./wc.txt"</span>)</span><br><span class="line">    <span class="keyword">val</span> wordADD = lineADD.flatMap(x=&gt;&#123;x.split(<span class="string">" "</span>)&#125;)</span><br><span class="line"></span><br><span class="line">   <span class="comment">// println(wordADD.count())</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//lineADD中数据回收</span></span><br><span class="line">    <span class="keyword">val</span> arr= lineADD.collect()</span><br><span class="line">    arr.foreach(println)</span><br><span class="line"></span><br><span class="line"><span class="comment">//  val takes: Array[String] = lineRDD.take(5)</span></span><br><span class="line"><span class="comment">//  takes.foreach(println)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  val str: String = lineRDD.first()</span></span><br><span class="line"><span class="comment">//  println(str)</span></span><br></pre></td></tr></table></figure>
 <h2 id="6、控制算子"><a href="#6、控制算子" class="headerlink" title="6、控制算子"></a>6、控制算子</h2><h3 id="（1）概念：-1"><a href="#（1）概念：-1" class="headerlink" title="（1）概念："></a>（1）概念：</h3><ul>
@@ -584,7 +626,7 @@
         <p><span>本文标题:</span><a href="/2019/02/16/Spark学习/">Spark学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-16, 21:30:15</p>
-        <p><span>最后更新:</span>2019-02-18, 09:45:25</p>
+        <p><span>最后更新:</span>2019-02-18, 14:55:24</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/16/Spark学习/" title="Spark学习">http://sungithup.github.io/2019/02/16/Spark学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/16/Spark学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -601,14 +643,14 @@
         
             <div id="article-nav-newer" class="article-nav-title">
                 <a href="/2019/02/17/Spark学习（二）/">
-                    Spark学习(二)
+                    
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/16/String方法/">
-                    String 方法
+                <a href="/2019/02/16/数组方法 /">
+                    数组方法
                 </a>
             </div>
         
@@ -681,7 +723,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/17/Spark学习（二）/" title="上一篇: Spark学习(二)">
+            <a href="/2019/02/17/Spark学习（二）/" title="上一篇: ">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -689,13 +731,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/16/String方法/" title="下一篇: String 方法">
+            <a href="/2019/02/16/数组方法 /" title="下一篇: 数组方法">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
@@ -775,6 +817,25 @@
                 
             </div>
         
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
     </div>
 </footer>
     </div>
@@ -870,6 +931,10 @@ MathJax.Hub.Queue(function() {
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
   </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

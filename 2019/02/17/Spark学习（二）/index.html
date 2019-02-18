@@ -18,7 +18,7 @@
 <meta name="description" content="Spark的详细学习第二篇章">
 <meta name="keywords" content="算子">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark学习(二)">
+<meta property="og:title" content="Sukie山脉">
 <meta property="og:url" content="http://sungithup.github.io/2019/02/17/Spark学习（二）/index.html">
 <meta property="og:site_name" content="Sukie山脉">
 <meta property="og:description" content="Spark的详细学习第二篇章">
@@ -30,9 +30,13 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzbjqjlj310w0qcwgh.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzg6auij31750x4dj9.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g09rzn3fuwj318x0weq60.jpg">
-<meta property="og:updated_time" content="2019-02-18T02:14:15.433Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae0bta21j30mh0fvn7b.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae32q68ij30mz08s3zo.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae6j5tccj30nb0ctq8y.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0aeo4szikj30mt0bcgte.jpg">
+<meta property="og:updated_time" content="2019-02-18T04:46:10.592Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark学习(二)">
+<meta name="twitter:title" content="Sukie山脉">
 <meta name="twitter:description" content="Spark的详细学习第二篇章">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g098pwwdc9j30f70aztbu.jpg">
 
@@ -66,7 +70,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Spark学习(二) | Sukie山脉</title>
+<title>Sukie山脉</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -192,6 +196,8 @@
                         
                             <li><a href="/tags/essays/">推荐</a></li>
                         
+                            <li><a href="/books/">书籍</a></li>
+                        
                             <li><a href="/tags/">标签云</a></li>
                         
                             <li><a href="/about/">关于我</a></li>
@@ -213,7 +219,7 @@
                             
                                 <a class="fa CSDN" href="/" title="CSDN"></a>
                             
-                                <a class="fa 网易云音乐" href="/netease" title="网易云音乐"></a>
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
                             
                         </ul>
                     </nav>
@@ -279,6 +285,8 @@
                 
                     <li><a href="/tags/essays/">推荐</a></li>
                 
+                    <li><a href="/books/">书籍</a></li>
+                
                     <li><a href="/tags/">标签云</a></li>
                 
                     <li><a href="/about/">关于我</a></li>
@@ -301,7 +309,7 @@
                             
                                 <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
                             
-                                <a class="fa 网易云音乐" target="_blank" href="/netease" title="网易云音乐"></a>
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
                             
                         </ul>
             </nav>
@@ -323,32 +331,6 @@
     
       <input type="hidden" class="isFancy">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Spark学习(二)
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spark/">Spark</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算子/">算子</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -782,15 +764,77 @@
 </ul>
 </blockquote>
 <h2 id="总结yarn"><a href="#总结yarn" class="headerlink" title="总结yarn"></a>总结yarn</h2><h1 id="六、术语解释"><a href="#六、术语解释" class="headerlink" title="六、术语解释"></a>六、术语解释</h1><h1 id="七、宽窄依赖"><a href="#七、宽窄依赖" class="headerlink" title="七、宽窄依赖"></a>七、宽窄依赖</h1><p>1、窄依赖</p>
-<p>父RDD的一个partition对应子RDD一个partition</p>
-<p>父RDD的多个partition对应子RDD一个partition</p>
+<p>父RDD的一个partition对应子RDD<strong><code>一个</code></strong>partition</p>
+<p>父RDD的多个partition对应子RDD<strong><code>一个</code></strong>partition</p>
 <p>不会产生shuffle</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map</span><br><span class="line">union</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map</span><br><span class="line">flatmap</span><br><span class="line">union</span><br></pre></td></tr></table></figure>
 <p>2、宽依赖</p>
-<p>父RDD的一个partition对应子RDD多个partition</p>
+<p>父RDD的一个partition对应子RDD<strong><code>多个</code></strong>partition</p>
 <p>会产生shuffle</p>
 <p>会划分stage</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">join</span><br><span class="line">groupBy</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reduceByKey</span><br><span class="line">join</span><br><span class="line">groupBy</span><br></pre></td></tr></table></figure>
+<h1 id="八、stage"><a href="#八、stage" class="headerlink" title="八、stage"></a>八、stage</h1><h2 id="0、概念"><a href="#0、概念" class="headerlink" title="0、概念"></a>0、概念</h2><p>（1）Spark任务会根据RDD之间的依赖关系，形成一个DAG有向无环图，DAG会提交给DAGScheduler，DAGScheduler会把DAG划分相互依赖的多个stage，划分依据就是RDD之间的宽窄依赖关系：遇到宽依赖就划分stage</p>
+<p>（2）stage有一组并行的task组成，这些task将以taskSet的格式提交给TaskScheduler运行</p>
+<h2 id="1、stage-切割规则"><a href="#1、stage-切割规则" class="headerlink" title="1、stage 切割规则"></a>1、stage 切割规则</h2><p>切割规则：从后往前，遇到宽依赖就切割 stage。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae0bta21j30mh0fvn7b.jpg" alt=""></p>
+<h2 id="2、stage-计算模式"><a href="#2、stage-计算模式" class="headerlink" title="2、stage 计算模式"></a>2、stage 计算模式</h2><p>pipeline 管道计算模式,pipeline 只是一种计算思想、模式。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae32q68ij30mz08s3zo.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>数据一直在管道里面什么时候数据会落地？</li>
+</ul>
+<ol>
+<li>对 RDD 进行持久化。</li>
+<li>shuffle write 的时候。</li>
+</ol>
+</blockquote>
+<blockquote>
+<ul>
+<li>什么决定task数</li>
+</ul>
+<p>Stage 的 的 task  并行度是由 stage 的最后一个RDD的分区数来决定的 （partition分区数决定task数）</p>
+<p>同一个stage中的task计算逻辑可能不用</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>如何改变 RDD  的分区数？</li>
+</ul>
+<p>宽依赖可改分区数；（因为此时数据已落地到磁盘）</p>
+<p>textFile(“  ”,5)</p>
+<p>reduceByKey(_ +_ , 5)</p>
+<p>GroupByKey(4)</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>测试验证 pipeline 计算模式</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">&gt; conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"pipeline"</span>);</span><br><span class="line">&gt; <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">&gt; <span class="keyword">val</span> rdd = sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">&gt; <span class="keyword">val</span> rdd1 = rdd.map &#123; x =&gt; &#123;</span><br><span class="line">&gt; println(<span class="string">"map--------"</span>+x)</span><br><span class="line">&gt; x</span><br><span class="line">&gt; &#125;&#125;</span><br><span class="line">&gt; <span class="keyword">val</span> rdd2 = rdd1.filter &#123; x =&gt; &#123;</span><br><span class="line">&gt; println(<span class="string">"fliter********"</span>+x)</span><br><span class="line">&gt; <span class="literal">true</span></span><br><span class="line">&gt; &#125; &#125;</span><br><span class="line">&gt; rdd2.collect()</span><br><span class="line">&gt; sc.stop()</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<h1 id="九、Spark-资源调度和任务调度"><a href="#九、Spark-资源调度和任务调度" class="headerlink" title="九、Spark  资源调度和任务调度"></a>九、Spark  资源调度和任务调度</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0ae6j5tccj30nb0ctq8y.jpg" alt=""></p>
+<ul>
+<li>DAGScheduler是任务调度的高层调度器，是一个对象</li>
+</ul>
+<blockquote>
+<p> DAGScheduler 的主要作用就是</p>
+<p>将DAG 根据 RDD 之间的宽窄依赖关系划分为一个个的 Stage，然后将这些Stage 以 TaskSet 的形式提交给 TaskScheduler</p>
+</blockquote>
+<ul>
+<li><p>TaskScheduler 是任务调度的低层调度器</p>
+</li>
+<li><p>TaskSet 其实就是一个集合，里面封装的就是一个个的 task 任务,也就是 stage 中的并行度 task 任务</p>
+</li>
+</ul>
+<p>Application→Job→Stage→Task</p>
+<blockquote>
+<ul>
+<li>Spark推测执行机制</li>
+</ul>
+<p>如果有运行缓慢的task,那么TaskScheduler就会启动一个新的task（在不同节点的excutor上）来执行相同的处理逻辑，两个task中哪个task先执行结束，就以那个task的执行结果为准</p>
+</blockquote>
+<p>资源调度和任务调度的流程图</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0aeo4szikj30mt0bcgte.jpg" alt=""></p>
 
       
     </div>
@@ -799,12 +843,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></p>
+        <p><span>本文标题:</span><a href="/2019/02/17/Spark学习（二）/"></a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-17, 23:30:00</p>
-        <p><span>最后更新:</span>2019-02-18, 10:14:15</p>
+        <p><span>最后更新:</span>2019-02-18, 12:46:10</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/02/17/Spark学习（二）/" title="Spark学习(二)">http://sungithup.github.io/2019/02/17/Spark学习（二）/</a>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/17/Spark学习（二）/" title="">http://sungithup.github.io/2019/02/17/Spark学习（二）/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/17/Spark学习（二）/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -832,7 +876,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、控制算子"><span class="toc-text">一、控制算子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念："><span class="toc-text">1、概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、详解"><span class="toc-text">2、详解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、算子补充"><span class="toc-text">二、算子补充</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#transformation转换算子"><span class="toc-text">transformation转换算子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#action触发算子"><span class="toc-text">action触发算子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、集群搭建及测试"><span class="toc-text">三、集群搭建及测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Standalone"><span class="toc-text">Standalone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、下载安装包、解压"><span class="toc-text">1、下载安装包、解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、改名"><span class="toc-text">2、改名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改slaves"><span class="toc-text">3、修改slaves</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、修改-spark-env-sh"><span class="toc-text">4、修改 spark-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、其他节点"><span class="toc-text">5、其他节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、启动：-node00"><span class="toc-text">7、启动：(node00)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、搭建客户端"><span class="toc-text">8、搭建客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Yarn"><span class="toc-text">Yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、步骤"><span class="toc-text">1、步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、配置"><span class="toc-text">2、配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试：求π值"><span class="toc-text">测试：求π值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码案例："><span class="toc-text">源码案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Standalone-提交命令"><span class="toc-text">Standalone 提交命令:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YARN-提交命令："><span class="toc-text">YARN 提交命令：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Standalone-模式两种提交任务方式"><span class="toc-text">四、Standalone 模式两种提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Standalone-client-提交任务方式"><span class="toc-text">1、Standalone-client 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-命令提交"><span class="toc-text">(1)命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-执行原理图"><span class="toc-text">(2)执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-执行流程"><span class="toc-text">(3)执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-总结"><span class="toc-text">(4)总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Standalone-cluster-提交任务方式"><span class="toc-text">2、Standalone-cluster 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-Standalone"><span class="toc-text">总结 Standalone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Yarn-模式两种提交任务方式"><span class="toc-text">五、Yarn  模式两种提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、yarn-client-提交任务方式"><span class="toc-text">1、yarn-client 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交-1"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图-1"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程-1"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结-1"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、yarn-cluster-提交任务方式"><span class="toc-text">2、yarn-cluster 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交-2"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图-2"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程-2"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结-2"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结yarn"><span class="toc-text">总结yarn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、术语解释"><span class="toc-text">六、术语解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、宽窄依赖"><span class="toc-text">七、宽窄依赖</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、控制算子"><span class="toc-text">一、控制算子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念："><span class="toc-text">1、概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、详解"><span class="toc-text">2、详解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、算子补充"><span class="toc-text">二、算子补充</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#transformation转换算子"><span class="toc-text">transformation转换算子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#action触发算子"><span class="toc-text">action触发算子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、集群搭建及测试"><span class="toc-text">三、集群搭建及测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Standalone"><span class="toc-text">Standalone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、下载安装包、解压"><span class="toc-text">1、下载安装包、解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、改名"><span class="toc-text">2、改名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改slaves"><span class="toc-text">3、修改slaves</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、修改-spark-env-sh"><span class="toc-text">4、修改 spark-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、其他节点"><span class="toc-text">5、其他节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、启动：-node00"><span class="toc-text">7、启动：(node00)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、搭建客户端"><span class="toc-text">8、搭建客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Yarn"><span class="toc-text">Yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、步骤"><span class="toc-text">1、步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、配置"><span class="toc-text">2、配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试：求π值"><span class="toc-text">测试：求π值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码案例："><span class="toc-text">源码案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Standalone-提交命令"><span class="toc-text">Standalone 提交命令:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YARN-提交命令："><span class="toc-text">YARN 提交命令：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Standalone-模式两种提交任务方式"><span class="toc-text">四、Standalone 模式两种提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Standalone-client-提交任务方式"><span class="toc-text">1、Standalone-client 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-命令提交"><span class="toc-text">(1)命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-执行原理图"><span class="toc-text">(2)执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-执行流程"><span class="toc-text">(3)执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-总结"><span class="toc-text">(4)总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Standalone-cluster-提交任务方式"><span class="toc-text">2、Standalone-cluster 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-Standalone"><span class="toc-text">总结 Standalone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Yarn-模式两种提交任务方式"><span class="toc-text">五、Yarn  模式两种提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、yarn-client-提交任务方式"><span class="toc-text">1、yarn-client 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交-1"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图-1"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程-1"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结-1"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、yarn-cluster-提交任务方式"><span class="toc-text">2、yarn-cluster 提交任务方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）命令提交-2"><span class="toc-text">（1）命令提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）执行原理图-2"><span class="toc-text">（2）执行原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）执行流程-2"><span class="toc-text">（3）执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）总结-2"><span class="toc-text">（4）总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结yarn"><span class="toc-text">总结yarn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、术语解释"><span class="toc-text">六、术语解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、宽窄依赖"><span class="toc-text">七、宽窄依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、stage"><span class="toc-text">八、stage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、概念"><span class="toc-text">0、概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、stage-切割规则"><span class="toc-text">1、stage 切割规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、stage-计算模式"><span class="toc-text">2、stage 计算模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、Spark-资源调度和任务调度"><span class="toc-text">九、Spark  资源调度和任务调度</span></a></li></ol>
         
     </div>
     <style>
@@ -868,7 +912,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Spark学习(二)　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -905,7 +949,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
@@ -942,7 +986,7 @@
       <script type="text/javascript">
         var gitment = new Gitment({
         id: 'Sun Feb 17 2019 23:30:00 GMT+0800',
-        title: 'Spark学习(二)',
+        title: '',
         owner: 'sungithup',
         repo: 'sungithup.github.io',
         oauth: {
@@ -985,6 +1029,25 @@
                 
             </div>
         
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
     </div>
 </footer>
     </div>
@@ -1080,6 +1143,10 @@ MathJax.Hub.Queue(function() {
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
   </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
