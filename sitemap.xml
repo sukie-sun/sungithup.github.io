@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sungithup.github.io/books/index.html</loc>
+    
+    <lastmod>2019-02-18T09:24:25.137Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/</loc>
     
     <lastmod>2019-02-18T08:31:09.124Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://sungithup.github.io/tags/essays/index.html</loc>
     
     <lastmod>2019-02-18T07:35:40.366Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://sungithup.github.io/books/index.html</loc>
-    
-    <lastmod>2019-02-18T07:26:12.217Z</lastmod>
     
   </url>
   
