@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2019-02-18</lastmod>
+  </url>  <url>
     <loc>http://sungithup.github.io/2019/02/17/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
     <lastmod>2019-02-18</lastmod>
   </url>  <url>
@@ -14,9 +17,6 @@
     <lastmod>2019-02-16</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/01/29/Storm%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2019-02-16</lastmod>
-  </url>  <url>
-    <loc>http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2019-02-16</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/02/16/%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95%20/</loc>
