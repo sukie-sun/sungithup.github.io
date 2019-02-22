@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Sukie">
+
+
+
+<meta name="description" content="SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎">
+<meta name="keywords" content="Spark框架,SparkSql,SQL语句">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark学习（五）">
+<meta property="og:url" content="http://sungithup.github.io/2019/02/21/Spark学习（五）/index.html">
+<meta property="og:site_name" content="Sukie山脉">
+<meta property="og:description" content="SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0e3717grfj30dq07amzi.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0e98ac1j9j30df09vt9h.jpg">
+<meta property="og:updated_time" content="2019-02-22T02:16:27.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark学习（五）">
+<meta name="twitter:description" content="SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0e3717grfj30dq07amzi.jpg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Sukie山脉" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Spark学习（五） | Sukie山脉</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Sukie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/essays/">推荐</a></li>
+                        
+                            <li><a href="/books/">书籍</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL语句/">SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSql/">SparkSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统学习/">系统学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加器/">累加器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">正宗小白</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Sukie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Sukie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/essays/">推荐</a></li>
+                
+                    <li><a href="/books/">书籍</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-Spark学习（五）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/21/Spark学习（五）/" class="article-date">
+      <time datetime="2019-02-20T16:00:00.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spark学习（五）
+    </h1>
+  
+
+        
+           <div style="margin-top:10px;"> 
+     <span class="post-time"> 
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-keyboard-o"></i> 
+                 <span class="post-meta-item-text"> 字数统计: </span> 
+                 <span class="post-count">3.8k字</span> 
+           </span>
+     </span> 
+
+     <span class="post-time">
+           |   
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-hourglass-half"></i> 
+                 <span class="post-meta-item-text"> 阅读时长: </span> 
+                 <span class="post-count">19分</span> 
+           </span> 
+     </span> 
+</div>
+
+           
+      </header>     
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL语句/">SQL语句</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkSql/">SparkSql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark框架/">Spark框架</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>[TOC]</p>
+<h1 id="一、Shark"><a href="#一、Shark" class="headerlink" title="一、Shark"></a>一、Shark</h1><h2 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h2><p>基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎，</p>
+<h2 id="2、特点"><a href="#2、特点" class="headerlink" title="2、特点"></a>2、特点</h2><ul>
+<li>基于 Spark 的特性</li>
+</ul>
+<p>由于底层的计算采用了 Spark，性能比 MapReduce 的 Hive 普遍快 2 倍以上，当数据全部 load 在内存的话，将快 10 倍以上，因此 Shark 可以作为交互式查询应用服务来使用。</p>
+<ul>
+<li>基于 Hive的特性</li>
+</ul>
+<p>Shark 是完全兼容 Hive的语法，表结构以及UDF函数等，已有的HiveSql可以直接进行迁移至Shark上。 Shark 底层依赖于 Hive 的解析器，查询优化器。</p>
+<ul>
+<li>缺点</li>
+</ul>
+<p>由于 Shark 的整体设计架构对 Hive 的依赖性太强，难以支持其长远发展，比如不能和 Spark的其他组件进行很好的集成，无法满足 Spark 的一栈式解决大数据处理的需求。</p>
+<h1 id="二、SparkSql"><a href="#二、SparkSql" class="headerlink" title="二、SparkSql"></a>二、SparkSql</h1><h2 id="1、SparkSQL介绍"><a href="#1、SparkSQL介绍" class="headerlink" title="1、SparkSQL介绍"></a>1、SparkSQL介绍</h2><p>Hive 是 Shark 的前身，Shark 是 SparkSQL 的前身</p>
+<p>SparkSQL 特点</p>
+<ul>
+<li><p>其完全脱离了 Hive 的限制。</p>
+</li>
+<li><p>SparkSQL支持查询原生的RDD。</p>
+<p>RDD是Spark平台的核心概念，是 Spark 能够高效的处理大数据的各种场景的基础。</p>
+</li>
+<li><p>能够在 Scala 中写 SQL 语句。</p>
+</li>
+</ul>
+<p>支持简单的 SQL 语法检查，能够在Scala中写Hive语句访问Hive数据，并将结果取回作为RDD使用。</p>
+<h2 id="2、Spark-on-Hive-和-Hive-on-Spark"><a href="#2、Spark-on-Hive-和-Hive-on-Spark" class="headerlink" title="2、Spark on Hive 和 Hive on Spark"></a>2、Spark on Hive 和 Hive on Spark</h2><p><strong><code>Spark on Hive</code></strong>：</p>
+<p> Hive 只作为储存角色，Spark 负责 sql 解析优化，执行。</p>
+<p>数据源在hive上，解析引擎是sparksql，执行任务是spark</p>
+<p><strong><code>Hive on Spark</code></strong>：</p>
+<p>Hive 即作为存储又负责 sql 的解析优化，Spark 负责执行。</p>
+<p>数据源在hive上，解析引擎是hive，执行任务是spark</p>
+<h2 id="3、DataFrame"><a href="#3、DataFrame" class="headerlink" title="3、DataFrame"></a>3、DataFrame</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0e3717grfj30dq07amzi.jpg" alt=""></p>
+<ul>
+<li><p>分布式数据容器</p>
+</li>
+<li><p>DataFrame 的底层封装的是 RDD，只不过 RDD 的泛型是 Row 类型。</p>
+</li>
+<li><p>相当于RDD+schema  （数据+数据的结构信息）</p>
+</li>
+<li><p>与 Hive 类似，DataFrame 也支持嵌套数据类型（struct、array 和 map）</p>
+</li>
+<li><p>从 API 易用性的角度上 看， DataFrame API提供的是一套高层的关系操作，比函数式的 RDD API 要更加友好，门槛更低。</p>
+</li>
+</ul>
+<h2 id="4、SparkSql-的数据源"><a href="#4、SparkSql-的数据源" class="headerlink" title="4、SparkSql 的数据源"></a>4、SparkSql 的数据源</h2><p> JSON 类型的字符串，JDBC、Parquent、Hive，HBASE、HDFS </p>
+<h2 id="5、SparkSql底层架构"><a href="#5、SparkSql底层架构" class="headerlink" title="5、SparkSql底层架构"></a>5、SparkSql底层架构</h2><p>sql——&gt;逻辑计划——&gt;优化逻辑计划——&gt;物理计划——&gt;RDD（Spark任务）</p>
+<h2 id="6、谓词下推"><a href="#6、谓词下推" class="headerlink" title="6、谓词下推"></a>6、谓词下推</h2><p><code>sql</code>:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table1.name,table2.score <span class="keyword">from</span> table1 <span class="keyword">join</span> table2 <span class="keyword">on</span> table1.id=table2.id <span class="keyword">where</span> table1.age &gt; <span class="number">50</span> <span class="keyword">and</span> table2.score &gt; <span class="number">90</span></span><br></pre></td></tr></table></figure>
+<p><code>执行顺序</code> </p>
+<p> join:t1,t2<br>过滤：where : t1.age&gt;50,t2.score&gt;90<br>列裁剪：from:  select:</p>
+<p><strong><code>谓词下推</code></strong><br>先各自过滤：where<br>然后列裁剪：t1:name,id  ;  t2:score,id<br>join</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0e98ac1j9j30df09vt9h.jpg" alt="谓词下推"><span class="img-alt">谓词下推</span></p>
+<h1 id="三、创建DataFrame的几种方式"><a href="#三、创建DataFrame的几种方式" class="headerlink" title="三、创建DataFrame的几种方式"></a>三、创建DataFrame的几种方式</h1><h2 id="1、读取Json格式文件创建DataFrame"><a href="#1、读取Json格式文件创建DataFrame" class="headerlink" title="1、读取Json格式文件创建DataFrame"></a>1、读取Json格式文件创建DataFrame</h2><p><code>注意：</code></p>
+<blockquote>
+<p>1、json文件中不能嵌套json格式的内容</p>
+<p>2、读取json文件格式的两种方式：</p>
+<p>3、dataFrame.show( )默认显示前20行数据，使用dataFrame.show(行数）可显示指定行数的数据</p>
+<p>4、将DataFrame转换成RDD：</p>
+<p>​          Java: df.javaRDD( )  </p>
+<p>​         Scala: df.rdd</p>
+<p>5、显示DataFrame的Schema信息（树形的形式）：df.printSchema(  )</p>
+<p>6、dataFrame自带API操作dataFrame ,不常用</p>
+<p>7、使用sql查询：</p>
+<p>​         a，将DataFrame注册临时表： df.registerTemptable(“mytable”)   </p>
+<p>​         b，使用sql： sqlContext.sql(“sql语句”)</p>
+<p>8、df中的数据加载过之后，显示时，会默认将列按ASCII码进行排序</p>
+</blockquote>
+<p><code>Java：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"jsonfile"</span>);</span><br><span class="line">SparkContext context = <span class="keyword">new</span> SparkContext(conf);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建SQLContext（实现了序列化）</span></span><br><span class="line">SQLContext sqlContext = <span class="keyword">new</span> SQLContext(context);</span><br><span class="line"></span><br><span class="line"><span class="comment">//文件格式：&#123;"name":"zhangsan","age": 18&#125;</span></span><br><span class="line"><span class="comment">//读取json文件的两种方式,得到DataFrame（底层是RDD）</span></span><br><span class="line">DataFrame df = sqlContext.read().format(<span class="string">"json"</span>).load(<span class="string">"./data/jsonfile"</span>);</span><br><span class="line"><span class="comment">//DataFrame df = sqlContext.read().json("./data/jsonfile");</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//显示df中的内容的两种情况（以二维表显示，空值用null代替，列自动按ASCII码排序）</span></span><br><span class="line">df.show();</span><br><span class="line">df.show(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//df转换成RDD</span></span><br><span class="line"><span class="comment">//RDD&lt;ROW&gt; rdd = df.rdd()</span></span><br><span class="line">JavaRDD&lt;Row&gt; javaRDD = df.javaRDD();</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示数据结构信息</span></span><br><span class="line">df.printSchema();</span><br><span class="line"></span><br><span class="line"><span class="comment">//自带操作DataFrame的API</span></span><br><span class="line"><span class="comment">//select name from table</span></span><br><span class="line">df.select(<span class="string">"name"</span>).show();</span><br><span class="line"><span class="comment">//select name ,age+10 as addage from table</span></span><br><span class="line">df.select(df.col(<span class="string">"name"</span>),df.col(<span class="string">"age"</span>).plus(<span class="number">10</span>).alias(<span class="string">"addage"</span>)).show();</span><br><span class="line"><span class="comment">//select name ,age from table where age&gt;19</span></span><br><span class="line">df.select(df.col(<span class="string">"name"</span>),df.col(<span class="string">"age"</span>)).where(df.col(<span class="string">"age"</span>).gt(<span class="number">19</span>)).show();</span><br><span class="line"><span class="comment">//select age,count(*) from table group by age</span></span><br><span class="line">df.groupBy(df.col(<span class="string">"age"</span>)).count().show();</span><br><span class="line">    </span><br><span class="line"><span class="comment">//使用SQL查询</span></span><br><span class="line"><span class="comment">//将DataFrame注册成临时的一张表，这张表相当于临时注册到内存中，是逻辑上的表，不会雾化到磁盘</span></span><br><span class="line">df.registerTempTable(<span class="string">"table"</span>);</span><br><span class="line">DataFrame sqlDF = sqlContext.sql(<span class="string">"sekect * from table where name like 'zhang&amp;'"</span>);</span><br><span class="line">sqlDF.show();</span><br><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
+<p><code>Scala:</code></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"json"</span>)</span><br><span class="line"><span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQlContext</span>(context)</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取json文件</span></span><br><span class="line"><span class="keyword">val</span> df = sqlContext.read.json(<span class="string">"./data/jsonfile"</span>)</span><br><span class="line"><span class="comment">//val df = sqlContext.read.format("json").load("./data/jsonfile)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将df转化成RDD</span></span><br><span class="line"><span class="comment">//val rdd = df.rdd</span></span><br><span class="line">df.show()</span><br><span class="line">de.printSchema()</span><br><span class="line"></span><br><span class="line"><span class="comment">//select * from table</span></span><br><span class="line">df.select(df.col(<span class="string">"name"</span>)).show()</span><br><span class="line"><span class="comment">//select name from table where age&gt;19</span></span><br><span class="line">df.select(df.col(<span class="string">"name"</span>),df.col(<span class="string">"age"</span>)).where(df.col(<span class="string">"age"</span>).gt(<span class="number">19</span>)).show()</span><br><span class="line"><span class="comment">//select count(*) from table group by age</span></span><br><span class="line">df.groupBy(df.col(<span class="string">"age"</span>)).count().show();</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用sql </span></span><br><span class="line"><span class="comment">//注册临时表</span></span><br><span class="line">df.registerTempTable(<span class="string">"table"</span>)</span><br><span class="line"><span class="keyword">val</span> result = sqlContext.sql(<span class="string">"select * from table"</span>)</span><br><span class="line">result.show()</span><br><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
+<h2 id="2、通过Json格式的RDD创建DataFrame"><a href="#2、通过Json格式的RDD创建DataFrame" class="headerlink" title="2、通过Json格式的RDD创建DataFrame"></a>2、通过Json格式的RDD创建DataFrame</h2><p><strong><code>Java</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"jsonRdd"</span>);</span><br><span class="line">JavaSparkContext context = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">SQLContext sqlContext = <span class="keyword">new</span> SQLContext(context);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建RDD</span></span><br><span class="line">JavaRDD&lt;String&gt; nameRDD = context.parallelize(Array.asList(</span><br><span class="line"><span class="string">"&#123;'name','zs','age','18'&#125;"</span>,</span><br><span class="line"><span class="string">"&#123;\"name\",\"ls\",\"age\",\"21\"&#125;"</span></span><br><span class="line">));</span><br><span class="line"></span><br><span class="line">JavaRDD&lt;String&gt; scoreRDD = context.parallelize(Array.asList(</span><br><span class="line"><span class="string">"&#123;'name':'zs','score':'90'&#125;"</span>,</span><br><span class="line"><span class="string">"&#123;\"name\":\"ls\",\"score\":\"88\"&#125;"</span></span><br><span class="line">));</span><br><span class="line"></span><br><span class="line"><span class="comment">//将jsonRDD转换成DataFrame</span></span><br><span class="line">DataFrame namedf = sqlContext.read().json(nameRDD);</span><br><span class="line">DataFrame scoredf = sqlContext.read().json(scoreRDD);</span><br><span class="line"></span><br><span class="line"><span class="comment">//为df注册临时表</span></span><br><span class="line">namedf.registerTempTable(<span class="string">"nameTable"</span>);</span><br><span class="line">scoredf.registerTempTable(<span class="string">"scoreTable"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用sql查询</span></span><br><span class="line">DataFrame df = sqlContext.sql(<span class="string">"select nameTable.name,nameTable.age,"</span>+</span><br><span class="line">                             <span class="string">"scoretable.score from nameTable join scoreTabel"</span>+</span><br><span class="line">                              <span class="string">"on nameTable.name = scoreTable.name "</span>);</span><br><span class="line">df.show();</span><br><span class="line">context.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"jsonRdd"</span>)</span><br><span class="line"><span class="keyword">val</span> context = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(context)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建RDD</span></span><br><span class="line"><span class="keyword">val</span> nameRDD = context.makeRDD(</span><br><span class="line"> <span class="string">"&#123;'name','zs','age','18'&#125;"</span>,</span><br><span class="line"><span class="string">"&#123;\"name\",\"ls\",\"age\",\"21\"&#125;"</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">val</span> scoreRDD = context.makeRDD(                                                     </span><br><span class="line"><span class="string">"&#123;'name':'zs','score':'90'&#125;"</span>,</span><br><span class="line"><span class="string">"&#123;\"name\":\"ls\",\"score\":\"88\"&#125;"</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">//获取dataFrame</span></span><br><span class="line"><span class="keyword">val</span> namedf = sqlContext.read.json(nameRDD)</span><br><span class="line"><span class="keyword">val</span> scoredf = sqlContext.read.json(scoreRDD)</span><br><span class="line"></span><br><span class="line"><span class="comment">//为DataFrame指定临时表</span></span><br><span class="line">namedf.registerTempTable(<span class="string">"nameTable"</span>)</span><br><span class="line">scoredf.registerTempTable(<span class="string">"scoreTable"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用sql</span></span><br><span class="line"><span class="keyword">val</span> df = sqlContext.sql(<span class="string">"select nameTable.name,nameTable.age,"</span>+</span><br><span class="line">                         <span class="string">"scoretable.score from nameTable join scoreTabel"</span>+</span><br><span class="line">                         <span class="string">"on nameTable.name = scoreTable.name "</span>)</span><br><span class="line">df.show()</span><br><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
+<h2 id="3、非Json格式的文件创建DataFrame"><a href="#3、非Json格式的文件创建DataFrame" class="headerlink" title="3、非Json格式的文件创建DataFrame"></a>3、非Json格式的文件创建DataFrame</h2><h3 id="1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）"><a href="#1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）" class="headerlink" title="1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）"></a>1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）</h3><ul>
+<li>自定义类要实现序列化</li>
+<li>自定义类的访问级别是public</li>
+<li>RDD转换成DataFrame后会根据映射按ASCII码排序</li>
+<li>将DataFrame转换成RDD时，获取字段的范式有两种：<ul>
+<li>1）row.getInt(0）；df.getString(1) 通过下标获取，返回Row类型的数据，注意列顺序问题（不推荐）</li>
+<li>2）row.getAs(“列名”)  通过列名获取对应列值（推荐）</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>Java</code></strong>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.bd.java.sql.dataframe;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="keyword">private</span> String id ;</span><br><span class="line">	<span class="keyword">private</span>  String name;</span><br><span class="line">	<span class="keyword">private</span> Integer age;	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Person [id="</span> + id + <span class="string">", name="</span> + name + <span class="string">", age="</span> + age + <span class="string">"]"</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"RDD"</span>);</span><br><span class="line">JavaSparkContext context = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">SQLContext sqlContext = <span class="keyword">new</span> SQLContext(sc);</span><br><span class="line"><span class="comment">//获取RDD（文件格式：1,zhangsan,18）</span></span><br><span class="line">JavaRDD&lt;String&gt; lineRDD = context.textFile(<span class="string">"./data/person"</span>);</span><br><span class="line"><span class="comment">//反射</span></span><br><span class="line">JavaRDD&lt;Person&gt; personRDD = </span><br><span class="line">    lineRDD.map(<span class="keyword">new</span> Funcation&lt;String,Person&gt;()&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Person <span class="title">call</span><span class="params">(String str)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            Person person = <span class="keyword">new</span> Person();</span><br><span class="line">            person.setId(str.split(<span class="string">","</span>)[<span class="number">0</span>]);</span><br><span class="line">            person.setName(str.split(<span class="string">","</span>)[<span class="number">1</span>]);</span><br><span class="line">            person.setAge(Integer.valueOf(str.split(<span class="string">","</span>)[<span class="number">2</span>]));</span><br><span class="line">            <span class="keyword">return</span> person;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">传入Person.class后，sqlContext就通过反射的方式创建DataFrame</span></span><br><span class="line"><span class="comment">因为在底层通过反射的方式可以获得Person类的所有field，再结合RDD，即可创建DataFrame</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//将RDD转换成DataFram</span></span><br><span class="line">DataFrame df = sqlContext.(personRDD,Person.class);</span><br><span class="line">df.show();</span><br><span class="line">df.printSchema()</span><br><span class="line">df.registerTempTable(<span class="string">"table"</span>);</span><br><span class="line">DataFrame sqldf = sqlContext.sql(<span class="string">"select * from table"</span>);</span><br><span class="line">sqldf.show()</span><br><span class="line">  </span><br><span class="line"><span class="comment">//将DataFrame转换成RDD（两种方式）</span></span><br><span class="line"><span class="comment">//因为排序的原因：df中列的顺序变为：age ， id ， name</span></span><br><span class="line">JavaRDD&lt;Row&gt; javaRDD = df.javaRDD();</span><br><span class="line">JavaRDD&lt;Person&gt; map = </span><br><span class="line">    javaRDD.map(<span class="keyword">new</span> Function(Row,Person)&#123;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Person <span class="title">call</span><span class="params">(Row row)</span> <span class="keyword">throws</span> Exception </span>&#123;    </span><br><span class="line">        Person p = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">//        p.setId(row.getString(1));</span></span><br><span class="line"><span class="comment">//        p.setName(row.getString(2));</span></span><br><span class="line"><span class="comment">//        p.setAge(row.getInt(0));</span></span><br><span class="line">        p.setId((String)row.getAs(<span class="string">"id"</span>));</span><br><span class="line">		p.setName((String)row.getAs(<span class="string">"name"</span>));</span><br><span class="line">		p.setAge((Integer)row.getAs(<span class="string">"age"</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;);</span><br><span class="line">map.foreach(<span class="keyword">new</span> VoidFunction&lt;Person&gt;()&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Person person)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(person);       </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;);</span><br><span class="line">context.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line"> conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"rddreflect"</span>)</span><br><span class="line"> <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"> <span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sc)</span><br><span class="line"> <span class="keyword">val</span> lineRDD = sc.textFile(<span class="string">"./data/person"</span>)</span><br><span class="line"><span class="comment">//文件格式：1,zhangsan,18</span></span><br><span class="line"><span class="comment">//将RDD转换成DataFrame</span></span><br><span class="line"><span class="keyword">val</span> personRDD = linRDD.map&#123;x=&gt;&#123;</span><br><span class="line"> <span class="keyword">val</span> person = <span class="type">Person</span>(x.split(<span class="string">","</span>)(<span class="number">0</span>),x.split(<span class="string">","</span>)(<span class="number">1</span>),<span class="type">Intger</span>.valueOf(x.split(<span class="string">","</span>)(<span class="number">2</span>))</span><br><span class="line"> person</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="comment">//将personRDD转化成DataFrame                     </span></span><br><span class="line"><span class="keyword">val</span> df = personRDD.toDF() </span><br><span class="line">df.show()  </span><br><span class="line">                     </span><br><span class="line"><span class="comment">//将DataFrame转换成RDD</span></span><br><span class="line"><span class="keyword">val</span> rdd = df.rdd</span><br><span class="line"><span class="keyword">val</span> personRDD = rdd.map&#123;x=&gt;&#123;</span><br><span class="line">   <span class="type">Person</span>(x.getAs(<span class="string">"id"</span>),x.getAs(<span class="string">"name"</span>),x.getAs(<span class="string">"age"</span>)) </span><br><span class="line">&#125;&#125; </span><br><span class="line">personRDD.foreach(println)</span><br><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
+<h3 id="2）动态创建Schema，将非json格式RDD转成DataFrame"><a href="#2）动态创建Schema，将非json格式RDD转成DataFrame" class="headerlink" title="2）动态创建Schema，将非json格式RDD转成DataFrame"></a>2）动态创建Schema，将非json格式RDD转成DataFrame</h3><p><strong><code>Java</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"rddStruct"</span>);</span><br><span class="line">JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">SQLContext sqlContext = <span class="keyword">new</span> SQLContext(sc);</span><br><span class="line">JavaRDD&lt;String&gt; lineRDD = sc.textFile(<span class="string">"./data/person"</span>);</span><br><span class="line"><span class="comment">//文件格式：1,zhangsan,18</span></span><br><span class="line"><span class="comment">//将RDD转换成DataFrame</span></span><br><span class="line"><span class="comment">//将RDD转成Row类型的RDD</span></span><br><span class="line"><span class="keyword">final</span> JavaRDD&lt;Row&gt; rowRDD =</span><br><span class="line">    lineRDD.map(<span class="keyword">new</span> Function&lt;String,Row&gt;()&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> Row <span class="title">call</span><span class="params">(String s)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">             val row = RowFactory.create(</span><br><span class="line">             s.split(<span class="string">","</span>)[<span class="number">0</span>],</span><br><span class="line">             s.split(<span class="string">","</span>)[<span class="number">1</span>],</span><br><span class="line">            Integer.valueOf(s.split(<span class="string">","</span>)[<span class="number">2</span>]) </span><br><span class="line">             );</span><br><span class="line">            <span class="keyword">return</span> row;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="comment">//动态创建DataFrame的的元数据（Schema），字段的来源：字符串或外部数据库</span></span><br><span class="line">List&lt;StructField&gt; asList = Arrays.asList(</span><br><span class="line">    DataTypes.createStructField(<span class="string">"id"</span>,DataTypes.StringType,<span class="keyword">true</span>),</span><br><span class="line">    DataTypes.createStructField(<span class="string">"name"</span>,DataTypes.StringType,<span class="keyword">true</span>)，</span><br><span class="line">    DataTypes.createStructField（<span class="string">"age"</span>,DataTypes.IntegerType,<span class="keyword">true</span>)</span><br><span class="line">);</span><br><span class="line">StructType schema = DataTypes.createStruct(asList);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取DataFrame</span></span><br><span class="line">DataFrame df = sqlContext.createDataFrame(rowRDD,schema);</span><br><span class="line">df.printSchema();</span><br><span class="line">df.show();</span><br><span class="line"></span><br><span class="line"><span class="comment">//将dataframe转换成RDD</span></span><br><span class="line"><span class="comment">//JavaRDD&lt;Row&gt; javaRDD = df.javaRDD();</span></span><br><span class="line"><span class="comment">//	javaRDD.foreach(new VoidFunction&lt;Row&gt;() &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//			private static final long serialVersionUID = 1L;</span></span><br><span class="line"><span class="comment">//			@Override</span></span><br><span class="line"><span class="comment">//			public void call(Row row) throws Exception &#123;</span></span><br><span class="line"><span class="comment">//				System.out.println(row.getString(0));</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                System.out.println(row);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//		&#125;);</span></span><br><span class="line">context.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"rddStruct"</span>)</span><br><span class="line"><span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sc)</span><br><span class="line"><span class="keyword">val</span> lineRDD = sc.textFile(<span class="string">"./data/person"</span>)</span><br><span class="line"><span class="comment">//文件格式：1,zhangsan,18</span></span><br><span class="line"><span class="comment">//将RDD转换成RowRDD</span></span><br><span class="line"><span class="keyword">val</span> rowRDD = lineRDD.map&#123;x=&gt;&#123;</span><br><span class="line">    <span class="keyword">val</span> split = x.split(<span class="string">","</span>)</span><br><span class="line">    <span class="type">RowFactory</span>.create(split(<span class="number">0</span>),split(<span class="number">1</span>),<span class="type">Integer</span>.valueOf(split(<span class="number">2</span>))</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="comment">//获取schema</span></span><br><span class="line"><span class="keyword">val</span> schema = <span class="type">StructType</span>(<span class="type">List</span>(</span><br><span class="line"><span class="type">StructField</span>(<span class="string">"id"</span>,<span class="type">StringType</span>，<span class="literal">true</span>),</span><br><span class="line"><span class="type">StructField</span>(<span class="string">"name"</span>,<span class="type">StringType</span>,<span class="literal">true</span>),</span><br><span class="line"><span class="type">StructField</span>(<span class="string">"age"</span>,<span class="type">IntegerType</span>,<span class="literal">true</span>)</span><br><span class="line">))</span><br><span class="line"><span class="keyword">val</span> df = sqlContext.createDataFrame(rowRDD,shema)</span><br><span class="line">df.show()</span><br><span class="line">df.printSchema()                      </span><br><span class="line">context.stop()</span><br></pre></td></tr></table></figure>
+<h2 id="4、读取parquet文件创建DataFrame"><a href="#4、读取parquet文件创建DataFrame" class="headerlink" title="4、读取parquet文件创建DataFrame"></a>4、读取parquet文件创建DataFrame</h2><p><strong><code>注意：</code></strong></p>
+<ul>
+<li><p>可以将 DataFrame 存储成 parquet 文件。保存成 parquet 文件的方式有两种</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.write().mode(SaveMode.Overwrite)format(&quot;parquet&quot;).save(&quot;./sparksql/parquet&quot;);</span><br><span class="line">df.write().mode(SaveMode.Overwrite).parquet(&quot;./sparksql/parquet&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SaveMode 指定文件保存时的模式。</p>
+</li>
+<li><blockquote>
+<p>Overwrite：覆盖<br>Append：追加<br>ErrorIfExists：如果存在就报错<br>Ignore：如果存在就忽略</p>
+</blockquote>
+</li>
+</ul>
+<p><strong><code>Java</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"parquet"</span>);</span><br><span class="line">JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">SQLContext sqlContext = <span class="keyword">new</span> SQLContext(sc);</span><br><span class="line">JavaRDD&lt;String&gt; jsonRDD = sc.textFile(<span class="string">"./data/json"</span>);</span><br><span class="line"><span class="comment">//读取json格式的文件</span></span><br><span class="line">DataFrame df = sqlContext.read().json(jsonRDD);</span><br><span class="line"><span class="comment">//sqlContext.read().format("json").load("./spark/json");</span></span><br><span class="line">df.show();</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将DataFrame保存成parquet文件，</span></span><br><span class="line"><span class="comment"> * SaveMode指定存储文件时的保存模式:</span></span><br><span class="line"><span class="comment"> *  Overwrite：覆盖</span></span><br><span class="line"><span class="comment"> * 	Append:追加</span></span><br><span class="line"><span class="comment"> *  ErrorIfExists:如果存在就报错</span></span><br><span class="line"><span class="comment"> * 	Ignore:如果存在就忽略</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 保存成parquet文件有以下两种方式：</span></span><br><span class="line">df.write().mode(SaveMode.Overwrite).parquet(<span class="string">"./sparksql/parquet"</span>);</span><br><span class="line"><span class="comment">//df.write().mode(SaveMode.Overwrite).format("parquet").save("data/parquet");</span></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 加载parquet文件成DataFrame	</span></span><br><span class="line"><span class="comment">  * 加载parquet文件有以下两种方式：	</span></span><br><span class="line"><span class="comment">  */</span>  </span><br><span class="line">load = sqlContext.read().parquet(<span class="string">"data/parquet"</span>);</span><br><span class="line"><span class="comment">//	 DataFrame load = sqlContext.read().format("parquet").load("data/parquet");</span></span><br><span class="line">load.show();</span><br><span class="line">sc.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"parquet"</span>)</span><br><span class="line"><span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sc)</span><br><span class="line"><span class="keyword">val</span> jsonRDD = sc.textFile(<span class="string">"data/json"</span>)</span><br><span class="line"><span class="keyword">val</span> df = sqlContext.read.json(jsonRDD)</span><br><span class="line">df.show()</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 将DF保存为parquet文件</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">df.write.mode(<span class="type">SaveMode</span>.<span class="type">Overwrite</span>).format(<span class="string">"parquet"</span>).save(<span class="string">"data/parquet"</span>)</span><br><span class="line">df.write.mode(<span class="type">SaveMode</span>.<span class="type">Overwrite</span>).parquet(<span class="string">"data/parquet"</span>)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取parquet文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> result = sqlContext.read.parquet(<span class="string">"data/parquet"</span>)</span><br><span class="line">result = sqlContext.read.format(<span class="string">"parquet"</span>).load(<span class="string">"data/parquet"</span>)</span><br><span class="line">result.show()</span><br><span class="line">sc.stop()</span><br></pre></td></tr></table></figure>
+<h2 id="5、读取JDBC中的数据创建DataFrame（MySQL为例）"><a href="#5、读取JDBC中的数据创建DataFrame（MySQL为例）" class="headerlink" title="5、读取JDBC中的数据创建DataFrame（MySQL为例）"></a>5、读取JDBC中的数据创建DataFrame（MySQL为例）</h2><p>两种方式创建 DataFrame</p>
+<p><strong><code>Java</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">        conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"mysql"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 	配置join或者聚合操作shuffle数据时分区的数量</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        conf.set(<span class="string">"spark.sql.shuffle.partitions"</span>, <span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">        JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">        SQLContext sqlContext = <span class="keyword">new</span> SQLContext(sc);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 第一种方式读取MySql数据库表，加载为DataFrame</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Map&lt;String, String&gt; options = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        options.put(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://127.0.0.1:3306/spark"</span>);</span><br><span class="line">        options.put(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        options.put(<span class="string">"user"</span>, <span class="string">"root"</span>);</span><br><span class="line">        options.put(<span class="string">"password"</span>, <span class="string">"root"</span>);</span><br><span class="line">        options.put(<span class="string">"dbtable"</span>, <span class="string">"person"</span>);</span><br><span class="line"></span><br><span class="line">        DataFrame person = sqlContext.read().format(<span class="string">"jdbc"</span>).options(options).load();</span><br><span class="line">        person.show();</span><br><span class="line"></span><br><span class="line">        person.registerTempTable(<span class="string">"person"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 第二种方式读取MySql数据表加载为DataFrame</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        DataFrameReader reader = sqlContext.read().format(<span class="string">"jdbc"</span>);</span><br><span class="line">        reader.option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://127.0.0.1:3306/spark"</span>);</span><br><span class="line">        reader.option(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        reader.option(<span class="string">"user"</span>, <span class="string">"root"</span>);</span><br><span class="line">        reader.option(<span class="string">"password"</span>, <span class="string">"root"</span>);</span><br><span class="line">        reader.option(<span class="string">"dbtable"</span>, <span class="string">"score"</span>);</span><br><span class="line">        DataFrame score = reader.load();</span><br><span class="line">        score.show();</span><br><span class="line">        score.registerTempTable(<span class="string">"score"</span>);</span><br><span class="line"></span><br><span class="line">        DataFrame result =</span><br><span class="line">               sqlContext.sql(<span class="string">"select person.id,person.name,person.age,score.score "</span></span><br><span class="line">                        + <span class="string">"from person,score "</span></span><br><span class="line">                        + <span class="string">"where person.name = score.name  and score.score&gt; 90"</span>);</span><br><span class="line">        result.show();</span><br><span class="line"></span><br><span class="line">        result.registerTempTable(<span class="string">"result"</span>);</span><br><span class="line">DataFrame df = sqlContext.sql(<span class="string">"select id,name,age,score from result where ag&gt;18"</span>);</span><br><span class="line">        df.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 将DataFrame结果保存到Mysql中</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.setProperty(<span class="string">"user"</span>, <span class="string">"root"</span>);</span><br><span class="line">        properties.setProperty(<span class="string">"password"</span>, <span class="string">"root"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * SaveMode:</span></span><br><span class="line"><span class="comment">         * Overwrite：覆盖</span></span><br><span class="line"><span class="comment">         * Append:追加</span></span><br><span class="line"><span class="comment">         * ErrorIfExists:如果存在就报错</span></span><br><span class="line"><span class="comment">         * Ignore:如果存在就忽略</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        result.write().mode(SaveMode.Append).jdbc(<span class="string">"jdbc:mysql://127.0.0.1:3306/spark"</span>, <span class="string">"result2"</span>, properties);</span><br><span class="line">        System.out.println(<span class="string">"----Finish----"</span>);</span><br><span class="line">        sc.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">    conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"mysql"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">		<span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sc)</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 第一种方式读取Mysql数据库表创建DF</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">val</span> options = <span class="keyword">new</span> <span class="type">HashMap</span>[<span class="type">String</span>,<span class="type">String</span>]();</span><br><span class="line">		options.put(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.100.111:3306/spark"</span>)</span><br><span class="line">		options.put(<span class="string">"driver"</span>,<span class="string">"com.mysql.jdbc.Driver"</span>)</span><br><span class="line">		options.put(<span class="string">"user"</span>,<span class="string">"root"</span>)</span><br><span class="line">		options.put(<span class="string">"password"</span>, <span class="string">"1234"</span>)</span><br><span class="line">		options.put(<span class="string">"dbtable"</span>,<span class="string">"person"</span>)</span><br><span class="line">		<span class="keyword">val</span> person = sqlContext.read.format(<span class="string">"jdbc"</span>).options(options).load()</span><br><span class="line">		person.show()</span><br><span class="line">		person.registerTempTable(<span class="string">"person"</span>)</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 第二种方式读取Mysql数据库表创建DF</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">val</span> reader = sqlContext.read.format(<span class="string">"jdbc"</span>)</span><br><span class="line">		reader.option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.100.111:3306/spark"</span>)</span><br><span class="line">		reader.option(<span class="string">"driver"</span>,<span class="string">"com.mysql.jdbc.Driver"</span>)</span><br><span class="line">		reader.option(<span class="string">"user"</span>,<span class="string">"root"</span>)</span><br><span class="line">		reader.option(<span class="string">"password"</span>,<span class="string">"1234"</span>)</span><br><span class="line">		reader.option(<span class="string">"dbtable"</span>, <span class="string">"score"</span>)</span><br><span class="line">		<span class="keyword">val</span> score = reader.load()</span><br><span class="line">		score.show()</span><br><span class="line">		score.registerTempTable(<span class="string">"score"</span>)</span><br><span class="line">		<span class="keyword">val</span> result = sqlContext.sql(<span class="string">"select person.id,person.name,score.score from                                        person,score where person.name = score.name"</span>)</span><br><span class="line">		result.show()</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 将数据写入到Mysql表中</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">val</span> properties = <span class="keyword">new</span> <span class="type">Properties</span>()</span><br><span class="line">		properties.setProperty(<span class="string">"user"</span>, <span class="string">"root"</span>)</span><br><span class="line">		properties.setProperty(<span class="string">"password"</span>, <span class="string">"1234"</span>)</span><br><span class="line">		result.write.mode(<span class="type">SaveMode</span>.<span class="type">Append</span>).</span><br><span class="line">               jdbc(<span class="string">"jdbc:mysql://192.168.100.111:3306/spark"</span>, <span class="string">"result"</span>, properties)</span><br><span class="line">		</span><br><span class="line">		sc.stop()</span><br></pre></td></tr></table></figure>
+<h2 id="6、读取Hive中的数据加载成DataFrame"><a href="#6、读取Hive中的数据加载成DataFrame" class="headerlink" title="6、读取Hive中的数据加载成DataFrame"></a>6、读取Hive中的数据加载成DataFrame</h2><p><strong><code>Hive配置：</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong><code>Java</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf();</span><br><span class="line">		conf.setAppName(<span class="string">"hive"</span>);</span><br><span class="line">		JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">		<span class="comment">//HiveContext是SQLContext的子类。</span></span><br><span class="line">		HiveContext hiveContext = <span class="keyword">new</span> HiveContext(sc);</span><br><span class="line"></span><br><span class="line">		hiveContext.sql(<span class="string">"USE spark"</span>);</span><br><span class="line">		hiveContext.sql(<span class="string">"DROP TABLE IF EXISTS student_infos"</span>);</span><br><span class="line">		<span class="comment">//在hive中创建student_infos表</span></span><br><span class="line">		hiveContext.sql(<span class="string">"CREATE TABLE IF NOT EXISTS student_infos (name STRING,age INT) row format delimited fields terminated by '\t' "</span>);</span><br><span class="line">		hiveContext.sql(<span class="string">"load data local inpath '/root/student_infos' into table student_infos"</span>);</span><br><span class="line">		</span><br><span class="line">		hiveContext.sql(<span class="string">"DROP TABLE IF EXISTS student_scores"</span>); </span><br><span class="line">		hiveContext.sql(<span class="string">"CREATE TABLE IF NOT EXISTS student_scores (name STRING, score INT) row format delimited fields terminated by '\t'"</span>);  </span><br><span class="line">		hiveContext.sql(<span class="string">"LOAD DATA "</span></span><br><span class="line">				+ <span class="string">"LOCAL INPATH '/root/student_scores'"</span></span><br><span class="line">				+ <span class="string">"INTO TABLE student_scores"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 查询表生成DataFrame</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//		DataFrame df = hiveContext.table("student_infos");//第二种读取Hive表加载DF方式</span></span><br><span class="line">		DataFrame goodStudentsDF = hiveContext.sql(<span class="string">"SELECT si.name, si.age, ss.score "</span></span><br><span class="line">				+ <span class="string">"FROM student_infos si "</span></span><br><span class="line">				+ <span class="string">"JOIN student_scores ss "</span></span><br><span class="line">				+ <span class="string">"ON si.name=ss.name "</span></span><br><span class="line">				+ <span class="string">"WHERE ss.score&gt;=80"</span>);</span><br><span class="line"></span><br><span class="line">		goodStudentsDF.registerTempTable(<span class="string">"goodstudent"</span>);</span><br><span class="line">		DataFrame result = hiveContext.sql(<span class="string">"select * from goodstudent"</span>);</span><br><span class="line">		result.show();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 将结果保存到hive表 good_student_infos</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		hiveContext.sql(<span class="string">"DROP TABLE IF EXISTS good_student_infos"</span>);</span><br><span class="line">		goodStudentsDF.write().mode(SaveMode.Overwrite).saveAsTable(<span class="string">"good_student_infos"</span>);</span><br><span class="line"></span><br><span class="line">		DataFrame table = hiveContext.table(<span class="string">"good_student_infos"</span>);</span><br><span class="line">		Row[] goodStudentRows = table.collect();</span><br><span class="line">		<span class="keyword">for</span>(Row goodStudentRow : goodStudentRows) &#123;</span><br><span class="line">			System.out.println(goodStudentRow);</span><br><span class="line">		&#125;</span><br><span class="line">		sc.stop();</span><br></pre></td></tr></table></figure>
+<p><strong><code>Scala</code></strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">    conf.setAppName(<span class="string">"HiveSource"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * HiveContext是SQLContext的子类。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">val</span> hiveContext = <span class="keyword">new</span> <span class="type">HiveContext</span>(sc)</span><br><span class="line">    hiveContext.sql(<span class="string">"use spark"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"drop table if exists student_infos"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"create table if not exists student_infos (name string,age int) row format  delimited fields terminated by '\t'"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"load data local inpath '/root/test/student_infos' into table student_infos"</span>)</span><br><span class="line">    </span><br><span class="line">    hiveContext.sql(<span class="string">"drop table if exists student_scores"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"create table if not exists student_scores (name string,score int) row format delimited fields terminated by '\t'"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"load data local inpath '/root/test/student_scores' into table student_scores"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> df = hiveContext.sql(<span class="string">"select si.name,si.age,ss.score from student_infos si,student_scores ss where si.name = ss.name"</span>)</span><br><span class="line">    hiveContext.sql(<span class="string">"drop table if exists good_student_infos"</span>)</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将结果写入到hive表中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    df.write.mode(<span class="type">SaveMode</span>.<span class="type">Overwrite</span>).saveAsTable(<span class="string">"good_student_infos"</span>)</span><br><span class="line">    </span><br><span class="line">    sc.stop()</span><br></pre></td></tr></table></figure>
+<h1 id="关于序列化你要知道的！！"><a href="#关于序列化你要知道的！！" class="headerlink" title="关于序列化你要知道的！！"></a>关于序列化你要知道的！！</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">测试java中以下几种情况下不被序列化的问题：</span><br><span class="line"></span><br><span class="line">1.反序列化时serializable 版本号不一致时会导致不能反序列化。</span><br><span class="line"></span><br><span class="line">2.子类中实现了serializable接口，父类中没有实现，</span><br><span class="line">父类中的变量不能被序列化,序列化后父类中的变量会得到null。</span><br><span class="line">注意：</span><br><span class="line">父类实现serializable接口,子类没有实现serializable接口时，子类可以正常序列化</span><br><span class="line"></span><br><span class="line">3.被关键字transient修饰的变量不能被序列化。</span><br><span class="line"></span><br><span class="line">4.静态变量不能被序列化，属于类，不属于方法和对象，所以不能被序列化。</span><br></pre></td></tr></table></figure>
+<h1 id="四、Spark-On-Hive-的配置"><a href="#四、Spark-On-Hive-的配置" class="headerlink" title="四、Spark On Hive 的配置"></a>四、Spark On Hive 的配置</h1>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
+        <p><span>发布时间:</span>2019-02-21, 00:00:00</p>
+        <p><span>最后更新:</span>2019-02-22, 10:16:27</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/21/Spark学习（五）/" title="Spark学习（五）">http://sungithup.github.io/2019/02/21/Spark学习（五）/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/21/Spark学习（五）/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/02/19/Spark学习（四）/">
+                    Spark学习（四）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Shark"><span class="toc-text">一、Shark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、概念"><span class="toc-text">1、概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、特点"><span class="toc-text">2、特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、SparkSql"><span class="toc-text">二、SparkSql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、SparkSQL介绍"><span class="toc-text">1、SparkSQL介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Spark-on-Hive-和-Hive-on-Spark"><span class="toc-text">2、Spark on Hive 和 Hive on Spark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、DataFrame"><span class="toc-text">3、DataFrame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、SparkSql-的数据源"><span class="toc-text">4、SparkSql 的数据源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、SparkSql底层架构"><span class="toc-text">5、SparkSql底层架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、谓词下推"><span class="toc-text">6、谓词下推</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、创建DataFrame的几种方式"><span class="toc-text">三、创建DataFrame的几种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、读取Json格式文件创建DataFrame"><span class="toc-text">1、读取Json格式文件创建DataFrame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、通过Json格式的RDD创建DataFrame"><span class="toc-text">2、通过Json格式的RDD创建DataFrame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、非Json格式的文件创建DataFrame"><span class="toc-text">3、非Json格式的文件创建DataFrame</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）"><span class="toc-text">1）通过反射的方式将非json格式的RDD转换成DataFrame（不推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2）动态创建Schema，将非json格式RDD转成DataFrame"><span class="toc-text">2）动态创建Schema，将非json格式RDD转成DataFrame</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、读取parquet文件创建DataFrame"><span class="toc-text">4、读取parquet文件创建DataFrame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、读取JDBC中的数据创建DataFrame（MySQL为例）"><span class="toc-text">5、读取JDBC中的数据创建DataFrame（MySQL为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、读取Hive中的数据加载成DataFrame"><span class="toc-text">6、读取Hive中的数据加载成DataFrame</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于序列化你要知道的！！"><span class="toc-text">关于序列化你要知道的！！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Spark-On-Hive-的配置"><span class="toc-text">四、Spark On Hive 的配置</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Spark学习（五）　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    	
+
+
+  
+     
+     
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/02/19/Spark学习（四）/" title="下一篇: Spark学习（四）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+<!--gitment 评论-->
+
+  <div class="comments" id="comments">
+  
+  <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+  <script src="https://billts.site/js/gitment.js"></script>
+  <!--原型-->
+  <!--
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+  -->
+  
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+        id: 'Thu Feb 21 2019 00:00:00 GMT+0800',
+        title: 'Spark学习（五）',
+        owner: 'sungithup',
+        repo: 'sungithup.github.io',
+        oauth: {
+        client_id: '80107df5bc27be1c1495',
+        client_secret: 'c7949e6fc532f63f30f14fe1aff7f4b9c234860e',
+        },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+  </div>
+
+<!--gitment 评论 end--></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                
+                2016-2019 Sukie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

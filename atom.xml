@@ -129,26 +129,6 @@
   </entry>
   
   <entry>
-    <title>String 方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:22:24.420Z</updated>
-    
-    <summary type="html">
-    
-      Scala中String的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
-    
-  </entry>
-  
-  <entry>
     <title>List方法</title>
     <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
     <id>http://sungithup.github.io/2019/02/16/List方法/</id>
@@ -165,6 +145,26 @@
     
     
       <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Map方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:20:20.930Z</updated>
+    
+    <summary type="html">
+    
+      Scala中Map的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
     
   </entry>
   
@@ -209,22 +209,22 @@
   </entry>
   
   <entry>
-    <title>Map方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
+    <title>String 方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:20:20.930Z</updated>
+    <updated>2019-02-16T07:22:24.420Z</updated>
     
     <summary type="html">
     
-      Scala中Map的方法
+      Scala中String的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
     
   </entry>
   

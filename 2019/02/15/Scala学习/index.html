@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Sukie">
+
+
+
+<meta name="description" content="Scala的详细学习">
+<meta name="keywords" content="编程语言,静态,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala学习">
+<meta property="og:url" content="http://sungithup.github.io/2019/02/15/Scala学习/index.html">
+<meta property="og:site_name" content="Sukie山脉">
+<meta property="og:description" content="Scala的详细学习">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/Scala.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/eclipse.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/s1.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/s2.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/s4.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/s5.jpg">
+<meta property="og:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/map.jpg">
+<meta property="og:updated_time" content="2019-02-18T08:31:09.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala学习">
+<meta name="twitter:description" content="Scala的详细学习">
+<meta name="twitter:image" content="http://sungithup.github.io/2019/02/15/Scala学习/images/Scala.jpg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Sukie山脉" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Scala学习 | Sukie山脉</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Sukie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/essays/">推荐</a></li>
+                        
+                            <li><a href="/books/">书籍</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL语句/">SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSql/">SparkSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统学习/">系统学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加器/">累加器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">正宗小白</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Sukie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Sukie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/essays/">推荐</a></li>
+                
+                    <li><a href="/books/">书籍</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-Scala学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/15/Scala学习/" class="article-date">
+      <time datetime="2019-02-14T16:00:00.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Scala学习
+    </h1>
+  
+
+        
+           <div style="margin-top:10px;"> 
+     <span class="post-time"> 
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-keyboard-o"></i> 
+                 <span class="post-meta-item-text"> 字数统计: </span> 
+                 <span class="post-count">6.3k字</span> 
+           </span>
+     </span> 
+
+     <span class="post-time">
+           |   
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-hourglass-half"></i> 
+                 <span class="post-meta-item-text"> 阅读时长: </span> 
+                 <span class="post-count">29分</span> 
+           </span> 
+     </span> 
+</div>
+
+           
+      </header>     
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Scala/">Scala</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态/">静态</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>[TOC]</p>
+<h1 id="一、Scala官网6个特征。"><a href="#一、Scala官网6个特征。" class="headerlink" title="一、Scala官网6个特征。"></a>一、Scala官网6个特征。</h1><h2 id="简捷，快速"><a href="#简捷，快速" class="headerlink" title="简捷，快速"></a>简捷，快速</h2><h2 id="1、Java"><a href="#1、Java" class="headerlink" title="1、Java"></a>1、Java</h2><ul>
+<li>与Java无缝整合，运行在JVM上，编译形成.class文件</li>
+</ul>
+<h2 id="2、类型"><a href="#2、类型" class="headerlink" title="2、类型"></a>2、类型</h2><ul>
+<li>类型自动推断:var 变量类型   val 常量类型<br> （var  s = 1 自动推断s 为int类型 ）<br>  dos窗口运行Scala语言（cmd  - &gt;scala）  </li>
+</ul>
+<h2 id="3、并发"><a href="#3、并发" class="headerlink" title="3、并发"></a>3、并发</h2><ul>
+<li>底层有actor，天生用于高并发和分布式</li>
+</ul>
+<h2 id="4、继承"><a href="#4、继承" class="headerlink" title="4、继承"></a>4、继承</h2><ul>
+<li>trait 特征特质（Java中接口和抽象类的结合体？？？两者区别？？单继承多实现）<br>​    静态语言  （Java静态语言  shell 、Python动态语言）</li>
+</ul>
+<h2 id="5、匹配"><a href="#5、匹配" class="headerlink" title="5、匹配"></a>5、匹配</h2><ul>
+<li>模式匹配:(Java中的switch case类型必须一致)可匹配多种类型</li>
+</ul>
+<h2 id="6、高阶"><a href="#6、高阶" class="headerlink" title="6、高阶"></a>6、高阶</h2><ul>
+<li>高阶函数（函数式编程）函数可以作为参数传入方法中（Jdk 8 stream流，莱姆塔表达式）</li>
+</ul>
+<p>​       工具类中方法为静态的</p>
+<h1 id="二、Scala安装"><a href="#二、Scala安装" class="headerlink" title="二、Scala安装"></a>二、Scala安装</h1><h2 id="1、windows安装-配置环境变量"><a href="#1、windows安装-配置环境变量" class="headerlink" title="1、windows安装,配置环境变量"></a>1、windows安装,配置环境变量</h2><p>Ø  官网下载scala2.10：（因为spark需要的是这个版本的Scala）</p>
+<p><a href="http://www.scala-lang.org/download/2.10.4.html" target="_blank" rel="noopener">http://www.scala-lang.org/download/2.10.4.html</a> </p>
+<p>Ø  下载好后安装。双击msi包安装,记住安装的路径。</p>
+<p>Ø  配置环境变量（和配置jdk一样）</p>
+<ul>
+<li><p>新建SCALA_HOME</p>
+</li>
+<li><p>编辑Path变量，在后面追加如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;%SCALA_HOME%\bin</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Ø  打开cmd,输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala  - version</span><br></pre></td></tr></table></figure>
+<p>看是否显示版本号，确定是否安装成功</p>
+<p><img src="images/Scala.jpg" alt=""></p>
+<h2 id="2、eclipse-配置scala插件"><a href="#2、eclipse-配置scala插件" class="headerlink" title="2、eclipse 配置scala插件"></a>2、eclipse 配置scala插件</h2><p>Ø  下载插件（一定要对应eclipse版本下载）,并解压</p>
+<p><a href="http://scala-ide.org/download/prev-stable.html" target="_blank" rel="noopener">http://scala-ide.org/download/prev-stable.html</a></p>
+<p><img src="images/eclipse.jpg" alt=""></p>
+<p>Ø  将解压目录下的features和plugins两个文件夹拷贝到eclipse安装目录中的”dropins/scala”目录下。</p>
+<p>进入dropins，新建scala文件夹，将两个文件夹拷贝到“dropins/scala”下</p>
+<h2 id="3、Scala编辑器：scala-ide"><a href="#3、Scala编辑器：scala-ide" class="headerlink" title="3、Scala编辑器：scala ide"></a>3、Scala编辑器：scala ide</h2><p>下载网址：<a href="http://scala-ide.org/download/sdk.html" target="_blank" rel="noopener">http://scala-ide.org/download/sdk.html</a> </p>
+<h2 id="4、Idea-中配置scala插件"><a href="#4、Idea-中配置scala插件" class="headerlink" title="4、Idea 中配置scala插件"></a>4、Idea 中配置scala插件</h2><p>Ø  打开idea,close项目后，点击Configure-&gt;Plugins</p>
+<p>Ø  搜索scala，点击Install安装</p>
+<p>Ø  设置jdk，打开Project Structure,点击new 选择安装好的jdk路径</p>
+<p>Ø 新建Scala项目</p>
+<p><img src="images/s1.jpg" alt=""></p>
+<p><img src="images/s2.jpg" alt=""></p>
+<h1 id="三、Scala基础语法"><a href="#三、Scala基础语法" class="headerlink" title="三、Scala基础语法"></a>三、Scala基础语法</h1><h2 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h2><p><img src="images/s4.jpg" alt=""></p>
+<p><img src="images/s5.jpg" alt=""></p>
+<h2 id="2、变量和常量的声明"><a href="#2、变量和常量的声明" class="headerlink" title="2、变量和常量的声明"></a><strong>2</strong>、<strong>变量和常量的声明</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义变量和常量</span></span><br><span class="line"><span class="comment">     * 变量 :用 var 定义 ，可修改 </span></span><br><span class="line"><span class="comment">     * 常量 :用 val 定义，不可修改</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"zhangsan"</span></span><br><span class="line">    println(name)</span><br><span class="line">    name =<span class="string">"lisi"</span></span><br><span class="line">    println(name)</span><br><span class="line">    <span class="keyword">val</span> gender = <span class="string">"m"</span></span><br><span class="line"><span class="comment">//    gender = "m"//错误，不能给常量再赋值</span></span><br><span class="line"><span class="comment">// 定义变量或者常量的时候，也可以写上返回的类型，一般省略，如：val a:Int = 10</span></span><br></pre></td></tr></table></figure>
+<h2 id="3、类和对象"><a href="#3、类和对象" class="headerlink" title="3、类和对象"></a><strong>3、</strong>类和对象</h2><p>Ø  创建类</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">val</span> name = <span class="string">"zhangsan"</span></span><br><span class="line">  <span class="keyword">val</span> age = <span class="number">18</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sayName</span></span>() = &#123;</span><br><span class="line">    <span class="string">"my name is "</span>+ name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ø  创建对象</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Lesson_Class</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> person = <span class="keyword">new</span> <span class="type">Person</span>()</span><br><span class="line">    println(person.age);</span><br><span class="line">    println(person.sayName())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ø  伴生类和伴生对象</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>(<span class="params">xname :<span class="type">String</span> , xage :<span class="type">Int</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="type">Person</span>.name</span><br><span class="line">  <span class="keyword">val</span> age = xage</span><br><span class="line">  <span class="keyword">var</span> gender = <span class="string">"m"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">this</span></span>(name:<span class="type">String</span>,age:<span class="type">Int</span>,g:<span class="type">String</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>(name,age)</span><br><span class="line">    gender = g</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sayName</span></span>() = &#123;</span><br><span class="line">    <span class="string">"my name is "</span>+ name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> name = <span class="string">"zhangsanfeng"</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> person = <span class="keyword">new</span> <span class="type">Person</span>(<span class="string">"wagnwu"</span>,<span class="number">10</span>,<span class="string">"f"</span>)</span><br><span class="line">    println(person.age);</span><br><span class="line">    println(person.sayName())</span><br><span class="line">    println(person.gender)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>注意</code></p>
+<blockquote>
+<ul>
+<li>建议类名首字母大写 ，方法首字母小写，类和方法命名建议符合驼峰命名法。</li>
+<li>.一行结束，不需要分号。如果一行里有多个语句，则之间用分号隔开。</li>
+<li>scala 中的object是单例对象，相当于java中的工具类，它里面的方法可以看成都是static静态的。object不可以传参数。另：Trait不可以传参数</li>
+<li><p>scala中的class类默认可以传参数，默认的传参数就是默认的构造函数。</p>
+<p>重写构造函数的时候，必须要先调用默认的构造函数。</p>
+</li>
+<li><p>class 类属性自带getter ，setter方法。</p>
+</li>
+<li>使用object时，不用new，使用class时要new ,并且new的时候，class中除了方法不执行，其他都执行。</li>
+<li>如果在同一个文件中，object对象和class类的名称相同，则这个对象就是这个类的伴生对象，class称为object对象的伴生类，object 称为class类的伴生对象，他们可以直接访问对方的私有变量。</li>
+</ul>
+</blockquote>
+<h2 id="3-if-else"><a href="#3-if-else" class="headerlink" title="3.  if else"></a><strong>3.</strong>  <strong>if else</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * if else </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">val</span> age =<span class="number">18</span> </span><br><span class="line"><span class="keyword">if</span> (age &lt; <span class="number">18</span> )&#123;</span><br><span class="line">	println(<span class="string">"no allow"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">18</span>&lt;=age&amp;&amp;age&lt;=<span class="number">20</span>)&#123;</span><br><span class="line">	println(<span class="string">"allow with other"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	println(<span class="string">"allow self"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-for-while-do…while"><a href="#4-for-while-do…while" class="headerlink" title="4.   for ,while,do…while"></a><strong>4.</strong>   for ,while,do…while</h2><ul>
+<li>to和until 的用法（不带步长，带步长区别）</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**        </span></span><br><span class="line"><span class="comment">  * to和until        </span></span><br><span class="line"><span class="comment">  * 例：        </span></span><br><span class="line"><span class="comment">  * 1 to 10 返回1到10的Range数组，包含10        </span></span><br><span class="line"><span class="comment">  * 1 until 10 返回1到10 Range数组 ，不包含10        </span></span><br><span class="line"><span class="comment">  */</span>              </span><br><span class="line">println(<span class="number">1</span> to <span class="number">10</span> )<span class="comment">//打印： Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)      </span></span><br><span class="line">println(<span class="number">1.</span>to(<span class="number">10</span>))<span class="comment">//同上</span></span><br><span class="line"></span><br><span class="line">println(<span class="number">1</span> to (<span class="number">10</span> ,<span class="number">2</span>))<span class="comment">//步长为2，从1开始打印： Range(1, 3, 5, 7, 9)      </span></span><br><span class="line">println(<span class="number">1.</span>to(<span class="number">10</span>, <span class="number">2</span>)) <span class="comment">//同上</span></span><br><span class="line"></span><br><span class="line">println(<span class="number">1</span> until <span class="number">10</span> ) <span class="comment">//不包含最后一个数，打印1,2,3,4,5,6,7,8,9     </span></span><br><span class="line">println(<span class="number">1.</span>until(<span class="number">10</span>))<span class="comment">//同上          </span></span><br><span class="line">println(<span class="number">1</span> until (<span class="number">10</span> ,<span class="number">3</span> ))<span class="comment">//步长为2，从1开始打印，打印1,4,7</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建for循环</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * for 循环</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">for</span>( i &lt;- <span class="number">1</span> to <span class="number">10</span> )&#123;</span><br><span class="line">   println(i)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建多层for循环</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以分号隔开，写入多个list赋值的变量，构成多层for循环</span></span><br><span class="line">    <span class="comment">//scala中 不能写count++ count-- 只能写count+</span></span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i &lt;- <span class="number">1</span> to <span class="number">10</span>; j &lt;- <span class="number">1</span> until <span class="number">10</span>)&#123;</span><br><span class="line">      println(<span class="string">"i="</span>+ i +<span class="string">",	j="</span>+j)</span><br><span class="line">      count += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    println(count);</span><br><span class="line"> <span class="comment">//例子： 打印小九九</span></span><br><span class="line">    <span class="keyword">for</span>(i &lt;- <span class="number">1</span> until <span class="number">10</span> ;j &lt;- <span class="number">1</span> until <span class="number">10</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(i&gt;=j)&#123;</span><br><span class="line">    	  print(i +<span class="string">" * "</span> + j + <span class="string">" = "</span>+ i*j+<span class="string">"	"</span>)        </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(i==j )&#123;</span><br><span class="line">        println()</span><br><span class="line">      &#125;      </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//九九乘法表</span></span><br><span class="line">     <span class="comment">//方法一</span></span><br><span class="line"><span class="comment">//      for(i&lt;- 1 to 9 )&#123;</span></span><br><span class="line"><span class="comment">//        for (j &lt;- 1 to i)&#123;</span></span><br><span class="line"><span class="comment">//          print(j+"*"+i+"="+i*j+"\t")</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        println()</span></span><br><span class="line"><span class="comment">//      &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二</span></span><br><span class="line"><span class="comment">//    for(i&lt;- 1 to 9 )&#123;</span></span><br><span class="line"><span class="comment">//      for (j&lt;- 1 to 9)&#123;</span></span><br><span class="line"><span class="comment">//        if(j&lt;=i)&#123;</span></span><br><span class="line"><span class="comment">//          print(j+"*"+i+"="+i*j+"\t")</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        if(i==j)println()</span></span><br><span class="line"><span class="comment">//      &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>for循环中可以加条件判断，分号隔开</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//可以在for循环中加入条件判断</span></span><br><span class="line">    <span class="keyword">for</span>(i&lt;- <span class="number">1</span> to <span class="number">10</span> ;<span class="keyword">if</span> (i%<span class="number">2</span>) == <span class="number">0</span> ;<span class="keyword">if</span> (i == <span class="number">4</span>) )&#123;</span><br><span class="line">      println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>scala中不能使用count++，count只能使用count = count+1 ，count += 1</p>
+</li>
+<li><p>while循环，while（）{}，do {}while()</p>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//将for中的符合条件的元素通过yield关键字返回成一个集合</span></span><br><span class="line">    <span class="keyword">val</span> list = <span class="keyword">for</span>(i &lt;- <span class="number">1</span> to <span class="number">10</span>  ; <span class="keyword">if</span>(i &gt; <span class="number">5</span> )) <span class="keyword">yield</span> i </span><br><span class="line"><span class="comment">//&lt;-  后面是一个集合</span></span><br><span class="line">    <span class="keyword">for</span>( w &lt;- list )&#123;</span><br><span class="line">      println(w)</span><br><span class="line">&#125;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * while 循环</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span> </span><br><span class="line">    <span class="keyword">while</span>(index &lt; <span class="number">100</span> )&#123;</span><br><span class="line">    	println(<span class="string">"第"</span>+index+<span class="string">"次while 循环"</span>)</span><br><span class="line">      index += <span class="number">1</span> </span><br><span class="line">    &#125;</span><br><span class="line"> index = <span class="number">0</span> </span><br><span class="line">    do&#123;</span><br><span class="line">    	index +=<span class="number">1</span> </span><br><span class="line">    	println(<span class="string">"第"</span>+index+<span class="string">"次do while 循环"</span>)</span><br><span class="line">&#125;<span class="keyword">while</span>(index &lt;<span class="number">100</span> )</span><br></pre></td></tr></table></figure>
+<h1 id="四、Scala函数"><a href="#四、Scala函数" class="headerlink" title="四、Scala函数"></a>四、Scala函数</h1><h2 id="1、函数定义"><a href="#1、函数定义" class="headerlink" title="1、函数定义"></a>1、函数定义</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span> </span>(a: <span class="type">Int</span> , b: <span class="type">Int</span> ) : <span class="type">Unit</span> = &#123;</span><br><span class="line">   println(a+b)</span><br><span class="line"> &#125;</span><br><span class="line">fun(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span> </span>(a : <span class="type">Int</span> , b : <span class="type">Int</span>)= a+b</span><br><span class="line">    println(fun1(<span class="number">1</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p><code>语法解释</code></p>
+<blockquote>
+<ul>
+<li>函数定义语法 用def来定义</li>
+<li>可以定义传入的参数，要指定传入参数的类型</li>
+<li>scala中函数中如果返回返回值类型为Unit ，即无返回值</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">def</span> <span class="title">add</span></span>(x:<span class="type">Int</span>=<span class="number">10</span>,y:<span class="type">Int</span>=<span class="number">11</span>):<span class="type">Unit</span> =&#123;</span><br><span class="line">&gt;         x+y</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; <span class="comment">//写返回值类型是=时，一定要记得写 ：（冒号）</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>scala中函数有返回值时，可以写return，也可以不写return：</p>
+</li>
+<li><ul>
+<li>省略return的时候，函数自动回将最后一行的表达式的值，作为返回值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;  <span class="function"><span class="keyword">def</span> <span class="title">max</span></span>(x:<span class="type">Int</span>,y:<span class="type">Int</span> )=&#123;</span><br><span class="line">&gt;       <span class="keyword">if</span> (x&gt;y)</span><br><span class="line">&gt;           x</span><br><span class="line">&gt;       <span class="keyword">else</span></span><br><span class="line">&gt;          y</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;  println(max(<span class="number">5</span>,<span class="number">7</span>))</span><br><span class="line">&gt; 结果显示：<span class="number">7</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<pre><code>* * 如果函数有retrun,则必须写返回类型。
+</code></pre><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="function"><span class="keyword">def</span> <span class="title">min</span></span>(m:<span class="type">Int</span>,n:<span class="type">Int</span>):<span class="type">Int</span>=&#123;</span><br><span class="line">&gt;       <span class="keyword">if</span>(m&gt;n)</span><br><span class="line">&gt;         <span class="keyword">return</span> n</span><br><span class="line">&gt;       <span class="keyword">else</span></span><br><span class="line">&gt;         <span class="keyword">return</span> m</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     println(min(<span class="number">5</span>,<span class="number">7</span>))</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<pre><code>* scala中函数有返回值时，可以写返回值的类型，也可以省略，因为scala可以类型自动推断，有时候不能省略，必须写，
+* * 比如在递归函数中或者函数的返回值是函数类型的时候。
+</code></pre><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;  <span class="function"><span class="keyword">def</span> <span class="title">num</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">&gt;             <span class="keyword">if</span> (x == <span class="number">1</span>)</span><br><span class="line">&gt;                 <span class="number">1</span></span><br><span class="line">&gt;             <span class="keyword">else</span> &#123;</span><br><span class="line">&gt;                 x * num(x - <span class="number">1</span>)</span><br><span class="line">&gt;             &#125;</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<pre><code>* 函数定义的时候，如果去掉 = ，那么这个方法返回类型必定是Unit的。
+
+     这种说法无论方法体里面什么逻辑都成立，scala可以把任意类型转换为Unit。
+
+     假设，里面的逻辑最后返回了一个string，那么这个返回值会被转换成Unit，并且值会被丢弃。
+
+     则相当于，函数就将返回值去掉，即无返回值。
+
+* {}里的代码，如果只有一行，则可以省略{}
+
+*  传递给方法的参数可以在方法中使用，并且scala规定方法的传过来的参数为val类型，不能修改，不是var。
+</code></pre></blockquote>
+<h2 id="2、递归函数"><a href="#2、递归函数" class="headerlink" title="2、递归函数"></a>2、递归函数</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 递归函数 </span></span><br><span class="line"><span class="comment">    * 5的阶乘</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">fun2</span></span>(num :<span class="type">Int</span>) :<span class="type">Int</span>= &#123;</span><br><span class="line">     <span class="keyword">if</span>(num ==<span class="number">1</span>)</span><br><span class="line">       num</span><br><span class="line">     <span class="keyword">else</span> </span><br><span class="line">       num * fun2(num<span class="number">-1</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   print(fun2(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="3、包含参数默认值的函数"><a href="#3、包含参数默认值的函数" class="headerlink" title="3、包含参数默认值的函数"></a>3、<strong>包含参数默认值的函数</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 包含默认参数值的函数</span></span><br><span class="line"><span class="comment">    * 注意：</span></span><br><span class="line"><span class="comment">    * 1.默认值的函数中，如果传入的参数个数与函数定义相同，则传入的数值会覆盖默认值</span></span><br><span class="line"><span class="comment">    * 2.如果不想覆盖默认值，传入的参数个数小于定义的函数的参数，则需要指定参数名称</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">fun3</span></span>(a :<span class="type">Int</span> = <span class="number">10</span>,b:<span class="type">Int</span>) = &#123;</span><br><span class="line">     println(a+b)</span><br><span class="line">   &#125;</span><br><span class="line">   fun3(b=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="4、可变参数个数的函数"><a href="#4、可变参数个数的函数" class="headerlink" title="4、可变参数个数的函数"></a><strong>4</strong>、可变参数个数的函数</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可变参数个数的函数</span></span><br><span class="line"><span class="comment"> * 注意：多个参数逗号分开</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun4</span></span>(elem :<span class="type">Int</span>*)=&#123;</span><br><span class="line">  <span class="keyword">var</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(e &lt;- elem)&#123;</span><br><span class="line">    sum += e</span><br><span class="line">  &#125;</span><br><span class="line">  sum</span><br><span class="line">&#125;</span><br><span class="line">println(fun4(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="5、匿名函数"><a href="#5、匿名函数" class="headerlink" title="5、匿名函数"></a><strong>5、</strong>匿名函数</h2><ul>
+<li><p>有参匿名函数</p>
+</li>
+<li><p>无参匿名函数</p>
+</li>
+<li><p>有返回值的匿名函数</p>
+</li>
+</ul>
+<blockquote>
+<p>可以将匿名函数返回给val定义的值</p>
+<p>匿名函数不能显式声明函数的返回类型</p>
+</blockquote>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//有参数匿名函数</span></span><br><span class="line"><span class="keyword">val</span> fun1 = (a : <span class="type">Int</span> ， b : <span class="type">Int</span>) =&gt; &#123;</span><br><span class="line">  println(a+b)</span><br><span class="line">&#125;</span><br><span class="line">value1(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//无参数匿名函数</span></span><br><span class="line"><span class="keyword">val</span> fun2 = ()=&gt;&#123;</span><br><span class="line">  println(<span class="string">"啦啦啦"</span>)</span><br><span class="line">&#125;</span><br><span class="line">fun2()</span><br><span class="line"></span><br><span class="line"><span class="comment">//有返回值的匿名函数</span></span><br><span class="line"><span class="keyword">val</span> fun3 = (a:<span class="type">Int</span>,b:<span class="type">Int</span>) =&gt;&#123;</span><br><span class="line">  a+b</span><br><span class="line">&#125;</span><br><span class="line">println(fun3(<span class="number">4</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="6、-嵌套函数"><a href="#6、-嵌套函数" class="headerlink" title="6、 嵌套函数"></a><strong>6、</strong> <strong>嵌套函数</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 嵌套函数</span></span><br><span class="line"><span class="comment">    * 例如：嵌套函数求5的阶乘</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">fun5</span></span>(num:<span class="type">Int</span>)=&#123;</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">fun6</span></span>(a:<span class="type">Int</span>,b:<span class="type">Int</span>):<span class="type">Int</span>=&#123;</span><br><span class="line">       <span class="keyword">if</span>(a == <span class="number">1</span>)&#123;</span><br><span class="line">         b</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         fun6(a<span class="number">-1</span>,a*b)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     fun6(num,<span class="number">1</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   println(fun5(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="7、偏应用函数"><a href="#7、偏应用函数" class="headerlink" title="7、偏应用函数"></a><strong>7、偏应用函数</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.<span class="type">Date</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 偏应用函数是一种表达式</span></span><br><span class="line"><span class="comment">     * 不需要提供函数需要的所有参数，</span></span><br><span class="line"><span class="comment">     * 只需要提供部分，或不提供所需参数。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">log</span></span>(date :<span class="type">Date</span>, s :<span class="type">String</span>)= &#123;</span><br><span class="line">      println(<span class="string">"date is "</span>+ date +<span class="string">",log is "</span>+ s)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> date = <span class="keyword">new</span> <span class="type">Date</span>()</span><br><span class="line">    log(date ,<span class="string">"log1"</span>)</span><br><span class="line">    log(date ,<span class="string">"log2"</span>)</span><br><span class="line">    log(date ,<span class="string">"log3"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//想要调用log，以上变化的是第二个参数，可以用偏应用函数处理,来优化log方法</span></span><br><span class="line">   <span class="comment">/* 绑定第一个 date 参数，</span></span><br><span class="line"><span class="comment">    * 第二个参数使用下划线(_)替换缺失的参数列表，</span></span><br><span class="line"><span class="comment">    * 并把这个新的函数值的索引的赋给变量。</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">val</span> logWithDate = log(date,_:<span class="type">String</span>)</span><br><span class="line">    logWithDate(<span class="string">"log11"</span>)</span><br><span class="line">    logWithDate(<span class="string">"log22"</span>)</span><br><span class="line">    logWithDate(<span class="string">"log33"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="8、高阶函数"><a href="#8、高阶函数" class="headerlink" title="8、高阶函数"></a>8、<strong>高阶函数</strong></h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 高阶函数:就是操作其他函数的函数</span></span><br><span class="line"><span class="comment">     * 函数的参数是函数		</span></span><br><span class="line"><span class="comment">     * 或者函数的返回是函数		</span></span><br><span class="line"><span class="comment">     * 或者函数的参数和返回都是函数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="comment">//函数作为参数或者返回累心时，只需指明函数中的类型    </span></span><br><span class="line">    <span class="comment">//函数的参数是函数：</span></span><br><span class="line">    <span class="comment">//f : (Int,Int) =&gt;Int  （两个Int型参数、Int型返回值）</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hightFun</span></span>(f : (<span class="type">Int</span>,<span class="type">Int</span>) =&gt;<span class="type">Int</span>, a:<span class="type">Int</span> ) : <span class="type">Int</span> = &#123;</span><br><span class="line">      f(a,<span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(v1 :<span class="type">Int</span>,v2: <span class="type">Int</span>):<span class="type">Int</span>  = &#123;</span><br><span class="line">      v1+v2</span><br><span class="line">    &#125;  </span><br><span class="line">    println(hightFun(f, <span class="number">1</span>))</span><br><span class="line">          <span class="comment">//***************</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">test1</span></span>(x: <span class="type">Int</span>, f: (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span>) = &#123;</span><br><span class="line">            <span class="keyword">var</span> a = x + <span class="number">100</span></span><br><span class="line">            a * f(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        &#125;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(x: <span class="type">Int</span>, y: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">            x - y</span><br><span class="line">        &#125;</span><br><span class="line">     println(test6(<span class="number">10</span>,sum))</span><br><span class="line"><span class="comment">//------------------------------------------------</span></span><br><span class="line">    <span class="comment">//函数的返回值类型为函数 ：(Int,Int)=&gt;Int  f2</span></span><br><span class="line">    <span class="comment">//1，2,3,4相加</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hightFun2</span></span>(a : <span class="type">Int</span>,b:<span class="type">Int</span>) : (<span class="type">Int</span>,<span class="type">Int</span>)=&gt;<span class="type">Int</span> = &#123;</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">f2</span> </span>(v1: <span class="type">Int</span>,v2:<span class="type">Int</span>) :<span class="type">Int</span> = &#123;</span><br><span class="line">        v1+v2+a+b</span><br><span class="line">      &#125;</span><br><span class="line">      f2</span><br><span class="line">    &#125;</span><br><span class="line">    println(hightFun2(<span class="number">1</span>,<span class="number">2</span>)(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">            <span class="comment">//***********</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test2</span></span>(x: <span class="type">Int</span>): (<span class="type">Int</span>) =&gt; <span class="type">String</span> = &#123;</span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">concat</span></span>(y: <span class="type">Int</span>): <span class="type">String</span> = &#123;</span><br><span class="line">                x + <span class="string">" !! "</span> + y</span><br><span class="line">            &#125;</span><br><span class="line">            concat</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">val</span> concat: <span class="type">Int</span> =&gt; <span class="type">String</span> = test2(<span class="number">5</span>)</span><br><span class="line">    println(concat(<span class="number">7</span>))</span><br><span class="line"><span class="comment">//        println(test2(5)(7))</span></span><br><span class="line"> <span class="comment">//-------------------------------------------------   </span></span><br><span class="line">    <span class="comment">//函数的参数是函数:  f : (Int ,Int) =&gt; Int)</span></span><br><span class="line">    <span class="comment">//函数的返回是函数:  (Int,Int) =&gt; Int</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hightFun3</span></span>(f : (<span class="type">Int</span> ,<span class="type">Int</span>) =&gt; <span class="type">Int</span>) : (<span class="type">Int</span>,<span class="type">Int</span>) =&gt; <span class="type">Int</span> = &#123;</span><br><span class="line">      f</span><br><span class="line">    &#125; </span><br><span class="line">    println(hightFun3(f)(<span class="number">100</span>,<span class="number">200</span>))</span><br><span class="line">    println(hightFun3((a,b) =&gt;&#123;a+b&#125;)(<span class="number">200</span>,<span class="number">200</span>))</span><br><span class="line">    <span class="comment">//以上这句话还可以写成这样</span></span><br><span class="line">    <span class="comment">//如果函数的参数在方法体中只使用了一次 那么可以写成_表示</span></span><br><span class="line">    println(hightFun3(_+_)(<span class="number">200</span>,<span class="number">200</span>))</span><br><span class="line">            <span class="comment">//**********</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test3</span></span>(y: <span class="type">Int</span>, f: (<span class="type">Int</span>) =&gt; <span class="type">Int</span>): (<span class="type">Int</span>) =&gt; <span class="type">Int</span> = &#123;</span><br><span class="line">            <span class="keyword">var</span> sum = f(<span class="number">1</span>) + y</span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">sum4</span></span>(x: <span class="type">Int</span>) = &#123;</span><br><span class="line">                x + sum</span><br><span class="line">            &#125;</span><br><span class="line">            sum4</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        def f2 (x: Int) =&#123;</span></span><br><span class="line"><span class="comment">//            x + 10</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="keyword">val</span> f = test3(<span class="number">10</span>,(x:<span class="type">Int</span>)=&gt;&#123;x + <span class="number">10</span>&#125;)</span><br><span class="line"><span class="comment">//        println(f(5))</span></span><br></pre></td></tr></table></figure>
+<h2 id="9、柯里化函数"><a href="#9、柯里化函数" class="headerlink" title="9、柯里化函数"></a>9、柯里化函数</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 柯里化函数</span></span><br><span class="line"><span class="comment">    * 可以理解为高阶函数的简化</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">fun1</span></span>(a :<span class="type">Int</span>,b:<span class="type">Int</span>)(c:<span class="type">Int</span>,d:<span class="type">Int</span>) = &#123;</span><br><span class="line">     a+b+c+d</span><br><span class="line">   &#125;</span><br><span class="line">   println(fun1(<span class="number">1</span>,<span class="number">2</span>)(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">      <span class="comment">//*******</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">fun</span></span>(a :<span class="type">Int</span>)(c:<span class="type">Int</span>) = &#123;</span><br><span class="line">           a+c</span><br><span class="line">       &#125;</span><br><span class="line">   println(fun(<span class="number">1</span>)(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<h1 id="五、字符串"><a href="#五、字符串" class="headerlink" title="五、字符串"></a>五、字符串</h1><h2 id="1、string-stringBuilder-可变"><a href="#1、string-stringBuilder-可变" class="headerlink" title="1、string  | stringBuilder (可变)"></a>1、string  | stringBuilder (可变)</h2><h2 id="2、操作方法"><a href="#2、操作方法" class="headerlink" title="2、操作方法"></a>2、操作方法</h2><p>Ø  比较:equals</p>
+<p>Ø  比较忽略大小写:equalsIgnoreCase</p>
+<p>Ø  indexOf：如果字符串中有传入的assci码对应的值，返回下标</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * String &amp;&amp; StringBuilder</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">val</span> str = <span class="string">"abcd"</span></span><br><span class="line">    <span class="keyword">val</span> str1 = <span class="string">"ABCD"</span></span><br><span class="line">    </span><br><span class="line">    println(str.indexOf(<span class="number">97</span>))</span><br><span class="line">    println(str.indexOf(<span class="string">"b"</span>))</span><br><span class="line">    </span><br><span class="line">    println(str==str1)</span><br><span class="line">    println(str.equals(str1))</span><br><span class="line">    println(str.equalsIgnoreCase(str1))</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * compareToIgnoreCase</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * 如果参数字符串等于此字符串，则返回值 0；</span></span><br><span class="line"><span class="comment">     * 如果此字符串小于字符串参数，则返回一个小于 0 的值；</span></span><br><span class="line"><span class="comment">     * 如果此字符串大于字符串参数，则返回一个大于 0 的值。</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    println(str.compareToIgnoreCase(str1))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> strBuilder = <span class="keyword">new</span> <span class="type">StringBuilder</span>() <span class="comment">//括号可省</span></span><br><span class="line">    strBuilder.append(<span class="string">"abc"</span>)</span><br><span class="line"><span class="comment">//一个 + 只能跟单个字符且必须用单引号，否则无效 </span></span><br><span class="line"><span class="comment">//    strBuilder.+('d')</span></span><br><span class="line">    strBuilder+ 'd'</span><br><span class="line"><span class="comment">//    strBuilder.+=('h')</span></span><br><span class="line">    strBuilder+= 'h' </span><br><span class="line"></span><br><span class="line"><span class="comment">//两个+ 可跟多个字符且必须用双引号</span></span><br><span class="line"><span class="comment">//    strBuilder.++=("efg")</span></span><br><span class="line">    strBuilder++= <span class="string">"efg"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//StringBuilder可以追加浮点数</span></span><br><span class="line">    strBuilder.append(<span class="number">1.0</span>)</span><br><span class="line">    strBuilder.append(<span class="number">18</span>f)</span><br><span class="line">    println(strBuilder)</span><br><span class="line"> println(strBuilder.toString())</span><br></pre></td></tr></table></figure>
+<h1 id="六、集合"><a href="#六、集合" class="headerlink" title="六、集合"></a>六、集合</h1><h2 id="1、数组"><a href="#1、数组" class="headerlink" title="1、数组"></a>1、数组</h2><h3 id="（1）创建一维数组"><a href="#（1）创建一维数组" class="headerlink" title="（1）创建一维数组"></a>（1）创建一维数组</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 创建数组两种方式：</span></span><br><span class="line"><span class="comment">    * 1.new Array[String](3)</span></span><br><span class="line"><span class="comment">    * 2.直接Array</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment">//创建类型为Int 长度为3的数组</span></span><br><span class="line">   <span class="keyword">val</span> arr1 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">3</span>)</span><br><span class="line">   <span class="comment">//创建String 类型的数组，直接赋值</span></span><br><span class="line">   <span class="keyword">val</span> arr2 = <span class="type">Array</span>[<span class="type">String</span>](<span class="string">"s100"</span>,<span class="string">"s200"</span>,<span class="string">"s300"</span>)</span><br><span class="line">   <span class="comment">//赋值</span></span><br><span class="line">   arr1(<span class="number">0</span>) = <span class="number">100</span></span><br><span class="line">   arr1(<span class="number">1</span>) = <span class="number">200</span></span><br><span class="line">   arr1(<span class="number">2</span>) = <span class="number">300</span></span><br></pre></td></tr></table></figure>
+<h3 id="（2）数组遍历"><a href="#（2）数组遍历" class="headerlink" title="（2）数组遍历"></a>（2）数组遍历</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 遍历两种方式</span></span><br><span class="line"><span class="comment">  * for</span></span><br><span class="line"><span class="comment">  * foreach</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">for</span>(i &lt;- arr1)&#123;</span><br><span class="line"> 	  println(i)</span><br><span class="line"> &#125;</span><br><span class="line"> arr1.foreach(i =&gt; &#123;</span><br><span class="line">   println(i)</span><br><span class="line"> &#125;)</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">for</span>(s &lt;- arr2)&#123;</span><br><span class="line">   println(s)</span><br><span class="line"> &#125;</span><br><span class="line"> arr2.foreach &#123; </span><br><span class="line">   x =&gt; println(x) </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="（3）数组操作"><a href="#（3）数组操作" class="headerlink" title="（3）数组操作"></a>（3）数组操作</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Array</span>.concat：合并数组</span><br><span class="line"><span class="type">Array</span>.fill(<span class="number">5</span>)(“shsxt”)：创建初始值的定长数组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> a = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">3</span>)</span><br><span class="line">        a(<span class="number">0</span>) = <span class="number">1</span></span><br><span class="line">        a(<span class="number">1</span>) = <span class="number">2</span></span><br><span class="line">        a(<span class="number">2</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//判断数组中符合条件的元素的个数</span></span><br><span class="line"><span class="comment">//        val n = a.count(x=&gt;&#123;</span></span><br><span class="line"><span class="comment">//            if(x&gt;2)</span></span><br><span class="line"><span class="comment">//                true</span></span><br><span class="line"><span class="comment">//            else</span></span><br><span class="line"><span class="comment">//                false</span></span><br><span class="line"><span class="comment">//        &#125;)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        println(n)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> b = <span class="type">Array</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line"><span class="comment">//将两个数组的元素合并在一个新的数组中</span></span><br><span class="line">        <span class="keyword">val</span> ints = <span class="type">Array</span>.concat(a,b)</span><br><span class="line"><span class="comment">//遍历数组</span></span><br><span class="line">        ints.foreach(println)</span><br><span class="line"><span class="comment">//创建包含5个指定元素的数组</span></span><br><span class="line">        <span class="keyword">val</span> strings = <span class="type">Array</span>.fill(<span class="number">5</span>)(<span class="string">"shsxt"</span>)</span><br><span class="line">        strings.foreach(println)</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        for(i &lt;- a)&#123;</span></span><br><span class="line"><span class="comment">//            println(i)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        val b = Array(4,5,6)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        for(i &lt;- b)&#123;</span></span><br><span class="line"><span class="comment">//            println(i)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        a.foreach(x=&gt; &#123; println(x) &#125; )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        a.foreach(println(_))</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//         a.foreach(println)</span></span><br><span class="line"><span class="comment">//        val c = new Array[Array[Int]](3)</span></span><br><span class="line"><span class="comment">//        c(0) = Array(1,2,3)</span></span><br><span class="line"><span class="comment">//        c(1) = Array(4,5,6)</span></span><br><span class="line"><span class="comment">//        c(2) = Array(7,8,9)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        c.foreach(x=&gt;&#123;</span></span><br><span class="line"><span class="comment">//            x.foreach(y=&gt;&#123;</span></span><br><span class="line"><span class="comment">//                print(y + "\t")</span></span><br><span class="line"><span class="comment">//            &#125;)</span></span><br><span class="line"><span class="comment">//            println()</span></span><br><span class="line"><span class="comment">//        &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        for(i&lt;-c)&#123;</span></span><br><span class="line"><span class="comment">//            for(j &lt;-i)&#123;</span></span><br><span class="line"><span class="comment">//                print(j + "\t")</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            println()</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="（4）创建二维数组"><a href="#（4）创建二维数组" class="headerlink" title="（4）创建二维数组"></a>（4）创建二维数组</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 创建二维数组和遍历</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">val</span> arr3 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">String</span>]](<span class="number">3</span>)</span><br><span class="line">  arr3(<span class="number">0</span>)=<span class="type">Array</span>(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>)</span><br><span class="line">  arr3(<span class="number">1</span>)=<span class="type">Array</span>(<span class="string">"4"</span>,<span class="string">"5"</span>,<span class="string">"6"</span>)</span><br><span class="line">  arr3(<span class="number">2</span>)=<span class="type">Array</span>(<span class="string">"7"</span>,<span class="string">"8"</span>,<span class="string">"9"</span>)</span><br><span class="line">  <span class="keyword">for</span>(i &lt;- <span class="number">0</span> until arr3.length)&#123;</span><br><span class="line">    <span class="keyword">for</span>(j &lt;- <span class="number">0</span> until arr3(i).length)&#123;</span><br><span class="line">      print(arr3(i)(j)+<span class="string">"	"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span>(arr &lt;- arr3 ;i &lt;- arr)&#123;</span><br><span class="line">    <span class="keyword">if</span>(count%<span class="number">3</span> == <span class="number">0</span>)&#123;</span><br><span class="line">      println()</span><br><span class="line">    &#125;</span><br><span class="line">    print(i+<span class="string">"	"</span>)</span><br><span class="line">    count +=<span class="number">1</span> </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  arr3.foreach &#123; arr  =&gt; &#123;</span><br><span class="line">    arr.foreach &#123; println &#125;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">val</span> arr4 = <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]](<span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),<span class="type">Array</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>))</span><br><span class="line">  arr4.foreach &#123; arr =&gt; &#123;</span><br><span class="line">    arr.foreach(i =&gt; &#123;</span><br><span class="line">      println(i)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  println(<span class="string">"-------"</span>)</span><br><span class="line">  <span class="keyword">for</span>(arr &lt;- arr4;i &lt;- arr)&#123;</span><br><span class="line">    println(i)</span><br></pre></td></tr></table></figure>
+<h2 id="2、list"><a href="#2、list" class="headerlink" title="2、list"></a>2、list</h2><h2 id="（1）创建list"><a href="#（1）创建list" class="headerlink" title="（1）创建list"></a>（1）创建list</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p><code>备注</code>  Nil      长度为0的list</p>
+<h2 id="（2）list遍历"><a href="#（2）list遍历" class="headerlink" title="（2）list遍历"></a>（2）list遍历</h2><blockquote>
+<p>foreach ，for</p>
+</blockquote>
+<h2 id="（3）list操作"><a href="#（3）list操作" class="headerlink" title="（3）list操作"></a>（3）list操作</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//创建</span></span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//遍历</span></span><br><span class="line">    list.foreach &#123; x =&gt; println(x)&#125;</span><br><span class="line"><span class="comment">//    list.foreach &#123; println&#125;</span></span><br><span class="line">    <span class="comment">//filter 过滤元素</span></span><br><span class="line">    <span class="keyword">val</span> list1  = list.filter &#123; x =&gt; x&gt;<span class="number">3</span> &#125;</span><br><span class="line">    list1.foreach &#123; println&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//count  计算符合条件的元素个数</span></span><br><span class="line">    <span class="keyword">val</span> value = list1.count &#123; x =&gt; x&gt;<span class="number">3</span> &#125;</span><br><span class="line">    println(value)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//map 对元素操作 如切分</span></span><br><span class="line">    <span class="keyword">val</span> nameList = <span class="type">List</span>(</span><br><span class="line">    		<span class="string">"hello shsxt"</span>,</span><br><span class="line">    		<span class="string">"hello xasxt"</span>,</span><br><span class="line">    		<span class="string">"hello shsxt"</span></span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">val</span> mapResult:<span class="type">List</span>[<span class="type">Array</span>[<span class="type">String</span>]] = nameList.map&#123; </span><br><span class="line">        x =&gt; x.split(<span class="string">" "</span>) </span><br><span class="line">    &#125;</span><br><span class="line">    mapResult.foreach&#123;println&#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//flatmap 将元素压扁平,先map再flat</span></span><br><span class="line">    <span class="keyword">val</span> flatMapResult : <span class="type">List</span>[<span class="type">String</span>] = nameList.flatMap&#123; x =&gt; x.split(<span class="string">" "</span>) &#125;</span><br><span class="line">    flatMapResult.foreach &#123; println &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="images/map.jpg" alt=""></p>
+<h2 id="3、set"><a href="#3、set" class="headerlink" title="3、set"></a>3、set</h2><p><code>注意：</code>set集合自动去重</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> s = <span class="type">Set</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> s1 = <span class="type">Set</span>(<span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>，<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历时，自动去重</span></span><br><span class="line">s.foreach(println) </span><br><span class="line"><span class="keyword">for</span>(x&lt;- s)&#123;println(x)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//交集</span></span><br><span class="line"><span class="keyword">val</span> inse = s.intersect(s1)</span><br><span class="line"><span class="keyword">val</span> ins = s.&amp;(s1)</span><br><span class="line">inse.foreach(println)</span><br><span class="line">inse.foreach&#123;println&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//差集</span></span><br><span class="line"><span class="keyword">val</span> di = s.diff(s1)</span><br><span class="line"><span class="keyword">val</span> de = s.&amp;~(s1)</span><br><span class="line"></span><br><span class="line"><span class="comment">//子集:s是不是s1的子集</span></span><br><span class="line"><span class="keyword">val</span> boo: <span class="type">Boolean</span> = s.subsetof(s1)</span><br><span class="line"></span><br><span class="line"><span class="comment">//max ,min</span></span><br><span class="line"><span class="keyword">val</span> max = s.max</span><br><span class="line"><span class="keyword">val</span> min = s.min</span><br><span class="line">println(max + <span class="string">":"</span> + min)</span><br><span class="line"></span><br><span class="line"><span class="comment">//转成数组，list</span></span><br><span class="line">s.toArray.foreach(println)</span><br><span class="line">s.toList.foreach(println)</span><br><span class="line"></span><br><span class="line"><span class="comment">//mkString , 元素以！分隔拼成字符串</span></span><br><span class="line">println(s.mkString)</span><br><span class="line">println(s.mkstring(<span class="string">"!"</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="4、map"><a href="#4、map" class="headerlink" title="4、map"></a>4、map</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//map创建时，若key相同，则都会被后一个key覆盖</span></span><br><span class="line"><span class="keyword">val</span> map =<span class="type">Map</span>（<span class="string">"1"</span>-&gt;<span class="string">"a"</span>,(<span class="string">"3"</span>,<span class="string">"c"</span>),<span class="string">"2"</span>-&gt;<span class="string">"b"</span>）</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取map值</span></span><br><span class="line">println(map.get(<span class="string">"1"</span>))</span><br><span class="line">println(map.get(<span class="string">"1"</span>).get)</span><br><span class="line"><span class="comment">//获取指定key，若没有，就用另一个指定值代替</span></span><br><span class="line">println(map.getOrElse(<span class="string">"5"</span>,<span class="string">"100"</span>))</span><br><span class="line"><span class="keyword">val</span> res = map.get(<span class="string">"8"</span>).getOrElse(<span class="string">"800"</span>)</span><br><span class="line">println(res)</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历map</span></span><br><span class="line"><span class="comment">//x为map中的一组键值对</span></span><br><span class="line"><span class="keyword">for</span>(x-&gt; map)&#123;</span><br><span class="line">println(<span class="string">"key:"</span>+x._1+<span class="string">",value:"</span>+ x._2) </span><br><span class="line">&#125;</span><br><span class="line">map.foreach(x=&gt;&#123;</span><br><span class="line"> println(<span class="string">"key:"</span>+x._1+<span class="string">",value:"</span>+ x._2)    </span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//遍历key</span></span><br><span class="line"><span class="keyword">val</span> keyIteratable = map.keys</span><br><span class="line">keyIteratable.foreach(k=&gt;&#123;</span><br><span class="line">println(<span class="string">"key"</span>+k+<span class="string">",value"</span>+map.get(k).get)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//遍历value</span></span><br><span class="line"><span class="keyword">val</span> valueIteratable = map.values</span><br><span class="line">valueIteratable.foreach&#123;v=&gt;&#123;</span><br><span class="line">    println(<span class="string">"value"</span>+v)</span><br><span class="line">&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//合并map</span></span><br><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>（(<span class="number">1</span>，<span class="string">"a"</span>),(<span class="number">2</span>,<span class="string">"b"</span>),(<span class="number">3</span>,<span class="string">"c"</span>)）</span><br><span class="line"><span class="keyword">val</span> map2 = <span class="type">Map</span>（(<span class="number">1</span>,<span class="string">"aa"</span>),(<span class="number">2</span>,<span class="string">"bb"</span>),(<span class="number">3</span>,<span class="string">"cc"</span>)）</span><br><span class="line">map1.++(map2).foreach(println)</span><br><span class="line">map1.++:(map2).oreach(println)</span><br><span class="line"></span><br><span class="line"><span class="comment">//map操作方法</span></span><br><span class="line"><span class="comment">//filter:过滤，留下符合条件的元素</span></span><br><span class="line"><span class="keyword">val</span> result = map.filter(x=&gt;&#123;</span><br><span class="line"><span class="keyword">if</span>(x._1.equals(<span class="string">"1"</span>))</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line">result.foreach(println)</span><br><span class="line">map.filter(_._2.equals(<span class="string">"a"</span>)).foreach(println)</span><br><span class="line"><span class="comment">//count：统计符合条件的元素个数</span></span><br><span class="line"><span class="keyword">val</span> countResult = map.count（x=&gt;&#123;</span><br><span class="line">      x._1.equals(<span class="string">"1"</span>)</span><br><span class="line">）</span><br><span class="line">println(countResult)    </span><br><span class="line"><span class="comment">//contains：判断map中是否包含某个key</span></span><br><span class="line">map.contains(<span class="string">"3"</span>)</span><br><span class="line"><span class="comment">//exist：判断符合条件的元素是存在</span></span><br><span class="line"><span class="comment">//若遇到条件返回结果为true，就停止迭代</span></span><br><span class="line">map.exists(x=&gt;&#123;</span><br><span class="line"><span class="keyword">if</span>（x._1.equals(<span class="string">"3"</span>))&#123;</span><br><span class="line">println(<span class="string">"存在喽"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">println(<span class="string">"不存在喽"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="5、元组Tuple"><a href="#5、元组Tuple" class="headerlink" title="5、元组Tuple"></a>5、元组Tuple</h2><p>同：与列表类似</p>
+<p>不同：元组可以包含不同类型的元素；元组的值是通过将单个值包含在圆括号中构成</p>
+<p><code>注意：</code>Tuple最多支持22个参数</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//元素个数取决于Tuple后面的数字</span></span><br><span class="line"><span class="keyword">val</span> t1 = <span class="keyword">new</span> <span class="type">Tuple1</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">val</span> t2 = <span class="keyword">new</span> <span class="type">Tuple2</span>(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> t3 = <span class="type">Tuple3</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)  </span><br><span class="line"><span class="keyword">val</span> t5 = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>，<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> t22 = <span class="keyword">new</span> <span class="type">Tuple22</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>)</span><br><span class="line"><span class="comment">//获取元组中的值 ：用  ._XX  </span></span><br><span class="line">println（t5._4）</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> t = <span class="type">Tuple2</span>((<span class="number">1</span>,<span class="number">2</span>),(<span class="string">"zhangsan"</span>,<span class="string">"lisi"</span>))</span><br><span class="line">println(t._1._2)</span><br><span class="line"></span><br><span class="line"><span class="comment">//元组遍历：元素迭代器</span></span><br><span class="line"><span class="keyword">val</span> interator = t5.productorInterator</span><br><span class="line">interator.foreach(println)</span><br><span class="line"><span class="keyword">while</span>(interator.hasNext)&#123;</span><br><span class="line">    println(intrator.next())</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//元素翻转 swap， 只针对二元数组</span></span><br><span class="line">println(t2.swap)</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换成字符串</span></span><br><span class="line">println(t5.toString())</span><br></pre></td></tr></table></figure>
+<h1 id="七、trait"><a href="#七、trait" class="headerlink" title="七、trait"></a>七、trait</h1><p>Scala：只有extends  ，可以继承多个Trait</p>
+<p>Scala Trait(特征) 相当于 Java 的接口和抽象类的结合</p>
+<p>可以定义属性和方法</p>
+<p><code>注意：</code></p>
+<ul>
+<li>若继承的多个trait中包含同名的属性和方法，就必须在在类中使用<code>override</code> 重新定义</li>
+<li>若重新定义的属性是使用<code>var</code>定义的则会报错，所以必须是使用<code>val</code>定义的属性才可使用override</li>
+<li>trait中不能传参数</li>
+</ul>
+<p><code>举例</code>：trait中带属性带方法实现</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Read</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"read"</span></span><br><span class="line">    <span class="keyword">val</span> age = <span class="number">18</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read</span></span>():<span class="type">Unit</span>=&#123;</span><br><span class="line">        println(<span class="string">"read---"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Write</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"write"</span> </span><br><span class="line">    <span class="keyword">val</span> age = <span class="number">19</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">write</span></span>():<span class="type">Unit</span>=&#123;</span><br><span class="line">        println(<span class="string">"write----"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span> <span class="keyword">extends</span> <span class="title">Read</span> <span class="keyword">with</span> <span class="title">Write</span></span>&#123;</span><br><span class="line">  <span class="comment">//前提name必须是用val定义的</span></span><br><span class="line">  <span class="comment">//  override var name  = "person"</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> age = <span class="number">20</span></span><br><span class="line">    name  = <span class="string">"person"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Trait</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">        <span class="keyword">val</span> human = <span class="keyword">new</span> <span class="type">Human</span>() </span><br><span class="line">        println(human.name)</span><br><span class="line">        human.read()</span><br><span class="line">        human.write()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>举例</code>：trait中带方法不实现</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Equal</span></span>&#123;</span><br><span class="line">    <span class="comment">//抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEqual</span></span>(p:<span class="type">Point</span>):<span class="type">Boolean</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isNoEqual</span></span>(p:<span class="type">Point</span>):<span class="type">Boolean</span>=&#123;</span><br><span class="line">        !isEqual(p)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>(<span class="params">x:<span class="type">Int</span>,y:<span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">Equal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xx = x</span><br><span class="line">    <span class="keyword">var</span> yy = y</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">isEqual</span> </span>(p:<span class="type">Point</span>) = &#123;</span><br><span class="line">       p.xx == xx &amp; p.yy ==yy </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEqule</span></span>(p:<span class="type">Any</span>) = &#123;</span><br><span class="line">    p.isInstanceOf[<span class="type">Point</span>] &amp;&amp; p.asInstanceOf[<span class="type">Point</span>].xx==xx</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Trait2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">       <span class="keyword">val</span> p1 = <span class="keyword">new</span> <span class="type">Point</span>(<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">       <span class="keyword">val</span> p2 = <span class="keyword">new</span> <span class="type">Point</span>(<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">       ptintln(p1.isNoEqual(p2))</span><br><span class="line">       ptintln(p1.isEqual(p2))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="八、模式匹配match"><a href="#八、模式匹配match" class="headerlink" title="八、模式匹配match"></a>八、模式匹配match</h1><p>1、概念理解</p>
+<ul>
+<li>一个模式匹配包含多个备选项，且每个都以关键字case开始</li>
+<li>每个备选项都包含一个模式和多个表达式，且用箭头符号 =&gt; 隔开了模式和表达式。</li>
+<li>Ø 模式匹配不仅可以匹配值还可以匹配类型</li>
+<li>Ø  从上到下顺序匹配，如果匹配到则不再往下匹配</li>
+<li>Ø  都匹配不上时，会匹配到case_ ,相当于default</li>
+<li>Ø  match 的最外面的”{ }”可以去掉看成一个语句</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Match</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">       <span class="keyword">val</span> p1 =(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>f,<span class="string">"4"</span>,<span class="string">"abc"</span>,<span class="number">55</span>d)</span><br><span class="line">        p1.foreach(x=&gt;&#123;</span><br><span class="line">            println(mymatch(x))</span><br><span class="line">        &#125;)                </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mymatch</span></span>(x:<span class="type">Any</span>)=&#123;     </span><br><span class="line">        x <span class="keyword">match</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"4"</span> =&gt;println(<span class="string">"macth 4--"</span>)</span><br><span class="line">            <span class="keyword">case</span> x:<span class="type">String</span> =&gt; println(<span class="string">"match String"</span>)</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span> =&gt; println(<span class="string">"1--"</span>)</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span> =&gt; println(<span class="string">"2--"</span>)</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>f =&gt; println(<span class="string">"3f--"</span>)</span><br><span class="line">    <span class="comment">//      case x :Double =&gt; println("type is Double")</span></span><br><span class="line">            <span class="keyword">case</span> _ =&gt; println(<span class="string">"no match--"</span>)</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="九、样例类"><a href="#九、样例类" class="headerlink" title="九、样例类"></a>九、样例类</h1><p>1、概念理解</p>
+<ul>
+<li><p>使用了case关键字的类定义就是样例类(case classes)</p>
+</li>
+<li><p>样例类是种特殊的类。实现了类构造参数的getter方法（构造参数默认被声明为val），当构造参数是声明为var类型的，它将帮你实现setter和getter方法。</p>
+<p>Ø  样例类默认帮你实现了toString,equals，copy和hashCode等方法。</p>
+<p>Ø  样例类可以new, 也可以不用new</p>
+</li>
+</ul>
+<p>2、举例：结合模式匹配的代码</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Match2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> zs = <span class="keyword">new</span> <span class="type">Woman</span>(<span class="number">18</span>,<span class="string">"zs"</span>)</span><br><span class="line">    println(zs.age + <span class="string">" : "</span>+ zs . name) </span><br><span class="line">        </span><br><span class="line">    <span class="keyword">val</span> mm = <span class="type">Woman</span>(<span class="number">19</span>,<span class="string">"meimei"</span>)</span><br><span class="line">    <span class="keyword">val</span> nn = <span class="type">Woman</span>(<span class="number">19</span>,<span class="string">"meimei"</span>)</span><br><span class="line">    println(mm.equals(zs))</span><br><span class="line">    println(mm.equals(nn))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> wo = <span class="type">List</span>(ls,mm)</span><br><span class="line">    wo.foreach(x=&gt;&#123;</span><br><span class="line">            x <span class="keyword">match</span> &#123;</span><br><span class="line">                <span class="keyword">case</span> x:<span class="type">Woman</span> =&gt; println(<span class="string">"match Woman--"</span>)</span><br><span class="line">                <span class="keyword">case</span> <span class="type">Woman</span>(<span class="number">18</span>,<span class="string">"ls"</span>) =&gt; println(<span class="string">"ls"</span>)</span><br><span class="line">                <span class="keyword">case</span> <span class="type">Woman</span>(<span class="number">19</span>,<span class="string">"mm"</span>) =&gt; println(<span class="string">"mm"</span>)</span><br><span class="line">                <span class="keyword">case</span> <span class="type">Woman</span>(<span class="number">19</span>,<span class="string">"zs"</span>) =&gt; println(<span class="string">"zs"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> (<span class="params">age:<span class="type">Int</span> ,name:<span class="type">String</span></span>)</span></span><br></pre></td></tr></table></figure>
+<h1 id="十、Actor-Model"><a href="#十、Actor-Model" class="headerlink" title="十、Actor Model"></a>十、<strong>Actor Model</strong></h1><p>\1.    概念理解</p>
+<p>Actor Model是用来编写并行计算或分布式系统的高层次抽象（类似java中的Thread）让程序员不必为多线程模式下共享锁而烦恼,被用在Erlang 语言上, 高可用性99.9999999 % 一年只有31ms 宕机Actors将状态和行为封装在一个轻量的进程/线程中，但是不和其他Actors分享状态，每个Actors有自己的世界观，当需要和其他Actors交互时，通过发送事件和消息，发送是异步的，非堵塞的(fire-andforget)，发送消息后不必等另外Actors回复，也不必暂停，每个Actors有自己的消息队列，进来的消息按先来后到排列，这就有很好的并发策略和可伸缩性，可以建立性能很好的事件驱动系统。</p>
+<p>Actor的特征：</p>
+<p>Ø  ActorModel是消息传递模型,基本特征就是消息传递</p>
+<p>Ø  消息发送是异步的，非阻塞的</p>
+<p>Ø  消息一旦发送成功，不能修改</p>
+<p>Ø  Actor之间传递时，自己决定决定去检查消息，而不是一直等待，是异步非阻塞的</p>
+<p>什么是Akka</p>
+<p>Akka 是一个用 Scala 编写的库，用于简化编写容错的、高可伸缩性的 Java 和Scala 的 Actor 模型应用，底层实现就是Actor,Akka是一个开发库和运行环境，可以用于构建高并发、分布式、可容错、事件驱动的基于JVM的应用。使构建高并发的分布式应用更加容易。</p>
+<p>spark1.6版本之前，spark分布式节点之间的消息传递使用的就是Akka，底层也就是actor实现的。1.6之后使用的netty传输。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyActor</span> <span class="keyword">extends</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">act</span></span>():<span class="type">Unit</span>=&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123; receive &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"hello"</span>=&gt;println(<span class="string">"hello"</span>)  </span><br><span class="line">        <span class="keyword">case</span> x:<span class="type">String</span> =&gt; println(<span class="string">"save String ="</span>+ x)</span><br><span class="line">        <span class="keyword">case</span> x:<span class="type">Int</span> =&gt; println(<span class="string">"save Int"</span>)</span><br><span class="line">        <span class="keyword">case</span> _ =&gt; println(<span class="string">"save default"</span>)</span><br><span class="line"></span><br><span class="line">    &#125;                 </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> actor = <span class="keyword">new</span> <span class="type">MyActor</span>()</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        actor.start()</span><br><span class="line">        <span class="comment">//发送消息</span></span><br><span class="line">        actor ! <span class="string">"hello"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Msg</span>(<span class="params">actor</span>)(<span class="params"></span>)</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">WoActor</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line">    oevrride <span class="function"><span class="keyword">def</span> <span class="title">act</span></span>():<span class="type">Unit</span> =&#123;</span><br><span class="line">          <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            receive &#123;</span><br><span class="line">                <span class="keyword">case</span> msg:<span class="type">Msg</span> =&gt;&#123;</span><br><span class="line">                    msg.mes <span class="comment">//收到的消息</span></span><br><span class="line">                    msg.actor <span class="comment">//回复的消息</span></span><br><span class="line">                    println(<span class="string">"too"</span>)</span><br><span class="line">                    msg.actor ! <span class="string">"hahaha"</span></span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HuActor</span>(<span class="params">wo:<span class="type">WoActor</span></span>) <span class="keyword">extends</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    oevrride <span class="function"><span class="keyword">def</span> <span class="title">act</span></span>():<span class="type">Unit</span> =&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            receive &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"hello"</span> =&gt;&#123;</span><br><span class="line">                    println(<span class="string">"too"</span>)</span><br><span class="line">                    <span class="keyword">val</span> msg = <span class="type">Msg</span>(<span class="keyword">this</span>,<span class="string">"rrr"</span>)</span><br><span class="line">                    wo ! msg</span><br><span class="line">                &#125;               </span><br><span class="line">                <span class="keyword">case</span> <span class="string">"rrr"</span> =&gt;&#123;</span><br><span class="line">                    println(<span class="string">"uuu"</span>)</span><br><span class="line">                   <span class="keyword">val</span> msg = <span class="type">Msg</span>(<span class="keyword">this</span>,<span class="string">"heheh"</span>)</span><br><span class="line">                    wo ! msg</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Actor2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args:<span class="type">Array</span>[<span class="type">String</span>]):<span class="type">Unit</span> = &#123;</span><br><span class="line">     <span class="keyword">val</span> woman = <span class="keyword">new</span> <span class="type">WoActor</span>()</span><br><span class="line">    <span class="keyword">val</span> human = <span class="keyword">new</span> <span class="type">HuActor</span>(woman)</span><br><span class="line">        </span><br><span class="line">        human.start()</span><br><span class="line">        woman.start()</span><br><span class="line">        human ! <span class="string">"hello"</span>        </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span>(<span class="params">actor:<span class="type">Actor</span>,msg:<span class="type">Any</span></span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Actor1</span> <span class="keyword">extends</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">act</span></span>()&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">      receive&#123;</span><br><span class="line">        <span class="keyword">case</span>  msg :<span class="type">Message</span> =&gt; &#123;</span><br><span class="line">          println(<span class="string">"i sava msg! = "</span>+ msg.msg)</span><br><span class="line">          </span><br><span class="line">          msg.actor!<span class="string">"i love you too !"</span></span><br><span class="line">          &#125;</span><br><span class="line">        <span class="keyword">case</span> msg :<span class="type">String</span> =&gt; println(msg)</span><br><span class="line">        <span class="keyword">case</span>  _ =&gt; println(<span class="string">"default msg!"</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Actor2</span>(<span class="params">actor :<span class="type">Actor</span></span>) <span class="keyword">extends</span> <span class="title">Actor</span></span>&#123;</span><br><span class="line">  actor ! <span class="type">Message</span>(<span class="keyword">this</span>,<span class="string">"i love you !"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">act</span></span>()&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">			receive&#123;</span><br><span class="line">  			<span class="keyword">case</span> msg :<span class="type">String</span> =&gt; &#123;</span><br><span class="line">  			  <span class="keyword">if</span>(msg.equals(<span class="string">"i love you too !"</span>))&#123;</span><br><span class="line">  			    println(msg)</span><br><span class="line">  			   actor! <span class="string">"could we have a date !"</span></span><br><span class="line">  			  &#125;</span><br><span class="line">  			&#125;</span><br><span class="line">  			<span class="keyword">case</span>  _ =&gt; println(<span class="string">"default msg!"</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Lesson_Actor2</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> actor1 = <span class="keyword">new</span> <span class="type">Actor1</span>()</span><br><span class="line">    actor1.start()</span><br><span class="line">    <span class="keyword">val</span> actor2 = <span class="keyword">new</span> <span class="type">Actor2</span>(actor1)</span><br><span class="line">    actor2.start()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="十一、WordCount"><a href="#十一、WordCount" class="headerlink" title="十一、WordCount"></a>十一、WordCount</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在lib文件中添加spark的jar包 ，并addLib</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkContext</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">RDD</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">RDD</span>.rddToPairRDDFunctions</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">      </span><br><span class="line">    conf.setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"WC"</span>)</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)  <span class="comment">//用于了解集群</span></span><br><span class="line">      </span><br><span class="line">    <span class="comment">//RDD:集合 ，抽象的</span></span><br><span class="line">    <span class="keyword">val</span> lines :<span class="type">RDD</span>[<span class="type">String</span>] = sc.textFile(<span class="string">"./words.txt"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//方式一：</span></span><br><span class="line">    <span class="keyword">val</span> word :<span class="type">RDD</span>[<span class="type">String</span>]  = lines.flatMap&#123;lines =&gt; &#123;</span><br><span class="line">      lines.split(<span class="string">" "</span>)  <span class="comment">//匿名函数</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> pairs:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = word.map&#123; x =&gt; (x,<span class="number">1</span>) &#125;</span><br><span class="line">      <span class="comment">//map :一进一出    flatmap：一进多出    x：每个单词</span></span><br><span class="line">      </span><br><span class="line">    <span class="keyword">val</span> result:<span class="type">RDD</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = pairs.reduceByKey&#123;(a,b)=&gt; &#123;</span><br><span class="line">        println(<span class="string">"a:"</span>+a+<span class="string">",b:"</span>+b)</span><br><span class="line">        a+b    <span class="comment">//相当于  a = a + b用于下一个统计</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">      <span class="comment">//优化：排序  false（降序）  第一个_ 代表每个元素</span></span><br><span class="line">    result.sortBy(_._2,<span class="literal">false</span>).foreach(println)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//方式二：简化写法</span></span><br><span class="line">    lines.flatMap &#123; _.split(<span class="string">" "</span>)&#125;.map &#123; (_,<span class="number">1</span>)&#125;.reduceByKey(_+_).foreach(println)</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/02/15/Scala学习/">Scala学习</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
+        <p><span>发布时间:</span>2019-02-15, 00:00:00</p>
+        <p><span>最后更新:</span>2019-02-18, 16:31:09</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/15/Scala学习/" title="Scala学习">http://sungithup.github.io/2019/02/15/Scala学习/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/15/Scala学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/02/16/String方法/">
+                    String 方法
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/02/14/Redis学习/">
+                    Redis学习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Scala官网6个特征。"><span class="toc-text">一、Scala官网6个特征。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简捷，快速"><span class="toc-text">简捷，快速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Java"><span class="toc-text">1、Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、类型"><span class="toc-text">2、类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、并发"><span class="toc-text">3、并发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、继承"><span class="toc-text">4、继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、匹配"><span class="toc-text">5、匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、高阶"><span class="toc-text">6、高阶</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、Scala安装"><span class="toc-text">二、Scala安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、windows安装-配置环境变量"><span class="toc-text">1、windows安装,配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、eclipse-配置scala插件"><span class="toc-text">2、eclipse 配置scala插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、Scala编辑器：scala-ide"><span class="toc-text">3、Scala编辑器：scala ide</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Idea-中配置scala插件"><span class="toc-text">4、Idea 中配置scala插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Scala基础语法"><span class="toc-text">三、Scala基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据类型"><span class="toc-text">1、数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、变量和常量的声明"><span class="toc-text">2、变量和常量的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、类和对象"><span class="toc-text">3、类和对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-if-else"><span class="toc-text">3.  if else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-for-while-do…while"><span class="toc-text">4.   for ,while,do…while</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Scala函数"><span class="toc-text">四、Scala函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、函数定义"><span class="toc-text">1、函数定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、递归函数"><span class="toc-text">2、递归函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、包含参数默认值的函数"><span class="toc-text">3、包含参数默认值的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、可变参数个数的函数"><span class="toc-text">4、可变参数个数的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、匿名函数"><span class="toc-text">5、匿名函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、-嵌套函数"><span class="toc-text">6、 嵌套函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、偏应用函数"><span class="toc-text">7、偏应用函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、高阶函数"><span class="toc-text">8、高阶函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、柯里化函数"><span class="toc-text">9、柯里化函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、字符串"><span class="toc-text">五、字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、string-stringBuilder-可变"><span class="toc-text">1、string  | stringBuilder (可变)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、操作方法"><span class="toc-text">2、操作方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、集合"><span class="toc-text">六、集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数组"><span class="toc-text">1、数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）创建一维数组"><span class="toc-text">（1）创建一维数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）数组遍历"><span class="toc-text">（2）数组遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）数组操作"><span class="toc-text">（3）数组操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）创建二维数组"><span class="toc-text">（4）创建二维数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、list"><span class="toc-text">2、list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（1）创建list"><span class="toc-text">（1）创建list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（2）list遍历"><span class="toc-text">（2）list遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#（3）list操作"><span class="toc-text">（3）list操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、set"><span class="toc-text">3、set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、map"><span class="toc-text">4、map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、元组Tuple"><span class="toc-text">5、元组Tuple</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、trait"><span class="toc-text">七、trait</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、模式匹配match"><span class="toc-text">八、模式匹配match</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、样例类"><span class="toc-text">九、样例类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十、Actor-Model"><span class="toc-text">十、Actor Model</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一、WordCount"><span class="toc-text">十一、WordCount</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Scala学习　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    	
+
+
+  
+     
+     
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/02/16/String方法/" title="上一篇: String 方法">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/02/14/Redis学习/" title="下一篇: Redis学习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+<!--gitment 评论-->
+
+  <div class="comments" id="comments">
+  
+  <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+  <script src="https://billts.site/js/gitment.js"></script>
+  <!--原型-->
+  <!--
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+  -->
+  
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+        id: 'Fri Feb 15 2019 00:00:00 GMT+0800',
+        title: 'Scala学习',
+        owner: 'sungithup',
+        repo: 'sungithup.github.io',
+        oauth: {
+        client_id: '80107df5bc27be1c1495',
+        client_secret: 'c7949e6fc532f63f30f14fe1aff7f4b9c234860e',
+        },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+  </div>
+
+<!--gitment 评论 end--></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                
+                2016-2019 Sukie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
