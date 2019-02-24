@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-02-22T02:16:27.143Z</updated>
+  <updated>2019-02-23T02:42:30.827Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -18,10 +18,34 @@
   
   <entry>
     <title>Spark学习（五）</title>
+    <link href="http://sungithup.github.io/2019/02/22/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/"/>
+    <id>http://sungithup.github.io/2019/02/22/Spark学习（六）/</id>
+    <published>2019-02-21T16:00:00.000Z</published>
+    <updated>2019-02-23T02:42:30.827Z</updated>
+    
+    <summary type="html">
+    
+      SparkStreaming 是流式处理框架，是 Spark API 的扩展，支持可扩展、高吞吐量、容错的实时数据流处理
+    
+    </summary>
+    
+      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
+    
+    
+      <category term="Spark框架" scheme="http://sungithup.github.io/tags/Spark%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="SparkStreaming" scheme="http://sungithup.github.io/tags/SparkStreaming/"/>
+    
+      <category term="流式处理框架" scheme="http://sungithup.github.io/tags/%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spark学习（五）</title>
     <link href="http://sungithup.github.io/2019/02/21/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/21/Spark学习（五）/</id>
     <published>2019-02-20T16:00:00.000Z</published>
-    <updated>2019-02-22T02:16:27.143Z</updated>
+    <updated>2019-02-23T15:12:32.545Z</updated>
     
     <summary type="html">
     
@@ -129,22 +153,42 @@
   </entry>
   
   <entry>
-    <title>List方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
+    <title>Set方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Set%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Set方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:18:33.313Z</updated>
+    <updated>2019-02-16T07:21:55.338Z</updated>
     
     <summary type="html">
     
-      Scala中List的方法
+      Scala中Set的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
+      <category term="Set" scheme="http://sungithup.github.io/tags/Set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>String 方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:22:24.420Z</updated>
+    
+    <summary type="html">
+    
+      Scala中String的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
     
   </entry>
   
@@ -169,26 +213,6 @@
   </entry>
   
   <entry>
-    <title>Set方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/Set%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/Set方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:21:55.338Z</updated>
-    
-    <summary type="html">
-    
-      Scala中Set的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="Set" scheme="http://sungithup.github.io/tags/Set/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数组方法</title>
     <link href="http://sungithup.github.io/2019/02/16/%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95%20/"/>
     <id>http://sungithup.github.io/2019/02/16/数组方法 /</id>
@@ -209,22 +233,48 @@
   </entry>
   
   <entry>
-    <title>String 方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
+    <title>List方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:22:24.420Z</updated>
+    <updated>2019-02-16T07:18:33.313Z</updated>
     
     <summary type="html">
     
-      Scala中String的方法
+      Scala中List的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
+      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Map方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-23T11:09:51.795Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
     
   </entry>
   
@@ -391,46 +441,6 @@
     
     
       <category term="Nginx" scheme="http://sungithup.github.io/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux系统CentOS 6</title>
-    <link href="http://sungithup.github.io/2019/01/11/Linux%E7%B3%BB%E7%BB%9FCentOS%206%E5%AE%89%E8%A3%85/"/>
-    <id>http://sungithup.github.io/2019/01/11/Linux系统CentOS 6安装/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-06T13:53:39.903Z</updated>
-    
-    <summary type="html">
-    
-      Linux常见系统之一-----CentOS
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://sungithup.github.io/categories/Linux/"/>
-    
-    
-      <category term="CentOS 6" scheme="http://sungithup.github.io/tags/CentOS-6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hive学习</title>
-    <link href="http://sungithup.github.io/2019/01/11/Hive%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/11/Hive学习/</id>
-    <published>2019-01-10T16:00:00.000Z</published>
-    <updated>2019-02-22T02:16:07.604Z</updated>
-    
-    <summary type="html">
-    
-      用于数据分析、统计的数据仓库
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="Hive" scheme="http://sungithup.github.io/tags/Hive/"/>
     
   </entry>
   
