@@ -213,20 +213,6 @@
     </url>
 
     <url>
-        <loc>http://sungithup.github.io/tags/SparkStreaming/</loc>
-        <lastmod>2019-02-23T02:42:30.827Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://sungithup.github.io/tags/%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/</loc>
-        <lastmod>2019-02-23T02:42:30.827Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://sungithup.github.io/tags/Map/</loc>
         <lastmod>2019-02-23T11:09:51.795Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -249,21 +235,21 @@
 
     <url>
         <loc>http://sungithup.github.io/tags/Spark%E6%A1%86%E6%9E%B6/</loc>
-        <lastmod>2019-02-23T15:12:32.545Z</lastmod>
+        <lastmod>2019-02-24T15:00:11.496Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sungithup.github.io/tags/SparkSql/</loc>
-        <lastmod>2019-02-23T15:12:32.545Z</lastmod>
+        <loc>http://sungithup.github.io/tags/SparkStreaming/</loc>
+        <lastmod>2019-02-24T15:00:11.496Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sungithup.github.io/tags/SQL%E8%AF%AD%E5%8F%A5/</loc>
-        <lastmod>2019-02-23T15:12:32.545Z</lastmod>
+        <loc>http://sungithup.github.io/tags/%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/</loc>
+        <lastmod>2019-02-24T15:00:11.496Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
