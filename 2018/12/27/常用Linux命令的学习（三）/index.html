@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="关于Linux系统的重要操作命令你">
+<meta name="description" content="关于Linux系统的重要操作命令">
 <meta name="keywords" content="Linux命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用Linux命令的学习（三）">
 <meta property="og:url" content="http://sungithup.github.io/2018/12/27/常用Linux命令的学习（三）/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="关于Linux系统的重要操作命令你">
+<meta property="og:description" content="关于Linux系统的重要操作命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-06T14:03:40.962Z">
+<meta property="og:updated_time" content="2019-02-28T09:54:08.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用Linux命令的学习（三）">
-<meta name="twitter:description" content="关于Linux系统的重要操作命令你">
+<meta name="twitter:description" content="关于Linux系统的重要操作命令">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -381,16 +381,16 @@
 <tbody>
 <tr>
 <td>服务  操作</td>
-<td>service 服务名 start\</td>
+<td>仅适用于当前    ：service 服务名 start\</td>
 <td>stop\</td>
 <td>status\</td>
-<td>restart                                                                 永久关闭\</td>
-<td>打开 （启动后生效） chkconfig iptables on\</td>
+<td>restart                                                                                                                                          永久关闭\</td>
+<td>打开  ：（重启后生效） chkconfig iptables on\</td>
 <td>off</td>
 </tr>
 <tr>
 <td>添加  服务</td>
-<td>1)    编辑脚本：vim myservice.sh                                                                                                                  编辑内容：                                                                                                                                     （在最前面加一下两句）                                                                                                #chkconfig:   2345 80 90                                                            #description:auto_run                                                                                                (自己的服务脚本：开机时同步时间）                                                      result=’ntpdate cn.ntp.org.cn’                                                                                      退出编辑并保存：按esc键 按 ：wq                                                                                     在ntpdate.log文件中输出打印：echo $result &gt; /usr/ntpdate.log                                                                                   2)    修改权限，使其拥有可执行权限:   chmod 700 myservice.sh                            3)    将脚本拷贝到/etc/init.d目录：                                                                              4)    加入服务：chkconfig –add myservice.sh                                                             5)    重启服务器，验证服务是否添加成功：date                                                     6）/usr目录下产生ntpdate.log</td>
+<td>1)    编辑脚本：vim myservice.sh                                                                                                                  编辑内容：                                                                                                                                                              （在最前面加一下两句）                                                                                                                              #chkconfig:   2345 80 90                                                                                                      #description:auto_run                                                                                                                                           (自己的服务脚本：开机时同步时间）                                                                                                           result=’ntpdate cn.ntp.org.cn’                                                                                                                                 退出编辑并保存：按esc键 按 ：wq                                                                                                                                                在ntpdate.log文件中输出打印：echo $result &gt; /usr/ntpdate.log                                                                                   2)    修改权限，使其拥有可执行权限:   chmod 700 myservice.sh                                                                3)    将脚本拷贝到/etc/init.d目录：                                                                                                                        4)    加入服务：chkconfig –add myservice.sh                                                                                                      5)    重启服务器，验证服务是否添加成功：date                                                                                          6）/usr目录下产生ntpdate.log</td>
 </tr>
 <tr>
 <td>删除  服务</td>
@@ -399,7 +399,7 @@
 <tr>
 <td>更改  服务初   执行  等级</td>
 <td>chkconfig –level 2345 服务名 off\</td>
-<td>on                                                                     chkconfig 服务名 on\</td>
+<td>on                                                                                                      chkconfig 服务名 on\</td>
 <td>of f</td>
 </tr>
 </tbody>
@@ -408,16 +408,16 @@
 <thead>
 <tr>
 <th>编辑定时任务</th>
-<th>crontab –e                                                                                                                    格式：minute hour day month dayofweek command</th>
+<th>crontab –e                                                                                                                                                           格式：minute hour day month dayofweek command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>举例</td>
-<td><em> </em> <em> </em> *  echo  “hello”                                                                                                     每分钟打印“hello”</td>
+<td><em> </em> <em> </em> *  echo  “hello”                                                                                                                                       每分钟打印“hello”</td>
 </tr>
 <tr>
-<td>时间一到，执行操作命令后</td>
+<td>时间一            到，                执行操    作命令后</td>
 <td>会出现：You have new mail in /var/spool/mail/root</td>
 </tr>
 <tr>
@@ -434,7 +434,7 @@
 </tr>
 <tr>
 <td><em>注意</em></td>
-<td>“<em>”代表任意的数字, “/”代表”每隔多久”,                                                                                “-”代表从某个数字到某个数字, “,”分开几个离散的数字                                                                                                                    如：                                                                                                                                       30-40 12 </em> <em> </em> echo “hello”                                                                                                           ——–每天12点30分至40分期间，每分钟执行一次命令                                                                                      30,40                                                                                                                                                ——–每天12点30分和12点40分                                                                                           0/5                                                                                                                                               ——–每天的12点整至12点55分期间，每隔5分钟执行一次命令</td>
+<td>“<em>”代表任意的数字, “/”代表”每隔多久”,                                                                                                           “-”代表从某个数字到某个数字, “,”分开几个离散的数字                                                                                                                    如：                                                                                                                                                                           30-40 12 </em> <em> </em> echo “hello”                                                                                                                                         ——–每天12点30分至40分期间，每分钟执行一次命令                                                                                      30,40                                                                                                                                                                                     ——–每天12点30分和12点40分                                                                                                                            0/5                                                                                                                                                                                 ——–每天的12点整至12点55分期间，每隔5分钟执行一次命令</td>
 </tr>
 </tbody>
 </table>
@@ -442,14 +442,14 @@
 <thead>
 <tr>
 <th>查看  进程</th>
-<th>ps  -aux                                                                                                                                -a 列出所有           -u 列出用户   -x 详细列出，如cpu、内存等                                                            -e 显示所有进程    -f 全格式                                                                                                              ps  - ef  \</th>
-<th>grep ssh   查看所有进程里CMD是ssh 的进程信息                                                       ps -aux –sort –pcpu   根据 CPU 使用来升序排序</th>
+<th>ps  -aux                                                                                                                                                                           -a 列出所有           -u 列出用户   -x 详细列出，如cpu、内存等                                                                                       -e 显示所有进程    -f 全格式                                                                                                                                     ps  - ef  \</th>
+<th>grep ssh   查看所有进程里CMD是ssh 的进程信息                                                                                       ps -aux –sort –pcpu   根据 CPU 使用来升序排序</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>使程序   后台运行</td>
-<td>只需要在命令后添加  &amp; 符号                                                                                                                            echo “hello” &amp;   jobs –l      –列出当前连接的所有后台进程（jobs仅适用于当前端）   ps  -ef \</td>
+<td>只需要在命令后添加  &amp; 符号                                                                                                                            echo “hello” &amp;   jobs –l      –列出当前连接的所有后台进程（jobs仅适用于当前端）                                                   ps  -ef \</td>
 <td>grep 进程名          —-（推荐）列出后台进程</td>
 </tr>
 <tr>
@@ -462,25 +462,25 @@
 <thead>
 <tr>
 <th>wget</th>
-<th>1）   安装：yum install wget  –y                                                                                                        2）   用法：wget [option] 网址  -O  指定下载保存的路径                                               3）   也可用于做爬虫</th>
+<th>1）   安装：yum install wget  –y                                                                                                        2）   用法：wget [option] 网址  -O  指定下载保存的路径                                                                                          3）   也可用于做爬虫</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>yum</td>
-<td>1）   备份原镜像：                                                                                                                   cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOSBase.repo.backup                                                                                 2）   下载新镜像：                                                                                                                  <strong>wget</strong> -O /etc/yum.repos.d/CentOS-Base.repo      <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a>                                                               3）  查看文件内容：vim /etc/yum.repos.d/CentOS-Base.repo                                            4）  生成缓存：yum makecache</td>
+<td>1）   备份原镜像：                                                                                                                                                   cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOSBase.repo.backup                                                                                 2）   下载新镜像：                                                                                                                                         <strong>wget</strong> -O /etc/yum.repos.d/CentOS-Base.repo      <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a>                                                                                                                                                                             3）  查看文件内容：vim /etc/yum.repos.d/CentOS-Base.repo                                                                      4）  生成缓存：yum makecache</td>
 </tr>
 <tr>
 <td>rpm</td>
-<td>1）   安装 rpm –ivh rpm包                                                                                                              2）   查找已安装的rpm包：rpm –q ntp                                                                                      3）   卸载：rpm –e ntp-4.2.6p5-10.el6.centos.2.x86_64（全名）</td>
+<td>1）   安装 rpm –ivh rpm包                                                                                                                                       2）   查找已安装的rpm包：rpm –q ntp                                                                                                                  3）   卸载：rpm –e ntp-4.2.6p5-10.el6.centos.2.x86_64（全名）</td>
 </tr>
 <tr>
 <td>tar</td>
-<td>1）   解压：tar  -zvxf  xxxx.tar.gz                                                                                               2）   压缩：tar -zcf 压缩包命名 压缩目标                                                                                           3）   例子：tar -zcf tomcat.tar.gz apache-tomcat-7.0.61                                                       4）   -z   gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加                                                   -x  解压                            -c  压缩   -f   目标文件，压缩文件新命名或解压文件名                                               -v  解压缩过程信息打印</td>
+<td>1）   解压：tar  -zvxf  xxxx.tar.gz                                                                                                                             2）   压缩：tar -zcf 压缩包命名 压缩目标                                                                                             3）   例子：tar -zcf tomcat.tar.gz apache-tomcat-7.0.61                                                                                4）   -z   gzip进行解压或压缩，带.gz需要加，压缩出来.gz也需要加                                                                                  <em>       -x  解压  -c  压缩   -f   目标文件，压缩文件新命名或解压文件名                                                                                       </em>       -v  解压缩过程信息打印</td>
 </tr>
 <tr>
 <td>zip</td>
-<td>1）安装zip：yum install zip –y                                                                                        2）压缩命令：zip   -r 包名 目标目录                                                                                          3）安装 ：unzip,yum   install unzip –y                                                                                   4）解压  ：unzip   filename</td>
+<td>1）  安装zip：yum install zip –y                                                                                                                          2）  压缩命令：zip   -r 包名 目标目录                                                                                                              3）  安装 ：unzip,yum   install unzip –y                                                                                                              4）  解压  ：unzip   filename</td>
 </tr>
 </tbody>
 </table>
@@ -488,13 +488,13 @@
 <thead>
 <tr>
 <th>JDK   部署</th>
-<th>1)     解压: tar -zxf jdk-7u80-linux-x64.tar.gz                                                                                         2)     配置环境变量                                                                                                                                                                  编辑配置文件：vim /etc/profile                                                                                                                                                   编辑内容 ：                                                                                                                                                          JAVA_HOME= /usr/soft/jdk1.7.0_75                                                                                                 PATH=$PATH:$JAVA_HOME/bin                                                                                                           3) 重新加载环境变量：source  /etc/profile                                                                                                   4) 验证: java  -version</th>
+<th>1)     解压: tar -zxf jdk-7u80-linux-x64.tar.gz                                                                                         2)     配置环境变量                                                                                                                                                                  编辑配置文件：vim /etc/profile                                                                                                                                                   编辑内容 ：                                                                                                                                                          JAVA_HOME= /usr/soft/jdk1.7.0_75                                                                                                 PATH=$PATH:$JAVA_HOME/bin                                                                                                           3)     重新加载环境变量：source  /etc/profile                                                                                                   4)     验证: java  -version</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>mysql部署</td>
-<td>yum安装 mysql                                                                                                                                         1) yum install mysql-server -y                                                                                                                2) yum install mysql-devel -y                                                                                                                                  3) service mysqld start                                                                                                                              4) mysql -uroot -p                                                                                                                                      5) mysqladmin -u root    password 123456</td>
+<td>yum安装 mysql                                                                                                                                         1)   yum install mysql-server -y                                                                                                                2)   yum install mysql-devel -y                                                                                                                                  3)   service mysqld start                                                                                                                              4)    mysql -uroot -p                                                                                                                                      5)   mysqladmin -u root    password 123456</td>
 </tr>
 </tbody>
 </table>
@@ -510,15 +510,12 @@
 <tbody>
 <tr>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>（<strong>此方法有待考究）</strong>法二：通过Ansible实现   批量   免密</td>
-<td>1）、 <strong>将需要做免密操作的机器hosts添加到/etc/ansible/hosts下：</strong>                                                                                             <h3>[&nbsp;Avoid close]<br>　　192.168.91.132</h3></td>
 </tr>
 </tbody>
 </table>
-<p>　　192.168.91.133<br>　　192.168.91.134    <br>      2）、 <strong>执行命令进行免密操作</strong>  ：​                 </p>
+<p>》| （<strong>此方法有待考究）</strong>法二：通过Ansible实现   批量   免密                                                                                                                    | 1）、 <strong>将需要做免密操作的机器hosts添加到/etc/ansible/hosts下：</strong>                                                                                             </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;[&amp;nbsp;Avoid close]　</span><br><span class="line">   192.168.91.132</span><br><span class="line">　　192.168.91.133</span><br><span class="line">　　192.168.91.134</span><br></pre></td></tr></table></figure>
+<p>​      2）、 <strong>执行命令进行免密操作</strong>  ：​                 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible &lt;groupname&gt; -m authorized_key -a &quot;user=root key=&apos;&#123;&#123; lookup(&apos;file&apos;,&apos;/root/.ssh/id_rsa.pub&apos;) &#125;&#125;&apos;&quot; -k</span><br></pre></td></tr></table></figure>
 <p>​                                                                                                                                                                                                                                                                                                                                             |</p>
 
@@ -532,7 +529,7 @@
         <p><span>本文标题:</span><a href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2018-12-27, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-06, 22:03:40</p>
+        <p><span>最后更新:</span>2019-02-28, 17:54:08</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/12/27/常用Linux命令的学习（三）/" title="常用Linux命令的学习（三）">http://sungithup.github.io/2018/12/27/常用Linux命令的学习（三）/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2018/12/27/常用Linux命令的学习（三）/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -568,7 +565,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、服务操作"><span class="toc-text">一、服务操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、定时调度"><span class="toc-text">二、定时调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、进程操作"><span class="toc-text">三、进程操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、其他命令"><span class="toc-text">四、其他命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、安装部署"><span class="toc-text">五、安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、免密登录"><span class="toc-text">六、免密登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">[ Avoid close]　　192.168.91.132</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、服务操作"><span class="toc-text">一、服务操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、定时调度"><span class="toc-text">二、定时调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、进程操作"><span class="toc-text">三、进程操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、其他命令"><span class="toc-text">四、其他命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、安装部署"><span class="toc-text">五、安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、免密登录"><span class="toc-text">六、免密登录</span></a></li></ol>
         
     </div>
     <style>
@@ -643,7 +640,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

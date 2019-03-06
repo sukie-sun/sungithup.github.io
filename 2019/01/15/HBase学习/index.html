@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Sukie山脉">
 <meta property="og:description" content="基于HDFS的数据仓库---三驾马车之一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-06T13:48:04.189Z">
+<meta property="og:updated_time" content="2019-03-02T06:34:10.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase学习">
 <meta name="twitter:description" content="基于HDFS的数据仓库---三驾马车之一">
@@ -372,7 +372,7 @@
           
         <p>非关系型数据库</p>
 <p><a href="https://cwiki.apache.org/confluence/display/Hive/HBaseIntegration" target="_blank" rel="noopener">官网</a></p>
-<h2 id="一、对数据库的-基本了解"><a href="#一、对数据库的-基本了解" class="headerlink" title="一、对数据库的 基本了解"></a>一、对数据库的 基本了解</h2><a id="more"></a>
+<h2 id="一、对HBase数据库的-基本了解"><a href="#一、对HBase数据库的-基本了解" class="headerlink" title="一、对HBase数据库的 基本了解"></a>一、对HBase数据库的 基本了解</h2><a id="more"></a>
 <h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
 <p>基于Hadoop 的分布式数据库</p>
 <p>特点：</p>
@@ -380,15 +380,15 @@
 <p>2、高性能</p>
 <p>（以上两点：基于分布式的特点）</p>
 <p>3、面向列</p>
-<p>（以（K,V）存储，有唯一标记的rowkey，value包含是数据库中的列值）</p>
+<p>（以（K,V）存储，有唯一标记的rowkey，value包含的是数据库中的列值）</p>
 <p>4、可伸缩</p>
 <p>（搭建在集群上）</p>
 <p>5、实时读写</p>
 <p>（用时间戳唯一标记每一版本的数据记录）</p>
 </blockquote>
 <h3 id="2、工作结构"><a href="#2、工作结构" class="headerlink" title="2、工作结构"></a>2、工作结构</h3><blockquote>
-<p>1、利用Hadoop的HDFS作为其文件存储系统</p>
-<p>2,利用Hadoop的MapReduce来处理HBase中的海量数据</p>
+<p>1,利用Hadoop的HDFS作为其文件存储系统</p>
+<p>2,利用Hadoop的MapReduce来计算处理HBase中的海量数据</p>
 <p>3,利用Zookeeper作为其分布式协同服务</p>
 <p>4,主要用来存储非结构化和半结构化的松散数据（NoSQL非关系型数据库有redis、MongoDB等</p>
 </blockquote>
@@ -417,9 +417,10 @@
 <p>丰富的完整性使得横向扩展把难度加大了</p>
 </blockquote>
 <h3 id="4、非关系型数据库"><a href="#4、非关系型数据库" class="headerlink" title="4、非关系型数据库"></a>4、非关系型数据库</h3><blockquote>
-<p>1、存储格式：key value键值对，文档，图片等等 结构不固定<br>  2、可以减少一些时间和空间的开销，仅需要根据id取出相应的value就可以完成查询。</p>
+<p>1、存储格式：key value键值对，文档，图片等等 结构不固定 </p>
+<p>2、可以减少一些时间和空间的开销，仅需要根据id取出相应的value就可以完成查询。</p>
 <p>3、一般不支持ACID特性，无需经过SQL解析，读写性能高</p>
-<p> 4、不提供where字段条件过滤</p>
+<p>4、不提供where字段条件过滤</p>
 <p>5、难以体现设计的完整性，只适合存储一些较为简单的数据</p>
 </blockquote>
 <h2 id="二、对HBase的基本里了解"><a href="#二、对HBase的基本里了解" class="headerlink" title="二、对HBase的基本里了解"></a>二、对HBase的基本里了解</h2><h3 id="1、数据结构组成"><a href="#1、数据结构组成" class="headerlink" title="1、数据结构组成"></a>1、数据结构组成</h3><p>（ 1）Row key  :</p>
@@ -428,10 +429,11 @@
 </blockquote>
 <p>（2）Column Family列族 &amp; qualifier列</p>
 <blockquote>
-<p><code>列族</code>必须作为表模式(schema)定义的一部分预先给出，</p>
+<p><code>列族</code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            必须作为表模式(schema)定义的一部分预先给出，</p>
 <p>表中的每个列都归属于某个列族；</p>
 <p>权限控制、存储以及调优都是在列族层面进行的；</p>
-<p><code>列名</code>以列族作为前缀，每个“列族”都可以有多个列成员(column)； </p>
+<p><code>列名</code></p>
+<p>以列族作为前缀，每个“列族”都可以有多个列成员(column)； </p>
 <p>新的列可以随后按需、动态加入；</p>
 </blockquote>
 <p>（3）Cell单元格</p>
@@ -445,7 +447,8 @@
 <p>在HBase每个cell存储单元对同一份数据有多个版本，</p>
 <p>根据唯一的时间戳来区分每个版本之间的差异，</p>
 <p>不同版本的数据按照时间倒序排序，最新的数据版本排在最前面</p>
-<p>时间戳的类型是64位整型。<br>时间戳可以由HBase(在数据写入时自动)赋值，精确到毫秒</p>
+<p>时间戳的类型是64位整型。</p>
+<p>时间戳可以由HBase(在数据写入时自动)赋值，精确到毫秒</p>
 <p>时间戳。也可以由客户显式赋值，但必须唯一性</p>
 </blockquote>
 <p>（5）HLog(WAL log)</p>
@@ -472,7 +475,7 @@
 </li>
 <li><p>存贮所有Region的寻址入口。</p>
 </li>
-<li><p>实时监控Region server的上线和下线信息。并实时通知Master</p>
+<li><p>实时监控Region server的上线和下线信息，并实时通知Master</p>
 </li>
 <li><p>存储HBase的schema和table元数据</p>
 </li>
@@ -516,8 +519,8 @@
 <ul>
 <li>一个region由2-3store组成，一个store对应一个CF（列族）</li>
 <li>store包括位于内存中的memstore和位于磁盘的storefile。</li>
-<li>写操作先写入memstore，当memstore中的数据达到某个阈值，hregionserver会启动flashcache进程写入storefile，每次写入形成单独的一个storefile；</li>
-<li>当storefile文件的数量增长到一定阈值后，系统会进行合并（minor、major<br>compaction），在合并过程中会进行版本合并和删除工作（majar），形成更大的storefile</li>
+<li>写操作先写入memstore，当memstore中的数据达到某个阈值（默认64M），hregionserver会启动flashcache进程写入storefile，每次写入形成单独的一个storefile；</li>
+<li>当storefile文件的数量增长到一定阈值后，系统会进行合并（minor、major，compaction），在合并过程中会进行版本合并和删除工作（majar），形成更大的storefile</li>
 <li>当一个region所有storefile的大小和数量超过一定阈值后，会把当前的region分割为两个，并由hmaster分配到相应的regionserver服务器，实现负载均衡</li>
 <li>客户端检索数据，先在memstore找，找不到再找storefile</li>
 <li>HRegion是HBase中分布式存储和负载均衡的最小单元。最小单元就表示不同的HRegion可以分布在不同的HRegion server上。</li>
@@ -562,13 +565,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node02</span><br></pre></td></tr></table></figure>
 <p>6、将Hadoop安装解压目录/etc/hadoop目录下的hdfs-site.xml文件 拷贝到Hbase的解压目录的conf目录中</p>
 <p>7、配置环境变量 ~/.bash_profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line">HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin</span><br><span class="line">SQOOP_HOME=/usr/soft/sqoop-1.4.6</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br><span class="line">HBASE_HOME=/usr/soft/hbase-1.2.9</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ZOOKEEPER_HOME</span>/bin</span><br><span class="line">HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HIVE_HOME</span>/bin</span><br><span class="line">SQOOP_HOME=/usr/soft/sqoop-1.4.6</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$SQOOP_HOME</span>/bin</span><br><span class="line">HBASE_HOME=/usr/soft/hbase-1.2.9</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HBASE_HOME</span>/bin</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>source ~/.bash_profile</p>
 </blockquote>
 <p>8、将如上配置远程发送至其他节点（Hbase 、 ./bash_profile）</p>
 <p>9、各个节点注意要做时间同步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate cn.ntp.org.cn</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate cn.ntp.org.cn</span><br></pre></td></tr></table></figure>
 <p>10、启动HDFS集群：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br><span class="line">start-hdfs.sh</span><br></pre></td></tr></table></figure>
 <p>11、启动：start-hbase.sh</p>
@@ -663,7 +666,7 @@
         <p><span>本文标题:</span><a href="/2019/01/15/HBase学习/">HBase学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-15, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-06, 21:48:04</p>
+        <p><span>最后更新:</span>2019-03-02, 14:34:10</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/15/HBase学习/" title="HBase学习">http://sungithup.github.io/2019/01/15/HBase学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/15/HBase学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -699,7 +702,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、对数据库的-基本了解"><span class="toc-text">一、对数据库的 基本了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、简介"><span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、工作结构"><span class="toc-text">2、工作结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、关系型数据库"><span class="toc-text">3、关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、非关系型数据库"><span class="toc-text">4、非关系型数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、对HBase的基本里了解"><span class="toc-text">二、对HBase的基本里了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据结构组成"><span class="toc-text">1、数据结构组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hbase-安装部署"><span class="toc-text">三、Hbase 安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、通过hbase-shell命令进入HBase-命令行接口"><span class="toc-text">四、通过hbase shell命令进入HBase 命令行接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、HBase优化"><span class="toc-text">五、HBase优化</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、对HBase数据库的-基本了解"><span class="toc-text">一、对HBase数据库的 基本了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、简介"><span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、工作结构"><span class="toc-text">2、工作结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、关系型数据库"><span class="toc-text">3、关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、非关系型数据库"><span class="toc-text">4、非关系型数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、对HBase的基本里了解"><span class="toc-text">二、对HBase的基本里了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数据结构组成"><span class="toc-text">1、数据结构组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Hbase-安装部署"><span class="toc-text">三、Hbase 安装部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、通过hbase-shell命令进入HBase-命令行接口"><span class="toc-text">四、通过hbase shell命令进入HBase 命令行接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、HBase优化"><span class="toc-text">五、HBase优化</span></a></li></ol>
         
     </div>
     <style>
@@ -774,7 +777,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Nginx入门学习（第一回合）/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux网络配置+常用命令学习(第一回合)/">Linux 入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux 入门学习（第二回合）/">Linux 入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Linux系统CentOS 6安装/">Linux系统CentOS 6</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/10/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx学习/">Nginx学习(总)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习（二）/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（一）/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习（三）/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/20/Nginx入门学习（第二回合）/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
