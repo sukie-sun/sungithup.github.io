@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-02-25T12:14:54.652Z</updated>
+  <updated>2019-03-17T13:07:21.895Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spark学习（五）</title>
+    <title>Spark学习（六）</title>
     <link href="http://sungithup.github.io/2019/02/22/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/22/Spark学习（六）/</id>
     <published>2019-02-21T16:00:00.000Z</published>
-    <updated>2019-02-25T12:14:54.652Z</updated>
+    <updated>2019-03-17T13:07:21.895Z</updated>
     
     <summary type="html">
     
@@ -41,27 +41,22 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>Spark学习（五）</title>
     <link href="http://sungithup.github.io/2019/02/21/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/21/Spark学习（五）/</id>
-    <published>2019-02-21T15:29:50.821Z</published>
-    <updated>2019-02-24T09:50:50.454Z</updated>
+    <published>2019-02-20T16:00:00.000Z</published>
+    <updated>2019-03-17T13:04:58.524Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;title: Spark学习（五）&lt;br&gt;date: 2019-2-21&lt;br&gt;update: 2019-2-21&lt;br&gt;tags:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- Spark框架
-    - SparkSql
-    -
-        
-      
+      SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎
     
     </summary>
     
+      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
+    
+    
+      <category term="Spark框架 - SparkSql - SQL语句" scheme="http://sungithup.github.io/tags/Spark%E6%A1%86%E6%9E%B6-SparkSql-SQL%E8%AF%AD%E5%8F%A5/"/>
     
   </entry>
   
@@ -134,11 +129,11 @@
   </entry>
   
   <entry>
-    <title>Spark学习</title>
+    <title>Spark学习（一）</title>
     <link href="http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/16/Spark学习（一）/</id>
     <published>2019-02-16T13:30:15.000Z</published>
-    <updated>2019-02-28T09:26:28.854Z</updated>
+    <updated>2019-03-17T13:06:53.815Z</updated>
     
     <summary type="html">
     
