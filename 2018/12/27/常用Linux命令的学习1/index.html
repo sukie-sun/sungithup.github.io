@@ -15,25 +15,18 @@
 
 
 
-<meta name="description" content="基于HDFS系统的资源调度框架">
-<meta name="keywords" content="yarn">
+<meta name="description" content="关于Linux操作的常用命令">
+<meta name="keywords" content="Linux命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YARN的入门学习">
-<meta property="og:url" content="http://sungithup.github.io/2019/01/03/Yarn学习/index.html">
+<meta property="og:title" content="常用Linux命令的学习（一）">
+<meta property="og:url" content="http://sungithup.github.io/2018/12/27/常用Linux命令的学习1/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="基于HDFS系统的资源调度框架">
+<meta property="og:description" content="关于Linux操作的常用命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg">
-<meta property="og:updated_time" content="2019-02-16T07:39:17.189Z">
+<meta property="og:updated_time" content="2019-03-17T11:09:05.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YARN的入门学习">
-<meta name="twitter:description" content="基于HDFS系统的资源调度框架">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg">
+<meta name="twitter:title" content="常用Linux命令的学习（一）">
+<meta name="twitter:description" content="关于Linux操作的常用命令">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -65,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>YARN的入门学习 | Sukie山脉</title>
+<title>常用Linux命令的学习（一） | Sukie山脉</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -312,11 +305,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="post-Yarn学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="post-常用Linux命令的学习1" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/01/03/Yarn学习/" class="article-date">
-      <time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished">2019-01-03</time>
+      <a href="/2018/12/27/常用Linux命令的学习1/" class="article-date">
+      <time datetime="2018-12-27T12:16:47.000Z" itemprop="datePublished">2018-12-27</time>
 </a>
 
 
@@ -331,7 +324,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      YARN的入门学习
+      常用Linux命令的学习（一）
     </h1>
   
 
@@ -341,7 +334,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-keyboard-o"></i> 
                  <span class="post-meta-item-text"> 字数统计: </span> 
-                 <span class="post-count">1.8k字</span> 
+                 <span class="post-count">2k字</span> 
            </span>
      </span> 
 
@@ -350,7 +343,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-hourglass-half"></i> 
                  <span class="post-meta-item-text"> 阅读时长: </span> 
-                 <span class="post-count">6分</span> 
+                 <span class="post-count">7分</span> 
            </span> 
      </span> 
 </div>
@@ -361,13 +354,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/HDFS/">HDFS</a>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yarn/">yarn</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux命令/">Linux命令</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -378,150 +371,147 @@
       
           
         <p>[TOC]</p>
-<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h2 id="yarn（资源管理器）"><a href="#yarn（资源管理器）" class="headerlink" title="yarn（资源管理器）"></a>yarn（资源管理器）</h2><h3 id="（1）存在背景："><a href="#（1）存在背景：" class="headerlink" title="（1）存在背景："></a>（1）存在背景：</h3><p>MR1.0存在缺陷：</p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczt4wiysj30x90ftq5v.jpg" alt=""></p>
+<h2 id="一、命令指南（manual）：man"><a href="#一、命令指南（manual）：man" class="headerlink" title="一、命令指南（manual）：man"></a>一、命令指南（manual）：man</h2><p>安装 man：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install man –y</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（-y 表示获得允许，无需确认）</p>
+</blockquote>
+<p>查看ls命令指南：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
+<h2 id="二、目录操作命令"><a href="#二、目录操作命令" class="headerlink" title="二、目录操作命令"></a>二、目录操作命令</h2><p><strong>切换</strong>目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd + 目录的路径</span><br></pre></td></tr></table></figure>
+<p><strong>查看</strong>当前目录所在的完整路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<p><strong>新建</strong>目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir +目录名字</span><br></pre></td></tr></table></figure>
+<p><strong>查看</strong> —当前目录所用有的子目录和文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls   ，ll等价于  ls –l</span><br></pre></td></tr></table></figure>
+<p>​        查看—目录下的所有东西（包括隐藏文件）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls –al   等价于 ll -a</span><br></pre></td></tr></table></figure>
+<p><strong>拷贝</strong>目录或文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp –r install.log  install2.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>复制文件，-r 表示递归复制，此时，可用于复制整个目录</p>
+</blockquote>
+<p><strong>删除</strong>目录或文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm  -r install.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>此时需要手动输入y ，代表确认删除。可加 –f参数，直接删除，无需确认。</p>
+<p>当需要一个目录下所有东西时，加-r参数，代表遍历删除。</p>
+<p>(rmdir只能删除空目录)</p>
+</blockquote>
+<p><strong>移动</strong>目录或文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv + 目录/文件名字 + 其他路径</span><br></pre></td></tr></table></figure>
+<p>​         将test目录移动到  根目录/ 下 : </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv test /</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（如果移动到当前目录，用另外一个名称，则可以实现重命名的效果）</p>
+</blockquote>
+<p><strong>更改</strong>文件或目录的名字：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv + 旧目录名字 + 新目录名</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>(     -r 用于递归的拷贝，删除，移动目录)</p>
+</blockquote>
+<h2 id="三、文件操作命令"><a href="#三、文件操作命令" class="headerlink" title="三、文件操作命令"></a>三、文件操作命令</h2><h3 id="1、一般文件操作"><a href="#1、一般文件操作" class="headerlink" title="1、一般文件操作"></a>1、一般文件操作</h3><p><code>在Linux中：一切皆文件</code></p>
+<p><strong>新建</strong>文件：touch  install.log<br>​        (vim install.log   编辑文件，如果文件不存在，就会新建一个对应的文件，并进入文件的编辑模式，如果按 :wq 会保存文件并退出，如果按 :q 则不保存退出)<br>​<br><strong>查看</strong>文件内容：cat +（文件名）<br>（一次性显示整个文件的内容，文件内容过多时文本在屏幕上迅速闪过（滚屏），用,户体验不好）</p>
+<p>一次命令显示一屏文本：</p>
+<p>满屏后停下来，并且在屏幕的底部出现一个提示信息，给出至今己显示的该文件的百分比。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  more +（文件名）</span><br><span class="line">  </span><br><span class="line">  按键         效果  </span><br><span class="line">Space         显示下一屏文本内容</span><br><span class="line">B             显示上一屏文本内容</span><br><span class="line">Enter         显示下一行文本内容</span><br><span class="line">Q             退出查看</span><br></pre></td></tr></table></figure>
+<pre><code>  less+（文件名）
+按键                  效果
+ Q                 退出less 命令 
+ h                 显示帮助界面
+ u                 向后滚动半页 
+ d                 向前翻半页 
+ e | Enter（回车）  向后翻一行文本
+ space(空格键)      滚动一页 
+ b                 向后翻一页 
+ [pagedown]：      向下翻动一页 
+ [pageup]：        向上翻动一页
+  上下键，          向上一行，向下一行
+</code></pre><p>从<strong>头部</strong>打印文件内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head  -10 +（文件名）  打印文件1到10行</span><br></pre></td></tr></table></figure>
+<p>从<strong>尾部</strong>打印文件内容​  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -10 +（文件名）打印文件最后10行</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tail还可用来查看文件内容的更新变化</p>
+<p>tail -f (文件名)  </p>
+</blockquote>
+<p><strong>查找</strong>文件或目录​    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find +（路径名） –name +（文件名）</span><br></pre></td></tr></table></figure>
+<p>​        举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name profile</span><br></pre></td></tr></table></figure>
+<p>​    在/(根目录)目录下查找 名字为profile的文件或目录</p>
+<p> 也可利用正则：<br>​             举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name pro*</span><br></pre></td></tr></table></figure>
+<p>​         在/etc目录下查找以pro开头的文件或目录</p>
+<blockquote>
+<p>注意：</p>
 <ul>
-<li>单点故障：</li>
-</ul>
-<p>仅有一个JobTracker负责整个作业的调度、管理、监控、资源调度</p>
-<p>（一个作业拿到后会分解多个任务去执行mapduce，JobTracker把任务分配给TaskTracker来具体负责执行相关map或reduce任务）</p>
-<ul>
-<li>JobTracker‘大包大揽’，管理事项过多</li>
-</ul>
-<p>（上限4000个节点）</p>
-<ul>
-<li><p>容易出现内存溢出</p>
+<li><p>路径越精确，查找的范围越小，速度越快 </p>
 </li>
-<li><p>资源划分不合理</p>
-<p>（强行划分slot，map资源和reduce资源不能互用，导致忙的忙死，闲的闲死）</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">既是一个计算框架，也是一个资源管理框架</span><br></pre></td></tr></table></figure>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczujcfrmj30n50ee75d.jpg" alt=""></p>
-<h3 id="（2）yarn产生"><a href="#（2）yarn产生" class="headerlink" title="（2）yarn产生"></a>（2）yarn产生</h3><ul>
-<li>对JobTracker进行功能分解，将资源管理功能分给ResourceManager，将任务调度和任务监控分给ApplicationMaster，将TaskTracker的任务交给NodeManager</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">纯粹的资源管理框架</span><br><span class="line">被剥离资源管理调度功能的MapReduce就变成了MR2.0，他就是一个运行在YARN上的一个纯粹的计算框架，由YARN为其提供资源管理调度服务</span><br></pre></td></tr></table></figure>
-<p><code>什么叫纯粹的计算框架？？</code></p>
-<p>它提供一些计算基类，使用时，编写map类和reduce类的子类，去继承它。然后计算框架去做后台自动分片，shuffle过程。</p>
-<p><code>资源管理框架？？</code></p>
-<p>它专门管理CPU内存资源的分配</p>
-<h1 id="二、YARN设计思路"><a href="#二、YARN设计思路" class="headerlink" title="二、YARN设计思路"></a>二、YARN设计思路</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzczzrit8qj30wm0e6wie.jpg" alt=""></p>
-<h1 id="三、YARN体系结构"><a href="#三、YARN体系结构" class="headerlink" title="三、YARN体系结构"></a>三、YARN体系结构</h1><p>三大核心：</p>
-<h2 id="1、RecourceManager（RM）"><a href="#1、RecourceManager（RM）" class="headerlink" title="1、RecourceManager（RM）"></a>1、RecourceManager（RM）</h2><blockquote>
-<ul>
-<li><p>ResourceManager（RM）是一个全局的资源管理器，负责整个系统的资源管理和分配，主<br>要包括两个组件，即调度器（Scheduler）和应用程序管理器（Applications Manager）</p>
-</li>
-<li><p>调度器接收来自ApplicationMaster的应用程序资源请求，把集群中的资源以“容器”的形式<br>分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行<br>就近选择，从而实现“计算向数据靠拢”</p>
-</li>
-<li><p>容器（Container）作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、<br>磁盘等资源，从而限定每个应用程序可以使用的资源量</p>
-</li>
-<li><p>调度器被设计成是一个可插拔的组件，YARN不仅自身提供了许多种直接可用的调度器，也<br>允许用户根据自己的需求重新设计调度器</p>
-</li>
-<li><p>应用程序管理器（Applications Manager）负责系统中所有应用程序的管理工作，主要包括<br>应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状<br>态并在失败时重新启动等</p>
+<li><p>查找的目录必须是文件所在目录的父级目录</p>
 </li>
 </ul>
 </blockquote>
-<h2 id="2、ApplicationMaster"><a href="#2、ApplicationMaster" class="headerlink" title="2、ApplicationMaster"></a>2、ApplicationMaster</h2><blockquote>
-<p>ResourceManager接收用户提交的作业，按照作业的上下文信息以及从NodeManager收集<br>来的容器状态信息，启动调度过程，为用户作业启动一个ApplicationMaster<br>ApplicationMaster的主要功能是：<br>（1）当用户作业提交时，ApplicationMaster与ResourceManager协商获取资源，<br>ResourceManager会以容器的形式为ApplicationMaster分配资源；</p>
-<p>（2）把获得的资源进一步分配给内部的各个任务（Map任务或Reduce任务），实现资源<br>的“二次分配”；</p>
-<p>（3）与NodeManager保持交互通信进行应用程序的启动、运行、监控和停止，监控申请<br>到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行<br>失败恢复（即重新申请资源重启任务）；</p>
-<p>（4）定时向ResourceManager发送“心跳”消息，报告资源的使用情况和应用的进度信<br>息；</p>
-<p>（5）当作业完成时，ApplicationMaster向ResourceManager注销容器，执行周期完成。</p>
+<h3 id="2、文件编辑"><a href="#2、文件编辑" class="headerlink" title="2、文件编辑"></a>2、文件编辑</h3><h4 id="vi"><a href="#vi" class="headerlink" title="vi"></a>vi</h4><p>（1） vi    进入编辑模式 —–&gt;按i   进入插入模式 ——-&gt;  按Esc 退出编辑模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi  filename   :打开或新建文件，并将光标置于第一行首 </span><br><span class="line">vi +n filename ：打开文件，并将光标置于第n行首 </span><br><span class="line">vi + filename  ：打开文件，并将光标置于最后一行首 </span><br><span class="line">vi +/pattern filename：打开文件，并将光标置于第一个与 pattern匹配的字符串所在的行首</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> filename  为文件名</p>
 </blockquote>
-<h2 id="3、NodeManager"><a href="#3、NodeManager" class="headerlink" title="3、NodeManager"></a>3、NodeManager</h2><blockquote>
-<p>NodeManager是驻留在一个YARN集群中的每个节点上的代理，有所需数据的节点，主要负责：</p>
+<p>（2）在文件vi（文件编辑）模式下</p>
 <ul>
-<li><p>容器生命周期管理</p>
-</li>
-<li><p>监控每个容器的资源（CPU、内存等）使用情况</p>
-</li>
-<li><p>跟踪节点健康状况</p>
-</li>
-<li><p>以“心跳”的方式与ResourceManager保持通信</p>
-</li>
-<li><p>向ResourceManager汇报作业的资源使用情况和每个容器的运行状态</p>
-</li>
-<li><p>接收来自ApplicationMaster的启动/停止容器的各种请求</p>
-</li>
+<li><strong>命令行模式</strong> </li>
 </ul>
-<p>需要说明的是，NodeManager主要负责管理抽象的容器，只处理与容器相关的事<br>情，而不具体负责每个任务（Map任务或Reduce任务）自身状态的管理，因为这<br>些管理工作是由ApplicationMaster完成的，ApplicationMaster会通过不断与<br>NodeManager通信来掌握各个任务的执行状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:w      保存</span><br><span class="line">:q      退出</span><br><span class="line">:wq     保存并退出</span><br><span class="line">:q!     强制退出，不保存</span><br><span class="line">:set nu |ctrl+g    显示文本行数</span><br><span class="line">:set nonu          去除显示的行数</span><br><span class="line">:s/p1/p2/g         将当前行中所有p1均用p2替代 </span><br><span class="line">:n1,n2s/p1/p2/g    将第n1至n2行中所有p1均用p2替代 </span><br><span class="line">:g/p1/s//p2/g      将文件中所有p1均用p2替换</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>一般模式</strong> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">按键：</span><br><span class="line">yy    复制光标所在行(常用) </span><br><span class="line">nyy   复制光标所在行的向下n行，例如， 20yy则是复制20行(常用) </span><br><span class="line">p|P   p为复制的数据粘贴在光标下一行， P则为粘贴在光标上一行(常用)</span><br><span class="line">G     光标移至第最后一行</span><br><span class="line">nG    光标移动至第N行行首</span><br><span class="line">n+    光标下移n行 </span><br><span class="line">n-    光标上移n行 </span><br><span class="line">H     光标移至屏幕顶行 </span><br><span class="line">M     光标移至屏幕中间行 </span><br><span class="line">L     光标移至屏幕最后行 </span><br><span class="line"></span><br><span class="line">dd    删除所在行 </span><br><span class="line">x或X  删除一个字符，x删除光标后的，而X删除光标前的 </span><br><span class="line">u     撤销(常用)</span><br><span class="line"></span><br><span class="line">：N,Md    删除第N行到第M行</span><br><span class="line">：,$-1d   删除当前光标到倒数第一行数据</span><br><span class="line"></span><br><span class="line">按键：</span><br><span class="line">    i: 在当前光标所在字符的前面，转为输入模式；</span><br><span class="line">    a: 在当前光标所在字符的后面，转为输入模式；</span><br><span class="line">    o: 在当前光标所在行的下方，新建一行，并转为输入模式；</span><br><span class="line">    I：在当前光标所在行的行首，转换为输入模式</span><br><span class="line">    A：在当前光标所在行的行尾，转换为输入模式</span><br><span class="line">    O：在当前光标所在行的上方，新建一行，并转为输入模式；</span><br><span class="line"></span><br><span class="line">---逐字符移动：</span><br><span class="line">h: 左    l: 右</span><br><span class="line"></span><br><span class="line">j: 下	k: 上</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（不同：在我的xshell中是 yyn实现复制所在行的向下n行）</p>
+<p>（nB|nb:光标向上移动n行）</p>
 </blockquote>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1ueqsbmj30xm0fjwgg.jpg" alt=""></p>
-<h1 id="四、YARN-工作流程"><a href="#四、YARN-工作流程" class="headerlink" title="四、YARN 工作流程"></a>四、YARN 工作流程</h1><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd1x7ksg6j30yl0fqjxh.jpg" alt=""></p>
-<h1 id="五、YARN框架与MapReduce1-0框架的对比分析"><a href="#五、YARN框架与MapReduce1-0框架的对比分析" class="headerlink" title="五、YARN框架与MapReduce1.0框架的对比分析"></a>五、YARN框架与MapReduce1.0框架的对比分析</h1><blockquote>
+<h4 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h4><p>Vim是从 vi 发展出来的一个文本编辑器</p>
+<p>安装vim 软件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install vim -y</span><br></pre></td></tr></table></figure>
 <ul>
-<li>从MapReduce1.0框架发展到YARN框架，客户端并没有发生变化，其大部分调用API及<br>接口都保持兼容，因此，原来针对Hadoop1.0开发的代码不用做大的改动，就可以直接放<br>到Hadoop2.0平台上运行</li>
+<li><em>用vim 打开/etc/profile 文件，</em></li>
+<li><em>特点：编辑器对文本的内容进行了高亮，使整个文件的内容可读性大大加强</em> ，其他均与vi相同</li>
 </ul>
+<h3 id="3、文件上传下载"><a href="#3、文件上传下载" class="headerlink" title="3、文件上传下载"></a>3、文件上传下载</h3><p>安装上传下载命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install lrzsz -y</span><br></pre></td></tr></table></figure>
+<h4 id="上传文件：（windows—-gt-linux）"><a href="#上传文件：（windows—-gt-linux）" class="headerlink" title="上传文件：（windows—&gt;linux）"></a>上传文件：（windows—&gt;linux）</h4><blockquote>
+<p>命令 ：rz  </p>
+<p>弹出windows上传文件窗口</p>
+</blockquote>
+<h4 id="下载文件：-linux—-gt-windows"><a href="#下载文件：-linux—-gt-windows" class="headerlink" title="下载文件：(linux—&gt;windows)"></a>下载文件：(linux—&gt;windows)</h4><p><code>注意</code>：sz命令只能下载文件，不能下载目录，推荐将目录压缩成tar包或使用工具软件：Winscp【Xftp】</p>
+<blockquote>
+<p>命令：sz  （文件名）</p>
+<p>弹出windows下载窗口,下载文件到指定文件目录,下载完之后，按ctrl+c结束。</p>
+</blockquote>
+<h3 id="4、文件传输"><a href="#4、文件传输" class="headerlink" title="4、文件传输"></a>4、文件传输</h3><h4 id="1）本地→远程"><a href="#1）本地→远程" class="headerlink" title="(1）本地→远程"></a>(1）本地→远程</h4><blockquote>
+<p>文件  ：  scp local_file remote_username@remote_ip:remote_folder   </p>
+<p>目录 ：  scp -r local_folder remote_username@remote_ip:remote_folder</p>
+</blockquote>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">  scp -rf /etc/profile root@192.168.198.128:/etc/</span><br><span class="line"></span><br><span class="line">方式二:</span><br><span class="line">  scp  -r /etc/profile root@node01 /etc/ </span><br><span class="line">  </span><br><span class="line">方式三：</span><br><span class="line">  scp -r /etc/profile node01:/etc/</span><br><span class="line">  </span><br><span class="line">方式四：</span><br><span class="line">  scp -r /ec/profile node01:'pwd'</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>scp</strong> ：远程传输文件命令</p>
+<p><strong>-r</strong>  ：- 指的是后面跟的是参数    r  指的是遍历指定文件    <strong>f</strong>  指的是不用询问</p>
+<p><strong>/etc/profile</strong>  : 是指定传输的文件</p>
+<p><strong>root</strong>： 远程机器的账户名      <strong>@</strong>    远程机器的IP地址   <strong>：</strong>   <strong>/etc/</strong>    远程机器上指定的目录</p>
+<p><strong>node01</strong>：远程机器的别名</p>
+<p><strong>‘pwd’</strong>： 本地要远程传输文件所在的目录</p>
 </blockquote>
 <blockquote>
-<ul>
-<li><p>总体而言，YARN相对于MapReduce1.0来说具有以下优势：</p>
-<p>大大减少了承担中心服务功能的ResourceManager的资源消耗</p>
-<ul>
-<li>ApplicationMaster来完成需要大量资源消耗的任务调度和监控</li>
-<li>多个作业对应多个ApplicationMaster，实现了监控分布化</li>
-</ul>
-</li>
-</ul>
+<p>第一次远程拷贝时，需要在箭头1初输入yes确认一下，验证一下远程主机。然后在箭头2处输入一下远程主机的密码。</p>
 </blockquote>
-<blockquote>
-<ul>
-<li>MapReduce1.0既是一个计算框架，又是一个资源管理调度框架，但是，只能支持<br>MapReduce编程模型。而YARN则是一个纯粹的资源调度管理框架，在它上面可以运行包<br>括MapReduce在内的不同类型的计算框架，只要编程实现相应的ApplicationMaster</li>
-</ul>
+<h4 id="2）远程→本地"><a href="#2）远程→本地" class="headerlink" title="(2）远程→本地"></a>(2）远程→本地</h4><blockquote>
+<p>文件 ： scp remote_username@remote_ip:remote_file local_folder</p>
+<p>目录 ： scp remote_username@remote_ip:remote_folder local_folder   </p>
 </blockquote>
-<blockquote>
-<ul>
-<li>YARN中的资源管理比MapReduce1.0更加高效<ul>
-<li>以容器为单位，而不是以slot为单位</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h1 id="六、YARN-的发展目标"><a href="#六、YARN-的发展目标" class="headerlink" title="六、YARN 的发展目标"></a>六、YARN 的发展目标</h1><p><strong>YARN 的目标就是实现“一个集群多个框架”？ ，为什么？</strong></p>
-<ul>
-<li><p>一个企业当中同时存在各种不同的业务应用场景，需要采用不同的计算框架</p>
-<ul>
-<li><p>MapReduce实现离线批处理</p>
-</li>
-<li><p>使用Impala实现实时交互式查询分析</p>
-</li>
-<li><p>使用Storm实现流式数据实时分析</p>
-</li>
-<li><p>使用Spark实现迭代计算</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>这些产品通常来自不同的开发团队，具有各自的资源调度管理机制</p>
-</li>
-<li><p>为了避免不同类型应用之间互相干扰，企业就需要把内部的服务器拆分成多个集群，分<br>别安装运行不同的计算框架，即“一个框架一个集群”</p>
-</li>
-</ul>
-<ul>
-<li><p>导致问题</p>
-<ul>
-<li><p>集群资源利用率低</p>
-</li>
-<li><p>数据无法共享</p>
-</li>
-<li><p>维护代价高</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>YARN的目标就是实现“一个集群多个框架”，即在一个集群上部署一个统一的资源<br>调度管理框架YARN，在YARN之上可以部署其他各种计算框架</p>
-</li>
-<li><p>由YARN为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架<br>的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩</p>
-</li>
-<li><p>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率</p>
-</li>
-<li><p>不同计算框架可以共享底层存储，避免了数据集跨集群移动</p>
-</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fzd5qv2p73j30r808tdgv.jpg" alt=""></p>
+<h2 id="四、文件系统"><a href="#四、文件系统" class="headerlink" title="四、文件系统"></a>四、文件系统</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Linux目录结构：</span><br><span class="line"></span><br><span class="line"> bin  存放二进制可执行文件(ls,cat,mkdir等)                                                          </span><br><span class="line"> boot  存放用于系统引导时使用的各种文件</span><br><span class="line"></span><br><span class="line"> dev 用于存放设备文件</span><br><span class="line"></span><br><span class="line"> etc  存放系统配置文件</span><br><span class="line"></span><br><span class="line"> home 存放所有用户文件的根目录</span><br><span class="line"></span><br><span class="line"> lib  存放跟文件系统中的程序运行所需要的共享库及内核模块</span><br><span class="line"></span><br><span class="line"> mnt  系统管理员安装临时文件系统的安装点</span><br><span class="line"></span><br><span class="line"> opt  额外安装的可选应用程序包所放置的位置</span><br><span class="line"></span><br><span class="line"> proc  虚拟文件系统，存放当前内存的映射</span><br><span class="line"></span><br><span class="line"> root  超级用户目录</span><br><span class="line"></span><br><span class="line"> sbin  存放二进制可执行文件，只有root才能访问</span><br><span class="line"></span><br><span class="line"> tmp  用于存放各种临时文件</span><br><span class="line"></span><br><span class="line"> usr  用于存放系统应用程序，比较重要的目录/usr/local 本地管理员软件安装目录</span><br><span class="line"> </span><br><span class="line"> var  用于存放运行时需要改变数据的文件</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -530,13 +520,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/01/03/Yarn学习/">YARN的入门学习</a></p>
+        <p><span>本文标题:</span><a href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
-        <p><span>发布时间:</span>2019-01-03, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-16, 15:39:17</p>
+        <p><span>发布时间:</span>2018-12-27, 20:16:47</p>
+        <p><span>最后更新:</span>2019-03-17, 19:09:05</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/01/03/Yarn学习/" title="YARN的入门学习">http://sungithup.github.io/2019/01/03/Yarn学习/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/03/Yarn学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/27/常用Linux命令的学习1/" title="常用Linux命令的学习（一）">http://sungithup.github.io/2018/12/27/常用Linux命令的学习1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2018/12/27/常用Linux命令的学习1/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -549,15 +539,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/01/03/Zookeeper学习/">
-                    Zookeeper学习
+                <a href="/2018/12/28/常用Linux命令的学习2/">
+                    常用Linux命令的学习（二）
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/01/02/Nginx学习/">
-                    Nginx学习(总)
+                <a href="/2018/12/27/常用Linux命令的学习3/">
+                    常用Linux命令的学习（三）
                 </a>
             </div>
         
@@ -569,7 +559,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、简介"><span class="toc-text">一、简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#yarn（资源管理器）"><span class="toc-text">yarn（资源管理器）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）存在背景："><span class="toc-text">（1）存在背景：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）yarn产生"><span class="toc-text">（2）yarn产生</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、YARN设计思路"><span class="toc-text">二、YARN设计思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、YARN体系结构"><span class="toc-text">三、YARN体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RecourceManager（RM）"><span class="toc-text">1、RecourceManager（RM）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、ApplicationMaster"><span class="toc-text">2、ApplicationMaster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、NodeManager"><span class="toc-text">3、NodeManager</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、YARN-工作流程"><span class="toc-text">四、YARN 工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、YARN框架与MapReduce1-0框架的对比分析"><span class="toc-text">五、YARN框架与MapReduce1.0框架的对比分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、YARN-的发展目标"><span class="toc-text">六、YARN 的发展目标</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、命令指南（manual）：man"><span class="toc-text">一、命令指南（manual）：man</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、目录操作命令"><span class="toc-text">二、目录操作命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、文件操作命令"><span class="toc-text">三、文件操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、一般文件操作"><span class="toc-text">1、一般文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、文件编辑"><span class="toc-text">2、文件编辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vi"><span class="toc-text">vi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vim"><span class="toc-text">vim</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、文件上传下载"><span class="toc-text">3、文件上传下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#上传文件：（windows—-gt-linux）"><span class="toc-text">上传文件：（windows—&gt;linux）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载文件：-linux—-gt-windows"><span class="toc-text">下载文件：(linux—&gt;windows)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、文件传输"><span class="toc-text">4、文件传输</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1）本地→远程"><span class="toc-text">(1）本地→远程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2）远程→本地"><span class="toc-text">(2）远程→本地</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、文件系统"><span class="toc-text">四、文件系统</span></a></li></ol>
         
     </div>
     <style>
@@ -605,7 +595,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"YARN的入门学习　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"常用Linux命令的学习（一）　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -630,7 +620,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/01/03/Zookeeper学习/" title="上一篇: Zookeeper学习">
+            <a href="/2018/12/28/常用Linux命令的学习2/" title="上一篇: 常用Linux命令的学习（二）">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -638,7 +628,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/01/02/Nginx学习/" title="下一篇: Nginx学习(总)">
+            <a href="/2018/12/27/常用Linux命令的学习3/" title="下一篇: 常用Linux命令的学习（三）">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -680,8 +670,8 @@
      
       <script type="text/javascript">
         var gitment = new Gitment({
-        id: 'Thu Jan 03 2019 00:00:00 GMT+0800',
-        title: 'YARN的入门学习',
+        id: 'Thu Dec 27 2018 20:16:47 GMT+0800',
+        title: '常用Linux命令的学习（一）',
         owner: 'sungithup',
         repo: 'sungithup.github.io',
         oauth: {
