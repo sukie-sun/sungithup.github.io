@@ -15,14 +15,15 @@
 
 
 
-<meta name="description" content="分布式存储系统---三驾马车之一">
+<meta name="description" content="分布式存储系统---大数据三驾马车之一">
 <meta name="keywords" content="HDFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HDFS学习">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/03/HDFS学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="分布式存储系统---三驾马车之一">
+<meta property="og:description" content="分布式存储系统---大数据三驾马车之一">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g16vvlbzawj30ex09nq6e.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lg96gkqj30hz0dsgmf.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lq2gmmtj30f009vwfj.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0n3j6xvnj30fe09vdh0.jpg">
@@ -36,14 +37,14 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uhqzg9oj30fe09nt9c.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uk49nbrj30fe0770tj.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut3z3r2j30et0ah0tw.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut7fj9xj30fe09kq3i.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g182idgjuuj30fe0a6my9.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1utb5r5tj30fe0brgmt.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uw9a82yj30g508qmxh.jpg">
-<meta property="og:updated_time" content="2019-02-06T13:47:41.240Z">
+<meta property="og:updated_time" content="2019-03-19T13:21:16.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS学习">
-<meta name="twitter:description" content="分布式存储系统---三驾马车之一">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lg96gkqj30hz0dsgmf.jpg">
+<meta name="twitter:description" content="分布式存储系统---大数据三驾马车之一">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g16vvlbzawj30ex09nq6e.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -326,7 +327,7 @@
   
     <div class="article-meta">
       <a href="/2019/01/03/HDFS学习/" class="article-date">
-      <time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished">2019-01-03</time>
+      <time datetime="2019-01-03T00:30:00.000Z" itemprop="datePublished">2019-01-03</time>
 </a>
 
 
@@ -351,7 +352,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-keyboard-o"></i> 
                  <span class="post-meta-item-text"> 字数统计: </span> 
-                 <span class="post-count">3.9k字</span> 
+                 <span class="post-count">4.4k字</span> 
            </span>
      </span> 
 
@@ -360,7 +361,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-hourglass-half"></i> 
                  <span class="post-meta-item-text"> 阅读时长: </span> 
-                 <span class="post-count">14分</span> 
+                 <span class="post-count">17分</span> 
            </span> 
      </span> 
 </div>
@@ -388,22 +389,30 @@
       
           
         <p>[TOC]</p>
-<h1 id="Hadoop学习"><a href="#Hadoop学习" class="headerlink" title="Hadoop学习"></a>Hadoop学习</h1><h2 id="一、分布式文件存储系统HDFS"><a href="#一、分布式文件存储系统HDFS" class="headerlink" title="一、分布式文件存储系统HDFS"></a>一、分布式文件存储系统HDFS</h2><h3 id="1、什么是分布式？"><a href="#1、什么是分布式？" class="headerlink" title="1、什么是分布式？"></a>1、什么是分布式？</h3><blockquote>
+<p>==hadoop理解==</p>
+<p>狭义：</p>
+<p>hadoop1 = hdfs1 + MR1</p>
+<p>hadoop2 = hdfs2 + MR2 + YARN</p>
+<p>广义：</p>
+<p>Hadoop生态</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g16vvlbzawj30ex09nq6e.jpg" alt=""></p>
+<p>用于解决海量数据的处理和数据存储，数据级别为GB，TB，PB。</p>
+<h2 id="一、分布式文件存储系统HDFS"><a href="#一、分布式文件存储系统HDFS" class="headerlink" title="一、分布式文件存储系统HDFS"></a>一、分布式文件存储系统HDFS</h2><h3 id="1、什么是分布式？"><a href="#1、什么是分布式？" class="headerlink" title="1、什么是分布式？"></a>1、什么是分布式？</h3><blockquote>
 <p>定义：将海量的数据，复杂的业务分发到不同的计算机节点和服务器上分开处理和计算。</p>
 <p>特点：</p>
 <ul>
 <li>多副本，提高服务的容错率、安全性、高可靠性</li>
 <li>适合批处理，提高服务的效率和速度，</li>
-<li>减轻单台服务的压力</li>
+<li>减轻单台服务器的压力</li>
 <li>具有很好的可扩展性</li>
 <li>计算向数据靠拢，安全，高效</li>
 </ul>
 </blockquote>
-<p><code>大数据三驾马车：GFS、MapReduce、Bigtable</code></p>
+<p><code>大数据三驾马车：GFS、MapReduce、Bigtable</code>====HDFS、MR、HBASE</p>
 <h3 id="2、什么是HDFS？"><a href="#2、什么是HDFS？" class="headerlink" title="2、什么是HDFS？"></a>2、什么是HDFS？</h3><h4 id="（1）HDFS为什么会出现？"><a href="#（1）HDFS为什么会出现？" class="headerlink" title="（1）HDFS为什么会出现？"></a>（1）HDFS为什么会出现？</h4><blockquote>
 <p>主要解决大量【pb级以上】的大数据的分布式存储问题</p>
 </blockquote>
-<h4 id="（2）HDFS的特点"><a href="#（2）HDFS的特点" class="headerlink" title="（2）HDFS的特点"></a>（2）HDFS的特点</h4><blockquote>
+<h4 id="（2）-HDFS的特点"><a href="#（2）-HDFS的特点" class="headerlink" title="（2）==HDFS的特点=="></a>（2）==HDFS的特点==</h4><blockquote>
 <p>$$ 分布式特性：</p>
 <ul>
 <li>适合大数据处理：GB、TB、PB以上的数据</li>
@@ -413,7 +422,7 @@
 <p>$$ 自身特性：</p>
 <ul>
 <li>可构建在廉价机器上</li>
-<li>高可靠性：通过多副本提提高</li>
+<li>高可靠性：通过多副本实现</li>
 <li>高容错性：数据自动保存多个副本；副本丢失后，自动恢复,提供了恢复机制</li>
 </ul>
 <p>$$ 缺点：</p>
@@ -438,13 +447,13 @@
 <li>强大的跨平台兼容性</li>
 </ul>
 </blockquote>
-<h4 id="（3）HDFS架构图"><a href="#（3）HDFS架构图" class="headerlink" title="（3）HDFS架构图"></a>（3）HDFS架构图</h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lg96gkqj30hz0dsgmf.jpg" alt="HDFS架构图"><span class="img-alt">HDFS架构图</span></p>
+<h4 id="（3）-HDFS架构图"><a href="#（3）-HDFS架构图" class="headerlink" title="（3）==HDFS架构图=="></a>（3）==HDFS架构图==</h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lg96gkqj30hz0dsgmf.jpg" alt="HDFS架构图"><span class="img-alt">HDFS架构图</span></p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0lq2gmmtj30f009vwfj.jpg" alt="HDFS架构图"><span class="img-alt">HDFS架构图</span></p>
 <blockquote>
 <p><code>关系型数据库：</code>安全，存储在磁盘中；如MySql、Oracle、SQlServer</p>
-<p><code>非关系型数据库：</code>不安全，存储在内存中；如Redis、MemcacheDB、mongDB、Hbase</p>
+<p><code>非关系型数据库：</code>不安全，存储在内存中；如Redis、MemcacheDB、mongoDB、Hbase</p>
 </blockquote>
-<h3 id="3、HDFS的功能模块及原理详解"><a href="#3、HDFS的功能模块及原理详解" class="headerlink" title="3、HDFS的功能模块及原理详解"></a>3、HDFS的功能模块及原理详解</h3><h4 id="HDFS数据存储模型（block）"><a href="#HDFS数据存储模型（block）" class="headerlink" title=" HDFS数据存储模型（block）"></a><1> HDFS数据存储模型（block）</1></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0n3j6xvnj30fe09vdh0.jpg" alt="block"><span class="img-alt">block</span></p>
+<h3 id="3、-HDFS的功能模块及原理详解"><a href="#3、-HDFS的功能模块及原理详解" class="headerlink" title="3、==HDFS的功能模块及原理详解=="></a>3、==HDFS的功能模块及原理详解==</h3><h4 id="HDFS数据存储模型（block）"><a href="#HDFS数据存储模型（block）" class="headerlink" title=" HDFS数据存储模型（block）"></a><1> HDFS数据存储模型（block）</1></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0n3j6xvnj30fe09vdh0.jpg" alt="block"><span class="img-alt">block</span></p>
 <h5 id="（1）文件被线性切分固定大小的数据块：block"><a href="#（1）文件被线性切分固定大小的数据块：block" class="headerlink" title="（1）文件被线性切分固定大小的数据块：block"></a>（1）文件被<code>线性切分</code>固定大小的数据块：block</h5><ul>
 <li><p>通过偏移量offset（单位：byte）标记</p>
 </li>
@@ -456,7 +465,7 @@
 <h5 id="（2）一个文件存储方式"><a href="#（2）一个文件存储方式" class="headerlink" title="（2）一个文件存储方式"></a>（2）一个文件存储方式</h5><ul>
 <li><p>按大小被切分成若干个block ，存储到<code>不同节点上</code></p>
 </li>
-<li><p>默认情况下每个block都有2个副本 共3个副本</p>
+<li><p>默认情况下每个block共有3个副本</p>
 </li>
 <li><p>副本数不大于节点数</p>
 </li>
@@ -503,16 +512,14 @@
 <p>它不是NN的备份（但可以做备份)。</p>
 </blockquote>
 <h5 id="2-gt-合并流程"><a href="#2-gt-合并流程" class="headerlink" title="2&gt;合并流程"></a>2&gt;合并流程</h5><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz0p1lys2zj30f009vwf2.jpg" alt="SNN合并"><span class="img-alt">SNN合并</span></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SecondaryNameNode的工作情况：</span><br><span class="line">（1）SecondaryNameNode会定期和NameNode通信，请求其停止使用EditLog文件，</span><br><span class="line">     暂时将新的写操作写到一个新的文件edit.new上来，这个操作是瞬间完成，</span><br><span class="line">     上层写日志的函数完全感觉不到差别；</span><br><span class="line">（2）SecondaryNameNode通过HTTP GET方式从NameNode上获取到FsImage和EditLog文</span><br><span class="line">    件，并下载到本地的相应目录下；</span><br><span class="line">（3）SecondaryNameNode将下载下来的FsImage载入到内存，然后一条一条地执行EditLog文件      中的各项更新操作，使得内存中的FsImage保持最新；</span><br><span class="line">    这个过程就是EditLog和FsImage文件合并；</span><br><span class="line">（4）SecondaryNameNode执行完（3）操作之后，</span><br><span class="line">     会通过post方式将新的FsImage文件发送到NameNode节点上</span><br><span class="line">（5）NameNode将从SecondaryNameNode接收到的新的FsImage替换旧的FsImage文件，</span><br><span class="line">     同时将edit.new替换EditLog文件，通过这个过程EditLog就变小了</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SecondaryNameNode的工作情况：</span><br><span class="line">（1）SecondaryNameNode会定期和NameNode通信，请求其停止使用EditLog文件，</span><br><span class="line">     暂时将新的写操作写到一个新的文件edit.new上来，这个操作是瞬间完成，</span><br><span class="line">     上层写日志的函数完全感觉不到差别；</span><br><span class="line">（2）SecondaryNameNode通过HTTP GET方式从NameNode上获取到FsImage和EditLog文</span><br><span class="line">    件，并下载到本地的相应目录下；</span><br><span class="line">（3）SecondaryNameNode将下载下来的FsImage载入到内存，然后一条一条地执行EditLog文件中的各项更新操作，使得内存中的FsImage保持最新；</span><br><span class="line">    这个过程就是EditLog和FsImage文件合并；</span><br><span class="line">（4）SecondaryNameNode执行完（3）操作之后，</span><br><span class="line">     会通过post方式将新的FsImage文件发送到NameNode节点上</span><br><span class="line">（5）NameNode将从SecondaryNameNode接收到的新的FsImage替换旧的FsImage文件，</span><br><span class="line">     同时将edit.new替换EditLog文件，通过这个过程EditLog就变小了</span><br></pre></td></tr></table></figure>
 <h5 id="3-gt-合并机制"><a href="#3-gt-合并机制" class="headerlink" title="3&gt;合并机制"></a>3&gt;合并机制</h5><blockquote>
 <p> ——-SNN执行合并时间和机制</p>
 <ul>
-<li><p>A、根据配置文件设置的时间间隔fs.checkpoint.period 默认3600秒</p>
-</li>
-<li><p>B、根据配置文件设置edits log大小 fs.checkpoint.size </p>
-</li>
+<li>A、根据配置文件设置指定连续两次检查点的最大时间间隔 <code>fs.checkpoint.period</code> 默认3600秒（1小时）</li>
+<li>B、根据配置文件设置edits log文件大小 <code>fs.checkpoint.size</code> 默认最大值64M</li>
+<li>配置文件：core-site.xml</li>
 </ul>
-<p>​          规定edits文件的最大值默认是64MB</p>
 </blockquote>
 <h4 id="DataNode（简称DN）"><a href="#DataNode（简称DN）" class="headerlink" title="DataNode（简称DN）"></a><4>DataNode（简称DN）</4></h4><h5 id="1-gt-DN主要功能"><a href="#1-gt-DN主要功能" class="headerlink" title="1&gt;  DN主要功能"></a>1&gt;  DN主要功能</h5><blockquote>
 <ul>
@@ -533,14 +540,14 @@
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ny1tfrjj30f00akaaf.jpg" alt="block块存放位置"><span class="img-alt">block块存放位置</span></p>
 <h3 id="4、HDFS读写流程"><a href="#4、HDFS读写流程" class="headerlink" title="4、HDFS读写流程"></a>4、HDFS读写流程</h3><h4 id="读文件过程"><a href="#读文件过程" class="headerlink" title=" 读文件过程"></a><1> 读文件过程</1></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1o4z4nmwj30gm09vgmg.jpg" alt="read"><span class="img-alt">read</span></p>
 <blockquote>
-<p>1、首先<code>client端</code>调用FileSystem对象（<code>FS</code>）的<code>open方法</code>，（FS：一个DistributedFileSystem的实例）。<br>2、DistributedFileSystem通过<code>rpc</code>协议从NameNode（<code>NN</code>）获得文件的第一批block的<code>locations</code>，（同一个block按副本数会返回多个locations，因为同一文件的block<code>分布式存储</code>在不同节点上），这些locations按照hadoop拓扑结构排序，距离客户端近的排在前面（<code>就近选择</code>）。</p>
+<p>1、首先<code>client端</code>调用DistributedFileSystem对象（<code>DFS</code>）的<code>open方法</code>，（DFS：一个DistributedFileSystem的实例）。<br>2、DistributedFileSystem通过<code>rpc</code>协议从NameNode（<code>NN</code>）获得文件的第一批block的<code>locations</code>，（同一个block按副本数会返回多个locations，因为同一文件的block<code>分布式存储</code>在不同节点上），这些locations按照hadoop拓扑结构排序，距离客户端近的排在前面（<code>就近选择</code>）。</p>
 <p>3、前两步会返回一个FSDataInputStream对象，该对象会被封装DFSInputStream对象，DFSInputStream可以方便的管理DN和NN的数据流。客户端调用<code>read方法</code>，DFSInputStream会连接离客户端最近的DN，数据从DN源源不断的流向客户端（对客户端是透明的，只能看到一个读入的Input流）。</p>
 <p>4、如果第一批block都读完了， DFSInputStream就会去NN拿下一批block的locations，然后继续读，如果所有的块都读完，这时就会关闭掉所有的流</p>
 </blockquote>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ptkw9krj30q40gegpp.jpg" alt="读"><span class="img-alt">读</span></p>
 <p><code>注意：</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果在读数据的时候， DFSInputStream和DN的通讯发生异常，就会尝试连接正在读的block的排序第二近的DN,并且会记录哪个DN发生错误，剩余的blocks读的时候就会直接跳过该DN。 DFSInputStream也会检查block数据校验和，如果发现一个坏的block,就会先报告到NN，然后DFSInputStream在其他的DN上读该block的镜像。</span><br><span class="line">该设计就是客户端直接连接DN来检索数据，并且NN来负责为每一个block提供最优的DN，NN仅仅处理block location的请求，这些信息都加载在NN的内存中，hdfs通过DN集群可以承受大量客户端的并发访问。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* RPC *（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</span><br><span class="line">RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。</span><br></pre></td></tr></table></figure>
-<h4 id="写文件过程"><a href="#写文件过程" class="headerlink" title="写文件过程"></a><2>写文件过程</2></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1o6wamv3j30ga0aawfd.jpg" alt="write"><span class="img-alt">write</span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   如果在读数据的时候,DFSInputStream和DN的通讯发生异常，就会尝试连接正在读的block的排序第二近的DN,并且会记录哪个DN发生错误，剩余的blocks读的时候就会直接跳过该DN。</span><br><span class="line">   DFSInputStream也会检查block数据校验和，如果发现一个坏的block,就会先报告到NN，然后DFSInputStream在其他的DN上读该block的镜像。</span><br><span class="line">   该设计就是客户端直接连接DN来检索数据，并且NN来负责为每一个block提供最优的DN，NN仅仅处理block location的请求，这些信息都加载在NN的内存中，hdfs通过DN集群可以承受大量客户端的并发访问。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   * RPC *（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</span><br><span class="line">RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。</span><br></pre></td></tr></table></figure>
+<h4 id="写文件过程"><a href="#写文件过程" class="headerlink" title="写文件过程"></a><2>写文件过程</2></h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1o6wamv3j30ga0aawfd.jpg" alt="write"><span class="img-alt">write</span>3</p>
 <blockquote>
 <p><strong>1.</strong>客户端通过调用DistributedFileSystem的<code>create方法</code>创建新文件。</p>
 <p><strong>2.</strong>DistributedFileSystem通过<code>RPC</code>调用NN去创建一个没有blocks关联的新文件，创建前，NN会做各种校验，比如文件是否存在，客户端有无权限去创建等。如果校验通过，NN就会记录下新文件，否则就会抛出IO异常。</p>
@@ -587,7 +594,9 @@
 </ul>
 </blockquote>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1s32tmr2j30hj04ggmr.jpg" alt="异常"><span class="img-alt">异常</span></p>
-<h2 id="二、完全分布式搭建及eclipse插件"><a href="#二、完全分布式搭建及eclipse插件" class="headerlink" title="二、完全分布式搭建及eclipse插件"></a>二、完全分布式搭建及eclipse插件</h2><h3 id="1、完全分布式搭建（必备）"><a href="#1、完全分布式搭建（必备）" class="headerlink" title="1、完全分布式搭建（必备）"></a>1、完全分布式搭建（必备）</h3><h4 id="1-环境的准备"><a href="#1-环境的准备" class="headerlink" title="(1)环境的准备"></a>(1)环境的准备</h4><blockquote>
+<p>手动退出安全模式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -safemode leave</span><br></pre></td></tr></table></figure>
+<h2 id="二、完全分布式搭建及eclipse插件"><a href="#二、完全分布式搭建及eclipse插件" class="headerlink" title="二、完全分布式搭建及eclipse插件"></a>二、完全分布式搭建及eclipse插件</h2><h3 id="1、-完全分布式搭建（必备）"><a href="#1、-完全分布式搭建（必备）" class="headerlink" title="1、==完全分布式搭建（必备）=="></a>1、==完全分布式搭建（必备）==</h3><h4 id="（1）环境的准备"><a href="#（1）环境的准备" class="headerlink" title="（1）环境的准备"></a>（1）环境的准备</h4><blockquote>
 <ul>
 <li>Linux (前面已经安装好了)</li>
 </ul>
@@ -598,30 +607,60 @@
 </li>
 <li><p>(网络配置、JDK搭建、hosts配置，保证节点间能互ping通）</p>
 </li>
-<li><p>时间同步  (ntpdate time.nist.gov)</p>
+<li><p>时间同步</p>
+<p>（推荐）ntpdate cn.ntp.org.cn </p>
+<p> (ntpdate time.nist.gov)</p>
 </li>
 <li><p>ssh免秘钥登录   (两两互通免秘钥)</p>
 </li>
 </ul>
 </blockquote>
-<h4 id="（2）完全分布式搭建步骤"><a href="#（2）完全分布式搭建步骤" class="headerlink" title="（2）完全分布式搭建步骤"></a>（2）完全分布式搭建步骤</h4><p><code>详情见Hadoop2.X.md文件</code></p>
+<h4 id="（2）完全分布式搭建步骤"><a href="#（2）完全分布式搭建步骤" class="headerlink" title="（2）完全分布式搭建步骤"></a>（2）完全分布式搭建步骤</h4><h5 id="Hadoop-1-X"><a href="#Hadoop-1-X" class="headerlink" title="Hadoop 1.X"></a><strong>Hadoop 1.X</strong></h5><h6 id="1、下载解压缩Hadoop"><a href="#1、下载解压缩Hadoop" class="headerlink" title="1、下载解压缩Hadoop"></a>1、下载解压缩Hadoop</h6><h6 id="2、配置hadoop-hadoop-env-sh"><a href="#2、配置hadoop-hadoop-env-sh" class="headerlink" title="2、配置hadoop/hadoop-env.sh"></a>2、配置hadoop/hadoop-env.sh</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/latest</span><br></pre></td></tr></table></figure>
+<h6 id="3、配置core-site-xml"><a href="#3、配置core-site-xml" class="headerlink" title="3、配置core-site.xml:"></a>3、配置core-site.xml:</h6><blockquote>
+<p>fs.defaultFS 默认的服务端口NameNode URI</p>
+<p>hadoop.tmp.dir 是hadoop文件系统依赖的基础配置，很多路径都依赖它。如果hdfs-site.xml中不配 置namenode和datanode的存放位置，默认就放在这个路径中</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://node01:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/hadoop-2.6.1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="4、配置hdfs-site-xml"><a href="#4、配置hdfs-site-xml" class="headerlink" title="4、配置hdfs-site.xml:"></a>4、配置hdfs-site.xml:</h6><p>dfs.datanode.https.address   https服务的端口，浏览器访问端口</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--默认为3个副本，若指定，则以指定的为准--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--http访问：SecondaryNameNode的服务器的ip地址别名,端口号50090--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>node02:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--https访问：SecondaryNameNode的服务器的ip地址别名,端口号50090--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.https-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>node02:50091<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="5、Masters-master-可以做主备的SNN"><a href="#5、Masters-master-可以做主备的SNN" class="headerlink" title="5、Masters:master 可以做主备的SNN"></a>5、Masters:<strong>master</strong> 可以做主备的SNN</h6><p>在/home/hadoop-2.6.5/etc/hadoop/新建masters文件 写上<strong>SNN</strong>节点名： node02（IP地址别名） </p>
+<h6 id="6、Slaves-slave-奴隶-苦干；拼命工作"><a href="#6、Slaves-slave-奴隶-苦干；拼命工作" class="headerlink" title="6、Slaves: slave 奴隶 苦干；拼命工作"></a>6、Slaves: <strong>slave</strong> 奴隶 苦干；拼命工作</h6><p>在/home/hadoop-2.5.1/etc/hadoop/slaves文件中填写<strong>DN</strong> 节点名：node02 node03 [注意：每行写一个 写成3行]</p>
+<h6 id="7、最后将配置好的Hadoop通过SCP命令发送都其他节点"><a href="#7、最后将配置好的Hadoop通过SCP命令发送都其他节点" class="headerlink" title="7、最后将配置好的Hadoop通过SCP命令发送都其他节点"></a>7、最后将配置好的Hadoop通过SCP命令发送都其他节点</h6><p>   配置Hadoop的环境变量</p>
+<p>8、vim ~/.bash_profile  (最好手敲输入 粘贴有时候会出错)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME/home/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
+<p> 9、记得一定要  source ~/.bash_profile<br>10、回到跟目录下对NN进行格式化  hdfs namenode -format</p>
+<p>11、启动HDFS： start-dfs.sh</p>
+<p>12、关闭防火墙：service iptables stop<br>在浏览器输入 node01:50070 </p>
+<h5 id="Hadoop-2-X"><a href="#Hadoop-2-X" class="headerlink" title="==!!Hadoop 2.X!!=="></a>==!!<strong>Hadoop 2.X</strong>!!==</h5><p><code>详情见Hadoop2.X.md文件</code></p>
 <h3 id="2、HDFS命令"><a href="#2、HDFS命令" class="headerlink" title="2、HDFS命令"></a>2、HDFS命令</h3><h4 id="0-命令-：hdfs-dfs"><a href="#0-命令-：hdfs-dfs" class="headerlink" title="(0)  命令 ：hdfs dfs"></a>(0)  命令 ：hdfs dfs</h4><h4 id="1-上传文件到HDFS："><a href="#1-上传文件到HDFS：" class="headerlink" title="(1)上传文件到HDFS："></a>(1)上传文件到HDFS：</h4><blockquote>
-<p> <strong>hdfs dfs -put fileName[</strong>本地文件名] <strong>PATH</strong>【hdfs的文件路劲】</p>
+<p> <strong>hdfs dfs -put 本地路径/fileName </strong>PATH [hdfs的文件路径]</p>
 </blockquote>
 <blockquote>
-<p>上传本地文件install.log到/myhdfs目录下</p>
-<p><strong>hdfs dfs -put install.log /myhdfs</strong></p>
-<p>​                       （文件路径) (上传目录）    </p>
+<p>上传本地文件/root/install.log到/myhdfs目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> hdfs dfs -put /root/install.log /myhdfs</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>​                                      （文件路径)                (上传目录）    </p>
 </blockquote>
 <h4 id="2-创建文件夹"><a href="#2-创建文件夹" class="headerlink" title="(2)创建文件夹"></a>(2)创建文件夹</h4><blockquote>
-<p><strong>hdfs dfs -mkdir[-p] <paths></paths></strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> hdfs dfs -mkdir[-p] &lt;paths&gt;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p> <strong>-p</strong>   穿透，用于创建多级文件夹</p>
 </blockquote>
 <h4 id="3-删除文件或文件夹"><a href="#3-删除文件或文件夹" class="headerlink" title="(3)删除文件或文件夹"></a>(3)<strong>删除文件或文件夹</strong></h4><blockquote>
-<p><strong>hdfs dfs -rm -r /myhadoop1.0</strong>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> hdfs dfs -rm -r /myhadoop1.0 </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -du -s URI[URI ...] 显示文件(夹)大小. </span><br><span class="line"></span><br><span class="line">hdfs dfs -cp -f]URI[URI...]&lt;dest&gt;    复制文件(夹)，可以覆盖，可以保留原有权限信息</span><br><span class="line"></span><br><span class="line">hdfs dfs -count -q&lt;paths&gt;列出文件夹数量、文件数量、内容大小.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chown -R[:[GROUP]]URI[URI] 修改所有者.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chmod [-R]&lt;MODE[,MODE]...|OCTALMODE&gt;URI[URI ...] 修改权限.</span><br></pre></td></tr></table></figure>
-<p>（4）指定block大小</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">产生100000条数据：</span><br><span class="line"></span><br><span class="line">for i in `seq 100000`;do  echo &quot;hello sxt $i&quot; &gt;&gt; test.txt;done</span><br><span class="line"></span><br><span class="line">上传文件test.txt到指定的Java22目录下，并指定block块的大小1M：</span><br><span class="line"></span><br><span class="line">hdfs dfs -D dfs.blocksize=1048576-put test.txt /java22</span><br><span class="line"></span><br><span class="line">-D   ----设置属性</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>删除多个文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> hdfs dfs -rm -r /input /logs</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><strong>-r</strong>   递归，用于删除文件夹以及下级文件和文件夹</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -du [-s] [-h] URI[URI ...] 显示文件(夹)大小. </span><br><span class="line"></span><br><span class="line">hdfs dfs -cp [-f] [-p] URI[URI...]&lt;dest&gt;    复制文件(夹)，可以覆盖，可以保留原有权限信息</span><br><span class="line"></span><br><span class="line">hdfs dfs -count [-q] [-h] &lt;paths&gt;列出文件夹数量、文件数量、内容大小.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chown [-R] [OWNER] [:[GROUP]] URI[URI] 修改所有者.</span><br><span class="line"></span><br><span class="line">hdfs dfs -chmod [-R]&lt;MODE[,MODE]...|OCTALMODE&gt; URI[URI ...] 修改权限.</span><br></pre></td></tr></table></figure>
+<h4 id="（4）指定block大小"><a href="#（4）指定block大小" class="headerlink" title="（4）指定block大小"></a>（4）指定block大小</h4><p>其中副本数是在在配置文件中配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">产生100000条数据：</span><br><span class="line"></span><br><span class="line">for i in `seq 100000`;do  echo "hello sxt $i" &gt;&gt; test.txt;done</span><br><span class="line"></span><br><span class="line">上传文件test.txt到指定的Java22目录下，并指定block块的大小1M：</span><br><span class="line"></span><br><span class="line">hdfs dfs -D dfs.blocksize=1048576 -put test.txt /java22</span><br><span class="line"></span><br><span class="line">-D   ----设置属性</span><br></pre></td></tr></table></figure>
 <h3 id="3、eclipse插件安装配置"><a href="#3、eclipse插件安装配置" class="headerlink" title="3、eclipse插件安装配置"></a>3、eclipse插件安装配置</h3><h4 id="（1）、导入插件"><a href="#（1）、导入插件" class="headerlink" title="（1）、导入插件"></a>（1）、导入插件</h4><blockquote>
 <p>将以下jar包放入eclipse的plugins文件夹中</p>
 <p>​         hadoop-eclipse-plugin-2.6.0.jar</p>
@@ -629,9 +668,10 @@
 <p>启动eclipse：出现界面如下：</p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uhqzg9oj30fe09nt9c.jpg" alt="插件应用"><span class="img-alt">插件应用</span></p>
 <h4 id="（2）配置环境变量"><a href="#（2）配置环境变量" class="headerlink" title="（2）配置环境变量"></a>（2）配置环境变量</h4><p><strong>Eclipse</strong>插件安装完后修改windows下的用户名，然后重启Eclipse：</p>
+<p><strong>【注意：改成Windows下用户的用户名root（重启生效）或改Linux文件的用户】</strong></p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uk49nbrj30fe0770tj.jpg" alt="环境变量"><span class="img-alt">环境变量</span></p>
 <h4 id="（3）新建Java项目"><a href="#（3）新建Java项目" class="headerlink" title="（3）新建Java项目"></a>（3）新建Java项目</h4><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut3z3r2j30et0ah0tw.jpg" alt=""></p>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1ut7fj9xj30fe09kq3i.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g182idgjuuj30fe0a6my9.jpg" alt=""></p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1utb5r5tj30fe0brgmt.jpg" alt=""></p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1fz1uw9a82yj30g508qmxh.jpg" alt=""></p>
 <h2 id="三、网盘"><a href="#三、网盘" class="headerlink" title="三、网盘"></a>三、网盘</h2><p><strong>1、代码编写</strong></p>
@@ -639,7 +679,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hadoop中的share\hadoop\hdfs</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\hdfs\lib</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\common</span><br><span class="line"></span><br><span class="line">hadoop中的share\hadoop\common\lib下的jar包。</span><br></pre></td></tr></table></figure>
 <p><strong>block</strong>底层—offset偏移量来读取字节数组</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blk</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Path ifile = <span class="keyword">new</span> Path(<span class="string">""</span>);</span><br><span class="line">		FileStatus file = fs.getFileStatus(ifile );</span><br><span class="line"><span class="comment">//      获取block的location信息HDFS分布式文件存储系统根据其偏移量的位置信息来读取其内容</span></span><br><span class="line">		BlockLocation[] blk = fs.getFileBlockLocations(file,<span class="number">0</span>, file.getLen());</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (BlockLocation bb : blk) &#123;</span><br><span class="line">			System.out.println(bb);</span><br><span class="line">		&#125;</span><br><span class="line">		FSDataInputStream input = fs.open(ifile);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());		</span><br><span class="line"><span class="comment">//		指定从哪个offset的位置偏移量来读</span></span><br><span class="line">		input.seek(<span class="number">1048576</span>);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">		input.seek(<span class="number">1048576</span>);</span><br><span class="line">		System.out.println((<span class="keyword">char</span>)input.readByte());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>   private   static void blk() throws Exception {           Path ifile = new Path(“”);           FileStatus file =   fs.getFileStatus(ifile );   //      获取block的location信息    HDFS分布式文件存储系统根据其偏移量的位置信息来读取其内容           BlockLocation[] blk =   fs.getFileBlockLocations(file , 0, file.getLen());                      for (BlockLocation bb : blk) {               System.out.println(bb);           }           FSDataInputStream input =   fs.open(ifile);           System.out.println((char)input.readByte());           System.out.println((char)input.readByte());          //      指定从哪个offset的位置偏移量来读           input.seek(1048576);           System.out.println((char)input.readByte());           input.seek(1048576);           System.out.println((char)input.readByte());       }   </p>
+<p><strong>HDFS读取合并的小文件</strong></p>
 
       
     </div>
@@ -650,8 +690,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2019/01/03/HDFS学习/">HDFS学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
-        <p><span>发布时间:</span>2019-01-03, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-06, 21:47:41</p>
+        <p><span>发布时间:</span>2019-01-03, 08:30:00</p>
+        <p><span>最后更新:</span>2019-03-19, 21:21:16</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/03/HDFS学习/" title="HDFS学习">http://sungithup.github.io/2019/01/03/HDFS学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/03/HDFS学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -667,15 +707,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/01/03/Nginx入门学习2/">
-                    Nginx入门学习（二）
+                <a href="/2019/01/03/Hadoop2.X/">
+                    Hadoop2.X
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/01/03/Zookeeper学习/">
-                    Zookeeper学习
+                <a href="/2019/01/02/Nginx入门学习2/">
+                    Nginx入门学习（二）
                 </a>
             </div>
         
@@ -687,7 +727,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hadoop学习"><span class="toc-text">Hadoop学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、分布式文件存储系统HDFS"><span class="toc-text">一、分布式文件存储系统HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、什么是分布式？"><span class="toc-text">1、什么是分布式？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、什么是HDFS？"><span class="toc-text">2、什么是HDFS？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）HDFS为什么会出现？"><span class="toc-text">（1）HDFS为什么会出现？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）HDFS的特点"><span class="toc-text">（2）HDFS的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）HDFS架构图"><span class="toc-text">（3）HDFS架构图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、HDFS的功能模块及原理详解"><span class="toc-text">3、HDFS的功能模块及原理详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS数据存储模型（block）"><span class="toc-text"> HDFS数据存储模型（block）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）文件被线性切分固定大小的数据块：block"><span class="toc-text">（1）文件被线性切分固定大小的数据块：block</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）一个文件存储方式"><span class="toc-text">（2）一个文件存储方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（3）Block大小和副本数通过Client端上传文件时设置，"><span class="toc-text">（3）Block大小和副本数通过Client端上传文件时设置，</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NameNode（简称NN）"><span class="toc-text">NameNode（简称NN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-NN主要功能："><span class="toc-text">1&gt; NN主要功能：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-NN保存metadate元信息"><span class="toc-text">2&gt; NN保存metadate元信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-NameNode的metadate信息在启动后会加载到内存"><span class="toc-text">3&gt; NameNode的metadate信息在启动后会加载到内存</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SecondaryNameNode（简称SNN）"><span class="toc-text">SecondaryNameNode（简称SNN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-SNN主要功能"><span class="toc-text">1&gt;SNN主要功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-合并流程"><span class="toc-text">2&gt;合并流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-合并机制"><span class="toc-text">3&gt;合并机制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DataNode（简称DN）"><span class="toc-text">DataNode（简称DN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-DN主要功能"><span class="toc-text">1&gt;  DN主要功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-DN工作机制"><span class="toc-text">2&gt;   DN工作机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-block的副本放置策略"><span class="toc-text">3&gt; block的副本放置策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、HDFS读写流程"><span class="toc-text">4、HDFS读写流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读文件过程"><span class="toc-text"> 读文件过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写文件过程"><span class="toc-text">写文件过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-HDFS文件权限和安全模式"><span class="toc-text">5.HDFS文件权限和安全模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#？？HDFS文件权限？？"><span class="toc-text">？？HDFS文件权限？？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#？？安全模式？？"><span class="toc-text">？？安全模式？？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、完全分布式搭建及eclipse插件"><span class="toc-text">二、完全分布式搭建及eclipse插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、完全分布式搭建（必备）"><span class="toc-text">1、完全分布式搭建（必备）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-环境的准备"><span class="toc-text">(1)环境的准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）完全分布式搭建步骤"><span class="toc-text">（2）完全分布式搭建步骤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、HDFS命令"><span class="toc-text">2、HDFS命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-命令-：hdfs-dfs"><span class="toc-text">(0)  命令 ：hdfs dfs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-上传文件到HDFS："><span class="toc-text">(1)上传文件到HDFS：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建文件夹"><span class="toc-text">(2)创建文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-删除文件或文件夹"><span class="toc-text">(3)删除文件或文件夹</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、eclipse插件安装配置"><span class="toc-text">3、eclipse插件安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）、导入插件"><span class="toc-text">（1）、导入插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）配置环境变量"><span class="toc-text">（2）配置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）新建Java项目"><span class="toc-text">（3）新建Java项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、网盘"><span class="toc-text">三、网盘</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、分布式文件存储系统HDFS"><span class="toc-text">一、分布式文件存储系统HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、什么是分布式？"><span class="toc-text">1、什么是分布式？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、什么是HDFS？"><span class="toc-text">2、什么是HDFS？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）HDFS为什么会出现？"><span class="toc-text">（1）HDFS为什么会出现？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）-HDFS的特点"><span class="toc-text">（2）==HDFS的特点==</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）-HDFS架构图"><span class="toc-text">（3）==HDFS架构图==</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、-HDFS的功能模块及原理详解"><span class="toc-text">3、==HDFS的功能模块及原理详解==</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS数据存储模型（block）"><span class="toc-text"> HDFS数据存储模型（block）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）文件被线性切分固定大小的数据块：block"><span class="toc-text">（1）文件被线性切分固定大小的数据块：block</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）一个文件存储方式"><span class="toc-text">（2）一个文件存储方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（3）Block大小和副本数通过Client端上传文件时设置，"><span class="toc-text">（3）Block大小和副本数通过Client端上传文件时设置，</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NameNode（简称NN）"><span class="toc-text">NameNode（简称NN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-NN主要功能："><span class="toc-text">1&gt; NN主要功能：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-NN保存metadate元信息"><span class="toc-text">2&gt; NN保存metadate元信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-NameNode的metadate信息在启动后会加载到内存"><span class="toc-text">3&gt; NameNode的metadate信息在启动后会加载到内存</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SecondaryNameNode（简称SNN）"><span class="toc-text">SecondaryNameNode（简称SNN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-SNN主要功能"><span class="toc-text">1&gt;SNN主要功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-合并流程"><span class="toc-text">2&gt;合并流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-合并机制"><span class="toc-text">3&gt;合并机制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DataNode（简称DN）"><span class="toc-text">DataNode（简称DN）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-gt-DN主要功能"><span class="toc-text">1&gt;  DN主要功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-gt-DN工作机制"><span class="toc-text">2&gt;   DN工作机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-gt-block的副本放置策略"><span class="toc-text">3&gt; block的副本放置策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、HDFS读写流程"><span class="toc-text">4、HDFS读写流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读文件过程"><span class="toc-text"> 读文件过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写文件过程"><span class="toc-text">写文件过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-HDFS文件权限和安全模式"><span class="toc-text">5.HDFS文件权限和安全模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#？？HDFS文件权限？？"><span class="toc-text">？？HDFS文件权限？？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#？？安全模式？？"><span class="toc-text">？？安全模式？？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、完全分布式搭建及eclipse插件"><span class="toc-text">二、完全分布式搭建及eclipse插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-完全分布式搭建（必备）"><span class="toc-text">1、==完全分布式搭建（必备）==</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）环境的准备"><span class="toc-text">（1）环境的准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）完全分布式搭建步骤"><span class="toc-text">（2）完全分布式搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Hadoop-1-X"><span class="toc-text">Hadoop 1.X</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1、下载解压缩Hadoop"><span class="toc-text">1、下载解压缩Hadoop</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2、配置hadoop-hadoop-env-sh"><span class="toc-text">2、配置hadoop/hadoop-env.sh</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3、配置core-site-xml"><span class="toc-text">3、配置core-site.xml:</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4、配置hdfs-site-xml"><span class="toc-text">4、配置hdfs-site.xml:</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5、Masters-master-可以做主备的SNN"><span class="toc-text">5、Masters:master 可以做主备的SNN</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6、Slaves-slave-奴隶-苦干；拼命工作"><span class="toc-text">6、Slaves: slave 奴隶 苦干；拼命工作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#7、最后将配置好的Hadoop通过SCP命令发送都其他节点"><span class="toc-text">7、最后将配置好的Hadoop通过SCP命令发送都其他节点</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hadoop-2-X"><span class="toc-text">==!!Hadoop 2.X!!==</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、HDFS命令"><span class="toc-text">2、HDFS命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-命令-：hdfs-dfs"><span class="toc-text">(0)  命令 ：hdfs dfs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-上传文件到HDFS："><span class="toc-text">(1)上传文件到HDFS：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建文件夹"><span class="toc-text">(2)创建文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-删除文件或文件夹"><span class="toc-text">(3)删除文件或文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）指定block大小"><span class="toc-text">（4）指定block大小</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、eclipse插件安装配置"><span class="toc-text">3、eclipse插件安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）、导入插件"><span class="toc-text">（1）、导入插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）配置环境变量"><span class="toc-text">（2）配置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）新建Java项目"><span class="toc-text">（3）新建Java项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、网盘"><span class="toc-text">三、网盘</span></a></li></ol>
         
     </div>
     <style>
@@ -748,7 +788,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/01/03/Nginx入门学习2/" title="上一篇: Nginx入门学习（二）">
+            <a href="/2019/01/03/Hadoop2.X/" title="上一篇: Hadoop2.X">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -756,13 +796,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/01/03/Zookeeper学习/" title="下一篇: Zookeeper学习">
+            <a href="/2019/01/02/Nginx入门学习2/" title="下一篇: Nginx入门学习（二）">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/14/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
@@ -798,7 +838,7 @@
      
       <script type="text/javascript">
         var gitment = new Gitment({
-        id: 'Thu Jan 03 2019 00:00:00 GMT+0800',
+        id: 'Thu Jan 03 2019 08:30:00 GMT+0800',
         title: 'HDFS学习',
         owner: 'sungithup',
         repo: 'sungithup.github.io',
