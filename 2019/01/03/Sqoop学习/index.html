@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Sukie">
+
+
+
+<meta name="description" content="一、Sqoop简介官网：   是将关系数据库（oracle、mysql、postgresql等）数据与hadoop数据进行转换的工具。  可以将一个关系型数据库(例如Mysql、Oracle)中的数据导入到Hadoop(例如HDFS、Hive、Hbase)中，也可以将Hadoop(例如HDFS、Hive、Hbase)中的数据导入到关系型数据库(例如Mysql、Oracle)中。    版本：(两个">
+<meta name="keywords" content="Linux系统环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sqoop学习">
+<meta property="og:url" content="http://sungithup.github.io/2019/01/03/Sqoop学习/index.html">
+<meta property="og:site_name" content="Sukie山脉">
+<meta property="og:description" content="一、Sqoop简介官网：   是将关系数据库（oracle、mysql、postgresql等）数据与hadoop数据进行转换的工具。  可以将一个关系型数据库(例如Mysql、Oracle)中的数据导入到Hadoop(例如HDFS、Hive、Hbase)中，也可以将Hadoop(例如HDFS、Hive、Hbase)中的数据导入到关系型数据库(例如Mysql、Oracle)中。    版本：(两个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20160525133918335">
+<meta property="og:image" content="https://img-blog.csdn.net/20160525142831507">
+<meta property="og:updated_time" content="2019-03-24T17:37:29.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sqoop学习">
+<meta name="twitter:description" content="一、Sqoop简介官网：   是将关系数据库（oracle、mysql、postgresql等）数据与hadoop数据进行转换的工具。  可以将一个关系型数据库(例如Mysql、Oracle)中的数据导入到Hadoop(例如HDFS、Hive、Hbase)中，也可以将Hadoop(例如HDFS、Hive、Hbase)中的数据导入到关系型数据库(例如Mysql、Oracle)中。    版本：(两个">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20160525133918335">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Sukie山脉" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Sqoop学习 | Sukie山脉</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Sukie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/essays/">推荐</a></li>
+                        
+                            <li><a href="/books/">书籍</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkStreaming/">SparkStreaming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架-SparkSql-SQL语句/">Spark框架 - SparkSql - SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式离线计算框架/">分布式离线计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流式处理框架/">流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加器/">累加器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">正宗小白</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Sukie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Sukie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/essays/">推荐</a></li>
+                
+                    <li><a href="/books/">书籍</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-Sqoop学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/03/Sqoop学习/" class="article-date">
+      <time datetime="2019-01-02T16:00:00.000Z" itemprop="datePublished">2019-01-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sqoop学习
+    </h1>
+  
+
+        
+           <div style="margin-top:10px;"> 
+     <span class="post-time"> 
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-keyboard-o"></i> 
+                 <span class="post-meta-item-text"> 字数统计: </span> 
+                 <span class="post-count">2k字</span> 
+           </span>
+     </span> 
+
+     <span class="post-time">
+           |   
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-hourglass-half"></i> 
+                 <span class="post-meta-item-text"> 阅读时长: </span> 
+                 <span class="post-count">9分</span> 
+           </span> 
+     </span> 
+</div>
+
+           
+      </header>     
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="一、Sqoop简介"><a href="#一、Sqoop简介" class="headerlink" title="一、Sqoop简介"></a>一、Sqoop简介</h1><p><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">官网：</a></p>
+<blockquote>
+<ul>
+<li><p>是将关系数据库（oracle、mysql、postgresql等）数据与hadoop数据进行<code>转换的工具</code>。</p>
+</li>
+<li><p>可以将一个关系型数据库(例如Mysql、Oracle)中的数据导入到Hadoop(例如HDFS、Hive、Hbase)中，也可以将Hadoop(例如HDFS、Hive、Hbase)中的数据导入到关系型数据库(例如Mysql、Oracle)中。</p>
+</li>
+</ul>
+</blockquote>
+<p>版本：(两个版本完全不兼容)</p>
+<ul>
+<li><p>sqoop1：1.4.x    （推荐）</p>
+</li>
+<li><p>sqoop2：1.99.x</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20160525133918335" alt=""></p>
+<h1 id="二、sqoop-架构"><a href="#二、sqoop-架构" class="headerlink" title="二、sqoop 架构"></a>二、sqoop 架构</h1><p>hadoop生态系统的架构最简单的框架。</p>
+<blockquote>
+<p>sqoop1由client端直接接入hadoop，任务通过解析生成对应的maprecue执行</p>
+</blockquote>
+<p><img src="https://img-blog.csdn.net/20160525142831507" alt=""></p>
+<h1 id="三、Sqoop安装"><a href="#三、Sqoop安装" class="headerlink" title="三、Sqoop安装"></a>三、Sqoop安装</h1><h2 id="1、安装包解压：1-4-7-推荐-1-99-7"><a href="#1、安装包解压：1-4-7-推荐-1-99-7" class="headerlink" title="1、安装包解压：1.4.7 (推荐)             1.99.7"></a>1、安装包解压：<a href="http://mirrors.shu.edu.cn/apache/sqoop/1.99.7" target="_blank" rel="noopener">1.4.7</a> (推荐)             <a href="http://mirrors.shu.edu.cn/apache/sqoop/1.99.7" target="_blank" rel="noopener">1.99.7</a></h2><h2 id="2、配置环境变量（追加）"><a href="#2、配置环境变量（追加）" class="headerlink" title="2、配置环境变量（追加）"></a>2、配置环境变量（追加）</h2><blockquote>
+<p>vim  ~/.bash_profile</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/soft/jdk1.8.0_191</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">HADOOP_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br><span class="line">ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line">HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin</span><br><span class="line">SQOOP_HOME=/usr/soft/sqoop-1.4.6</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>(编辑结束后，保存并退出，然后在控制台输入下面的命令，从而是环境变量生效)</p>
+<p>链接资源：</p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+<h2 id="3、添加数据库驱动包"><a href="#3、添加数据库驱动包" class="headerlink" title="3、添加数据库驱动包"></a>3、添加数据库驱动包</h2><blockquote>
+<p>在Sqoop的安装解压目录下的lib目录下添加jar包</p>
+<p>mysql-connector-java-5.1.10.jar</p>
+<p>用以连接Mysql</p>
+</blockquote>
+<h2 id="4、重命名配置文件"><a href="#4、重命名配置文件" class="headerlink" title="4、重命名配置文件"></a>4、重命名配置文件</h2><p>在Sqoop的解压安装目录下的conf目录下</p>
+<blockquote>
+<p>mv sqoop-env-template.sh sqoop-env.sh</p>
+</blockquote>
+<p>编辑sqoop-env.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#Set path to where bin/hadoop is available</span><br><span class="line">export HADOOP_COMMON_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line"></span><br><span class="line">#Set path to where hadoop-*-core.jar is available</span><br><span class="line">export HADOOP_MAPRED_HOME=/usr/soft/hadoop-2.6.5</span><br><span class="line"></span><br><span class="line">#set the path to where bin/hbase is available</span><br><span class="line">export HBASE_HOME=/usr/soft/hbase-1.2.9</span><br><span class="line"></span><br><span class="line">#Set the path to where bin/hive is available</span><br><span class="line">export HIVE_HOME=/usr/soft/apache-hive-1.2.1-bin</span><br><span class="line"></span><br><span class="line">#Set the path for where zookeper config dir is</span><br><span class="line">#export ZOOCFGDIR=/usr/soft/zookeeper-3.4.13</span><br><span class="line">export ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br></pre></td></tr></table></figure>
+<h2 id="5、修改配置configure-sqoop"><a href="#5、修改配置configure-sqoop" class="headerlink" title="5、修改配置configure-sqoop"></a>5、修改配置configure-sqoop</h2><p>在Sqoop的解压安装目录的bin目录下</p>
+<blockquote>
+<p>注释掉未安装服务相关内容</p>
+<p>例如（HBase、HCatalog、Accumulo）：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#if [ -z &quot;$&#123;HCAT_HOME&#125;&quot; ]; then</span><br><span class="line">#  if [ -d &quot;/usr/lib/hive-hcatalog&quot; ]; then</span><br><span class="line">#    HCAT_HOME=/usr/lib/hive-hcatalog</span><br><span class="line">#  elif [ -d &quot;/usr/lib/hcatalog&quot; ]; then</span><br><span class="line">#    HCAT_HOME=/usr/lib/hcatalog</span><br><span class="line">#  else</span><br><span class="line">#    HCAT_HOME=$&#123;SQOOP_HOME&#125;/../hive-hcatalog</span><br><span class="line">#    if [ ! -d $&#123;HCAT_HOME&#125; ]; then</span><br><span class="line">#       HCAT_HOME=$&#123;SQOOP_HOME&#125;/../hcatalog</span><br><span class="line">#    fi</span><br><span class="line">#  fi</span><br><span class="line">#fi</span><br><span class="line">#if [ -z &quot;$&#123;ACCUMULO_HOME&#125;&quot; ]; then</span><br><span class="line">#  if [ -d &quot;/usr/lib/accumulo&quot; ]; then</span><br><span class="line">#    ACCUMULO_HOME=/usr/lib/accumulo</span><br><span class="line">#  else</span><br><span class="line">#    ACCUMULO_HOME=$&#123;SQOOP_HOME&#125;/../accumulo</span><br><span class="line">#  fi</span><br><span class="line">#fi</span><br></pre></td></tr></table></figure>
+<h2 id="6、测试"><a href="#6、测试" class="headerlink" title="6、测试"></a>6、测试</h2><blockquote>
+<p>sqoop version</p>
+</blockquote>
+<p>前提:</p>
+<p>MySQL运行正常，且服务启动</p>
+<blockquote>
+<p>service mysqld start</p>
+</blockquote>
+<p>启动sqoop连接mysql</p>
+<blockquote>
+<p>sqoop list–databases -connect jdbc:mysql://node00:3306/ -username root -password 123456</p>
+<p>或</p>
+<p>sqoop list-tables –connect jdbc:mysql://192.168.198.128:3306/mysql –username root –password 123456</p>
+</blockquote>
+<p><code>警告：</code></p>
+<p>关于zookeeper环境变量配置的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node00 conf]# sqoop version</span><br><span class="line">Warning: /usr/soft/sqoop-1.4.6/bin/../../zookeeper does not exist! Accumulo imports will fail.</span><br><span class="line">Please set $ZOOKEEPER_HOME to the root of your Zookeeper installation.</span><br><span class="line">19/01/18 17:02:14 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6</span><br><span class="line">Sqoop 1.4.6</span><br><span class="line">git commit id c0c5a81723759fa575844a0a1eae8f510fa32c25</span><br><span class="line">Compiled by root on Mon Apr 27 14:38:36 CST 2015</span><br></pre></td></tr></table></figure>
+<p><code>解决方案：</code></p>
+<p>在sqoop解压安装目录的conf目录下，在sqoop-env.sh文件中添加ZOOKEEPER_HOME的配置</p>
+<blockquote>
+<p>vim /usr/soft/sqoop-1.4.6/conf/sqoop-env.sh</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/usr/soft/zookeeper-3.4.13</span><br></pre></td></tr></table></figure>
+<h1 id="四、Sqoop导入导出"><a href="#四、Sqoop导入导出" class="headerlink" title="四、Sqoop导入导出"></a>四、Sqoop导入导出</h1><p>1、导入工具import：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">   选项                                 含义说明</span><br><span class="line">--append							将数据追加到HDFS上一个已存在的数据集上</span><br><span class="line"></span><br><span class="line">--as-avrodatafile					将数据导入到Avro数据文件</span><br><span class="line"></span><br><span class="line">--as-sequencefile					将数据导入到SequenceFile</span><br><span class="line"></span><br><span class="line">--as-textfile						将数据导入到普通文本文件（默认）</span><br><span class="line"></span><br><span class="line">--boundary-query &lt;statement&gt;		边界查询，用于创建分片（InputSplit）</span><br><span class="line"></span><br><span class="line">--columns &lt;col,col,col…&gt;			从表中导出指定的一组列的数据</span><br><span class="line"></span><br><span class="line">--delete-target-dir				    如果指定目录存在，则先删除掉</span><br><span class="line"></span><br><span class="line">--direct						    使用直接导入模式（优化导入速度）</span><br><span class="line"></span><br><span class="line">--direct-split-size &lt;n&gt;			    分割输入stream的字节大小（在直接导入模式下）</span><br><span class="line"></span><br><span class="line">--fetch-size &lt;n&gt;			        从数据库中批量读取记录数</span><br><span class="line"></span><br><span class="line">--inline-lob-limit &lt;n&gt;		        设置内联的LOB对象的大小</span><br><span class="line"></span><br><span class="line">-m,--num-mappers &lt;n&gt;			    使用n个map任务并行导入数据</span><br><span class="line"></span><br><span class="line">-e,--query &lt;statement&gt;	 		    导入的查询语句</span><br><span class="line"></span><br><span class="line">--split-by &lt;column-name&gt;			指定按照哪个列去分割数据</span><br><span class="line"></span><br><span class="line">--table &lt;table-name&gt;			    导入的源表表名</span><br><span class="line"></span><br><span class="line">--target-dir &lt;dir&gt;			        导入HDFS的目标路径</span><br><span class="line"></span><br><span class="line">--warehouse-dir &lt;dir&gt;			    HDFS存放表的根路径</span><br><span class="line"></span><br><span class="line">--where &lt;where clause&gt;			    指定导出时所使用的查询条件</span><br><span class="line"></span><br><span class="line">-z,--compress			    		启用压缩</span><br><span class="line"></span><br><span class="line">--compression-codec &lt;c&gt;			    指定Hadoop的codec方式（默认gzip）</span><br><span class="line"></span><br><span class="line">--null-string &lt;null-string&gt;	        如果指定列为字符串类型，使用指定字符串替换值为null的该类                                     列的值</span><br><span class="line"></span><br><span class="line">--null-non-string &lt;null-string&gt;     如果指定列为非字符串类型，使用指定字符串替换值为null的该                                     类列的值</span><br></pre></td></tr></table></figure>
+<p>1、导出工具export：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">   选项                                         含义说明</span><br><span class="line"></span><br><span class="line">--validate &lt;class-name&gt;	              启用数据副本验证功能，仅支持单表拷贝，</span><br><span class="line">                                      可以指定验证使用的实现类</span><br><span class="line"></span><br><span class="line">--validation-threshold &lt;class-name&gt;	  指定验证门限所使用的类</span><br><span class="line"></span><br><span class="line">--direct	                          使用直接导出模式（优化速度）</span><br><span class="line"></span><br><span class="line">--export-dir &lt;dir&gt;	                  导出过程中HDFS源路径</span><br><span class="line"></span><br><span class="line">--m,--num-mappers &lt;n&gt;	              使用n个map任务并行导出</span><br><span class="line"></span><br><span class="line">--table &lt;table-name&gt;	              导出的目的表名称</span><br><span class="line"></span><br><span class="line">--call &lt;stored-proc-name&gt;	          导出数据调用的指定存储过程名</span><br><span class="line"></span><br><span class="line">--update-key &lt;col-name&gt;	              更新参考的列名称，多个列名使用逗号分隔</span><br><span class="line"></span><br><span class="line">--update-mode &lt;mode&gt;                  指定更新策略，包括：updateonly（默认）、allowinsert</span><br><span class="line"></span><br><span class="line">--input-null-string &lt;null-string&gt;	  使用指定字符串，替换字符串类型值为null的列</span><br><span class="line"></span><br><span class="line">--input-null-non-string &lt;null-string&gt;	使用指定字符串，替换非字符串类型值为null的列</span><br><span class="line"></span><br><span class="line">--staging-table &lt;staging-table-name&gt;	在数据导出到数据库之前，数据临时存放的表名称</span><br><span class="line"></span><br><span class="line">--clear-staging-table	              清除工作区中临时存放的数据</span><br><span class="line"></span><br><span class="line">--batch	                              使用批量模式导出</span><br></pre></td></tr></table></figure>
+<h1 id="四、Sqoop导入导出操作"><a href="#四、Sqoop导入导出操作" class="headerlink" title="四、Sqoop导入导出操作"></a>四、Sqoop导入导出操作</h1><p>1、将MySQL中的数据导入到HDFS/Hive/Hbase</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">到HDFS：</span><br><span class="line">sqoop import --connect jdbc:mysql://node00:3306/test --username root --password 123456 --table myuser -m1 -target-dir hdfs://Sunrise/my02</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">到Hive：</span><br><span class="line">sqoop import --connect jdbc:mysql://node00:3306/test --username root --password root --table myuser --hive-import -m 1</span><br><span class="line">   由于使用Sqoop从MySQL导入数据到Hive需要指定target-dir，因此导入的是普通表而不能为外部表。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">到HBase:</span><br><span class="line">sqoop import --connect jdbc:mysql://node04:3306/test --username root --password 123 --table mysqoop --hbase-table jackie --column-family cf1 --hbase-row-key name --hbase-create-table -m 1</span><br></pre></td></tr></table></figure>
+<p>2、使用Sqoop将HDFS/Hive/HBase中的数据导出到MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqoop export --connect jdbc:mysql://192.168.235.18:3306/test --username root --password 123 --table my --export-dir /root/my</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>将HDFS/Hive/HBase中的数据导出到MySQL操作都基本大同小异</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hive--&gt;mysql:</span><br><span class="line">sqoop export --connect jdbc:mysql://10.233.45.104:3306/test --username root --password root --table testa --export-dir /user/hive/warehouse/testa --input-fields-terminated-by &apos;\001’</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HBase--&gt;mysql:</span><br><span class="line">sqoop export --connect jdbc:mysql://172.50.4.148:3306/mysql --username root --password 123456 --table bb --export-dir  &apos;/mysql_data/part-m-00000&apos;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>HBase中数据导出到mysql</p>
+<p>目前没有直接的命令将HBase的数据导出到mysql，但可先将数据导出到hdfs，再导出到mysql </p>
+</blockquote>
+<blockquote>
+<p>目前sqoop没有办法把数据直接从Hbase导出到mysql。也可以通过Hive建立2个表，一个外部表是基于这个Hbase表的，另一个是单纯的基于hdfs的hive原生表，然后把外部表的数据导入到原生表（临时），然后通过hive将临时表里面的数据导出到mysql</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HBase--&gt;mysql:</span><br><span class="line">sqoop export --connect jdbc:mysql://172.50.4.148:3306/mysql --username root --password 123456 --table bb --export-dir  &apos;/mysql_data/part-m-00000&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1、Sqoop增量导入</span><br><span class="line">sqoop import -D sqoop.hbase.add.row.key=true --connect </span><br><span class="line">jdbc:mysql://192.168.1.9:3306/spider --username root --password root </span><br><span class="line">--table TEST_GOODS --columns ID,GOODS_NAME,GOODS_PRICE </span><br><span class="line">--hbase-create-table --hbase-table t_goods --column-family cf </span><br><span class="line">--hbase-row-key ID --incremental lastmodified --check-column U_DATE </span><br><span class="line">--last-value &apos;2017-06-27&apos; --split-by U_DATE</span><br><span class="line"></span><br><span class="line">--incremental lastmodified 增量导入支持两种模式 append 递增的列；lastmodified时间戳。</span><br><span class="line">--check-column 增量导入时参考的列</span><br><span class="line">--last-value 最小值，这个例子中表示导入2017-06-27到今天的值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2、Sqoop job：</span><br><span class="line">   sqoop job --create testjob01 --import --connect </span><br><span class="line">   jdbc:mysql://192.168.1.9:3306/spider --username root --password root </span><br><span class="line">   --table TEST_GOODS --columns ID,GOODS_NAME,GOODS_PRICE </span><br><span class="line">   --hbase-create-table --hbase-table t_goods --column-family cf </span><br><span class="line">   --hbase-row-key ID -m 1</span><br><span class="line">   设置定时执行以上sqoop job</span><br><span class="line">   使用linux定时器：crontab -e</span><br><span class="line">   例如每天执行</span><br><span class="line">   0 0 * * * /opt/local/sqoop-1.4.6/bin/sqoop job ….</span><br><span class="line">   --exec testjob01</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/01/03/Sqoop学习/">Sqoop学习</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
+        <p><span>发布时间:</span>2019-01-03, 00:00:00</p>
+        <p><span>最后更新:</span>2019-03-25, 01:37:29</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/01/03/Sqoop学习/" title="Sqoop学习">http://sungithup.github.io/2019/01/03/Sqoop学习/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/03/Sqoop学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/01/03/HDFS学习/">
+                    HDFS学习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/01/02/Nginx入门学习2/">
+                    Nginx入门学习（二）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Sqoop简介"><span class="toc-text">一、Sqoop简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、sqoop-架构"><span class="toc-text">二、sqoop 架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Sqoop安装"><span class="toc-text">三、Sqoop安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、安装包解压：1-4-7-推荐-1-99-7"><span class="toc-text">1、安装包解压：1.4.7 (推荐)             1.99.7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、配置环境变量（追加）"><span class="toc-text">2、配置环境变量（追加）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、添加数据库驱动包"><span class="toc-text">3、添加数据库驱动包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、重命名配置文件"><span class="toc-text">4、重命名配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、修改配置configure-sqoop"><span class="toc-text">5、修改配置configure-sqoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、测试"><span class="toc-text">6、测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Sqoop导入导出"><span class="toc-text">四、Sqoop导入导出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Sqoop导入导出操作"><span class="toc-text">四、Sqoop导入导出操作</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Sqoop学习　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    	
+
+
+  
+     
+     
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/01/03/HDFS学习/" title="上一篇: HDFS学习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/01/02/Nginx入门学习2/" title="下一篇: Nginx入门学习（二）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法 /">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+<!--gitment 评论-->
+
+  <div class="comments" id="comments">
+  
+  <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+  <script src="https://billts.site/js/gitment.js"></script>
+  <!--原型-->
+  <!--
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+  -->
+  
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+        id: 'Thu Jan 03 2019 00:00:00 GMT+0800',
+        title: 'Sqoop学习',
+        owner: 'sungithup',
+        repo: 'sungithup.github.io',
+        oauth: {
+        client_id: '80107df5bc27be1c1495',
+        client_secret: 'c7949e6fc532f63f30f14fe1aff7f4b9c234860e',
+        },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+  </div>
+
+<!--gitment 评论 end--></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                
+                2016-2019 Sukie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
+  </div>
+</body>
+</html>
