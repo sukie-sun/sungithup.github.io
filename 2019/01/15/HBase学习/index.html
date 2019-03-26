@@ -23,10 +23,12 @@
 <meta property="og:site_name" content="Sukie山脉">
 <meta property="og:description" content="基于HDFS的数据仓库---三驾马车之一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T03:34:08.152Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDly1g1gla9rm43j30lo0c3wjo.jpg">
+<meta property="og:updated_time" content="2019-03-26T16:58:27.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HBase学习">
 <meta name="twitter:description" content="基于HDFS的数据仓库---三驾马车之一">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDly1g1gla9rm43j30lo0c3wjo.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -334,7 +336,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-keyboard-o"></i> 
                  <span class="post-meta-item-text"> 字数统计: </span> 
-                 <span class="post-count">2.9k字</span> 
+                 <span class="post-count">3.1k字</span> 
            </span>
      </span> 
 
@@ -343,7 +345,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-hourglass-half"></i> 
                  <span class="post-meta-item-text"> 阅读时长: </span> 
-                 <span class="post-count">12分</span> 
+                 <span class="post-count">13分</span> 
            </span> 
      </span> 
 </div>
@@ -419,14 +421,17 @@
 <p><code>ACID特性</code></p>
 <blockquote>
 <p>ACID，指数据库事务正确执行的四个基本要素的缩写;</p>
-<p>原子性（Atomicity）:<strong>不可再分割</strong></p>
-<p>整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样</p>
-<p>一致性（Consistency）:</p>
-<p>隔离性（Isolation）、</p>
-<p>持久性（Durability）</p>
+<p><code>原子性</code>（Atomicity）:<strong>事务不可再分割</strong></p>
+<p>整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</p>
+<p><code>一致性</code>（Consistency）:<strong>事务前后数据保持一致</strong></p>
+<p>事务必须始终保持系统处于一致的状态，不管在任何给定的时间并发事务有多少。如果事务是并发多个，系统也必须如同串行事务一样操作。</p>
+<p><code>隔离性</code>（Isolation）：<strong>串行化</strong>，使得同一时间仅有一个请求用于同一数据。</p>
+<p>事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</p>
+<p><code>持久性</code>（Durability）：</p>
+<p>在事务完成以后，该事务对数据库所作的更改便持久的保存在数据库之中，并不会被回滚。</p>
 </blockquote>
 <h3 id="4、非关系型数据库"><a href="#4、非关系型数据库" class="headerlink" title="4、非关系型数据库"></a>4、非关系型数据库</h3><blockquote>
-<p>1、存储格式：key value键值对，文档，图片等等 结构不固定 </p>
+<p>1、存储格式：key value键值对，文档，图片等等，结构不固定 </p>
 <p>2、可以减少一些时间和空间的开销，仅需要根据id取出相应的value就可以完成查询。</p>
 <p>3、一般不支持ACID特性，无需经过SQL解析，读写性能高</p>
 <p>4、不提供where字段条件过滤</p>
@@ -449,7 +454,9 @@
 <blockquote>
 <p> 由行和列的坐标交叉决定； 单元格是有版本的（有时间戳决定）；</p>
 <p> 单元格的内容是未解析的字节数组；cell中的数据是没有类型的，全部是字节码形式存贮。</p>
-<p>由{rowkey， column( =<family> +<qualifier>)， version} 唯一确定的单元。</qualifier></family></p>
+ <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  由&#123;rowkey， column( =&lt;family&gt; +&lt;qualifier&gt;)， version&#125; 唯一确定的单元。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
 </blockquote>
 <p>（4）Timestamp时间戳</p>
 <blockquote>
@@ -458,24 +465,27 @@
 <p>不同版本的数据按照时间倒序排序，最新的数据版本排在最前面</p>
 <p>时间戳的类型是64位整型。</p>
 <p>时间戳可以由HBase(在数据写入时自动)赋值，精确到毫秒</p>
-<p>时间戳。也可以由客户显式赋值，但必须唯一性</p>
+<p>时间戳也可以由客户显式赋值，但必须唯一性</p>
 </blockquote>
 <p>（5）HLog(WAL log)</p>
 <blockquote>
 <ul>
-<li><p>HLog文件就是一个普通的Hadoop SequenceFile</p>
+<li>HLog文件就是一个普通的Hadoop SequenceFile</li>
+<li>HLog Sequence File的Key是HLogKey对象<ul>
+<li>HLogKey中记录了写入数据的归属信息，包括table和region名字，sequence number（起始值为0或是最近一次存入文件系统中sequence  number）和timestamp（写入时间）</li>
+</ul>
 </li>
-<li><p>HLog Sequence File的Key是HLogKey对象<br> ​         **HLogKey中记录了写入数据的归属信息，包括table和region名字，sequence number（起始值为0或是最近一次存入文件系统中sequence  number）和timestamp（写入时间）</p>
-</li>
-<li><p>HLog SequeceFile的Value是HBase的KeyValue对象，即对应HFile中的KeyValue</p>
+<li>HLog SequeceFile的Value是HBase的KeyValue对象，即对应HFile中的KeyValue<ul>
+<li>存储hbase表的操作记录，(K，V)数据信息   </li>
+</ul>
 </li>
 </ul>
-<p>​               **存储hbase表的操作记录，KV数据信息   </p>
 </blockquote>
 <p>2、体系架构</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDly1g1gla9rm43j30lo0c3wjo.jpg" alt=""></p>
 <p>（1）Client</p>
 <blockquote>
-<p>包含访问HBase的接口并维护cache来加快对HBase的访问</p>
+<p>包含访问HBase的接口并在缓存中维护着已经访问过的Region位置信息来加快对HBase的访问。</p>
 </blockquote>
 <p>（2）Zookeeper</p>
 <blockquote>
@@ -490,16 +500,15 @@
 </li>
 </ul>
 </blockquote>
+<p>Zookeeper是一个很好的集群管理工具，被大量用于分布式计算，提供配置维护、域名服务、分布式同步、组服务等</p>
 <p>（3）Master</p>
 <blockquote>
 <p>为Region server分配region；</p>
 <ul>
-<li><p>负责Region server的负载均衡；</p>
-</li>
-<li><p>发现失效的Region server并将其上的region重新分配；</p>
-</li>
-<li><p>管理用户对table的增删改操作；</p>
-</li>
+<li>负责Region server的负载均衡；</li>
+<li>发现失效的Region server并将其上的region重新分配；</li>
+<li>在Region分裂或合并后，负责重新调整Region的分布</li>
+<li>管理用户对table的增删改操作；</li>
 </ul>
 </blockquote>
 <p>（4）RegionServer    </p>
@@ -554,7 +563,7 @@
 </blockquote>
 <p>解决方案：</p>
 <p><code>原因：</code>由于使用了JDK8 ，需要在HBase的配置文件中hbase-env.sh，注释掉两行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+</span><br><span class="line">#export HBASE_MASTER_OPTS=&quot;$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br><span class="line">#export HBASE_REGIONSERVER_OPTS=&quot;$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+</span></span><br><span class="line"><span class="comment">#export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m"</span></span><br><span class="line"><span class="comment">#export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m"</span></span><br></pre></td></tr></table></figure>
 <p>重新启动HBase。</p>
 <p>2、问题描述：</p>
 <blockquote>
@@ -582,12 +591,14 @@
 <p>9、各个节点注意要做时间同步</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate cn.ntp.org.cn</span><br></pre></td></tr></table></figure>
 <p>10、启动HDFS集群：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br><span class="line">start-hdfs.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br><span class="line">start-hdfs.sh</span><br></pre></td></tr></table></figure>
 <p>11、启动：start-hbase.sh</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node00.out</span><br><span class="line">node02: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node02.out</span><br><span class="line">node01: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node01.out</span><br><span class="line">node00: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node00.out</span><br><span class="line">node02: starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node02.out</span><br></pre></td></tr></table></figure>
-<p>12、查看进程：jps</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node00.out</span><br><span class="line">node02: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node02.out</span><br><span class="line">node01: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node01.out</span><br><span class="line">node00: starting regionserver, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-regionserver-node00.out</span><br><span class="line">node02: starting master, logging to /usr/soft/hbase-1.2.9/bin/../logs/hbase-root-master-node02.out</span><br></pre></td></tr></table></figure>
+<p>12、查看进程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure>
 <p>13、浏览器访问：node00:60010</p>
-<p>14、关闭：stop-hbase.sh</p>
+<p>14、关闭：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop-hbase.sh</span><br></pre></td></tr></table></figure>
 <h2 id="四、通过hbase-shell命令进入HBase-命令行接口"><a href="#四、通过hbase-shell命令进入HBase-命令行接口" class="headerlink" title="四、通过hbase shell命令进入HBase 命令行接口"></a>四、通过hbase shell命令进入HBase 命令行接口</h2><p>通过<code>help</code>可查看所有命令的支持以及帮助手册</p>
 <blockquote>
 <p>帮助创建</p>
@@ -623,7 +634,7 @@
 <td>get ‘t1’,‘rk_00101’                         get ‘t1’,‘rk_00101’,‘cf1:name’</td>
 </tr>
 <tr>
-<td style="text-align:center">查看表中                           记录总数</td>
+<td style="text-align:center">查看所有记录</td>
 <td>count  ‘表名’</td>
 <td>count ‘t1’</td>
 </tr>
@@ -634,11 +645,11 @@
 </tr>
 <tr>
 <td style="text-align:center">删除一张表</td>
-<td>先要屏蔽该表，才能对该表进行删除。                                           第一步 disable   ‘表名称’                                                                         第二步 drop   ‘表名称’</td>
+<td>先要屏蔽该表，才能对该表进行删除。 <br>第一步 disable   ‘表名称’ <br>第二步 drop   ‘表名称’</td>
 <td>disable ‘t1’                                                      drop ‘t1’</td>
 </tr>
 <tr>
-<td style="text-align:center">查看所有              记录</td>
+<td style="text-align:center">查看所有记录</td>
 <td>scan   ‘表名 ‘</td>
 <td>scan ‘t1’</td>
 </tr>
@@ -648,12 +659,12 @@
 <td></td>
 </tr>
 <tr>
-<td style="text-align:center">查看未加工的数据中指定版本记录</td>
+<td style="text-align:center">查看未加工数据中指定版本记录</td>
 <td>scan ‘t1’, {RAW =&gt; true, VERSIONS =&gt; 3}                           raw  未加工的</td>
 <td>3</td>
 </tr>
 <tr>
-<td style="text-align:center">查看保存   版本记录</td>
+<td style="text-align:center">查看保存版本记录</td>
 <td>scan ‘t1’, {VERSIONS =&gt; 2}</td>
 <td>2</td>
 </tr>
@@ -683,7 +694,7 @@
         <p><span>本文标题:</span><a href="/2019/01/15/HBase学习/">HBase学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-15, 00:00:00</p>
-        <p><span>最后更新:</span>2019-03-26, 11:34:08</p>
+        <p><span>最后更新:</span>2019-03-27, 00:58:27</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/15/HBase学习/" title="HBase学习">http://sungithup.github.io/2019/01/15/HBase学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/15/HBase学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
