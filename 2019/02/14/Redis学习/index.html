@@ -15,21 +15,21 @@
 
 
 
-<meta name="description" content="Redis的详细学习">
+<meta name="description" content="[TOC] 一、Redis的简介1、前情提要磁盘数据库：   MySQL（关系型数据库） Hbase  内存数据库：  Redis  memcached  （成本高、性能好、读写速度快、数据安全性低、直接把值放到内存里面，内存数据库就直接把值取到）  2、用作数据库、缓存和消息中间件 二八法则：80%是经常被查询，使用内存数据库做缓存中间件，读取性能高  二、Redis的特点1、数据结构丰富Red">
 <meta name="keywords" content="Linux系统环境,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis学习">
 <meta property="og:url" content="http://sungithup.github.io/2019/02/14/Redis学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="Redis的详细学习">
+<meta property="og:description" content="[TOC] 一、Redis的简介1、前情提要磁盘数据库：   MySQL（关系型数据库） Hbase  内存数据库：  Redis  memcached  （成本高、性能好、读写速度快、数据安全性低、直接把值放到内存里面，内存数据库就直接把值取到）  2、用作数据库、缓存和消息中间件 二八法则：80%是经常被查询，使用内存数据库做缓存中间件，读取性能高  二、Redis的特点1、数据结构丰富Red">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/14/Redis学习/images/redis1.jpg">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/14/Redis学习/images/redis2.jpg">
 <meta property="og:image" content="http://sungithup.github.io/2019/02/14/Redis学习/images/redis0.jpg">
-<meta property="og:updated_time" content="2019-02-16T07:39:07.356Z">
+<meta property="og:updated_time" content="2019-04-07T11:23:37.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis学习">
-<meta name="twitter:description" content="Redis的详细学习">
+<meta name="twitter:description" content="[TOC] 一、Redis的简介1、前情提要磁盘数据库：   MySQL（关系型数据库） Hbase  内存数据库：  Redis  memcached  （成本高、性能好、读写速度快、数据安全性低、直接把值放到内存里面，内存数据库就直接把值取到）  2、用作数据库、缓存和消息中间件 二八法则：80%是经常被查询，使用内存数据库做缓存中间件，读取性能高  二、Redis的特点1、数据结构丰富Red">
 <meta name="twitter:image" content="http://sungithup.github.io/2019/02/14/Redis学习/images/redis1.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -338,7 +338,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-keyboard-o"></i> 
                  <span class="post-meta-item-text"> 字数统计: </span> 
-                 <span class="post-count">7.8k字</span> 
+                 <span class="post-count">10.4k字</span> 
            </span>
      </span> 
 
@@ -347,7 +347,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-hourglass-half"></i> 
                  <span class="post-meta-item-text"> 阅读时长: </span> 
-                 <span class="post-count">30分</span> 
+                 <span class="post-count">40分</span> 
            </span> 
      </span> 
 </div>
@@ -374,7 +374,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="一、Redis的简介"><a href="#一、Redis的简介" class="headerlink" title="一、Redis的简介"></a>一、Redis的简介</h1><h2 id="1、前情提要"><a href="#1、前情提要" class="headerlink" title="1、前情提要"></a>1、前情提要</h2><p><strong>磁盘数据库</strong>： </p>
+        <p>[TOC]</p>
+<h1 id="一、Redis的简介"><a href="#一、Redis的简介" class="headerlink" title="一、Redis的简介"></a>一、Redis的简介</h1><h2 id="1、前情提要"><a href="#1、前情提要" class="headerlink" title="1、前情提要"></a>1、前情提要</h2><p><strong>磁盘数据库</strong>： </p>
 <p> MySQL（关系型数据库）<br> Hbase</p>
 <p><img src="images/redis1.jpg" alt=""></p>
 <p><strong>内存数据库</strong>：<br>  Redis<br>  memcached<br>  （成本高、性能好、读写速度快、数据安全性低、直接把值放到内存里面，内存数据库就直接把值取到）</p>
@@ -438,7 +439,7 @@
 <h2 id="2、Key操作："><a href="#2、Key操作：" class="headerlink" title="2、Key操作："></a>2、Key操作：</h2><p>（前提：是针对已经存在key）</p>
 <blockquote>
 <p>KEYS pattern<br>查找所有符合给定模式 pattern 的 key 。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> keys * </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> keys * </span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>列出所有Key</p>
@@ -554,7 +555,7 @@
 <p>不同之处是， SETEX 是一个原子性(atomic)操作，关联值和设置生存时间两个动作会在同一时间内完成，该命令在 Redis 用作缓存时，非常实用。</p>
 </blockquote>
 <blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> SETNX key value</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> SETNX key value</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p>将 key 的值设为 value ，当且仅当 key 不存在。<br>若给定的 key 已经存在，则 SETNX 不做任何动作。<br>SETNX 是『SET if Not eXists』(如果不存在，则 SET)的简写。</p>
@@ -842,7 +843,7 @@
 </li>
 <li><p>AOF 持久化记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集。 </p>
 <p>AOF 文件中的命令全部以 Redis协议的格式来保存，新命令会被追加到文件的末尾。 </p>
-<p>Redis 还可以在后台对 AOF 文件进行重写（rewrite），使得 AOF 文件的体积不会超出保<br>存数据集状态所需的实际大小。</p>
+<p>Redis 还可以在后台对 AOF 文件进行重写（rewrite），使得 AOF 文件的体积不会超出保存数据集状态所需的实际大小。</p>
 </li>
 <li><p>Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 </p>
 <p>在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， </p>
@@ -950,19 +951,18 @@
 </li>
 <li>Redis Sentinel 是一个分布式系统，你可以在一个架构中运行多个 Sentinel 进程， 这些进程使用流言协议（gossipprotocols)来接收关于主服务器是否下线的信息， 并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，以及选择哪个从服务器作为新的主服务器。</li>
 </ul>
+<p>​          虽然 Redis Sentinel 是为一个单独的可执行文件 redis-sentinel ， 但实际上它只是一个运行在特殊模式下的 Redis 服务器， 你可以在启动一个普通 Redis 服务器时通过给定 –sentinel 选项来启动 Redis Sentinel 。</p>
 <h2 id="1、启动-Sentinel"><a href="#1、启动-Sentinel" class="headerlink" title="1、启动 Sentinel"></a>1、启动 Sentinel</h2><p>方式一：</p>
 <p>对于 redis-sentinel 程序， 可以用以下命令来启动Sentinel 系统：</p>
-<blockquote>
-<p>redis-sentinel  /path/to/sentinel.conf</p>
-</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel  /path/to/sentinel.conf</span><br></pre></td></tr></table></figure>
 <p>方式二：</p>
 <p>对于 redis-server 程序， 你可以用以下命令来启动一个运行在 Sentinel 模式下的 Redis 服务器：</p>
-<blockquote>
-<p>redis- - server /path/to/sentinel.conf  – sentinel</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /path/to/sentinel.conf  -- sentinel</span><br></pre></td></tr></table></figure>
 <p><code>注意：</code></p>
 <blockquote>
-<p>启动 Sentinel 实例必须指定相应的配置文件， 系统会使用配置文件来保存 Sentinel 的当前状态， 并在 Sentinel 重启时通过载入配置文件来进行状态还原。如果启动 Sentinel 时没有指定相应的配置文件， 或者指定的配置文件不可写（not writable）， 那么 Sentinel 会拒绝启动。</p>
+<p>启动 Sentinel 实例必须指定相应的配置文件， 系统会使用配置文件来保存 Sentinel 的当前状态， </p>
+<p>并在 Sentinel 重启时通过载入配置文件来进行状态还原。</p>
+<p>如果启动 Sentinel 时没有指定相应的配置文件， 或者指定的配置文件不可写（not writable）， 那么 Sentinel 会拒绝启动。</p>
 </blockquote>
 <h2 id="2-、配置-Sentinel"><a href="#2-、配置-Sentinel" class="headerlink" title="2  、配置 Sentinel"></a>2  、配置 Sentinel</h2><p>Redis 源码中包含了一个名为 sentinel.conf 的文件，这个文件是一个带有详细注释的 Sentinel 配置文件示例。<br>运行一个 Sentinel 所需的最少配置如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster  192.168.198.128 6379 2 </span><br><span class="line">sentinel down-after-milliseconds mymaster 30000</span><br><span class="line">sentinel failover-timeout mymaster 180000</span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br><span class="line">protected-mode no / bind  本机  IP</span><br></pre></td></tr></table></figure>
@@ -980,6 +980,129 @@
 <p>parallel-syncs 选项指定了在执行故障转移时， 最多可以有多少个从服务器同时对新的主服务器进行同步， 这个数字越小， 完成故障转移所需的时间就越长。</p>
 <p>你可以通过将这个值设为 1 来保证每次只有一个从服务器处于不能处理命令请求的状态。</p>
 </blockquote>
+<h1 id="八、Redis集群"><a href="#八、Redis集群" class="headerlink" title="八、Redis集群"></a>八、Redis集群</h1><h2 id="0、前情提要-3"><a href="#0、前情提要-3" class="headerlink" title="0、前情提要"></a>0、前情提要</h2><ul>
+<li>Redis 集群可以在多个 Redis 节点之间进行数据共享</li>
+<li>Redis 集群不支持那些需要同时处理多个键的 Redis 命令</li>
+</ul>
+<blockquote>
+<p><code>原因</code></p>
+<p>执行这些命令可能需要在多个 Redis 节点之间移动数据，在高负载的情况下， 这些命令将降低 Redis 集群的性能， 并导致不可预测的行为。</p>
+<p><code>例如</code></p>
+<p>命令 :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> lpoplpush key set1 set2</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>两个set可能在两个不同的节点</p>
+</blockquote>
+<ul>
+<li><p>Redis 集群提供了以下两个好处：</p>
+<blockquote>
+<ul>
+<li>将数据自动切分（split）到多个节点的能力。</li>
+<li>当集群中的一部分节点失效或者无法进行通讯时， 仍然可以继续处理命令请求的能力。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="1、集群数据共享"><a href="#1、集群数据共享" class="headerlink" title="1、集群数据共享"></a>1、集群数据共享</h2><p>Redis 集群使用数据分片（sharding）而非一致性哈希来实现： </p>
+<p>一个 Redis 集群包含 16384 个哈希槽（hash slot），数据库中的每个键都属于这 16384 个哈希槽的其中一个， 集群使用公式 CRC16(key) % 16384 来计算键 key 属于哪个槽， 其中 CRC16(key) 语句用于计算键 key 的 CRC16<br>校验和 。</p>
+<blockquote>
+<p>集群中的每个节点负责处理一部分哈希槽。</p>
+<p><code>举例</code></p>
+<p> 一个集群可以有三个哈希槽， 其中：<br> 节点 A 负责处理 0 号至 5500 号哈希槽。<br> 节点 B 负责处理 5501 号至 11000 号哈希槽。<br> 节点 C 负责处理 11001 号至 16384 号哈希槽。</p>
+</blockquote>
+<p>这种将哈希槽分布到不同节点的做法使得用户可以很容易地向集群中添加或者删除节点。</p>
+<blockquote>
+<p><code>举例</code><br> 如果用户将新节点 D 添加到集群中， 那么集群只需要将节点A 、B 、 C 中的某些槽移动到节点 D 就可以了。<br> 与此类似， 如果用户要从集群中移除节点 A ， 那么集群只需要将节点 A 中的所有哈希槽移动到节点 B 和节点 C ， 然后再移除空白（不包含任何哈希槽）的节点 A 就可以了。<br>因为将一个哈希槽从一个节点移动到另一个节点不会造成节点阻塞， 所以无论是添加新节点还是移除已存在节点， 又或者改变某个节点包含的哈希槽数量， 都不会造成集群下线。</p>
+</blockquote>
+<h2 id="2、集群的主从复制"><a href="#2、集群的主从复制" class="headerlink" title="2、集群的主从复制"></a>2、集群的主从复制</h2><p>为了使得集群在一部分节点下线或者无法与集群的大多数节点进行通讯的情况下， 仍然可以正常运作， Redis 集群对节点使用了主从复制功能： </p>
+<p>集群中的每个节点都有 1 个至 N 个复制品，其中一个复制品为主节点， 而其余的 N-1 个复制品为从节点。</p>
+<h2 id="3、集群的一致性保证"><a href="#3、集群的一致性保证" class="headerlink" title="3、集群的一致性保证"></a>3、集群的一致性保证</h2><p>Redis 集群不保证数据的强一致性（strong consistency）：</p>
+<blockquote>
+<p>在特定条件下， Redis 集群可能会丢失已经被执行过的写命令。</p>
+</blockquote>
+<p>使用异步复制是 Redis 集群可能会丢失写命令的其中一个原因。 </p>
+<p>考虑以下这个写命令的例子：</p>
+<blockquote>
+<p> 客户端向主节点 B 发送一条写命令。<br> 主节点 B 执行写命令，并向客户端返回命令回复。<br> 主节点 B 将刚刚执行的写命令复制给它的从节点 B1 、 B2 和B3 。</p>
+</blockquote>
+<p>如你所见， 主节点对命令的复制工作发生在返回命令回复之后， 因为如果每次处理命令请求都需要等待复制操作完成的话， 那么主节点处理命令请求的速度将极大地降低 —— 我们必须在性能和一致性之间做出权衡。</p>
+<p>Redis 集群另外一种可能会丢失命令的情况是， </p>
+<p>集群出现网络分裂（network partition）， 并且一个客户端与至少包括一个主节点在内的少数（minority）实例被孤立。</p>
+<p><code>举例，</code></p>
+<p>假设集群包含 A 、 B 、 C 、 A1 、 B1 、 C1六个节点， 其中 A 、B 、C 为主节点， 而 A1 、B1 、C1 分别为三个主节点的从节点， 另外还有一个客户端 Z1 。</p>
+<p>假设集群中发生网络分裂， 那么集群可能会分裂为两方，大多数（majority）的一方包含节点 A 、C 、A1 、B1 和C1 ， 而少数（minority）的一方则包含节点 B 和客户端Z1 。</p>
+<p>在网络分裂期间， 主节点 B 仍然会接受 Z1 发送的写命令：</p>
+<blockquote>
+<p> 如果网络分裂出现的时间很短， 那么集群会继续正常运行；<br> 但是， 如果网络分裂出现的时间足够长， 使得大多数一方将从节点 B1 设置为新的主节点， 并使用 B1 来代替原来的主节点 B ，那么 Z1 发送给主节点 B 的写命令将丢失。</p>
+</blockquote>
+<p>注意， 在网络分裂出现期间， 客户端 Z1 可以向主节点 B发送写命令的最大时间是有限制的， 这一时间限制称为节点超时时间（node timeout）， 是 Redis 集群的一个重要的配置选项：</p>
+<blockquote>
+<p> 对于大多数一方来说， 如果一个主节点未能在节点超时时间所设定的时限内重新联系上集群， 那么集群会将这个主节点视为下线， 并使用从节点来代替这个主节点继续工作。</p>
+<p> 对于少数一方， 如果一个主节点未能在节点超时时间所设定的时限内重新联系上集群， 那么它将停止处理写命令， 并向客户端报告错误</p>
+</blockquote>
+<h2 id="4、集群搭建"><a href="#4、集群搭建" class="headerlink" title="4、集群搭建"></a>4、集群搭建</h2><p> （0）前情提要：</p>
+<p>使用节点：6个,（3个主节点、3个从节点）</p>
+<p>（1）准备三台机器，计划每台机器运行两个 redis 实例，集群一共运行 6 个实例。</p>
+<p>在每台机器上创建个 redis-cluster 的目录，创建两个以端口号为名字的子目录， 稍后我们在将每个目录中运行一个 Redis 实例。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir redis-cluster</span><br><span class="line">cd  redis-cluster</span><br><span class="line">mkdir 7000 7001</span><br></pre></td></tr></table></figure>
+<p>（2）分别在文件夹7000，7001各创建一个 redis.conf 文件</p>
+<p>配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">port 7000</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>配置解释</code></p>
+<p> port 7000   （与所在文件夹名一致）:redis监听的端口</p>
+<p> cluster-enabled ：用于开实例的集群模式，<br> cluster-conf-file ：设定了保存节点配置文件的路径， 默认值为 nodes.conf.</p>
+</blockquote>
+<p>（3）在每台机器的 7000 和 7001 文件夹下，使用 redis-server redis.conf 启动实例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
+<p>有六个正在运行中的 Redis 实例</p>
+<p>（4）使用这些实例来创建集群， 并为每个节点编写配置文件。</p>
+<blockquote>
+<ul>
+<li><p>使用 Redis 集群命令行工具 redis-trib ， 编写节点配置文件</p>
+</li>
+<li><p>redis-trib 位于 Redis 源码的 src 文件夹中， 它是一个 Ruby 程序</p>
+</li>
+<li>redis-trib 程序通过向实例发送特殊命令来完成创建新集群， 检查集群， 或者对集群进行<br>重新分片（reshared）等工作。</li>
+</ul>
+</blockquote>
+<p>1）安装 ruby 相关的程序：（选取任一节点）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install ruby -y</span><br><span class="line">yum install rubygems -y</span><br><span class="line"></span><br><span class="line">gem install redis-3.2.1.gem   # 可离线安装</span><br></pre></td></tr></table></figure>
+<p>2）安装完之后用执行以下命令来创建集群：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1 ip1:7000 ip1:7001 ip2:7000 ip2:7001 ip3:7000 ip3:7001</span><br><span class="line"></span><br><span class="line">./redis-trib.rb create --replicas 1 192.168.198.128:7000 192.168.198.128:7001 192.168.198.130:7000 192.168.198.130:7001 192.168.198.131:7000 192.168.198.131:7001</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>命令解释</code></p>
+<p>给定 redis-trib.rb 程序的命令是 create ， 这表示我们希望创建一个新的集群。<br>选项 –replicas 1 表示我们希望为集群中的每个主节点创建一个从节点。<br>之后跟着的其他参数则是实例的地址列表， 我们希望程序使用这些地址所指示的实例来创建新集群。</p>
+<p>简单来说， 以上命令的意思就是</p>
+<p>让 redis-trib 程序创建一个包含三个主节点和三个从节点的集群。</p>
+<p><code>注意</code></p>
+<p>此处的ip不能写别名</p>
+</blockquote>
+<p><code>显示</code>：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt; &gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">&gt; Using 3 masters:</span><br><span class="line">&gt; 192.168.198.131:7000</span><br><span class="line">&gt; 192.168.198.130:7000</span><br><span class="line">&gt; 192.168.198.128:7000</span><br><span class="line">&gt; Adding replica 192.168.198.130:7001 to 192.168.198.131:7000</span><br><span class="line">&gt; Adding replica 192.168.198.131:7001 to 192.168.198.130:7000</span><br><span class="line">&gt; Adding replica 192.168.198.128:7001 to 192.168.198.128:7000</span><br><span class="line">&gt; M: c08020516b73f8f5989db493b8bd6c4d983c3714 192.168.198.128:7000</span><br><span class="line">&gt;    slots:10923-16383 (5461 slots) master</span><br><span class="line">&gt; S: ca5e075d862471ce4095bae6aac9dadacf70fe50 192.168.198.128:7001</span><br><span class="line">&gt;    replicates c08020516b73f8f5989db493b8bd6c4d983c3714</span><br><span class="line">&gt; M: c0d1f62e8bd107c5dc93d5ae6d0691a4aa2f42f0 192.168.198.130:7000</span><br><span class="line">&gt;    slots:5461-10922 (5462 slots) master</span><br><span class="line">&gt; S: f9f300b4b7b6bbe21432e9b23e5d667e938e80e2 192.168.198.130:7001</span><br><span class="line">&gt;    replicates 8952a0a01a5d4d866e9b205f06e1647f2c9e5547</span><br><span class="line">&gt; M: 8952a0a01a5d4d866e9b205f06e1647f2c9e5547 192.168.198.131:7000</span><br><span class="line">&gt;    slots:0-5460 (5461 slots) master</span><br><span class="line">&gt; S: ded74a7da6d4434053e864d323b59cc5bc853741 192.168.198.131:7001</span><br><span class="line">&gt;    replicates c0d1f62e8bd107c5dc93d5ae6d0691a4aa2f42f0</span><br><span class="line">&gt; Can I set the above configuration? (type &apos;yes&apos; to accept): </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>我上面的配置可以吗？ yes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt; &gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt; &gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">&gt; Waiting for the cluster to join...</span><br><span class="line">&gt; &gt;&gt;&gt; Performing Cluster Check (using node 192.168.198.128:7000)</span><br><span class="line">&gt; M: c08020516b73f8f5989db493b8bd6c4d983c3714 192.168.198.128:7000</span><br><span class="line">&gt;    slots:10923-16383 (5461 slots) master</span><br><span class="line">&gt;    1 additional replica(s)</span><br><span class="line">&gt; S: ca5e075d862471ce4095bae6aac9dadacf70fe50 192.168.198.128:7001</span><br><span class="line">&gt;    slots: (0 slots) slave</span><br><span class="line">&gt;    replicates c08020516b73f8f5989db493b8bd6c4d983c3714</span><br><span class="line">&gt; M: 8952a0a01a5d4d866e9b205f06e1647f2c9e5547 192.168.198.131:7000</span><br><span class="line">&gt;    slots:0-5460 (5461 slots) master</span><br><span class="line">&gt;    1 additional replica(s)</span><br><span class="line">&gt; S: f9f300b4b7b6bbe21432e9b23e5d667e938e80e2 192.168.198.130:7001</span><br><span class="line">&gt;    slots: (0 slots) slave</span><br><span class="line">&gt;    replicates 8952a0a01a5d4d866e9b205f06e1647f2c9e5547</span><br><span class="line">&gt; M: c0d1f62e8bd107c5dc93d5ae6d0691a4aa2f42f0 192.168.198.130:7000</span><br><span class="line">&gt;    slots:5461-10922 (5462 slots) master</span><br><span class="line">&gt;    1 additional replica(s)</span><br><span class="line">&gt; S: ded74a7da6d4434053e864d323b59cc5bc853741 192.168.198.131:7001</span><br><span class="line">&gt;    slots: (0 slots) slave</span><br><span class="line">&gt;    replicates c0d1f62e8bd107c5dc93d5ae6d0691a4aa2f42f0</span><br><span class="line">&gt; [OK] All nodes agree about slots configuration.</span><br><span class="line">&gt; &gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt; &gt;&gt;&gt; Check slots coverage...</span><br><span class="line">&gt; [OK] All 16384 slots covered.</span><br><span class="line">&gt; [root@node01 src]# </span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<p>3）创建完之后用 如下命令来链接集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -c -p 7000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>显示</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; [root@node01 src]# redis-cli -c -p 7000 </span><br><span class="line">&gt; 127.0.0.1:7000&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>如果启动客户端时 为 没有使用  <code>-c</code> ,则视为没有启用集群，则添加key时可能会报错：</p>
+<p>我是在节点 192.168.198.130:7000 上启动的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; 127.0.0.1:7000&gt; set xixi 23</span><br><span class="line">&gt; (error) MOVED 15923 192.168.198.128:7000</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>槽点不匹配，需要切换节点才能添加</p>
+</blockquote>
 
       
     </div>
@@ -991,7 +1114,7 @@
         <p><span>本文标题:</span><a href="/2019/02/14/Redis学习/">Redis学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-14, 00:00:00</p>
-        <p><span>最后更新:</span>2019-02-16, 15:39:07</p>
+        <p><span>最后更新:</span>2019-04-07, 19:23:37</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/14/Redis学习/" title="Redis学习">http://sungithup.github.io/2019/02/14/Redis学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/14/Redis学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -1027,7 +1150,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Redis的简介"><span class="toc-text">一、Redis的简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、前情提要"><span class="toc-text">1、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、用作数据库、缓存和消息中间件"><span class="toc-text">2、用作数据库、缓存和消息中间件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、Redis的特点"><span class="toc-text">二、Redis的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据结构丰富"><span class="toc-text">1、数据结构丰富</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、数据的持久化"><span class="toc-text">2、数据的持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、数据的备份"><span class="toc-text">3、数据的备份</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Redis的安装"><span class="toc-text">三、Redis的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载安装包"><span class="toc-text">1、下载安装包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、依赖软件安装"><span class="toc-text">2、依赖软件安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、解压-redis"><span class="toc-text">3、解压 redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、-执行-编译命令"><span class="toc-text">4、 执行 编译命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、修改-redis-的配置文件"><span class="toc-text">5、修改 redis 的配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动server服务"><span class="toc-text">6、启动server服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、启动客户端服务"><span class="toc-text">7、启动客户端服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Redis的使用"><span class="toc-text">四、Redis的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、切换数据库（实例）"><span class="toc-text">1、切换数据库（实例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Key操作："><span class="toc-text">2、Key操作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、String-操作"><span class="toc-text">3、String  操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、-List-操作"><span class="toc-text">4、 List 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Set操作"><span class="toc-text">5、Set操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Sorted-set操作"><span class="toc-text">6、Sorted set操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、-Hash-操作-（散列）"><span class="toc-text">7、 Hash  操作  （散列）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Redis-的持久化"><span class="toc-text">五、Redis 的持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Redis-持久化方式"><span class="toc-text">1、Redis  持久化方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Rdb"><span class="toc-text">2、Rdb:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、AOF"><span class="toc-text">3、AOF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、备份-Redis-数据"><span class="toc-text">4、备份 Redis  数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、Redis-主从复制"><span class="toc-text">六、Redis  主从复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要-1"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、关于-Redis-复制功能的几个重要方面："><span class="toc-text">1、关于 Redis 复制功能的几个重要方面：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、从服务器配置"><span class="toc-text">2、从服务器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、只读服务器"><span class="toc-text">3、只读服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、从服务器相关配置："><span class="toc-text">4、从服务器相关配置：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、主服务器配置"><span class="toc-text">5、主服务器配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、Redis-sentinel-哨兵"><span class="toc-text">七、Redis-sentinel( 哨兵)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要-2"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、启动-Sentinel"><span class="toc-text">1、启动 Sentinel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-、配置-Sentinel"><span class="toc-text">2  、配置 Sentinel</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Redis的简介"><span class="toc-text">一、Redis的简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、前情提要"><span class="toc-text">1、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、用作数据库、缓存和消息中间件"><span class="toc-text">2、用作数据库、缓存和消息中间件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、Redis的特点"><span class="toc-text">二、Redis的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据结构丰富"><span class="toc-text">1、数据结构丰富</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、数据的持久化"><span class="toc-text">2、数据的持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、数据的备份"><span class="toc-text">3、数据的备份</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Redis的安装"><span class="toc-text">三、Redis的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载安装包"><span class="toc-text">1、下载安装包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、依赖软件安装"><span class="toc-text">2、依赖软件安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、解压-redis"><span class="toc-text">3、解压 redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、-执行-编译命令"><span class="toc-text">4、 执行 编译命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、修改-redis-的配置文件"><span class="toc-text">5、修改 redis 的配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动server服务"><span class="toc-text">6、启动server服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、启动客户端服务"><span class="toc-text">7、启动客户端服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Redis的使用"><span class="toc-text">四、Redis的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、切换数据库（实例）"><span class="toc-text">1、切换数据库（实例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Key操作："><span class="toc-text">2、Key操作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、String-操作"><span class="toc-text">3、String  操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、-List-操作"><span class="toc-text">4、 List 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Set操作"><span class="toc-text">5、Set操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Sorted-set操作"><span class="toc-text">6、Sorted set操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、-Hash-操作-（散列）"><span class="toc-text">7、 Hash  操作  （散列）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Redis-的持久化"><span class="toc-text">五、Redis 的持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Redis-持久化方式"><span class="toc-text">1、Redis  持久化方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Rdb"><span class="toc-text">2、Rdb:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、AOF"><span class="toc-text">3、AOF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、备份-Redis-数据"><span class="toc-text">4、备份 Redis  数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、Redis-主从复制"><span class="toc-text">六、Redis  主从复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要-1"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、关于-Redis-复制功能的几个重要方面："><span class="toc-text">1、关于 Redis 复制功能的几个重要方面：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、从服务器配置"><span class="toc-text">2、从服务器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、只读服务器"><span class="toc-text">3、只读服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、从服务器相关配置："><span class="toc-text">4、从服务器相关配置：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、主服务器配置"><span class="toc-text">5、主服务器配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、Redis-sentinel-哨兵"><span class="toc-text">七、Redis-sentinel( 哨兵)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要-2"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、启动-Sentinel"><span class="toc-text">1、启动 Sentinel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-、配置-Sentinel"><span class="toc-text">2  、配置 Sentinel</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、Redis集群"><span class="toc-text">八、Redis集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0、前情提要-3"><span class="toc-text">0、前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、集群数据共享"><span class="toc-text">1、集群数据共享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、集群的主从复制"><span class="toc-text">2、集群的主从复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、集群的一致性保证"><span class="toc-text">3、集群的一致性保证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、集群搭建"><span class="toc-text">4、集群搭建</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -1102,7 +1225,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（六）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（五）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（四）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（三）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（二）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（一）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法/">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/Kafka学习/">Kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/25/Elasticsearch学习/">Elasticsearch学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/13/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/08/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（6）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（5）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（4）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（3）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（2）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（1）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法/">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/Kafka学习/">Kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/25/Elasticsearch学习/">Elasticsearch学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/13/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/08/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 
