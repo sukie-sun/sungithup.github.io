@@ -339,17 +339,11 @@
     <link href="http://sungithup.github.io/2019/01/28/Kafka%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/28/Kafka学习/</id>
     <published>2019-01-27T16:00:00.000Z</published>
-    <updated>2019-04-05T13:47:19.671Z</updated>
+    <updated>2019-04-09T11:36:14.399Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;一、Kafka简介&quot;&gt;&lt;a href=&quot;#一、Kafka简介&quot; class=&quot;headerlink&quot;
-        
-      
+      Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题
     
     </summary>
     

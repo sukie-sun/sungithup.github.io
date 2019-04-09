@@ -15,22 +15,22 @@
 
 
 
-<meta name="description" content="一、Kafka简介Kafka是一个高吞吐量、低延迟分布式的消息队列系统。特点：每秒钟可以处理几十万条消息，他的低延迟最低只有几毫秒。官网：https://kafka.apache.org/ 底层使用Scala语言实现。 注意： 1、A streaming platform has three key capabilities:  Publish and subscribe to streams o">
+<meta name="description" content="Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题">
 <meta name="keywords" content="分布式,消息队列系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka学习">
 <meta property="og:url" content="http://sungithup.github.io/2019/01/28/Kafka学习/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="一、Kafka简介Kafka是一个高吞吐量、低延迟分布式的消息队列系统。特点：每秒钟可以处理几十万条消息，他的低延迟最低只有几毫秒。官网：https://kafka.apache.org/ 底层使用Scala语言实现。 注意： 1、A streaming platform has three key capabilities:  Publish and subscribe to streams o">
+<meta property="og:description" content="Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g1qq5c9zntj30hf0e7gnl.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g1qr0t4gc1j30e108edgs.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g1qr8l7bkrj30dn07xaan.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g1qrbi5tyuj30h008aabe.jpg">
-<meta property="og:updated_time" content="2019-04-05T13:47:19.671Z">
+<meta property="og:updated_time" content="2019-04-09T11:36:14.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka学习">
-<meta name="twitter:description" content="一、Kafka简介Kafka是一个高吞吐量、低延迟分布式的消息队列系统。特点：每秒钟可以处理几十万条消息，他的低延迟最低只有几毫秒。官网：https://kafka.apache.org/ 底层使用Scala语言实现。 注意： 1、A streaming platform has three key capabilities:  Publish and subscribe to streams o">
+<meta name="twitter:description" content="Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g1qq5c9zntj30hf0e7gnl.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -472,7 +472,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
 <h2 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h2><p>创建话题（kafka-topics.sh –help 查看帮助手册）</p>
 <p>1、创建 topic：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --create --replication-factor 2 --partitions 3 --topic test</span><br><span class="line"><span class="meta">#</span><span class="bash">参数说明</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--replication-factor ：指定每个分区的复制因子个数，默认 1 个</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 副本有主从之分 ， 且副本分别放在不同的broker节点上</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">--partitions ：指定当前创建的 kafka 分区数量，默认为 1 个</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--topic ：指定新建 topic 的名称</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --create --replication-factor 2 --partitions 3 --topic test</span><br><span class="line"><span class="meta">#</span>参数说明</span><br><span class="line"><span class="meta">#</span>--replication-factor ：指定每个分区的复制因子个数，默认 1 个</span><br><span class="line"><span class="meta">#</span># 副本有主从之分 ， 且副本分别放在不同的broker节点上</span><br><span class="line"><span class="meta">#</span>--partitions ：指定当前创建的 kafka 分区数量，默认为 1 个</span><br><span class="line"><span class="meta">#</span>--topic ：指定新建 topic 的名称</span><br></pre></td></tr></table></figure>
 <p>2、查看 topic 列表：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --list</span><br></pre></td></tr></table></figure>
 <p>3、查看“test”topic 描述：</p>
@@ -532,7 +532,7 @@
         <p><span>本文标题:</span><a href="/2019/01/28/Kafka学习/">Kafka学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-01-28, 00:00:00</p>
-        <p><span>最后更新:</span>2019-04-05, 21:47:19</p>
+        <p><span>最后更新:</span>2019-04-09, 19:36:14</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/28/Kafka学习/" title="Kafka学习">http://sungithup.github.io/2019/01/28/Kafka学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/01/28/Kafka学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

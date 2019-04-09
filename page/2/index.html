@@ -831,153 +831,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="一、Kafka简介"><a href="#一、Kafka简介" class="headerlink" title="一、Kafka简介"></a>一、Kafka简介</h1><p>Kafka是一个高吞吐量、低延迟分布式的消息队列系统。特点：每秒钟可以处理几十万条消息，他的低延迟最低只有几毫秒。官网：<a href="https://kafka.apache.org/" target="_blank" rel="noopener">https://kafka.apache.org/</a></p>
-<p>底层使用Scala语言实现。</p>
-<p>注意：</p>
-<p>1、A streaming platform has three key capabilities:</p>
-<ul>
-<li>Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.</li>
-<li>Store streams of records in a fault-tolerant durable way.</li>
-<li>Process streams of records as they occur.</li>
-</ul>
-<p>2、Kafka is generally used for two broad classes of applications:</p>
-<ul>
-<li>Building real-time streaming data pipelines that reliably get data between systems or applications</li>
-<li>Building real-time streaming applications that transform or react to the streams of data</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g1qq5c9zntj30hf0e7gnl.jpg" alt=""></p>
-<p>3、First a few concepts:</p>
-<ul>
-<li>Kafka is run as a cluster on one or more servers that can span multiple datacenters.</li>
-<li>The Kafka cluster stores streams of <em>records</em> in categories called <em>topics</em>.</li>
-<li>Each record consists of a key, a value, and a timestamp.</li>
-</ul>
-<p>4、Kafka has four core APIs:</p>
-<ul>
-<li>The <a href="https://kafka.apache.org/documentation.html#producerapi" target="_blank" rel="noopener">Producer API</a> allows an application to publish a stream of records to one or more Kafka topics.</li>
-<li>The <a href="https://kafka.apache.org/documentation.html#consumerapi" target="_blank" rel="noopener">Consumer API</a> allows an application to subscribe to one or more topics and process the stream of records produced to them.</li>
-<li>The <a href="https://kafka.apache.org/documentation/streams" target="_blank" rel="noopener">Streams API</a> allows an application to act as a <em>stream processor</em>, consuming an input stream from one or more topics and producing an output stream to one or more output topics, effectively transforming the input streams to output streams.</li>
-<li>The <a href="https://kafka.apache.org/documentation.html#connect" target="_blank" rel="noopener">Connector API</a> allows building and running reusable producers or consumers that connect Kafka topics to existing applications or data systems. For example, a connector to a relational database might capture every change to a table.</li>
-</ul>
-<p>5、其他</p>
-<ul>
-<li>Kafka Cluster 中有多个Broker服务器，每个类型的消息被定义为<code></code>topic`</li>
-<li>同一个topic内部的消息按照一定的key 和算法被（partition）分区存储到不同的Broker上</li>
-<li>Producer 和consumer 可以在不同的Broker上生产或消费topic</li>
-</ul>
-<p>6、概念理解</p>
-<ul>
-<li><p>Topics and Logs：</p>
-<ul>
-<li>Topic 即为每条发布到 Kafka 集群的消息都有一个类别，topic在 Kafka 中可以由多个消费者订阅、消费。</li>
-<li>每个 topic 包含一个或多个 partition（分区），partition 数量可以在创建 topic 时指定，每个分区日志中记录了该分区的数据以及索引信息。</li>
-<li>Kafka 只保证一个分区内的消息有序，不能保证一个主题的不同分区之间的消息有序。为一个主题分配一个分区，才能保证所有消息绝对有序。</li>
-<li>分区会给每个消息记录分配一个顺序 ID 号（偏移量）， 能够唯一地标识该分区中的每个记录。Kafka 集群保留所有发布的记录，不管这个记录有没有被消费过，Kafka 提供相应策略通过配置从而对旧数据处理。</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g1qr0t4gc1j30e108edgs.jpg" alt=""></p>
-<ul>
-<li>每个消费者唯一保存的元数据信息就是消费者当前消费日志的位移位置。位移位置是由消费者控制，消费者可以通过修改偏移量读取任何位置的数据。</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g1qr8l7bkrj30dn07xaan.jpg" alt=""></p>
-</li>
-<li><p>Producers – 生产者<br>指定 topic 来发送消息到 Kafka Broker</p>
-</li>
-<li><p>Consumers – 消费者<br>根据 topic 消费相应的消息</p>
-</li>
-<li><p>Topic – 消息主题（类型）<br> 一个 topic 可以有多个 partition，分布在不同的 broker server 上</p>
-</li>
-</ul>
-<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g1qrbi5tyuj30h008aabe.jpg" alt=""></p>
-<p>7、注意：</p>
-<ul>
-<li>consumer自己维护消费消息的offset</li>
-<li>每一个consumer都有对应的group</li>
-<li>group内是queue消费模型<ul>
-<li>每个consumer消费不同的partition</li>
-<li>一个消息被一个group消费一次</li>
-</ul>
-</li>
-<li>group间是publish—subscribe消费模型<ul>
-<li>每个group独立消费，互补影响</li>
-<li>一个消息被各个group消费一次</li>
-</ul>
-</li>
-</ul>
-<p>8、Kafka使用场景（允许数据丢失）</p>
-<ul>
-<li>日志收集：收集各log ， 开放给各个consumer ， 如hbase， hadoop ， solr</li>
-<li><p>消息系统： 群发消息</p>
-</li>
-<li><p>用户活动跟踪： 记录用户行为发布到topic中，提供给consumer做实时监控分析，或装载到hadoop，数仓中做离线分析</p>
-</li>
-<li>运营指标 ： 记录运营监控数据</li>
-<li>流式处理 ： SparkStreaming ， storm</li>
-</ul>
-<h1 id="二、Kafka集群的部署和安装"><a href="#二、Kafka集群的部署和安装" class="headerlink" title="二、Kafka集群的部署和安装"></a>二、Kafka集群的部署和安装</h1><h2 id="1、集群规划："><a href="#1、集群规划：" class="headerlink" title="1、集群规划："></a>1、集群规划：</h2><p>zookeeper ： 三台（Kafka是分布式消息队列 ， 依赖zookeeper）</p>
-<p>kafka  :  三台  node1、node2、node3</p>
-<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><p>安装zookeeper （详见zookeeper学习.md）</p>
-<p>安装Kafka </p>
-<p>下载压缩包（官网地址：<a href="http://kafka.apache.org/downloads.html）" target="_blank" rel="noopener">http://kafka.apache.org/downloads.html）</a></p>
-<h3 id="解压："><a href="#解压：" class="headerlink" title="解压："></a>解压：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kafka_2.10-0.9.0.1.tgz</span><br></pre></td></tr></table></figure>
-<h3 id="修改配置文件："><a href="#修改配置文件：" class="headerlink" title="修改配置文件："></a>修改配置文件：</h3><p>config/server.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## broker.id broker集群中唯一标识id，0、1、2、3 依次增长（broker即 Kafka 集群中的一台服务器）</span><br><span class="line">## 注：当前Kafka 集群共三台节点，分别为：node1、node2、node3。对应的 broker.id 分别为 0、1、2。</span><br><span class="line"> broker.id=0</span><br><span class="line"> ## zookeeper.connect: zk 集群地址列表</span><br><span class="line"> zookeeper.connect=node1:2181、node2:2181、node3:2181</span><br></pre></td></tr></table></figure>
-<p>将当前 node1 服务器上的 Kafka 目录同步到其他 node2、node3 服务器上。</p>
-<h2 id="3、启动kafka集群"><a href="#3、启动kafka集群" class="headerlink" title="3、启动kafka集群"></a>3、启动kafka集群</h2><p>A、启动 Zookeeper 集群。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
-<p>B、启动 Kafka 集群。<br>分别在三台服务器上执行以下命令启动：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
-<h2 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h2><p>创建话题（kafka-topics.sh –help 查看帮助手册）</p>
-<p>1、创建 topic：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --create --replication-factor 2 --partitions 3 --topic test</span><br><span class="line"><span class="meta">#</span><span class="bash">参数说明</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--replication-factor ：指定每个分区的复制因子个数，默认 1 个</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 副本有主从之分 ， 且副本分别放在不同的broker节点上</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">--partitions ：指定当前创建的 kafka 分区数量，默认为 1 个</span></span><br><span class="line"><span class="meta">#</span><span class="bash">--topic ：指定新建 topic 的名称</span></span><br></pre></td></tr></table></figure>
-<p>2、查看 topic 列表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --list</span><br></pre></td></tr></table></figure>
-<p>3、查看“test”topic 描述：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --describe --topic test</span><br></pre></td></tr></table></figure>
-<p>–Isr （ in_synchronized_replication ）: 代表数据同步的节点</p>
-<p>4、创建消费者：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list node1:9092,node2:9092,node3:9092 --topic test</span><br></pre></td></tr></table></figure>
-<p>然后，在当前节点的控制台输入任何内容，表作为生产的topic</p>
-<p>5、创建消费者：（另选一台节点）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --zookeeper node1:2181,node2:2181,node3:2181 --from-beginning --topic test</span><br></pre></td></tr></table></figure>
-<p>此时，在控制台会打印出消费的topic</p>
-<p>消费的消息的offset存放在zookeeper中，使用<code>get + 路径</code> 命令 获取对应分区的offset</p>
-<p>注：<br>查看帮助手册：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh help</span><br></pre></td></tr></table></figure>
-<h1 id="三、-Flume-amp-amp-Kafka的结合"><a href="#三、-Flume-amp-amp-Kafka的结合" class="headerlink" title="三、 Flume &amp; &amp; Kafka的结合"></a>三、 Flume &amp; &amp; Kafka的结合</h1><h2 id="1、Flume-安装"><a href="#1、Flume-安装" class="headerlink" title="1、Flume  安装"></a>1、Flume  安装</h2><p>（详见Flume学习.md）</p>
-<h2 id="2、Flume-Kafka"><a href="#2、Flume-Kafka" class="headerlink" title="2、Flume + Kafka"></a>2、Flume + Kafka</h2><p>A、启动 Kafka 集群。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
-<p>B、配置 Flume 集群，并启动 Flume 集群。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/flume-ng agent -n a1 -c conf -f conf/fk.conf -Dflume.root.logger=DEBUG,console</span><br></pre></td></tr></table></figure>
-<p>Flume 配置文件 fk.conf 内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">a1.sources = r1</span><br><span class="line">a1.sinks = k1</span><br><span class="line">a1.channels = c1</span><br><span class="line"></span><br><span class="line"># Describe/configure the source</span><br><span class="line">a1.sources.r1.type = avro</span><br><span class="line">a1.sources.r1.bind = node1</span><br><span class="line">a1.sources.r1.port = 41414</span><br><span class="line"></span><br><span class="line"># Describe the sink</span><br><span class="line">a1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink</span><br><span class="line">a1.sinks.k1.topic = testflume</span><br><span class="line">a1.sinks.k1.brokerList = node1:9092,node2:9092,node3:9092</span><br><span class="line">a1.sinks.k1.requiredAcks = 1</span><br><span class="line">a1.sinks.k1.batchSize = 20</span><br><span class="line"></span><br><span class="line">a1.sinks.k1.channel = c1</span><br><span class="line"></span><br><span class="line"># Use a channel which buffers events in memory</span><br><span class="line">a1.channels.c1.type = memory</span><br><span class="line">a1.channels.c1.capacity = 1000000</span><br><span class="line">a1.channels.c1.transactionCapacity = 10000</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels = c1</span><br><span class="line">a1.sinks.k1.channel = c1</span><br></pre></td></tr></table></figure>
-<h2 id="3-、测试"><a href="#3-、测试" class="headerlink" title="3 、测试"></a>3 、测试</h2><ul>
-<li><p>分别启动 Zookeeper、Kafka、Flume 集群。</p>
-</li>
-<li><p>创建 topic：</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --create --replication-factor 2 --partitions 3 --topic testflume</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动消费者：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --zookeeper node1:2181,node2:2181,node3:2181 --from-beginning --topic testflume</span><br></pre></td></tr></table></figure>
-<ul>
-<li>运行“RpcClientDemo”代码，通过 rpc 请求发送数据到 Flume 集群。Flume 中 source 类型为 AVRO 类型，此时通过 Java 发送 rpc 请求，测试数据是否传入 Kafka</li>
-<li>其中，Java 发送 Rpc 请求 Flume 代码示例如下：<br>（参考 Flume 官方文档：<a href="http://flume.apache.org/FlumeDeveloperGuide.html）" target="_blank" rel="noopener">http://flume.apache.org/FlumeDeveloperGuide.html）</a></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flume.Event;</span><br><span class="line"><span class="keyword">import</span> org.apache.flume.EventDeliveryException;</span><br><span class="line"><span class="keyword">import</span> org.apache.flume.api.RpcClient;</span><br><span class="line"><span class="keyword">import</span> org.apache.flume.api.RpcClientFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.flume.event.EventBuilder;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Flume官网案例</span></span><br><span class="line"><span class="comment">* http://flume.apache.org/FlumeDeveloperGuide.html</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> root</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RpcClientDemo</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">MyRpcClientFacade client = <span class="keyword">new</span> MyRpcClientFacade();</span><br><span class="line"><span class="comment">// Initialize client with the remote Flume agent's host and port</span></span><br><span class="line">client.init(<span class="string">"node1"</span>, <span class="number">41414</span>);</span><br><span class="line"><span class="comment">// Send 10 events to the remote Flume agent. That agent should be</span></span><br><span class="line"><span class="comment">// configured to listen with an AvroSource.</span></span><br><span class="line">String sampleData = <span class="string">"Hello Flume!"</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">client.sendDataToFlume(sampleData);</span><br><span class="line">System.out.println(<span class="string">"发送数据："</span> + sampleData);</span><br><span class="line">&#125;</span><br><span class="line">client.cleanUp();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRpcClientFacade</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> RpcClient client;</span><br><span class="line"><span class="keyword">private</span> String hostname;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(String hostname, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line"><span class="comment">// Setup the RPC connection</span></span><br><span class="line"><span class="keyword">this</span>.hostname = hostname;</span><br><span class="line"><span class="keyword">this</span>.port = port;</span><br><span class="line"><span class="keyword">this</span>.client = RpcClientFactory.getDefaultInstance(hostname,port);</span><br><span class="line"><span class="comment">// Use the following method to create a thrift client (instead of the</span></span><br><span class="line"><span class="comment">// above line):</span></span><br><span class="line"><span class="comment">// this.client = RpcClientFactory.getThriftInstance(hostname,port);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendDataToFlume</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line"><span class="comment">// Create a Flume Event object that encapsulates the sample data</span></span><br><span class="line">Event event = EventBuilder.withBody(data,Charset.forName(<span class="string">"UTF-8"</span>));</span><br><span class="line"><span class="comment">// Send the event</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">client.append(event);</span><br><span class="line">&#125; <span class="keyword">catch</span> (EventDeliveryException e) &#123;</span><br><span class="line"><span class="comment">// clean up and recreate the client</span></span><br><span class="line">client.close();</span><br><span class="line">client = <span class="keyword">null</span>;</span><br><span class="line">client = RpcClientFactory.getDefaultInstance(hostname,port);</span><br><span class="line"><span class="comment">// Use the following method to create a thrift client (instead of</span></span><br><span class="line"><span class="comment">// the above line):</span></span><br><span class="line"><span class="comment">// this.client =RpcClientFactory.getThriftInstance(hostname, port);</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cleanUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// Close the RPC connection</span></span><br><span class="line">client.close();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="四、Kafka数据丢失问题和重复消费问题"><a href="#四、Kafka数据丢失问题和重复消费问题" class="headerlink" title="四、Kafka数据丢失问题和重复消费问题"></a>四、Kafka数据丢失问题和重复消费问题</h1><h2 id="1、为什么会丢失？"><a href="#1、为什么会丢失？" class="headerlink" title="1、为什么会丢失？"></a>1、为什么会丢失？</h2><p>Kafka ， 高吞吐 ， 一次能处理几十万条数据，</p>
-<p>（1）生产数据时：</p>
-<p>因为服务器（生产者）发送数据给Kafka后，kafka 将数据写入内存后，就直接返回操作成功的消息（ack机制 : 1（默认值）而ack机制 : 0 时，不用管是否操作成功，就发第二条），然后再发第二条，避免的磁盘I/O带来的延迟，可是，这样不安全，万一此时该节点宕机，数据就丢失了。</p>
-<p>而为了解决数据丢失，可以在数据写入内存时，备份到其他节点,再返回操作成功的消息（ack机制 : -1）。</p>
-<p>（2）消费数据时：</p>
-<p>Client消费数据过程中，（频率很短）先更新了消费offset， 再处理数据（如100），结果宕机，那么重启后就会从下一个offset（如101）开始消费消息，那么100这条数据就丢失了。</p>
-<p>解决方案：关闭自动提交  ， 改为 ， 手动提交，保证数据处理完毕后再提交消费offset。但是，解决了数据丢失，提高了性能消耗</p>
-<h2 id="2、数据重复消费问题"><a href="#2、数据重复消费问题" class="headerlink" title="2、数据重复消费问题"></a>2、数据重复消费问题</h2><p>因为Client（消费者）设置定时（频率很长）向zookeeper更新消费消息的offset，（如100 ， 120） 如果在没达到定的时间（如120），client就宕机了，重启后会重新去zookeeper上查询offset， 那么在定的时间之前的消息offset（100到120之间）就不存在，Client就会重新（从100）开始消费，就造成了重复消费问题。</p>
-<p>解决方案：关闭自动定时提交  ， 改为 ， 手动提交，保证数据处理完毕后再提交消费offset。但是，解决重复消费，提高了性能消耗。</p>
-<h2 id="3、注意"><a href="#3、注意" class="headerlink" title="3、注意"></a>3、注意</h2><p>使用解决方案时，要注意业务的要求，是否能允许数据丢失和重复消费问题</p>
-<h2 id="4、API"><a href="#4、API" class="headerlink" title="4、API"></a>4、API</h2><p>​    high level api<br>​    简单，不灵活<br>​     simple api<br>​    复杂，但灵活</p>
-
+              Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题
+          
       
     </div>
     
@@ -994,6 +849,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息队列系统/">消息队列系统</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2019/01/28/Kafka学习/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
