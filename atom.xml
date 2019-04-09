@@ -273,11 +273,11 @@
     <link href="http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/02/15/Scala学习/</id>
     <published>2019-02-14T16:00:00.000Z</published>
-    <updated>2019-04-07T10:49:00.916Z</updated>
+    <updated>2019-04-09T11:52:43.562Z</updated>
     
     <summary type="html">
     
-      Scala的详细学习
+      Scala：与Java无缝整合，类型自动推断，底层有actor，天生用于高并发和分布式，trait 特征特质事项多继承，高阶函数（函数式编程）
     
     </summary>
     
@@ -319,11 +319,11 @@
     <link href="http://sungithup.github.io/2019/01/29/Storm%E5%AD%A6%E4%B9%A0/"/>
     <id>http://sungithup.github.io/2019/01/29/Storm学习/</id>
     <published>2019-01-28T16:00:00.000Z</published>
-    <updated>2019-04-07T11:01:09.804Z</updated>
+    <updated>2019-04-09T11:48:30.897Z</updated>
     
     <summary type="html">
     
-      Storm的详细学习
+      Storm：实时，分布式，高容错，常驻内存的流式计算处理框架，主从架构，基于zookeeper实现解耦，使用Ack实现消息完整性
     
     </summary>
     
