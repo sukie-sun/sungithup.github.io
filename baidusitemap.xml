@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://sungithup.github.io/2019/02/18/Spark%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/</loc>
+    <lastmod>2019-04-10</lastmod>
+  </url>  <url>
+    <loc>http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/</loc>
+    <lastmod>2019-04-10</lastmod>
+  </url>  <url>
+    <loc>http://sungithup.github.io/2019/02/17/Spark%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/</loc>
+    <lastmod>2019-04-10</lastmod>
+  </url>  <url>
     <loc>http://sungithup.github.io/2019/02/15/Scala%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2019-04-09</lastmod>
   </url>  <url>
@@ -8,12 +17,6 @@
     <lastmod>2019-04-09</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/01/28/Kafka%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2019-04-09</lastmod>
-  </url>  <url>
-    <loc>http://sungithup.github.io/2019/02/17/Spark%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/</loc>
-    <lastmod>2019-04-09</lastmod>
-  </url>  <url>
-    <loc>http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/</loc>
     <lastmod>2019-04-09</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/02/14/Redis%E5%AD%A6%E4%B9%A0/</loc>
@@ -107,9 +110,6 @@
     <lastmod>2019-03-17</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/02/19/Spark%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89/</loc>
-    <lastmod>2019-02-22</lastmod>
-  </url>  <url>
-    <loc>http://sungithup.github.io/2019/02/18/Spark%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/</loc>
     <lastmod>2019-02-22</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/</loc>
