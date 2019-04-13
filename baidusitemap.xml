@@ -2,7 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://sungithup.github.io/2019/02/19/Spark%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89/</loc>
-    <lastmod>2019-04-11</lastmod>
+    <lastmod>2019-04-12</lastmod>
+  </url>  <url>
+    <loc>http://sungithup.github.io/2019/02/20/shuffle%E8%B0%83%E4%BC%98/</loc>
+    <lastmod>2019-04-12</lastmod>
   </url>  <url>
     <loc>http://sungithup.github.io/2019/02/18/Spark%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/</loc>
     <lastmod>2019-04-11</lastmod>

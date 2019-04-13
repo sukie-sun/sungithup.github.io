@@ -15,23 +15,29 @@
 
 
 
-<meta name="description" content="Spark学习第四篇章：广播变量、累加器、SparkShuffle、spark内存管理、shuffle调优">
-<meta name="keywords" content="广播,累加器,github">
+<meta name="description" content="Spark：广播变量、累加器、SparkShuffle（hashShuffle，sortShuffle，shuffle寻址）、spark内存管理（统一 ， 静态 ）、shuffle调优">
+<meta name="keywords" content="广播,累加,SparkShuffle,spark内存管理,shuffle调优">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark学习（四）">
 <meta property="og:url" content="http://sungithup.github.io/2019/02/19/Spark学习（4）/index.html">
 <meta property="og:site_name" content="Sukie山脉">
-<meta property="og:description" content="Spark学习第四篇章：广播变量、累加器、SparkShuffle、spark内存管理、shuffle调优">
+<meta property="og:description" content="Spark：广播变量、累加器、SparkShuffle（hashShuffle，sortShuffle，shuffle寻址）、spark内存管理（统一 ， 静态 ）、shuffle调优">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0cxiwpy6gj30fy0h2tax.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0da58qfv9j30m40c4q9q.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0da61a9htj30lx0ebn4i.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0dax2jtxwj30qv0enwqa.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0db1l3k43j30sd0euwov.jpg">
-<meta property="og:updated_time" content="2019-04-11T14:54:45.213Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g206dhorcnj30kl0jatbt.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g206eobjrdj30sf0ie45i.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g206dzvwhkj30ut0lt450.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g207jecc9oj311y0lcq7m.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g2087fcm4xj30t80hm0vy.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g2078y69bzj30ff0dkt9w.jpg">
+<meta property="og:updated_time" content="2019-04-12T14:57:38.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习（四）">
-<meta name="twitter:description" content="Spark学习第四篇章：广播变量、累加器、SparkShuffle、spark内存管理、shuffle调优">
+<meta name="twitter:description" content="Spark：广播变量、累加器、SparkShuffle（hashShuffle，sortShuffle，shuffle寻址）、spark内存管理（统一 ， 静态 ）、shuffle调优">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g0cxiwpy6gj30fy0h2tax.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -222,7 +228,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkStreaming/">SparkStreaming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架-SparkSql-SQL语句/">Spark框架 - SparkSql - SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sqoop/">Sqoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式搜索和分析引擎/">分布式搜索和分析引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式离线计算框架/">分布式离线计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流式处理框架/">流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列系统/">消息队列系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加器/">累加器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkCore/">SparkCore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkShuffle/">SparkShuffle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkStreaming/">SparkStreaming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架-SparkSql-SQL语句/">Spark框架 - SparkSql - SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sqoop/">Sqoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shuffle调优/">shuffle调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark内存管理/">spark内存管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式搜索和分析引擎/">分布式搜索和分析引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式离线计算框架/">分布式离线计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流式处理框架/">流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列系统/">消息队列系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加/">累加</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
                     </div>
                 </section>
                 
@@ -340,7 +346,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-keyboard-o"></i> 
                  <span class="post-meta-item-text"> 字数统计: </span> 
-                 <span class="post-count">1.7k字</span> 
+                 <span class="post-count">2.9k字</span> 
            </span>
      </span> 
 
@@ -349,7 +355,7 @@
            <span class="post-meta-item-icon"> 
                  <i class="fa fa-hourglass-half"></i> 
                  <span class="post-meta-item-text"> 阅读时长: </span> 
-                 <span class="post-count">7分</span> 
+                 <span class="post-count">11分</span> 
            </span> 
      </span> 
 </div>
@@ -366,7 +372,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/广播/">广播</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/累加器/">累加器</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SparkShuffle/">SparkShuffle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shuffle调优/">shuffle调优</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark内存管理/">spark内存管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/广播/">广播</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/累加/">累加</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -437,15 +443,86 @@
 </li>
 <li><p>总结<br>① .map task 的计算结果会根据分区器（默认是hashPartitioner）来决定写入到哪一个磁盘小文件中去。<br>ReduceTask 会去 Map 端拉取相应的磁盘小文件。<br>② .产生的磁盘小文件的个数：M（map task 的个数）*R（reduce task 的个数）</p>
 </li>
-<li>存在的问题<br> 产生的磁盘小文件过多，会导致以下问题：<br> a) 在 Shuffle Write 过程中会产生很多写磁盘小文件的对象。<br> b) 在 Shuffle Read 过程中会产生很多读取磁盘小文件的对象。<br> c) 在JVM堆内存中对象过多会造成频繁的gc,gc还无法解决运行所需要的内存 的话，就会 OOM。<br> d) 在数据传输过程中会有频繁的网络通信，频繁的网络通信出现通信故障的可能性大大增加，一旦网络通信出现了故障会导致 shuffle file cannot find 由于这个错误导致的 task 失败，TaskScheduler 不负责重试，由 DAGScheduler 负责重试 Stage。</li>
+<li><p>存在的问题<br> 产生的磁盘小文件过多，会导致以下问题：<br> a) 在 Shuffle Write 过程中会产生很多写磁盘小文件的对象。</p>
+<p> b) 在 Shuffle Read 过程中会产生很多读取磁盘小文件的对象。</p>
+<p> c) 在JVM堆内存中对象过多会造成频繁的gc,gc还无法解决运行所需要的内存 的话，就会 OOM。</p>
+<p> d) 在数据传输过程中会有频繁的网络通信，频繁的网络通信出现通信故障的可能性大大增加，一旦网络通信出现了故障会导致 shuffle file cannot find ，由于这个错误导致的 task 失败，TaskScheduler 不负责重试，由 DAGScheduler 负责重试 Stage。</p>
+</li>
 </ul>
 <h3 id="2-gt-合并机制"><a href="#2-gt-合并机制" class="headerlink" title="2&gt; 合并机制"></a>2&gt; 合并机制</h3><p> 合并机制示意图</p>
 <p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g0db1l3k43j30sd0euwov.jpg" alt=""></p>
 <ul>
+<li>执行流程</li>
+</ul>
+<p>1）在只有一个核的Excutor中运行的tasks共用buffer。</p>
+<p>2）在提交Application时 ， 会给它指定核数core</p>
+<p>3)在同一个核core中处理的task属于同一个句柄（操作系统的概念），处理的便是同一个文件。</p>
+<ul>
 <li>总结<br>产生磁盘小文件的个数：C(core 的个数)*R（reduce 的个数）</li>
 </ul>
 <h2 id="3、SortShuffle"><a href="#3、SortShuffle" class="headerlink" title="3、SortShuffle"></a>3、SortShuffle</h2><h3 id="1-gt-普通机制-1"><a href="#1-gt-普通机制-1" class="headerlink" title="1&gt; 普通机制"></a>1&gt; 普通机制</h3><p> 普通机制示意图</p>
-<h3 id="2-gt-bypass-机制"><a href="#2-gt-bypass-机制" class="headerlink" title="2&gt;bypass 机制"></a>2&gt;bypass 机制</h3><h2 id="4、Shuffle-文件寻址"><a href="#4、Shuffle-文件寻址" class="headerlink" title="4、Shuffle 文件寻址"></a>4、Shuffle 文件寻址</h2><h3 id="1-MapOutputTracker"><a href="#1-MapOutputTracker" class="headerlink" title="1)MapOutputTracker"></a>1)MapOutputTracker</h3><h3 id="2-BlockManager"><a href="#2-BlockManager" class="headerlink" title="2) BlockManager"></a>2) BlockManager</h3><h1 id="四、Spark-内存管理"><a href="#四、Spark-内存管理" class="headerlink" title="四、Spark 内存管理"></a>四、Spark 内存管理</h1><h2 id="1、静态内存管理分布图"><a href="#1、静态内存管理分布图" class="headerlink" title="1、静态内存管理分布图"></a>1、静态内存管理分布图</h2><h2 id="2、统一内存管理分布图"><a href="#2、统一内存管理分布图" class="headerlink" title="2、统一内存管理分布图"></a>2、统一内存管理分布图</h2><h2 id="3、reduce-中-OOM-如何处理？"><a href="#3、reduce-中-OOM-如何处理？" class="headerlink" title="3、reduce 中 OOM 如何处理？"></a>3、reduce 中 OOM 如何处理？</h2><h1 id="五、Shuffle-调优"><a href="#五、Shuffle-调优" class="headerlink" title="五、Shuffle  调优"></a>五、Shuffle  调优</h1><h2 id="1、SparkShuffle-调优配置项如何使用？"><a href="#1、SparkShuffle-调优配置项如何使用？" class="headerlink" title="1、SparkShuffle 调优配置项如何使用？"></a>1、SparkShuffle 调优配置项如何使用？</h2>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g206dhorcnj30kl0jatbt.jpg" alt=""></p>
+<ul>
+<li><p>执行流程</p>
+<p>a) map task 的计算结果会写入到一个内存数据结构里面，内存数据结构默认是 5M</p>
+<p>b) 在 shuffle 的时候会有一个定时器，不定期的去估算这个内存结构的大小，当内存结构中的数据超过 5M 时，比如现在内存结构中的数据为 5.01M，那么他会申请 5.01*2-5=5.02M 内存给内存数据结构。</p>
+<p>c) 如果申请成功不会进行溢写，如果申请不成功，这时候会发生溢写磁盘。</p>
+<p>d) 在溢写之前内存结构中的数据会进行排序分区</p>
+<p>e) 然后开始溢写磁盘，写磁盘是以batch的形式去写，一个batch是 1 万条数据，</p>
+<p>f) map task 执行完成后，会将这些磁盘小文件合并成一个大的磁盘文件，同时生成一个索引文件。</p>
+<p>g) reduce task 去 map 端拉取数据的时候，首先解析索引文件，根据索引文件再去拉取对应的数据。</p>
+</li>
+<li><p>总结<br>产生磁盘小文件的个数： 2*M（map task 的个数）</p>
+</li>
+</ul>
+<h3 id="2-gt-bypass-机制"><a href="#2-gt-bypass-机制" class="headerlink" title="2&gt;bypass 机制"></a>2&gt;bypass 机制</h3><p> bypass 机制示意图</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g206eobjrdj30sf0ie45i.jpg" alt=""></p>
+<p> 总结</p>
+<p>① .bypass 运行机制的触发条件如下：相较于普通机制少了排序<br>shuffle  reduce  task 的 数 量 小 于spark.shuffle.sort.bypassMergeThreshold 的参数值。这个值默认是 200。<br>② .产生的磁盘小文件为：2*M（map task 的个数）</p>
+<h2 id="4、Shuffle-文件寻址"><a href="#4、Shuffle-文件寻址" class="headerlink" title="4、Shuffle 文件寻址"></a>4、Shuffle 文件寻址</h2><h3 id="1-MapOutputTracker"><a href="#1-MapOutputTracker" class="headerlink" title="1)MapOutputTracker"></a>1)MapOutputTracker</h3><p>MapOutputTracker是Spark架构中的一个模块，是一个主从架构。管理磁盘小文件的地址。</p>
+<ul>
+<li><p>MapOutputTrackerMaster 是主对象，存在于 Driver 中。</p>
+</li>
+<li><p>MapOutputTrackerWorker 是从对象，存在于 Excutor 中。 </p>
+</li>
+</ul>
+<h3 id="2-BlockManager"><a href="#2-BlockManager" class="headerlink" title="2) BlockManager"></a>2) BlockManager</h3><p>BlockManager 块管理者（数据管理），是 Spark 架构中的一个模块，也是一个主从架构。</p>
+<ul>
+<li>BlockManagerMaster,主对象，存在于 Driver 中。BlockManagerMaster 会在集群中有用到广播变量和缓存数据或者删除缓存数据的时候，通知 BlockManagerSlave 传输或者删除数据。</li>
+<li>BlockManagerWorker，从对象，存在于 Excutor 中。BlockManagerWorker 会与 BlockManagerWorker 之间通信。</li>
+<li>无论在 Driver 端的 BlockManager 还是在 Excutor 端的BlockManager 都含有四个对象：<br>① DiskStore:负责磁盘的管理。<br>② MemoryStore：负责内存的管理。<br>③ ConnectionManager：负责连接其他的BlockManagerWorker。<br>④ BlockTransferService:负责数据的传输。</li>
+</ul>
+<h3 id="3-Shuffle-文件寻址图"><a href="#3-Shuffle-文件寻址图" class="headerlink" title="3) Shuffle 文件寻址图"></a>3) Shuffle 文件寻址图</h3><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g206dzvwhkj30ut0lt450.jpg" alt=""></p>
+<h3 id="4-Shuffle-文件寻址流程"><a href="#4-Shuffle-文件寻址流程" class="headerlink" title="4) Shuffle 文件寻址流程"></a>4) Shuffle 文件寻址流程</h3><p>a) 当 map task 执行完成后，会将 task 的执行情况和磁盘小文件的地址封装到 MapStatus 对象中，通过MapOutputTrackerWorker对象向 Driver 中的MapOutputTrackerMaster 汇报。</p>
+<p>b) 在所有的 map task 执行完毕后，Driver 中就掌握了所有的磁盘小文件的地址。</p>
+<p>c) 在 reduce task 执行之前，会通过 Excutor 中MapOutPutTrackerWorker 向 Driver 端的MapOutputTrackerMaster 获取磁盘小文件的地址。</p>
+<p>d) 获取到磁盘小文件的地址后，会通过 BlockManager 中的ConnectionManager 连接数据所在节点上的<br>ConnectionManager,然后通过 BlockTransferService 进行数据的传输。</p>
+<p>e) BlockTransferService 默认启动 5 个 task 去节点拉取数据。默认情况下，5 个 task 拉取数据量不能超过 48M。</p>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g207jecc9oj311y0lcq7m.jpg" alt=""></p>
+<h1 id="四、Spark-内存管理"><a href="#四、Spark-内存管理" class="headerlink" title="四、Spark 内存管理"></a>四、Spark 内存管理</h1><p>Spark 执行应用程序时，Spark 集群会启动 Driver 和 Executor 两种 JVM 进程，</p>
+<ul>
+<li>Driver 负责创建 SparkContext 上下文，提交任务，task 的分发等。</li>
+<li>Executor 负责 task 的计算任务，并将结果返回给 Driver。同时需要为需要持久化的 RDD 提供储存。</li>
+<li>Driver 端的内存管理比较简单，这里所说的 Spark内存管理针对 Executor 端的内存管理。</li>
+</ul>
+<p>Spark 内存管理分为<code>静态内存管理</code>和<code>统一内存管理</code>，Spark1.6 之前使用的是静态内存管理，Spark1.6 之后引入了统一内存管理。</p>
+<ul>
+<li>静态内存管理中存储内存、执行内存和其他内存的大小在 Spark 应用程序运行期间均为固定的，但用户可以在应用程序启动前进行配置。</li>
+<li>统一内存管理与静态内存管理的区别在于存储内存和执行内存共享同一块空间，可以互相借用对方的空间。<br>Spark1.6 以 上 版 本 默 认 使 用 的 是 统 一 内 存 管 理 ， 可 以 通 过 参 数spark.memory.useLegacyMode  设置为 true (默认为 false)使用静态内存管理。</li>
+</ul>
+<p>官网：<a href="http://spark.apache.org/docs/1.6.1/configuration.html#memory-management" target="_blank" rel="noopener">内存管理配置</a></p>
+<h2 id="1、静态内存管理分布图"><a href="#1、静态内存管理分布图" class="headerlink" title="1、静态内存管理分布图"></a>1、静态内存管理分布图</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g2087fcm4xj30t80hm0vy.jpg" alt=""></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.memory.useLegacyMode	false</span><br></pre></td></tr></table></figure>
+<h2 id="2、统一内存管理分布图"><a href="#2、统一内存管理分布图" class="headerlink" title="2、统一内存管理分布图"></a>2、统一内存管理分布图</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g2078y69bzj30ff0dkt9w.jpg" alt=""></p>
+<h2 id="3、reduce-中-OOM-如何处理？"><a href="#3、reduce-中-OOM-如何处理？" class="headerlink" title="3、reduce 中 OOM 如何处理？"></a>3、reduce 中 OOM 如何处理？</h2><p>1) 减少每次拉取的数据量</p>
+<p>2) 提高 shuffle 聚合的内存比例</p>
+<p>3) 提高 Excutor 的总内存</p>
+<h1 id="五、Shuffle-调优"><a href="#五、Shuffle-调优" class="headerlink" title="五、Shuffle  调优"></a>五、Shuffle  调优</h1><h2 id="1、SparkShuffle-调优配置项如何使用？"><a href="#1、SparkShuffle-调优配置项如何使用？" class="headerlink" title="1、SparkShuffle 调优配置项如何使用？"></a>1、SparkShuffle 调优配置项如何使用？</h2><p>1) 在代码中,不推荐使用，硬编码。</p>
+<p>new SparkConf().set(“spark.shuffle.file.buffer”,”64”)</p>
+<p>2) 在提交 spark 任务的时候，推荐使用。<br>spark-submit –conf spark.shuffle.file.buffer=64 –conf ….</p>
+<p>3) 在 conf 下的 spark-default.conf 配置文件中,不推荐，因为是写死后所有应用程序都要用。</p>
+
       
     </div>
     
@@ -456,7 +533,7 @@
         <p><span>本文标题:</span><a href="/2019/02/19/Spark学习（4）/">Spark学习（四）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
         <p><span>发布时间:</span>2019-02-19, 00:00:00</p>
-        <p><span>最后更新:</span>2019-04-11, 22:54:45</p>
+        <p><span>最后更新:</span>2019-04-12, 22:57:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/19/Spark学习（4）/" title="Spark学习（四）">http://sungithup.github.io/2019/02/19/Spark学习（4）/</a>
             <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/02/19/Spark学习（4）/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -472,8 +549,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/21/Spark学习（5）/">
-                    Spark学习（五）
+                <a href="/2019/02/20/shuffle调优/">
+                    SparkShuffle调优
                 </a>
             </div>
         
@@ -492,7 +569,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、广播变量"><span class="toc-text">一、广播变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、广播变量理解图"><span class="toc-text">1、广播变量理解图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、广播变量的使用"><span class="toc-text">2、广播变量的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意事项"><span class="toc-text">3、注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、累加器"><span class="toc-text">二、累加器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、累加器理解图"><span class="toc-text">1、累加器理解图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、累加器的使用"><span class="toc-text">2、累加器的使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、SparkShuffle"><span class="toc-text">三、SparkShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、SparkShuffle-概念"><span class="toc-text">1、SparkShuffle 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、HashShuffle"><span class="toc-text">2、HashShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gt-普通机制"><span class="toc-text">1&gt; 普通机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gt-合并机制"><span class="toc-text">2&gt; 合并机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、SortShuffle"><span class="toc-text">3、SortShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gt-普通机制-1"><span class="toc-text">1&gt; 普通机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gt-bypass-机制"><span class="toc-text">2&gt;bypass 机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Shuffle-文件寻址"><span class="toc-text">4、Shuffle 文件寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-MapOutputTracker"><span class="toc-text">1)MapOutputTracker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BlockManager"><span class="toc-text">2) BlockManager</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Spark-内存管理"><span class="toc-text">四、Spark 内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、静态内存管理分布图"><span class="toc-text">1、静态内存管理分布图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、统一内存管理分布图"><span class="toc-text">2、统一内存管理分布图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、reduce-中-OOM-如何处理？"><span class="toc-text">3、reduce 中 OOM 如何处理？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Shuffle-调优"><span class="toc-text">五、Shuffle  调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、SparkShuffle-调优配置项如何使用？"><span class="toc-text">1、SparkShuffle 调优配置项如何使用？</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、广播变量"><span class="toc-text">一、广播变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、广播变量理解图"><span class="toc-text">1、广播变量理解图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、广播变量的使用"><span class="toc-text">2、广播变量的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意事项"><span class="toc-text">3、注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、累加器"><span class="toc-text">二、累加器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、累加器理解图"><span class="toc-text">1、累加器理解图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、累加器的使用"><span class="toc-text">2、累加器的使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、SparkShuffle"><span class="toc-text">三、SparkShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、SparkShuffle-概念"><span class="toc-text">1、SparkShuffle 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、HashShuffle"><span class="toc-text">2、HashShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gt-普通机制"><span class="toc-text">1&gt; 普通机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gt-合并机制"><span class="toc-text">2&gt; 合并机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、SortShuffle"><span class="toc-text">3、SortShuffle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gt-普通机制-1"><span class="toc-text">1&gt; 普通机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gt-bypass-机制"><span class="toc-text">2&gt;bypass 机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Shuffle-文件寻址"><span class="toc-text">4、Shuffle 文件寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-MapOutputTracker"><span class="toc-text">1)MapOutputTracker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BlockManager"><span class="toc-text">2) BlockManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Shuffle-文件寻址图"><span class="toc-text">3) Shuffle 文件寻址图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Shuffle-文件寻址流程"><span class="toc-text">4) Shuffle 文件寻址流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Spark-内存管理"><span class="toc-text">四、Spark 内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、静态内存管理分布图"><span class="toc-text">1、静态内存管理分布图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、统一内存管理分布图"><span class="toc-text">2、统一内存管理分布图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、reduce-中-OOM-如何处理？"><span class="toc-text">3、reduce 中 OOM 如何处理？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Shuffle-调优"><span class="toc-text">五、Shuffle  调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、SparkShuffle-调优配置项如何使用？"><span class="toc-text">1、SparkShuffle 调优配置项如何使用？</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -553,7 +630,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/21/Spark学习（5）/" title="上一篇: Spark学习（五）">
+            <a href="/2019/02/20/shuffle调优/" title="上一篇: SparkShuffle调优">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -567,7 +644,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（6）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（5）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（4）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（3）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（2）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（1）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法/">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/Kafka学习/">Kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/25/Elasticsearch学习/">Elasticsearch学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/13/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/08/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（6）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（5）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/20/shuffle调优/">SparkShuffle调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（4）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（3）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（2）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（1）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法/">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/Kafka学习/">Kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/25/Elasticsearch学习/">Elasticsearch学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/13/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/08/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
 
 
 

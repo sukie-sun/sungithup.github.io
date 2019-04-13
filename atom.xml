@@ -61,15 +61,35 @@
   </entry>
   
   <entry>
+    <title>SparkShuffle调优</title>
+    <link href="http://sungithup.github.io/2019/02/20/shuffle%E8%B0%83%E4%BC%98/"/>
+    <id>http://sungithup.github.io/2019/02/20/shuffle调优/</id>
+    <published>2019-02-19T16:00:00.000Z</published>
+    <updated>2019-04-12T14:24:17.963Z</updated>
+    
+    <summary type="html">
+    
+      SparkShuffle调优的参数配置及含义
+    
+    </summary>
+    
+      <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
+    
+    
+      <category term="SparkCore" scheme="http://sungithup.github.io/tags/SparkCore/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spark学习（四）</title>
     <link href="http://sungithup.github.io/2019/02/19/Spark%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/19/Spark学习（4）/</id>
     <published>2019-02-18T16:00:00.000Z</published>
-    <updated>2019-04-11T14:54:45.213Z</updated>
+    <updated>2019-04-12T14:57:38.086Z</updated>
     
     <summary type="html">
     
-      Spark学习第四篇章：广播变量、累加器、SparkShuffle、spark内存管理、shuffle调优
+      Spark：广播变量、累加器、SparkShuffle（hashShuffle，sortShuffle，shuffle寻址）、spark内存管理（统一 ， 静态 ）、shuffle调优
     
     </summary>
     
@@ -78,9 +98,13 @@
     
       <category term="广播" scheme="http://sungithup.github.io/tags/%E5%B9%BF%E6%92%AD/"/>
     
-      <category term="累加器" scheme="http://sungithup.github.io/tags/%E7%B4%AF%E5%8A%A0%E5%99%A8/"/>
+      <category term="累加" scheme="http://sungithup.github.io/tags/%E7%B4%AF%E5%8A%A0/"/>
     
-      <category term="github" scheme="http://sungithup.github.io/tags/github/"/>
+      <category term="SparkShuffle" scheme="http://sungithup.github.io/tags/SparkShuffle/"/>
+    
+      <category term="spark内存管理" scheme="http://sungithup.github.io/tags/spark%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="shuffle调优" scheme="http://sungithup.github.io/tags/shuffle%E8%B0%83%E4%BC%98/"/>
     
   </entry>
   
@@ -149,26 +173,6 @@
   </entry>
   
   <entry>
-    <title>Map方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:20:20.930Z</updated>
-    
-    <summary type="html">
-    
-      Scala中Map的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
-    
-  </entry>
-  
-  <entry>
     <title>List方法</title>
     <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
     <id>http://sungithup.github.io/2019/02/16/List方法/</id>
@@ -189,22 +193,22 @@
   </entry>
   
   <entry>
-    <title>面试问题总结</title>
-    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
+    <title>String 方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-03-18T04:57:57.019Z</updated>
+    <updated>2019-02-16T07:22:24.420Z</updated>
     
     <summary type="html">
     
-      知识盲区
+      Scala中String的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
     
   </entry>
   
@@ -229,22 +233,42 @@
   </entry>
   
   <entry>
-    <title>String 方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
+    <title>Map方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:22:24.420Z</updated>
+    <updated>2019-02-16T07:20:20.930Z</updated>
     
     <summary type="html">
     
-      Scala中String的方法
+      Scala中Map的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试问题总结</title>
+    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-03-18T04:57:57.019Z</updated>
+    
+    <summary type="html">
+    
+      知识盲区
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
     
   </entry>
   
@@ -415,26 +439,6 @@
     
     
       <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase性能优化</title>
-    <link href="http://sungithup.github.io/2019/01/17/HBase%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    <id>http://sungithup.github.io/2019/01/17/HBase性能优化/</id>
-    <published>2019-01-16T16:00:00.000Z</published>
-    <updated>2019-04-06T12:05:54.900Z</updated>
-    
-    <summary type="html">
-    
-      HBase性能优化的三种方案
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="HBase" scheme="http://sungithup.github.io/tags/HBase/"/>
     
   </entry>
   
