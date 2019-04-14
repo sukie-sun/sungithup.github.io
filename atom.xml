@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-04-08T01:31:48.256Z</updated>
+  <updated>2019-04-14T01:52:18.693Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -17,11 +17,59 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>日志分析系统</title>
+    <link href="http://sungithup.github.io/2019/02/25/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://sungithup.github.io/2019/02/25/大型网站日志分析系统/</id>
+    <published>2019-02-24T16:00:00.000Z</published>
+    <updated>2019-04-14T01:52:18.693Z</updated>
+    
+    <summary type="html">
+    
+      Nginx作负载均衡，接收网站日志数据，并通过Flume收集日志保存到HDFS中，使用MapReduce作数据的ETL工作，清洗后的数据存在HBase中 ， 再使用MapReduce 或 Sqoop+Hive 将目标数据存放在MySql中，提供给Web 使用 
+    
+    </summary>
+    
+      <category term="MapReduce" scheme="http://sungithup.github.io/categories/MapReduce/"/>
+    
+    
+      <category term="大型网站日志分析系统" scheme="http://sungithup.github.io/tags/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="Java" scheme="http://sungithup.github.io/tags/Java/"/>
+    
+      <category term="离线分析" scheme="http://sungithup.github.io/tags/%E7%A6%BB%E7%BA%BF%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spark调优</title>
+    <link href="http://sungithup.github.io/2019/02/23/Spark%E4%BC%98%E5%8C%96/"/>
+    <id>http://sungithup.github.io/2019/02/23/Spark优化/</id>
+    <published>2019-02-22T16:00:00.000Z</published>
+    <updated>2019-04-13T16:32:22.954Z</updated>
+    
+    <summary type="html">
+    
+      简略描述
+    
+    </summary>
+    
+      <category term="spark" scheme="http://sungithup.github.io/categories/spark/"/>
+    
+    
+      <category term="github" scheme="http://sungithup.github.io/tags/github/"/>
+    
+      <category term="npm" scheme="http://sungithup.github.io/tags/npm/"/>
+    
+      <category term="hexo" scheme="http://sungithup.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spark学习（六）</title>
     <link href="http://sungithup.github.io/2019/02/22/Spark%E5%AD%A6%E4%B9%A0%EF%BC%886%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/22/Spark学习（6）/</id>
     <published>2019-02-21T16:00:00.000Z</published>
-    <updated>2019-04-08T01:31:48.256Z</updated>
+    <updated>2019-04-14T15:14:03.600Z</updated>
     
     <summary type="html">
     
@@ -45,11 +93,11 @@
     <link href="http://sungithup.github.io/2019/02/21/Spark%E5%AD%A6%E4%B9%A0%EF%BC%885%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/21/Spark学习（5）/</id>
     <published>2019-02-20T16:00:00.000Z</published>
-    <updated>2019-04-13T03:56:42.170Z</updated>
+    <updated>2019-04-13T08:06:25.791Z</updated>
     
     <summary type="html">
     
-      SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎,数据源在hive上，解析引擎是sparksql，执行任务是spark。
+      SparkSql是基于 Spark 计算框架之上且兼容 Hive 语法的 SQL 执行引擎,DataFrame的六种创建方式 ,三种保存方式,Spark on Hive ,关于序列化,自定义函数UDF和UDAF ， 以及开窗函数 
     
     </summary>
     
@@ -62,8 +110,8 @@
   
   <entry>
     <title>SparkShuffle调优</title>
-    <link href="http://sungithup.github.io/2019/02/20/shuffle%E8%B0%83%E4%BC%98/"/>
-    <id>http://sungithup.github.io/2019/02/20/shuffle调优/</id>
+    <link href="http://sungithup.github.io/2019/02/20/Shuffle%E8%B0%83%E4%BC%98/"/>
+    <id>http://sungithup.github.io/2019/02/20/Shuffle调优/</id>
     <published>2019-02-19T16:00:00.000Z</published>
     <updated>2019-04-12T14:24:17.963Z</updated>
     
@@ -85,7 +133,7 @@
     <link href="http://sungithup.github.io/2019/02/19/Spark%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/19/Spark学习（4）/</id>
     <published>2019-02-18T16:00:00.000Z</published>
-    <updated>2019-04-13T03:40:37.747Z</updated>
+    <updated>2019-04-13T13:13:12.645Z</updated>
     
     <summary type="html">
     
@@ -115,11 +163,11 @@
     <link href="http://sungithup.github.io/2019/02/18/Spark%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/18/Spark学习（3）/</id>
     <published>2019-02-17T16:00:00.000Z</published>
-    <updated>2019-04-13T03:40:55.392Z</updated>
+    <updated>2019-04-13T07:21:48.908Z</updated>
     
     <summary type="html">
     
-      Spark学习第三篇章：案例学习
+      Spark案例学习:统计网站 pv 和 uv,二次排序,分组取topN
     
     </summary>
     
@@ -141,7 +189,7 @@
     <link href="http://sungithup.github.io/2019/02/17/Spark%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/17/Spark学习（2）/</id>
     <published>2019-02-17T15:30:00.000Z</published>
-    <updated>2019-04-13T03:41:12.334Z</updated>
+    <updated>2019-04-13T13:09:00.138Z</updated>
     
     <summary type="html">
     
@@ -163,7 +211,7 @@
     <link href="http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/16/Spark学习（1）/</id>
     <published>2019-02-16T13:30:15.000Z</published>
-    <updated>2019-04-13T03:41:26.597Z</updated>
+    <updated>2019-04-14T09:42:50.550Z</updated>
     
     <summary type="html">
     
@@ -181,42 +229,22 @@
   </entry>
   
   <entry>
-    <title>List方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
+    <title>面试问题总结</title>
+    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:18:33.313Z</updated>
+    <updated>2019-03-18T04:57:57.019Z</updated>
     
     <summary type="html">
     
-      Scala中List的方法
+      知识盲区
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>String 方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:22:24.420Z</updated>
-    
-    <summary type="html">
-    
-      Scala中String的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
     
   </entry>
   
@@ -261,22 +289,42 @@
   </entry>
   
   <entry>
-    <title>面试问题总结</title>
-    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
+    <title>List方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
     <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-03-18T04:57:57.019Z</updated>
+    <updated>2019-02-16T07:18:33.313Z</updated>
     
     <summary type="html">
     
-      知识盲区
+      Scala中List的方法
     
     </summary>
     
       <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
     
     
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>String 方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/String%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/String方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:22:24.420Z</updated>
+    
+    <summary type="html">
+    
+      Scala中String的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="String" scheme="http://sungithup.github.io/tags/String/"/>
     
   </entry>
   
@@ -407,46 +455,6 @@
       <category term="Linux系统环境" scheme="http://sungithup.github.io/tags/Linux%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83/"/>
     
       <category term="分布式搜索和分析引擎" scheme="http://sungithup.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2%E5%92%8C%E5%88%86%E6%9E%90%E5%BC%95%E6%93%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Flume学习</title>
-    <link href="http://sungithup.github.io/2019/01/18/Flume%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/18/Flume学习/</id>
-    <published>2019-01-17T16:00:00.000Z</published>
-    <updated>2019-04-03T05:57:14.016Z</updated>
-    
-    <summary type="html">
-    
-      日志收集系统
-    
-    </summary>
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/categories/HDFS/"/>
-    
-    
-      <category term="flume" scheme="http://sungithup.github.io/tags/flume/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CDH部署操作</title>
-    <link href="http://sungithup.github.io/2019/01/18/CDH%E6%93%8D%E4%BD%9C%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/18/CDH操作学习/</id>
-    <published>2019-01-17T16:00:00.000Z</published>
-    <updated>2019-03-26T12:25:37.887Z</updated>
-    
-    <summary type="html">
-    
-      集群管理工具
-    
-    </summary>
-    
-      <category term="CDH" scheme="http://sungithup.github.io/categories/CDH/"/>
-    
-    
-      <category term="HDFS" scheme="http://sungithup.github.io/tags/HDFS/"/>
     
   </entry>
   
