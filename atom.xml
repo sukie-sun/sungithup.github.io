@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sungithup.github.io/"/>
-  <updated>2019-04-14T01:52:18.693Z</updated>
+  <updated>2019-05-05T13:52:46.284Z</updated>
   <id>http://sungithup.github.io/</id>
   
   <author>
@@ -17,11 +17,82 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Flink学习</title>
+    <link href="http://sungithup.github.io/2019/05/05/Oozie%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/05/05/Oozie学习/</id>
+    <published>2019-05-04T16:00:00.000Z</published>
+    <updated>2019-05-05T13:52:46.284Z</updated>
+    
+    <summary type="html">
+    
+      用于 Hadoop 平台的开源的工作流调度引擎，用来管理Hadoop作业，属于web应用程序
+    
+    </summary>
+    
+      <category term="flink" scheme="http://sungithup.github.io/categories/flink/"/>
+    
+    
+      <category term="工作流调度引擎" scheme="http://sungithup.github.io/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E/"/>
+    
+      <category term="Hadoop" scheme="http://sungithup.github.io/tags/Hadoop/"/>
+    
+      <category term="web" scheme="http://sungithup.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>impala学习</title>
+    <link href="http://sungithup.github.io/2019/04/28/impala%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://sungithup.github.io/2019/04/28/impala学习/</id>
+    <published>2019-04-27T16:00:00.000Z</published>
+    <updated>2019-05-05T11:05:05.284Z</updated>
+    
+    <summary type="html">
+    
+      简略描述
+    
+    </summary>
+    
+      <category term="impala" scheme="http://sungithup.github.io/categories/impala/"/>
+    
+    
+      <category term="Hive" scheme="http://sungithup.github.io/tags/Hive/"/>
+    
+      <category term="CDH" scheme="http://sungithup.github.io/tags/CDH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://sungithup.github.io/2019/04/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/04/21/机器学习算法/</id>
+    <published>2019-04-21T07:30:15.656Z</published>
+    <updated>2019-04-21T08:03:13.962Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;title: 推荐系统项目学习&lt;br&gt;date: 2019-1-18&lt;br&gt;update: 2019-1-18&lt;br&gt;tags:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- Linux系统环境
+    - HDFS
+    -
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>日志分析系统</title>
     <link href="http://sungithup.github.io/2019/02/25/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/"/>
     <id>http://sungithup.github.io/2019/02/25/大型网站日志分析系统/</id>
     <published>2019-02-24T16:00:00.000Z</published>
-    <updated>2019-04-14T01:52:18.693Z</updated>
+    <updated>2019-04-18T06:12:05.263Z</updated>
     
     <summary type="html">
     
@@ -45,22 +116,22 @@
     <link href="http://sungithup.github.io/2019/02/23/Spark%E4%BC%98%E5%8C%96/"/>
     <id>http://sungithup.github.io/2019/02/23/Spark优化/</id>
     <published>2019-02-22T16:00:00.000Z</published>
-    <updated>2019-04-13T16:32:22.954Z</updated>
+    <updated>2019-04-17T03:38:28.416Z</updated>
     
     <summary type="html">
     
-      简略描述
+      资源调优，并行度调优，代码调优，数据本地化级别，内存调优，sparkshuffle调优，调节excutor的堆外内存，解决数据倾斜，spark故障解决
     
     </summary>
     
       <category term="spark" scheme="http://sungithup.github.io/categories/spark/"/>
     
     
-      <category term="github" scheme="http://sungithup.github.io/tags/github/"/>
+      <category term="资源" scheme="http://sungithup.github.io/tags/%E8%B5%84%E6%BA%90/"/>
     
-      <category term="npm" scheme="http://sungithup.github.io/tags/npm/"/>
+      <category term="内存" scheme="http://sungithup.github.io/tags/%E5%86%85%E5%AD%98/"/>
     
-      <category term="hexo" scheme="http://sungithup.github.io/tags/hexo/"/>
+      <category term="数据倾斜" scheme="http://sungithup.github.io/tags/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/"/>
     
   </entry>
   
@@ -69,7 +140,7 @@
     <link href="http://sungithup.github.io/2019/02/22/Spark%E5%AD%A6%E4%B9%A0%EF%BC%886%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/22/Spark学习（6）/</id>
     <published>2019-02-21T16:00:00.000Z</published>
-    <updated>2019-04-14T15:14:03.600Z</updated>
+    <updated>2019-04-20T07:47:15.123Z</updated>
     
     <summary type="html">
     
@@ -93,7 +164,7 @@
     <link href="http://sungithup.github.io/2019/02/21/Spark%E5%AD%A6%E4%B9%A0%EF%BC%885%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/21/Spark学习（5）/</id>
     <published>2019-02-20T16:00:00.000Z</published>
-    <updated>2019-04-13T08:06:25.791Z</updated>
+    <updated>2019-04-23T09:45:11.575Z</updated>
     
     <summary type="html">
     
@@ -104,7 +175,11 @@
       <category term="Spark" scheme="http://sungithup.github.io/categories/Spark/"/>
     
     
-      <category term="Spark框架 - SparkSql - SQL语句" scheme="http://sungithup.github.io/tags/Spark%E6%A1%86%E6%9E%B6-SparkSql-SQL%E8%AF%AD%E5%8F%A5/"/>
+      <category term="Spark框架" scheme="http://sungithup.github.io/tags/Spark%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="SparkSql" scheme="http://sungithup.github.io/tags/SparkSql/"/>
+    
+      <category term="SQL语句" scheme="http://sungithup.github.io/tags/SQL%E8%AF%AD%E5%8F%A5/"/>
     
   </entry>
   
@@ -133,7 +208,7 @@
     <link href="http://sungithup.github.io/2019/02/19/Spark%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/19/Spark学习（4）/</id>
     <published>2019-02-18T16:00:00.000Z</published>
-    <updated>2019-04-13T13:13:12.645Z</updated>
+    <updated>2019-04-23T09:15:11.691Z</updated>
     
     <summary type="html">
     
@@ -163,7 +238,7 @@
     <link href="http://sungithup.github.io/2019/02/18/Spark%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/18/Spark学习（3）/</id>
     <published>2019-02-17T16:00:00.000Z</published>
-    <updated>2019-04-13T07:21:48.908Z</updated>
+    <updated>2019-04-15T13:16:06.883Z</updated>
     
     <summary type="html">
     
@@ -211,7 +286,7 @@
     <link href="http://sungithup.github.io/2019/02/16/Spark%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/"/>
     <id>http://sungithup.github.io/2019/02/16/Spark学习（1）/</id>
     <published>2019-02-16T13:30:15.000Z</published>
-    <updated>2019-04-14T09:42:50.550Z</updated>
+    <updated>2019-04-17T16:26:40.523Z</updated>
     
     <summary type="html">
     
@@ -225,86 +300,6 @@
       <category term="计算引擎" scheme="http://sungithup.github.io/tags/%E8%AE%A1%E7%AE%97%E5%BC%95%E6%93%8E/"/>
     
       <category term="sparkcore" scheme="http://sungithup.github.io/tags/sparkcore/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>面试问题总结</title>
-    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
-    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-03-18T04:57:57.019Z</updated>
-    
-    <summary type="html">
-    
-      知识盲区
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Set方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/Set%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/Set方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:21:55.338Z</updated>
-    
-    <summary type="html">
-    
-      Scala中Set的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="Set" scheme="http://sungithup.github.io/tags/Set/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Map方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:20:20.930Z</updated>
-    
-    <summary type="html">
-    
-      Scala中Map的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>List方法</title>
-    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
-    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
-    <published>2019-02-15T16:00:00.000Z</published>
-    <updated>2019-02-16T07:18:33.313Z</updated>
-    
-    <summary type="html">
-    
-      Scala中List的方法
-    
-    </summary>
-    
-      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
-    
-    
-      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
     
   </entry>
   
@@ -345,6 +340,86 @@
     
     
       <category term="Array" scheme="http://sungithup.github.io/tags/Array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试问题总结</title>
+    <link href="http://sungithup.github.io/2019/02/16/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://sungithup.github.io/2019/02/16/面试问题总结/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-03-18T04:57:57.019Z</updated>
+    
+    <summary type="html">
+    
+      知识盲区
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Map方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Map%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Map方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:20:20.930Z</updated>
+    
+    <summary type="html">
+    
+      Scala中Map的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Map" scheme="http://sungithup.github.io/tags/Map/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Set方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/Set%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/Set方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:21:55.338Z</updated>
+    
+    <summary type="html">
+    
+      Scala中Set的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="Set" scheme="http://sungithup.github.io/tags/Set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>List方法</title>
+    <link href="http://sungithup.github.io/2019/02/16/List%E6%96%B9%E6%B3%95/"/>
+    <id>http://sungithup.github.io/2019/02/16/List方法/</id>
+    <published>2019-02-15T16:00:00.000Z</published>
+    <updated>2019-02-16T07:18:33.313Z</updated>
+    
+    <summary type="html">
+    
+      Scala中List的方法
+    
+    </summary>
+    
+      <category term="Scala" scheme="http://sungithup.github.io/categories/Scala/"/>
+    
+    
+      <category term="List" scheme="http://sungithup.github.io/tags/List/"/>
     
   </entry>
   
@@ -391,70 +466,6 @@
       <category term="Linux系统环境" scheme="http://sungithup.github.io/tags/Linux%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83/"/>
     
       <category term="Redis" scheme="http://sungithup.github.io/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Storm学习</title>
-    <link href="http://sungithup.github.io/2019/01/29/Storm%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/29/Storm学习/</id>
-    <published>2019-01-28T16:00:00.000Z</published>
-    <updated>2019-04-10T11:05:35.932Z</updated>
-    
-    <summary type="html">
-    
-      Storm：实时，分布式，高容错，常驻内存的流式计算处理框架，主从架构，基于zookeeper实现解耦，使用Ack实现消息完整性
-    
-    </summary>
-    
-      <category term="分布式框架" scheme="http://sungithup.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/"/>
-    
-    
-      <category term="Storm，流式处理框架" scheme="http://sungithup.github.io/tags/Storm%EF%BC%8C%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka学习</title>
-    <link href="http://sungithup.github.io/2019/01/28/Kafka%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/28/Kafka学习/</id>
-    <published>2019-01-27T16:00:00.000Z</published>
-    <updated>2019-04-09T11:36:14.399Z</updated>
-    
-    <summary type="html">
-    
-      Kafka是一个高吞吐量、低延迟分布式的消息队列系统,每秒钟可以处理几十万条消息,kafka 和Flume的整合 ， kafka的数据丢失和重复消费的问题
-    
-    </summary>
-    
-      <category term="Kafka" scheme="http://sungithup.github.io/categories/Kafka/"/>
-    
-    
-      <category term="分布式" scheme="http://sungithup.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-      <category term="消息队列系统" scheme="http://sungithup.github.io/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Elasticsearch学习</title>
-    <link href="http://sungithup.github.io/2019/01/25/Elasticsearch%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://sungithup.github.io/2019/01/25/Elasticsearch学习/</id>
-    <published>2019-01-24T16:00:00.000Z</published>
-    <updated>2019-03-25T12:46:32.109Z</updated>
-    
-    <summary type="html">
-    
-      Elasticsearch:分布式搜索、分析引擎
-    
-    </summary>
-    
-      <category term="Elasticsearch" scheme="http://sungithup.github.io/categories/Elasticsearch/"/>
-    
-    
-      <category term="Linux系统环境" scheme="http://sungithup.github.io/tags/Linux%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83/"/>
-    
-      <category term="分布式搜索和分析引擎" scheme="http://sungithup.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2%E5%92%8C%E5%88%86%E6%9E%90%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   

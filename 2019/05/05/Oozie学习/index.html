@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Sukie">
+
+
+
+<meta name="description" content="用于 Hadoop 平台的开源的工作流调度引擎，用来管理Hadoop作业，属于web应用程序">
+<meta name="keywords" content="工作流调度引擎,Hadoop,web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flink学习">
+<meta property="og:url" content="http://sungithup.github.io/2019/05/05/Oozie学习/index.html">
+<meta property="og:site_name" content="Sukie山脉">
+<meta property="og:description" content="用于 Hadoop 平台的开源的工作流调度引擎，用来管理Hadoop作业，属于web应用程序">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://static.imcoder.site/blog/upload/image/article/2017/09/1504700098315_16_a.png">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005zftzDgy1g2qqehjmi7j30pz0e00wo.jpg">
+<meta property="og:updated_time" content="2019-05-05T13:52:46.284Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flink学习">
+<meta name="twitter:description" content="用于 Hadoop 平台的开源的工作流调度引擎，用来管理Hadoop作业，属于web应用程序">
+<meta name="twitter:image" content="https://static.imcoder.site/blog/upload/image/article/2017/09/1504700098315_16_a.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Sukie山脉" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Flink学习 | Sukie山脉</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?bc39ced90d9f89c71fda7b7d4ca8b638";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Sukie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/essays/">推荐</a></li>
+                        
+                            <li><a href="/books/">书籍</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDH/">CDH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS-6/">CentOS 6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hive/">Hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux命令/">Linux命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统环境/">Linux系统环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Map/">Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL语句/">SQL语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkCore/">SparkCore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkShuffle/">SparkShuffle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkSql/">SparkSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SparkStreaming/">SparkStreaming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark框架/">Spark框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sqoop/">Sqoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm，流式处理框架/">Storm，流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shuffle调优/">shuffle调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sparkcore/">sparkcore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark内存管理/">spark内存管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式搜索和分析引擎/">分布式搜索和分析引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式离线计算框架/">分布式离线计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分而治之/">分而治之</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/参数解释/">参数解释</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大型网站日志分析系统/">大型网站日志分析系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作流调度引擎/">工作流调度引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广播/">广播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据倾斜/">数据倾斜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流式处理框架/">流式处理框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息队列系统/">消息队列系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离线分析/">离线分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/累加/">累加</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算引擎/">计算引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算框架/">计算框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/资源/">资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态/">静态</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">正宗小白</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Sukie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Sukie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">肆意玩耍，肆意高歌</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/essays/">推荐</a></li>
+                
+                    <li><a href="/books/">书籍</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:sunyaru216@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/sunrise200 " title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/sungithup" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="/cnblogs" title="博客园"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="/" title="CSDN"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="https://music.163.com/#/song?id=18949687" title="网易云音乐"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-Oozie学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/05/05/Oozie学习/" class="article-date">
+      <time datetime="2019-05-04T16:00:00.000Z" itemprop="datePublished">2019-05-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Flink学习
+    </h1>
+  
+
+        
+           <div style="margin-top:10px;"> 
+     <span class="post-time"> 
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-keyboard-o"></i> 
+                 <span class="post-meta-item-text"> 字数统计: </span> 
+                 <span class="post-count">1.9k字</span> 
+           </span>
+     </span> 
+
+     <span class="post-time">
+           |   
+           <span class="post-meta-item-icon"> 
+                 <i class="fa fa-hourglass-half"></i> 
+                 <span class="post-meta-item-text"> 阅读时长: </span> 
+                 <span class="post-count">9分</span> 
+           </span> 
+     </span> 
+</div>
+
+           
+      </header>     
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/flink/">flink</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作流调度引擎/">工作流调度引擎</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="一、Oozie介绍"><a href="#一、Oozie介绍" class="headerlink" title="一、Oozie介绍"></a>一、Oozie介绍</h1><h2 id="1、基本内容"><a href="#1、基本内容" class="headerlink" title="1、基本内容"></a>1、基本内容</h2><p>• Oozie是用于 Hadoop 平台的开源的工作流调度引擎。</p>
+<blockquote>
+<p>工作流： </p>
+<p>分为开始 ， 中间过程  ，结束  等流程</p>
+<p>定时调度： Crontab</p>
+</blockquote>
+<p>• 用来管理Hadoop作业。<br>• 属于web应用程序，由Oozie client和Oozie Server两个组件构成。<br>• Oozie Server运行于Java Servlet容器（<code>Tomcat</code>）中的web程序。<br>• 官网：<a href="https://oozie.apache.org/" target="_blank" rel="noopener">https://oozie.apache.org/</a></p>
+<h2 id="2、Oozie作用"><a href="#2、Oozie作用" class="headerlink" title="2、Oozie作用"></a>2、Oozie作用</h2><p>– 统一调度hadoop系统中常见的mr任务启动、hdfs操作、shell调度、hive操作等<br>– 使得复杂的依赖关系、时间触发、事件触发使用xml语言进行表达，开发效率提高<br>– 一组任务使用一个DAG来表示，使用图形表达流程逻辑更加清晰<br>– 支持很多种任务调度，能完成大部分hadoop任务处理<br>– 程序定义支持EL常量和函数，表达更加丰富</p>
+<h1 id="二、Oozie架构"><a href="#二、Oozie架构" class="headerlink" title="二、Oozie架构"></a>二、Oozie架构</h1><p><img src="https://static.imcoder.site/blog/upload/image/article/2017/09/1504700098315_16_a.png" alt=""></p>
+<p>三者是递进关系：Workflow（工作流） → Coordinator（协调器） → Bundle（ 束；捆）</p>
+<h1 id="三、Oozie安装"><a href="#三、Oozie安装" class="headerlink" title="三、Oozie安装"></a>三、Oozie安装</h1><p>• 安装方式：<br>– 手动安装<br>– Cloudera Manger添加服务</p>
+<p>• Oozie Web控制台<br>– 解压ext-2.2到/var/lib/oozie目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install unzip -y </span><br><span class="line">unzip ext-2.2.zip -d /var/lib/oozie/</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># unzip --help</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#-d  extract files into exdir   将文件解压到指定目录</span></span></span><br></pre></td></tr></table></figure>
+<p>– Oozie服务中配置启用web控制台<br>– 保存，重启oozie服务</p>
+<p>• Oozie配置</p>
+<blockquote>
+<p>– 1、节点内存配置<br>– 2、 oozie.service.callablequeueservice.callable.concurrency（节点并发）<br>– 3、 oozie.service.callablequeueservice.queue.size（队列大小）<br>– 4、 oozie.service.ActionService.executor.ext.classes（扩展）</p>
+</blockquote>
+<p>• Oozie共享库  （存放一些常用的  jar 包）</p>
+<blockquote>
+<p>（该路径在HDFS上） /user/oozie/share/lib   </p>
+</blockquote>
+<p>• web管理地址</p>
+<p>入口一：</p>
+<blockquote>
+<p>原生入口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  http://oozie_host_ip:11000/oozie/</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>提交任务后，需要手点击刷新</p>
+</blockquote>
+<p>入口二：</p>
+<p>HUE</p>
+<blockquote>
+<p>在CDH中添加HUE服务，点击进入HUE→快速链接：Hue Web UI</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;  http://oozie_host_ip:8888</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>在Query Editor中选择Hive/Impala查询 ，直接写SQL</p>
+<p>无需手动刷新</p>
+<p>有文件浏览器 、 Job Browser （MR的Job）</p>
+</blockquote>
+<p>• oozie管理</p>
+<blockquote>
+<p>– 任务列表查看<br>– 任务状态查看<br>– 流程返回信息<br>– 节点信息查看<br>– 流程图信息<br>– 日志查看<br>– 系统信息查看和配置</p>
+</blockquote>
+<h1 id="四、Oozie-CLI-命令"><a href="#四、Oozie-CLI-命令" class="headerlink" title="四、Oozie CLI 命令"></a>四、Oozie CLI 命令</h1><p>• 启动任务：</p>
+<p>（涉及到权限问题时，切换用户： su - hdfs     切换文件用户组：chown hdfs:hdfs job.properties）</p>
+<p>（查询端口号：netstat -anpt | grep 8032       或 lsof -i 8032 ）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oozie job -oozie http://ip:11000/oozie/ -config job.properties -run</span><br></pre></td></tr></table></figure>
+<p>• 停止任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oozie job -oozie http://ip:11000/oozie/ -kill 0000002-150713234209387-oozie-oozi-W</span><br></pre></td></tr></table></figure>
+<p>• 提交任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oozie job -oozie http://ip:11000/oozie/ -config job.properties –submit</span><br></pre></td></tr></table></figure>
+<p>• 开始任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oozie job -oozie http://ip:11000/oozie/ -config job.properties –start 0000003-150713234209387-oozie-oozi-W</span><br></pre></td></tr></table></figure>
+<p>• 查看任务执行情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oozie job -oozie http://ip:11000/oozie/ -config job.properties –info 0000003-150713234209387-oozie-oozi-W</span><br></pre></td></tr></table></figure>
+<h1 id="五、Oozie配置"><a href="#五、Oozie配置" class="headerlink" title="五、Oozie配置"></a>五、Oozie配置</h1><h2 id="1、Job配置"><a href="#1、Job配置" class="headerlink" title="1、Job配置"></a>1、Job配置</h2><p><img src="https://ws1.sinaimg.cn/large/005zftzDgy1g2qqehjmi7j30pz0e00wo.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>共享库在HDFS上</li>
+<li>后两个地址可以不配</li>
+</ul>
+</blockquote>
+<h2 id="2、WorkFlow配置"><a href="#2、WorkFlow配置" class="headerlink" title="2、WorkFlow配置"></a>2、WorkFlow配置</h2><p>workflow.xml</p>
+<h3 id="1、版本信息"><a href="#1、版本信息" class="headerlink" title="1、版本信息"></a>1、版本信息</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">workflow-app</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:workflow:0.4"</span> <span class="attr">name</span>=<span class="string">“workflow</span> <span class="attr">name</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、EL函数"><a href="#2、EL函数" class="headerlink" title="2、EL函数"></a>2、EL函数</h3><p>– 基本的EL函数</p>
+<p>• String firstNotNull(String value1, String value2)<br>• String concat(String s1, String s2)<br>• String replaceAll(String src, String regex, String replacement)<br>• String appendAll(String src, String append, String delimeter)<br>• String trim(String s)<br>• String urlEncode(String s)<br>• String timestamp()<br>• String toJsonStr(Map) (since Oozie 3.3)<br>• String toPropertiesStr(Map) (since Oozie 3.3)<br>• String toConfigurationStr(Map) (since Oozie 3.3)<br>​<br>– WorkFlow EL</p>
+<p>• String wf:id() – 返回当前workflow作业ID<br>• String wf:name() – 返回当前workflow作业NAME<br>• String wf:appPath() – 返回当前workflow的路径<br>• String wf:conf(String name) – 获取当前workflow的完整配置信息<br>• String wf:user() – 返回启动当前job的用户<br>• String wf:callback(String stateVar) – 返回结点的回调URL，其中参数为动作指定的退出状态<br>• int wf:run() – 返回workflow的运行编号，正常状态为0<br>• Map wf:actionData(String node) – 返回当前节点完成时输出的信息<br>• int wf:actionExternalStatus(String node) – 返回当前节点的状态<br>• String wf:lastErrorNode() – 返回最后一个ERROR状态推出的节点名称<br>• String wf:errorCode(String node) – 返回指定节点执行job的错误码，没有则返回空<br>• String wf:errorMessage(String message) – 返回执行节点执行job的错误信息，没有则返回空<br>​<br>– HDFS EL<br>• boolean fs:exists(String path)<br>• boolean fs:isDir(String path)<br>• long fs:dirSize(String path) – 目录则返回目录下所有文件字节数；否则返回-1<br>• long fs:fileSize(String path) – 文件则返回文件字节数；否则返回-1<br>• long fs:blockSize(String path) – 文件则返回文件块的字节数；否则返回-1                                                                 </p>
+<h3 id="3、节点"><a href="#3、节点" class="headerlink" title="3、节点"></a>3、节点</h3><p>A、流程控制节点</p>
+<p>• start – 定义workflow开始<br>• end – 定义workflow结束<br>• decision – 实现switch功能</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">decision</span> <span class="attr">name</span>=<span class="string">"[NODE-NAME]"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">switch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">case</span> <span class="attr">to</span>=<span class="string">"[NODE_NAME]"</span>&gt;</span>[PREDICATE]<span class="tag">&lt;/<span class="name">case</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">        <span class="tag">&lt;<span class="name">case</span> <span class="attr">to</span>=<span class="string">"[NODE_NAME]"</span>&gt;</span>[PREDICATE]<span class="tag">&lt;/<span class="name">case</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">default</span> <span class="attr">to</span>=<span class="string">"[NODE_NAME]"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">switch</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">decision</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>• sub-workflow – 调用子workflow<br>• kill – 杀死workflow<br>• fork – 并发执行workflow</p>
+<p>• join – 并发执行结束（与fork一起使用）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fork</span> <span class="attr">name</span>=<span class="string">"[FORK-NODE-NAME]"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--并发执行--&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">path</span> <span class="attr">start</span>=<span class="string">"[NODE-NAME]"</span> /&gt;</span></span><br><span class="line">      ...</span><br><span class="line">     <span class="tag">&lt;<span class="name">path</span> <span class="attr">start</span>=<span class="string">"[NODE-NAME]"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">join</span> <span class="attr">name</span>=<span class="string">"[JOIN-NODE-NAME]"</span> <span class="attr">to</span>=<span class="string">"[NODE-NAME]"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>B、动作节点</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">action</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>• shell<br>• java<br>• fs<br>• MR<br>• hive<br>• sqoop</p>
+<ul>
+<li><h4 id="Shell节点"><a href="#Shell节点" class="headerlink" title="Shell节点"></a>Shell节点</h4><p> —job.properties</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nameNode=hdfs://node1:8020</span><br><span class="line">jobTracker=node1:8021</span><br><span class="line">queueName=default</span><br><span class="line">examplesRoot=examples</span><br><span class="line">##workflow.xml文件所在的路径</span><br><span class="line">oozie.wf.application.path=$&#123;nameNode&#125;/user/workflow/oozie/shell</span><br></pre></td></tr></table></figure>
+<p>–-workflow.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">workflow-app</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:workflow:0.3"</span> <span class="attr">name</span>=<span class="string">"shell-wf"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">start</span> <span class="attr">to</span>=<span class="string">"shell-node"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"shell-node"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">shell</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:shell-action:0.1"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">job-tracker</span>&gt;</span>$&#123;jobTracker&#125;<span class="tag">&lt;/<span class="name">job-tracker</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name-node</span>&gt;</span>$&#123;nameNode&#125;<span class="tag">&lt;/<span class="name">name-node</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapred.job.queue.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;queueName&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">           </span><br><span class="line"><span class="comment">&lt;!--真正的执行业务逻辑： 打印--&gt;</span>     </span><br><span class="line">       <span class="tag">&lt;<span class="name">exec</span>&gt;</span>echo<span class="tag">&lt;/<span class="name">exec</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">argument</span>&gt;</span>hi shell in oozie<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">           </span><br><span class="line">       <span class="tag">&lt;/<span class="name">shell</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">ok</span> <span class="attr">to</span>=<span class="string">"end"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">error</span> <span class="attr">to</span>=<span class="string">"fail"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">kill</span> <span class="attr">name</span>=<span class="string">"fail"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">message</span>&gt;</span>Map/Reduce failed, error message[$&#123;wf:errorMessage(wf:lastErrorNode())&#125;]<span class="tag">&lt;/<span class="name">message</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">kill</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">end</span> <span class="attr">name</span>=<span class="string">"end"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">workflow-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="调用impala"><a href="#调用impala" class="headerlink" title="调用impala"></a>调用impala</h4></li>
+</ul>
+<p>—job.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nameNode=hdfs://node1:8020</span><br><span class="line">jobTracker=node1:8032</span><br><span class="line">queueName=default</span><br><span class="line">examplesRoot=examples</span><br><span class="line">oozie.usr.system.libpath=true</span><br><span class="line">oozie.libpath=$&#123;namenode&#125;/user/$&#123;user.name&#125;/workflow/impala/lib</span><br><span class="line">oozie.wf.application.path=$&#123;nameNode&#125;/user/$&#123;user.name&#125;/workflow/impala</span><br></pre></td></tr></table></figure>
+<p>–-workflow.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">workflow-app</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:workflow:0.4"</span> <span class="attr">name</span>=<span class="string">"impala-wf"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">start</span> <span class="attr">to</span>=<span class="string">"shell-node"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"shell-node"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shell</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:shell-action:0.1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">job-tracker</span>&gt;</span>$&#123;jobTracker&#125;<span class="tag">&lt;/<span class="name">job-tracker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name-node</span>&gt;</span>$&#123;nameNode&#125;<span class="tag">&lt;/<span class="name">name-node</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapred.job.queue.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;queueName&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec</span>&gt;</span>impala-shell<span class="tag">&lt;/<span class="name">exec</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">argument</span>&gt;</span>-i<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">argument</span>&gt;</span>node2<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">argument</span>&gt;</span>-q<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">argument</span>&gt;</span>invalidate metadata<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">capture-output</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shell</span>&gt;</span></span><br><span class="line">......</span><br><span class="line"><span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">.......</span><br><span class="line"><span class="tag">&lt;/<span class="name">workflow-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="fs节点"><a href="#fs节点" class="headerlink" title="fs节点"></a>fs节点</h4></li>
+</ul>
+<p>– - workflow.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">workflow-app</span> <span class="attr">name</span>=<span class="string">"[WF-DEF-NAME]"</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:workflow:0.5"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"[NODE-NAME]"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">path</span>=<span class="string">'[PATH]'</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mkdir</span> <span class="attr">path</span>=<span class="string">'[PATH]'</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">move</span> <span class="attr">source</span>=<span class="string">'[SOURCE-PATH]'</span> <span class="attr">target</span>=<span class="string">'[TARGET-PATH]'</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">chmod</span> <span class="attr">path</span>=<span class="string">'[PATH]'</span> <span class="attr">permissions</span>=<span class="string">'[PERMISSIONS]'</span> <span class="attr">dir-files</span>=<span class="string">'false'</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">touchz</span> <span class="attr">path</span>=<span class="string">'[PATH]'</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">chgrp</span> <span class="attr">path</span>=<span class="string">'[PATH]'</span> <span class="attr">group</span>=<span class="string">'[GROUP]'</span> <span class="attr">dir-files</span>=<span class="string">'false'</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ok</span> <span class="attr">to</span>=<span class="string">"[NODE-NAME]"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">error</span> <span class="attr">to</span>=<span class="string">"[NODE-NAME]"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">workflow-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Java节点</li>
+</ul>
+<p>—- job.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nameNode=hdfs://node1:8020</span><br><span class="line">jobTracker=node1:8032</span><br><span class="line">queueName=default</span><br><span class="line">examplesRoot=examples</span><br><span class="line">oozie.usr.system.libpath=true</span><br><span class="line">oozie.libpath=$&#123;nameNode&#125;/user/workflow/lib/lib4java</span><br><span class="line">oozie.wf.application.path=$&#123;nameNode&#125;/user/workflow/oozie/java</span><br></pre></td></tr></table></figure>
+<p>—-workflow.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">workflow-app</span> <span class="attr">xmlns</span>=<span class="string">"uri:oozie:workflow:0.3"</span> <span class="attr">name</span>=<span class="string">"mr-wc-wf"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">start</span> <span class="attr">to</span>=<span class="string">"mr-node"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"mr-node"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">java</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">job-tracker</span>&gt;</span>$&#123;jobTracker&#125;<span class="tag">&lt;/<span class="name">job-tracker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name-node</span>&gt;</span>$&#123;nameNode&#125;<span class="tag">&lt;/<span class="name">name-node</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">prepare</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">path</span>=<span class="string">"$&#123;nameNode&#125;/user/path"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mkdir</span> <span class="attr">path</span>=<span class="string">"$&#123;nameNode&#125;/user/path"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">prepare</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapred.job.queue.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;queueName&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--&lt;arg&gt;args1&lt;/arg&gt;</span></span><br><span class="line"><span class="comment">&lt;arg&gt;args2&lt;/arg&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main-class</span>&gt;</span>com.pagename.classname<span class="tag">&lt;/<span class="name">main-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">java</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ok</span> <span class="attr">to</span>=<span class="string">"end"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">error</span> <span class="attr">to</span>=<span class="string">"fail"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">kill</span> <span class="attr">name</span>=<span class="string">"fail"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">message</span>&gt;</span>Map/Reduce failed, error</span><br><span class="line">message[$&#123;wf:errorMessage(wf:lastErrorNode())&#125;]<span class="tag">&lt;/<span class="name">message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">kill</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">end</span> <span class="attr">name</span>=<span class="string">"end"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">workflow-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/05/05/Oozie学习/">Flink学习</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Sukie</a></p>
+        <p><span>发布时间:</span>2019-05-05, 00:00:00</p>
+        <p><span>最后更新:</span>2019-05-05, 21:52:46</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/05/Oozie学习/" title="Flink学习">http://sungithup.github.io/2019/05/05/Oozie学习/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://sungithup.github.io/2019/05/05/Oozie学习/　　作者: Sukie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/04/28/impala学习/">
+                    impala学习
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Oozie介绍"><span class="toc-text">一、Oozie介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基本内容"><span class="toc-text">1、基本内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Oozie作用"><span class="toc-text">2、Oozie作用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、Oozie架构"><span class="toc-text">二、Oozie架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Oozie安装"><span class="toc-text">三、Oozie安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Oozie-CLI-命令"><span class="toc-text">四、Oozie CLI 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、Oozie配置"><span class="toc-text">五、Oozie配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Job配置"><span class="toc-text">1、Job配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、WorkFlow配置"><span class="toc-text">2、WorkFlow配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、版本信息"><span class="toc-text">1、版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、EL函数"><span class="toc-text">2、EL函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、节点"><span class="toc-text">3、节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Shell节点"><span class="toc-text">Shell节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用impala"><span class="toc-text">调用impala</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fs节点"><span class="toc-text">fs节点</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Flink学习　| Sukie山脉　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    	
+
+
+  
+     
+     
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/04/28/impala学习/" title="下一篇: impala学习">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/05/Oozie学习/">Flink学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/28/impala学习/">impala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/21/机器学习算法/">机器学习算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/25/大型网站日志分析系统/">日志分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/23/Spark优化/">Spark调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/Spark学习（6）/">Spark学习（六）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Spark学习（5）/">Spark学习（五）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/20/Shuffle调优/">SparkShuffle调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/19/Spark学习（4）/">Spark学习（四）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/18/Spark学习（3）/">Spark学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/17/Spark学习（2）/">Spark学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Spark学习（1）/">Spark学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/String方法/">String 方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/数组方法/">数组方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/面试问题总结/">面试问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Map方法/">Map方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Set方法/">Set方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/List方法/">List方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Scala学习/">Scala学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/14/Redis学习/">Redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/Storm学习/">Storm学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/Kafka学习/">Kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/25/Elasticsearch学习/">Elasticsearch学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/Flume学习/">Flume学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/18/CDH操作学习/">CDH部署操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/17/HBase性能优化/">HBase性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/HBase学习/">HBase学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/13/Sqoop学习/">Sqoop学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive优化/">Hive优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/Hive中常用的UDF函数总结/">Hive中常用的UDF函数总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/Hive学习/">Hive学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/08/MapReduce源码分析/">MapReduce源码分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/07/MapReduce案例分析/">MapReduce案例实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/05/MapReduce学习/">MapReduce学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Zookeeper学习/">Zookeeper学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/04/Yarn学习/">YARN的入门学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/Hadoop2.X/">Hadoop2.X</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/03/HDFS学习/">HDFS学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习2/">Nginx入门学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Nginx入门学习1/">Nginx入门学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/30/大数据思想/">大数据思想</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/29/常用Linux命令的学习3/">常用Linux命令的学习（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/28/常用Linux命令的学习2/">常用Linux命令的学习（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/常用Linux命令的学习1/">常用Linux命令的学习（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/26/Linux系统数据库MySQL安装/">Linux系统数据库MySQL安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/25/Linux系统CentOS 6安装/">Linux学习之CentOS 6系统安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/24/手动安装maven坐标依赖/">手动安装maven坐标依赖</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+<!--gitment 评论-->
+
+  <div class="comments" id="comments">
+  
+  <!--汉化-->
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+  <script src="https://billts.site/js/gitment.js"></script>
+  <!--原型-->
+  <!--
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js" type="text/javascript"></script>
+  -->
+  
+      <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+     
+      <style>
+        .gitment-container a {
+          border: none;
+        }
+        .comments {
+          margin: 60px 0 0;padding: 0 60px;
+        }
+      </style>
+     
+      <script type="text/javascript">
+        var gitment = new Gitment({
+        id: 'Sun May 05 2019 00:00:00 GMT+0800',
+        title: 'Flink学习',
+        owner: 'sungithup',
+        repo: 'sungithup.github.io',
+        oauth: {
+        client_id: '80107df5bc27be1c1495',
+        client_secret: 'c7949e6fc532f63f30f14fe1aff7f4b9c234860e',
+        },
+        })
+        gitment.render('gitmentContainer')
+      </script>
+  </div>
+
+<!--gitment 评论 end--></div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                
+                2016-2019 Sukie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+
+        <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
+        <script>
+        var now = new Date(); 
+        function createtime() { 
+        var grt= new Date("02/14/2016 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+        } 
+        setInterval("createtime()",250);
+        </script>
+
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script typr="text/javascript" src="/resources/love.js"></script>
+<script typr="text/javascript" src="/resources/float.js"></script>
+<script typr="text/javascript" src="/resources/typewriter.js"></script>
+<script typr="text/javascript" color="1,104,183" opacity="1" zindex="-1" count50="" src="/resources/particle.js"></script>
+  </div>
+</body>
+</html>
